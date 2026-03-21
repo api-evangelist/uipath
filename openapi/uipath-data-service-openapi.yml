@@ -1,0 +1,453 @@
+openapi: 3.1.0
+info:
+  title: UiPath Data Service API
+  description: >-
+    The UiPath Data Service API, also referred to as the Data Fabric OpenAPI,
+    enables external applications to interact with structured data entities
+    stored in UiPath's cloud data platform. It supports schema management and
+    data operations including reading, creating, updating, and deleting entity
+    records, with access governed by granular role-based permissions. The API
+    uses OAuth 2.0 for authorization, with access tokens valid for one hour
+    and support for refresh tokens. Developers can download a tenant-specific
+    OpenAPI 3.0 specification in JSON format from within the Data Service
+    interface for use with code generation and integration tooling. Entity
+    schemas are defined per-tenant, so the specific entity types and fields
+    available vary by organization configuration.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+externalDocs:
+  description: UiPath Data Service API Documentation
+  url: https://docs.uipath.com/data-service/automation-cloud/latest/user-guide/api-access
+servers:
+  - url: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService
+    description: UiPath Automation Cloud Data Service
+    variables:
+      organizationName:
+        default: your-org
+        description: The name of your UiPath organization
+      tenantName:
+        default: your-tenant
+        description: The name of your UiPath tenant
+tags:
+  - name: Entities
+    description: Perform CRUD operations on custom data entity records
+  - name: Schema
+    description: Retrieve entity schema definitions and field metadata
+security:
+  - bearerAuth: []
+paths:
+  /{entityName}:
+    get:
+      operationId: listEntityRecords
+      summary: List records for an entity
+      description: >-
+        Retrieves a list of records for the specified custom entity type. Supports
+        filtering with query expressions, ordering, pagination via skip and top,
+        and field selection. The available entity names and their fields depend
+        on the schema configured within the tenant's Data Service instance.
+        Requires the DataService.Data.Read or DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+        - name: $filter
+          in: query
+          required: false
+          description: Filter expression to narrow results by field values
+          schema:
+            type: string
+        - name: $orderby
+          in: query
+          required: false
+          description: Field name and direction to sort results (e.g., CreatedOn desc)
+          schema:
+            type: string
+        - name: $top
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+        - name: $skip
+          in: query
+          required: false
+          description: Number of records to skip for pagination
+          schema:
+            type: integer
+            minimum: 0
+        - name: $select
+          in: query
+          required: false
+          description: Comma-separated list of field names to include in the response
+          schema:
+            type: string
+        - name: $expand
+          in: query
+          required: false
+          description: Related entity references to expand inline in the response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of entity records matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityRecordCollection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createEntityRecord
+      summary: Create an entity record
+      description: >-
+        Creates a new record for the specified custom entity type. The request
+        body must conform to the entity's schema definition. System-generated
+        fields such as Id, CreatedOn, and CreatedBy are populated automatically
+        and should not be included in the request body. Requires the
+        DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRecordInput'
+      responses:
+        '200':
+          description: Entity record created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityRecord'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /{entityName}/{recordId}:
+    get:
+      operationId: getEntityRecord
+      summary: Get an entity record by ID
+      description: >-
+        Retrieves a single entity record by its unique identifier. Returns
+        all fields of the record including system fields. Supports the
+        $select parameter to limit the fields returned. Requires the
+        DataService.Data.Read or DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+        - $ref: '#/components/parameters/recordId'
+        - name: $select
+          in: query
+          required: false
+          description: Comma-separated list of field names to include in the response
+          schema:
+            type: string
+        - name: $expand
+          in: query
+          required: false
+          description: Related entity references to expand inline in the response
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested entity record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityRecord'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEntityRecord
+      summary: Update an entity record
+      description: >-
+        Updates an existing entity record by its unique identifier. The
+        request body should include only the fields to update. System-managed
+        fields such as Id, CreatedOn, and CreatedBy cannot be modified.
+        ModifiedOn and ModifiedBy are updated automatically. Requires the
+        DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+        - $ref: '#/components/parameters/recordId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRecordInput'
+      responses:
+        '200':
+          description: Entity record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityRecord'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEntityRecord
+      summary: Delete an entity record
+      description: >-
+        Permanently deletes an entity record by its unique identifier.
+        This action cannot be undone. Requires the DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+        - $ref: '#/components/parameters/recordId'
+      responses:
+        '204':
+          description: Entity record deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /{entityName}/query:
+    post:
+      operationId: queryEntityRecords
+      summary: Query entity records with advanced filtering
+      description: >-
+        Performs an advanced query against the entity using a structured
+        filter expression in the request body. Supports complex conditions,
+        nested field filtering, and joining conditions with AND and OR
+        operators. Returns a paginated list of matching records.
+        Requires the DataService.Data.Read or DataService.Data scope.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/entityName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityQueryRequest'
+      responses:
+        '200':
+          description: Records matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityRecordCollection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 Bearer token obtained from the UiPath Identity Server.
+        Data Service scopes include DataService.Data and DataService.Data.Read.
+        Tokens are valid for one hour; refresh tokens are supported.
+  parameters:
+    entityName:
+      name: entityName
+      in: path
+      required: true
+      description: >-
+        Name of the custom entity type as defined in the tenant's Data Service
+        schema. Entity names are case-sensitive.
+      schema:
+        type: string
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: Unique identifier of the entity record
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request was malformed or the entity schema was violated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity type or record was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    EntityRecord:
+      type: object
+      description: >-
+        A single entity record. The specific fields available depend on
+        the entity schema configured in the tenant's Data Service. All
+        records include the following system-managed fields.
+      properties:
+        Id:
+          type: string
+          description: Unique system-assigned identifier of the record
+        CreatedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was created
+        CreatedBy:
+          type: string
+          description: Identifier of the user or process that created the record
+        ModifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the last modification
+        ModifiedBy:
+          type: string
+          description: Identifier of the user or process that last modified the record
+      additionalProperties: true
+    EntityRecordInput:
+      type: object
+      description: >-
+        Input payload for creating or updating an entity record. The specific
+        fields required depend on the entity schema definition. System-managed
+        fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not
+        be included.
+      additionalProperties: true
+    EntityRecordCollection:
+      type: object
+      description: A paginated collection of entity records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of records matching the query
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityRecord'
+          description: Array of entity records for the current page
+        nextLink:
+          type: string
+          format: uri
+          description: URL for the next page of results, if more records are available
+    EntityQueryRequest:
+      type: object
+      description: Advanced query request with structured filter conditions
+      properties:
+        filterGroup:
+          $ref: '#/components/schemas/FilterGroup'
+        selectedFields:
+          type: array
+          items:
+            type: string
+          description: List of field names to include in the response
+        orderBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderByClause'
+        start:
+          type: integer
+          minimum: 0
+          description: Zero-based offset for pagination
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          description: Maximum number of records to return
+    FilterGroup:
+      type: object
+      description: A group of filter conditions joined by a logical operator
+      properties:
+        logicalOperator:
+          type: string
+          enum: [AND, OR]
+          description: Logical operator combining the conditions in this group
+        queryFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+          description: List of individual field filter conditions
+        filterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          description: Nested filter groups for complex query expressions
+    QueryFilter:
+      type: object
+      description: A single field comparison condition in a query
+      required:
+        - fieldName
+        - operator
+        - value
+      properties:
+        fieldName:
+          type: string
+          description: Name of the entity field to filter on
+        operator:
+          type: string
+          enum: [equals, notEquals, lessThan, lessThanOrEquals, greaterThan, greaterThanOrEquals, contains, startsWith, endsWith, isNull, isNotNull]
+          description: Comparison operator for the filter condition
+        value:
+          description: Value to compare against; type depends on the field type
+    OrderByClause:
+      type: object
+      description: Sort specification for query results
+      required:
+        - fieldName
+      properties:
+        fieldName:
+          type: string
+          description: Name of the field to sort by
+        descending:
+          type: boolean
+          default: false
+          description: Whether to sort in descending order
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        errorCode:
+          type: string
+          description: Error code identifier
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging

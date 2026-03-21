@@ -1,0 +1,288 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rpa": "https://www.w3.org/ns/rpa#",
+
+    "Job": {
+      "@id": "uipath:Job",
+      "@context": {
+        "Id": "uipath:jobId",
+        "Key": {
+          "@id": "uipath:jobKey",
+          "@type": "@id"
+        },
+        "ReleaseName": "uipath:releaseName",
+        "ProcessVersion": "uipath:processVersion",
+        "State": "uipath:jobState",
+        "Source": "uipath:jobSource",
+        "StartTime": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "EndTime": {
+          "@id": "schema:endDate",
+          "@type": "xsd:dateTime"
+        },
+        "CreationTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "Info": "schema:description",
+        "HostMachineName": "uipath:hostMachineName",
+        "Robot": {
+          "@id": "uipath:executedByRobot",
+          "@type": "@id"
+        },
+        "OrganizationUnitId": "uipath:organizationUnitId",
+        "InputArguments": "uipath:inputArguments",
+        "OutputArguments": "uipath:outputArguments"
+      }
+    },
+
+    "Robot": {
+      "@id": "uipath:Robot",
+      "@context": {
+        "Id": "uipath:robotId",
+        "Name": "schema:name",
+        "MachineName": "uipath:machineName",
+        "MachineId": "uipath:machineId",
+        "Version": "schema:version",
+        "Type": "uipath:robotType",
+        "HostingType": "uipath:hostingType",
+        "UserName": "schema:accountId",
+        "IsConnected": "uipath:isConnected",
+        "OrganizationUnitId": "uipath:organizationUnitId"
+      }
+    },
+
+    "Process": {
+      "@id": "uipath:Process",
+      "@context": {
+        "Id": "uipath:processId",
+        "Key": {
+          "@id": "uipath:processKey",
+          "@type": "@id"
+        },
+        "Name": "schema:name",
+        "Description": "schema:description",
+        "ProcessVersion": "schema:version",
+        "OrganizationUnitId": "uipath:organizationUnitId"
+      }
+    },
+
+    "QueueDefinition": {
+      "@id": "uipath:QueueDefinition",
+      "@context": {
+        "Id": "uipath:queueId",
+        "Name": "schema:name",
+        "Description": "schema:description",
+        "MaxNumberOfRetries": "uipath:maxRetries",
+        "AcceptAutomaticallyRetry": "uipath:acceptAutomaticallyRetry",
+        "EnforceUniqueReference": "uipath:enforceUniqueReference",
+        "OrganizationUnitId": "uipath:organizationUnitId"
+      }
+    },
+
+    "QueueItem": {
+      "@id": "uipath:QueueItem",
+      "@context": {
+        "Id": "uipath:queueItemId",
+        "Key": {
+          "@id": "uipath:queueItemKey",
+          "@type": "@id"
+        },
+        "QueueDefinitionId": "uipath:belongsToQueue",
+        "Status": "uipath:transactionStatus",
+        "ReviewStatus": "uipath:reviewStatus",
+        "Priority": "uipath:priority",
+        "Reference": "uipath:reference",
+        "SpecificContent": "uipath:specificContent",
+        "Output": "uipath:transactionOutput",
+        "CreationTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "StartProcessing": {
+          "@id": "uipath:startProcessing",
+          "@type": "xsd:dateTime"
+        },
+        "EndProcessing": {
+          "@id": "uipath:endProcessing",
+          "@type": "xsd:dateTime"
+        },
+        "RetryNumber": "uipath:retryNumber",
+        "DueDate": {
+          "@id": "schema:expires",
+          "@type": "xsd:dateTime"
+        },
+        "Robot": {
+          "@id": "uipath:processedByRobot",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Asset": {
+      "@id": "uipath:Asset",
+      "@context": {
+        "Id": "uipath:assetId",
+        "Name": "schema:name",
+        "ValueType": "uipath:valueType",
+        "StringValue": "uipath:stringValue",
+        "IntValue": "uipath:intValue",
+        "BoolValue": "uipath:boolValue",
+        "CredentialUsername": "schema:accountId",
+        "Description": "schema:description",
+        "OrganizationUnitId": "uipath:organizationUnitId"
+      }
+    },
+
+    "Folder": {
+      "@id": "uipath:Folder",
+      "@context": {
+        "Id": "uipath:folderId",
+        "Key": {
+          "@id": "uipath:folderKey",
+          "@type": "@id"
+        },
+        "DisplayName": "schema:name",
+        "FullyQualifiedName": "uipath:fullyQualifiedName",
+        "FolderType": "uipath:folderType"
+      }
+    },
+
+    "Machine": {
+      "@id": "uipath:Machine",
+      "@context": {
+        "Id": "uipath:machineId",
+        "Name": "schema:name",
+        "Type": "uipath:machineType",
+        "LicenseKey": "uipath:licenseKey"
+      }
+    },
+
+    "Webhook": {
+      "@id": "uipath:Webhook",
+      "@context": {
+        "Id": "uipath:webhookId",
+        "Url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "Enabled": "uipath:isEnabled",
+        "Secret": "uipath:webhookSecret",
+        "SubscribeToAllEvents": "uipath:subscribeToAllEvents",
+        "AllowInsecureSsl": "uipath:allowInsecureSsl",
+        "Events": {
+          "@id": "uipath:subscribedEvents",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "AutomationIdea": {
+      "@id": "uipath:AutomationIdea",
+      "@context": {
+        "id": "uipath:ideaId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "phase": "uipath:pipelinePhase",
+        "status": "schema:status",
+        "submittedBy": "dcterms:creator",
+        "submittedDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "lastModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "estimatedBenefit": "uipath:estimatedBenefit",
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "TestProject": {
+      "@id": "uipath:TestProject",
+      "@context": {
+        "id": "uipath:projectId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "createdBy": "dcterms:creator",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "TestCase": {
+      "@id": "uipath:TestCase",
+      "@context": {
+        "id": "uipath:testCaseId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "schema:status",
+        "automationStatus": "uipath:automationStatus",
+        "labels": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Requirement": {
+      "@id": "uipath:Requirement",
+      "@context": {
+        "id": "uipath:requirementId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "externalId": "dcterms:identifier",
+        "status": "schema:status",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DocumentUnderstandingProject": {
+      "@id": "uipath:DocumentUnderstandingProject",
+      "@context": {
+        "id": "uipath:projectId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "extractorsUrl": {
+          "@id": "uipath:extractorsUrl",
+          "@type": "@id"
+        },
+        "classifiersUrl": {
+          "@id": "uipath:classifiersUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "ExtractedField": {
+      "@id": "uipath:ExtractedField",
+      "@context": {
+        "FieldId": "uipath:fieldId",
+        "FieldName": "schema:name",
+        "IsMissing": "uipath:isMissing",
+        "Value": "schema:value",
+        "Confidence": "uipath:confidence"
+      }
+    }
+  }
+}

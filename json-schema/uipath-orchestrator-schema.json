@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uipath.com/schemas/orchestrator/orchestrator.json",
+  "title": "UiPath Orchestrator Entities",
+  "description": "JSON Schema for core UiPath Orchestrator entities including jobs, queues, queue items, assets, processes, robots, and webhooks used in the automation management platform.",
+  "type": "object",
+  "properties": {
+    "job": {
+      "$ref": "#/$defs/Job"
+    },
+    "queueItem": {
+      "$ref": "#/$defs/QueueItem"
+    },
+    "asset": {
+      "$ref": "#/$defs/Asset"
+    }
+  },
+  "$defs": {
+    "Job": {
+      "type": "object",
+      "title": "Orchestrator Job",
+      "description": "Represents a single automation job execution instance in UiPath Orchestrator.",
+      "required": ["Id", "ReleaseName", "State"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the job assigned by Orchestrator"
+        },
+        "Key": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique GUID key for the job, used for external references"
+        },
+        "ReleaseName": {
+          "type": "string",
+          "description": "Name of the process (release) that this job executes",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "ProcessVersion": {
+          "type": "string",
+          "description": "Semantic version of the process package used in this job execution",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
+        },
+        "State": {
+          "type": "string",
+          "enum": ["Pending", "Running", "Stopping", "Terminating", "Faulted", "Successful", "Stopped", "Suspended", "Resumed"],
+          "description": "Current execution state of the job lifecycle"
+        },
+        "Source": {
+          "type": "string",
+          "enum": ["Manual", "Schedule", "Queue"],
+          "description": "How the job was initiated; Manual by a user, Schedule by a trigger, Queue by a queue transaction"
+        },
+        "StartTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the robot began executing the job"
+        },
+        "EndTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when job execution completed or was terminated"
+        },
+        "CreationTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the job was created and queued"
+        },
+        "Info": {
+          "type": "string",
+          "description": "Human-readable information message, including error details for faulted jobs"
+        },
+        "HostMachineName": {
+          "type": "string",
+          "description": "Hostname of the machine on which the robot executed the job"
+        },
+        "Robot": {
+          "$ref": "#/$defs/RobotRef",
+          "description": "Reference to the robot that executed or is executing this job"
+        },
+        "OrganizationUnitId": {
+          "type": "integer",
+          "description": "Numeric ID of the Orchestrator folder in which this job resides"
+        },
+        "InputArguments": {
+          "type": "string",
+          "description": "JSON-serialized input arguments passed to the process on job start"
+        },
+        "OutputArguments": {
+          "type": "string",
+          "description": "JSON-serialized output arguments returned by the process upon successful completion"
+        },
+        "JobPriority": {
+          "type": "string",
+          "enum": ["Low", "Normal", "High"],
+          "description": "Priority level used when the job was queued for execution"
+        }
+      }
+    },
+    "RobotRef": {
+      "type": "object",
+      "title": "Robot Reference",
+      "description": "A lightweight reference to a UiPath robot associated with a job or queue transaction.",
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the robot"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Display name of the robot as configured in Orchestrator"
+        },
+        "MachineName": {
+          "type": "string",
+          "description": "Hostname of the machine the robot is registered on"
+        },
+        "MachineId": {
+          "type": "integer",
+          "description": "Unique integer identifier of the machine"
+        },
+        "Version": {
+          "type": "string",
+          "description": "Version of the UiPath Robot software installed on the machine"
+        },
+        "Type": {
+          "type": "string",
+          "enum": ["Unattended", "Attended", "NonProduction", "TestAutomation", "RpaDeveloper", "StudioX", "HeadlessUnattended"],
+          "description": "Licensing type of the robot"
+        },
+        "HostingType": {
+          "type": "string",
+          "enum": ["Standard", "Serverless", "NonProduction"],
+          "description": "Hosting classification of the robot"
+        },
+        "UserName": {
+          "type": "string",
+          "description": "Windows or Linux operating system username that the robot runs under"
+        }
+      }
+    },
+    "QueueDefinition": {
+      "type": "object",
+      "title": "Queue Definition",
+      "description": "Definition of a named transaction queue used for distributing work items to robots in Orchestrator.",
+      "required": ["Name"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the queue definition"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Display name of the queue used when referencing it from robot activities",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "Description": {
+          "type": "string",
+          "description": "Optional description of the queue's business purpose",
+          "maxLength": 512
+        },
+        "MaxNumberOfRetries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Maximum number of times a failed transaction item will be automatically retried"
+        },
+        "AcceptAutomaticallyRetry": {
+          "type": "boolean",
+          "description": "Whether failed items with remaining retries are automatically re-queued"
+        },
+        "EnforceUniqueReference": {
+          "type": "boolean",
+          "description": "Whether each item in this queue must have a unique reference string"
+        },
+        "OrganizationUnitId": {
+          "type": "integer",
+          "description": "Numeric ID of the Orchestrator folder in which this queue is defined"
+        }
+      }
+    },
+    "QueueItem": {
+      "type": "object",
+      "title": "Queue Item",
+      "description": "A single transaction item in an Orchestrator queue, representing a unit of work to be processed by a robot.",
+      "required": ["QueueDefinitionId", "Status"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the queue item"
+        },
+        "Key": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique GUID key for the queue item used in robot activities"
+        },
+        "QueueDefinitionId": {
+          "type": "integer",
+          "description": "ID of the queue definition this item belongs to"
+        },
+        "Status": {
+          "type": "string",
+          "enum": ["New", "InProgress", "Failed", "Successful", "Abandoned", "Retried", "Deleted"],
+          "description": "Current processing status of the queue item"
+        },
+        "ReviewStatus": {
+          "type": "string",
+          "enum": ["None", "InReview", "Verified", "Retried"],
+          "description": "Manual review status applied to failed items in the Orchestrator interface"
+        },
+        "Priority": {
+          "type": "string",
+          "enum": ["Low", "Normal", "High"],
+          "description": "Processing priority of the queue item affecting robot pickup order"
+        },
+        "Reference": {
+          "type": "string",
+          "description": "Optional unique reference string for idempotent item identification",
+          "maxLength": 128
+        },
+        "SpecificContent": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Custom key-value business payload data associated with this queue item"
+        },
+        "Output": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Output data written by the robot after successfully processing the item"
+        },
+        "CreationTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the item was added to the queue"
+        },
+        "StartProcessing": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when a robot began processing this item"
+        },
+        "EndProcessing": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when robot processing of this item ended"
+        },
+        "RetryNumber": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of times this item has been retried after failure"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional deadline by which the item must be processed"
+        },
+        "PostponeDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional earliest time at which the item may be picked up for processing"
+        },
+        "Robot": {
+          "$ref": "#/$defs/RobotRef",
+          "description": "Reference to the robot that processed or is processing this item"
+        }
+      }
+    },
+    "Asset": {
+      "type": "object",
+      "title": "Orchestrator Asset",
+      "description": "A shared asset in Orchestrator that stores a named value accessible to automation processes at runtime.",
+      "required": ["Name", "ValueType"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the asset"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Display name of the asset used by robot activities to look it up",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "ValueType": {
+          "type": "string",
+          "enum": ["Text", "Integer", "Bool", "Credential", "WindowsCredential", "KeyValueList"],
+          "description": "Data type of the value stored in this asset"
+        },
+        "StringValue": {
+          "type": "string",
+          "description": "Text value of the asset when ValueType is Text"
+        },
+        "IntValue": {
+          "type": "integer",
+          "description": "Integer value of the asset when ValueType is Integer"
+        },
+        "BoolValue": {
+          "type": "boolean",
+          "description": "Boolean value of the asset when ValueType is Bool"
+        },
+        "CredentialUsername": {
+          "type": "string",
+          "description": "Username portion of the credential when ValueType is Credential"
+        },
+        "CredentialPassword": {
+          "type": "string",
+          "description": "Password portion of the credential when ValueType is Credential; write-only, never returned in responses"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Optional description of the asset's purpose and contents",
+          "maxLength": 512
+        },
+        "OrganizationUnitId": {
+          "type": "integer",
+          "description": "Numeric ID of the Orchestrator folder in which this asset is defined"
+        }
+      }
+    },
+    "Webhook": {
+      "type": "object",
+      "title": "Orchestrator Webhook",
+      "description": "A webhook subscription in Orchestrator that delivers HTTP POST event notifications to a configured URL.",
+      "required": ["Url"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the webhook subscription"
+        },
+        "Url": {
+          "type": "string",
+          "format": "uri",
+          "description": "The HTTPS endpoint URL that receives event POST requests from Orchestrator"
+        },
+        "Enabled": {
+          "type": "boolean",
+          "description": "Whether the webhook subscription is active and sending event notifications"
+        },
+        "Secret": {
+          "type": "string",
+          "description": "Optional secret used to compute the HMAC-SHA256 payload signature delivered in X-UiPath-Signature header"
+        },
+        "SubscribeToAllEvents": {
+          "type": "boolean",
+          "description": "When true, the webhook receives all available event types without filtering"
+        },
+        "AllowInsecureSsl": {
+          "type": "boolean",
+          "description": "Whether to allow delivery to endpoints with invalid or self-signed SSL certificates"
+        },
+        "Events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of specific event type identifiers to subscribe to when SubscribeToAllEvents is false",
+          "examples": [["job.faulted", "queueItem.transactionCompleted", "robot.disconnected"]]
+        }
+      }
+    },
+    "Process": {
+      "type": "object",
+      "title": "Orchestrator Process",
+      "description": "An automation process deployed in an Orchestrator folder, representing a specific package version configured for execution.",
+      "required": ["Name"],
+      "properties": {
+        "Id": {
+          "type": "integer",
+          "description": "Unique integer identifier of the process"
+        },
+        "Key": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique GUID key for the process, used in job start requests"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Display name of the process as shown in Orchestrator",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "Description": {
+          "type": "string",
+          "description": "Optional description of the process's purpose",
+          "maxLength": 1024
+        },
+        "ProcessVersion": {
+          "type": "string",
+          "description": "Semantic version of the underlying package this process is pinned to"
+        },
+        "OrganizationUnitId": {
+          "type": "integer",
+          "description": "Numeric ID of the Orchestrator folder where this process is deployed"
+        }
+      }
+    }
+  }
+}

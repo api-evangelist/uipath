@@ -1,0 +1,592 @@
+asyncapi: 2.6.0
+info:
+  title: UiPath Orchestrator Webhook Events
+  description: >-
+    The UiPath Orchestrator webhook system delivers real-time event
+    notifications to registered HTTP endpoints when automation events occur
+    within the platform. Webhooks cover events for jobs, robots, queues,
+    queue items, processes, and triggers. Each event is delivered as an
+    HTTP POST request with a JSON payload to the subscriber's configured URL.
+    Payload authenticity can be verified using the HMAC-SHA256 signature
+    included in the X-UiPath-Signature header, computed from the raw request
+    body and the webhook's configured secret. Webhook subscriptions are
+    managed via the Orchestrator REST API or the Orchestrator web interface.
+  version: '2024.10'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+externalDocs:
+  description: UiPath Orchestrator Webhooks Documentation
+  url: https://docs.uipath.com/orchestrator/automation-cloud/latest/user-guide/about-webhooks
+servers:
+  subscriberEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The subscriber-configured HTTPS endpoint that receives webhook event
+      POST requests from UiPath Orchestrator. The URL is specified when
+      creating a webhook subscription via the Orchestrator API or interface.
+    variables:
+      webhookUrl:
+        description: The HTTPS URL of the webhook receiver endpoint
+        default: https://your-app.example.com/webhook
+    security:
+      - hmacSignature: []
+channels:
+  /{organizationName}/{tenantName}/orchestrator_/webhook:
+    description: >-
+      The channel through which UiPath Orchestrator delivers event notifications
+      to registered webhook subscribers. All event types are delivered to the
+      same configured URL. The event type is identified by the Type field in
+      the payload envelope.
+    parameters:
+      organizationName:
+        description: The UiPath organization name
+        schema:
+          type: string
+      tenantName:
+        description: The UiPath tenant name
+        schema:
+          type: string
+    publish:
+      operationId: receiveOrchestratorEvent
+      summary: Receive an Orchestrator webhook event
+      description: >-
+        An HTTP POST request delivered by UiPath Orchestrator to the subscriber
+        URL whenever a subscribed event occurs. The payload contains a Type
+        field identifying the event, an EventId for idempotency, a Timestamp,
+        and event-specific data. The X-UiPath-Signature header contains the
+        HMAC-SHA256 signature for payload verification.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/JobCreated'
+          - $ref: '#/components/messages/JobStarted'
+          - $ref: '#/components/messages/JobCompleted'
+          - $ref: '#/components/messages/JobFaulted'
+          - $ref: '#/components/messages/JobStopped'
+          - $ref: '#/components/messages/RobotConnected'
+          - $ref: '#/components/messages/RobotDisconnected'
+          - $ref: '#/components/messages/RobotDeleted'
+          - $ref: '#/components/messages/QueueItemAdded'
+          - $ref: '#/components/messages/QueueItemTransactionStarted'
+          - $ref: '#/components/messages/QueueItemTransactionCompleted'
+          - $ref: '#/components/messages/QueueItemTransactionFailed'
+          - $ref: '#/components/messages/QueueItemTransactionAbandoned'
+          - $ref: '#/components/messages/ProcessCreated'
+          - $ref: '#/components/messages/ProcessUpdated'
+          - $ref: '#/components/messages/ProcessDeleted'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: X-UiPath-Signature
+      in: header
+      description: >-
+        HMAC-SHA256 signature of the raw request body, computed using the
+        webhook secret configured at subscription time. Verify this signature
+        to ensure the payload originated from UiPath Orchestrator and has
+        not been tampered with.
+  messages:
+    JobCreated:
+      name: job.created
+      title: Job Created
+      summary: A new automation job was created in Orchestrator
+      description: >-
+        Delivered when a new job is created and queued for execution. Contains
+        the job details including the process name, assigned robot, and initial
+        state. EventId provides a unique identifier for idempotent processing.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/JobEventPayload'
+    JobStarted:
+      name: job.started
+      title: Job Started
+      summary: An automation job started executing
+      description: >-
+        Delivered when a job transitions from the Pending state to the Running
+        state, indicating a robot has begun executing the automation process.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/JobEventPayload'
+    JobCompleted:
+      name: job.completed
+      title: Job Completed
+      summary: An automation job completed successfully
+      description: >-
+        Delivered when a job finishes execution with a Successful state.
+        The payload includes the job's output arguments if the process
+        returned any output parameters.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/JobEventPayload'
+    JobFaulted:
+      name: job.faulted
+      title: Job Faulted
+      summary: An automation job encountered a fatal error
+      description: >-
+        Delivered when a job terminates with a Faulted state due to an
+        unhandled exception or system error. The Info field in the job
+        payload contains the error message and stack trace details.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/JobEventPayload'
+    JobStopped:
+      name: job.stopped
+      title: Job Stopped
+      summary: An automation job was stopped by a user or system
+      description: >-
+        Delivered when a job is manually stopped or terminated by a Kill
+        command. The payload contains the final job state and stop time.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/JobEventPayload'
+    RobotConnected:
+      name: robot.connected
+      title: Robot Connected
+      summary: A robot connected to Orchestrator
+      description: >-
+        Delivered when a UiPath Robot establishes a connection to the
+        Orchestrator service and becomes available for job execution.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/RobotEventPayload'
+    RobotDisconnected:
+      name: robot.disconnected
+      title: Robot Disconnected
+      summary: A robot disconnected from Orchestrator
+      description: >-
+        Delivered when a UiPath Robot loses its connection to the Orchestrator
+        service, either due to a network interruption or a graceful shutdown.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/RobotEventPayload'
+    RobotDeleted:
+      name: robot.deleted
+      title: Robot Deleted
+      summary: A robot was deleted from Orchestrator
+      description: >-
+        Delivered when a robot registration is permanently removed from
+        Orchestrator. The payload contains the deleted robot's identifiers
+        and last known properties.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/RobotEventPayload'
+    QueueItemAdded:
+      name: queueItem.added
+      title: Queue Item Added
+      summary: A new item was added to a queue
+      description: >-
+        Delivered when a new transaction item is added to a queue, either
+        via the Orchestrator API or by a robot using the Add Queue Item
+        activity. Contains the queue item details and the target queue.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/QueueItemEventPayload'
+    QueueItemTransactionStarted:
+      name: queueItem.transactionStarted
+      title: Queue Item Transaction Started
+      summary: A robot began processing a queue transaction item
+      description: >-
+        Delivered when a robot picks up a queue item for processing,
+        transitioning the item status from New to InProgress.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/QueueItemEventPayload'
+    QueueItemTransactionCompleted:
+      name: queueItem.transactionCompleted
+      title: Queue Item Transaction Completed
+      summary: A queue transaction item was successfully processed
+      description: >-
+        Delivered when a robot successfully completes processing of a queue
+        item, setting its status to Successful. The payload includes the
+        robot, processing times, and any output written by the robot.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/QueueItemEventPayload'
+    QueueItemTransactionFailed:
+      name: queueItem.transactionFailed
+      title: Queue Item Transaction Failed
+      summary: A queue transaction item processing failed
+      description: >-
+        Delivered when a robot fails to process a queue item, setting its
+        status to Failed. The payload includes the error type, message,
+        and retry count. If retries are configured, the item may be
+        automatically re-queued.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/QueueItemEventPayload'
+    QueueItemTransactionAbandoned:
+      name: queueItem.transactionAbandoned
+      title: Queue Item Transaction Abandoned
+      summary: A queue transaction item was abandoned without processing
+      description: >-
+        Delivered when a queue item is abandoned, typically when the robot
+        processing it disconnects unexpectedly. The item may be automatically
+        returned to the queue for retry depending on queue configuration.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/QueueItemEventPayload'
+    ProcessCreated:
+      name: process.created
+      title: Process Created
+      summary: A new automation process was deployed to a folder
+      description: >-
+        Delivered when a new process (release) is created by deploying a
+        package to a folder in Orchestrator.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/ProcessEventPayload'
+    ProcessUpdated:
+      name: process.updated
+      title: Process Updated
+      summary: An automation process was updated
+      description: >-
+        Delivered when an existing process is updated, such as when a
+        newer package version is associated with the process definition.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/ProcessEventPayload'
+    ProcessDeleted:
+      name: process.deleted
+      title: Process Deleted
+      summary: An automation process was deleted
+      description: >-
+        Delivered when a process is permanently removed from Orchestrator.
+        Any jobs associated with this process that have not yet started
+        will be cancelled.
+      headers:
+        type: object
+        properties:
+          X-UiPath-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body for payload verification
+      payload:
+        $ref: '#/components/schemas/ProcessEventPayload'
+  schemas:
+    WebhookEventEnvelope:
+      type: object
+      description: Common envelope fields present in all Orchestrator webhook event payloads
+      required:
+        - Type
+        - EventId
+        - Timestamp
+      properties:
+        Type:
+          type: string
+          description: >-
+            Machine-readable event type identifier (e.g., job.faulted,
+            queueItem.transactionCompleted). Use this field to route the
+            payload to the appropriate handler.
+        EventId:
+          type: string
+          format: uuid
+          description: Unique GUID identifier for this event delivery. Use for idempotent processing.
+        Timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event occurred in Orchestrator
+    JobEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+        - type: object
+          description: Webhook event payload for job lifecycle events
+          properties:
+            Job:
+              $ref: '#/components/schemas/WebhookJob'
+    WebhookJob:
+      type: object
+      description: Job data included in job lifecycle webhook events
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the job
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key of the job
+        ReleaseName:
+          type: string
+          description: Name of the process that the job executes
+        ProcessVersion:
+          type: string
+          description: Package version used by the job
+        State:
+          type: string
+          enum: [Pending, Running, Stopping, Terminating, Faulted, Successful, Stopped, Suspended, Resumed]
+          description: Current execution state of the job
+        StartTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job started
+        EndTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job ended
+        Info:
+          type: string
+          description: Additional information or error message, especially relevant for Faulted state
+        Robot:
+          $ref: '#/components/schemas/WebhookRobotRef'
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: Folder ID in which the job ran
+        OutputArguments:
+          type: string
+          description: JSON-serialized output arguments returned by the process on completion
+    WebhookRobotRef:
+      type: object
+      description: Robot reference included in job event payloads
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the robot
+        Name:
+          type: string
+          description: Display name of the robot
+        MachineName:
+          type: string
+          description: Hostname of the machine the robot executed on
+        MachineId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the machine
+        Version:
+          type: string
+          description: Version of the UiPath Robot software
+        Type:
+          type: string
+          description: Licensing type of the robot
+        HostingType:
+          type: string
+          enum: [Standard, Serverless, NonProduction]
+          description: Robot hosting classification
+        UserName:
+          type: string
+          description: Windows or Linux username the robot runs under
+    RobotEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+        - type: object
+          description: Webhook event payload for robot lifecycle events
+          properties:
+            Robot:
+              $ref: '#/components/schemas/WebhookRobot'
+    WebhookRobot:
+      type: object
+      description: Robot data included in robot lifecycle webhook events
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the robot
+        Name:
+          type: string
+          description: Display name of the robot
+        MachineName:
+          type: string
+          description: Hostname of the machine this robot is registered on
+        MachineId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the machine
+        Type:
+          type: string
+          description: Licensing type of the robot
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: Folder ID to which the robot is assigned
+    QueueItemEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+        - type: object
+          description: Webhook event payload for queue item lifecycle events
+          properties:
+            QueueItem:
+              $ref: '#/components/schemas/WebhookQueueItem'
+            Queue:
+              $ref: '#/components/schemas/WebhookQueueRef'
+    WebhookQueueItem:
+      type: object
+      description: Queue item data included in queue item lifecycle webhook events
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the queue item
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key of the queue item
+        QueueDefinitionId:
+          type: integer
+          format: int64
+          description: ID of the queue this item belongs to
+        Status:
+          type: string
+          enum: [New, InProgress, Failed, Successful, Abandoned, Retried, Deleted]
+          description: Processing status of the queue item at event time
+        ReviewStatus:
+          type: string
+          enum: [None, InReview, Verified, Retried]
+          description: Manual review status for failed items
+        Priority:
+          type: string
+          enum: [Low, Normal, High]
+          description: Processing priority of the queue item
+        CreationTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the item was added to the queue
+        StartProcessing:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when processing began
+        EndProcessing:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when processing ended
+        RetryNumber:
+          type: integer
+          description: Number of times this item has been retried
+        Robot:
+          $ref: '#/components/schemas/WebhookRobotRef'
+        SpecificContent:
+          type: object
+          additionalProperties: true
+          description: Custom key-value payload data for the queue item
+        Output:
+          type: object
+          additionalProperties: true
+          description: Output data written by the robot during processing
+    WebhookQueueRef:
+      type: object
+      description: Queue reference included in queue item event payloads
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the queue definition
+        Name:
+          type: string
+          description: Display name of the queue
+        Description:
+          type: string
+          description: Description of the queue
+        MaxNumberOfRetries:
+          type: integer
+          description: Maximum number of automatic retries configured for the queue
+        AcceptAutomaticallyRetry:
+          type: boolean
+          description: Whether failed items are automatically requeued for retry
+        EnforceUniqueReference:
+          type: boolean
+          description: Whether unique references are enforced on this queue
+    ProcessEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookEventEnvelope'
+        - type: object
+          description: Webhook event payload for process lifecycle events
+          properties:
+            Process:
+              $ref: '#/components/schemas/WebhookProcess'
+    WebhookProcess:
+      type: object
+      description: Process data included in process lifecycle webhook events
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the process
+        Name:
+          type: string
+          description: Display name of the process
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key of the process
+        ProcessVersion:
+          type: string
+          description: Version of the underlying package
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: Folder ID in which the process is deployed

@@ -1,0 +1,732 @@
+openapi: 3.1.0
+info:
+  title: UiPath Test Manager API
+  description: >-
+    The UiPath Test Manager API allows external tools and systems to integrate
+    with UiPath's test management platform for managing test projects, test
+    cases, test sets, requirements, and execution results programmatically.
+    API access uses OAuth 2.0 scopes including TM.Projects and
+    TM.Requirements.Read, enabling fine-grained control over permissions
+    granted to integrated tooling. The API is suited for integrating
+    third-party test management or defect tracking systems with UiPath
+    automation testing workflows. Rate limits apply to API requests to
+    ensure platform stability across all tenants. The Swagger interface
+    is accessible by appending /swagger/index.html to the Test Manager URL.
+    The base URL for Automation Cloud follows the pattern
+    https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_.
+  version: '2'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+externalDocs:
+  description: UiPath Test Manager API Documentation
+  url: https://docs.uipath.com/test-manager/automation-cloud/latest/user-guide/test-manager-api-integration
+servers:
+  - url: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
+    description: UiPath Automation Cloud Test Manager
+    variables:
+      organizationName:
+        default: your-org
+        description: The name of your UiPath organization
+      tenantName:
+        default: your-tenant
+        description: The name of your UiPath tenant
+tags:
+  - name: Projects
+    description: Manage test projects within Test Manager
+  - name: TestCases
+    description: Manage test cases and their definitions
+  - name: TestSets
+    description: Manage test sets that group test cases for execution
+  - name: Requirements
+    description: Manage requirements and their traceability links to test cases
+  - name: TestExecutions
+    description: Retrieve test execution results and logs
+security:
+  - bearerAuth: []
+paths:
+  /api/v2/projects:
+    get:
+      operationId: listProjects
+      summary: List test projects
+      description: >-
+        Retrieves all test projects accessible to the authenticated user.
+        Projects are the top-level containers for test cases, requirements,
+        test sets, and execution results. Requires the TM.Projects or
+        TM.Projects.Read OAuth scope.
+      tags:
+        - Projects
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination (0-based)
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: A list of test projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+    post:
+      operationId: createProject
+      summary: Create a test project
+      description: >-
+        Creates a new test project in Test Manager. The project becomes
+        the container for all test cases, requirements, and test sets
+        associated with the testing effort. Requires the TM.Projects
+        OAuth scope.
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '201':
+          description: Test project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v2/projects/{projectId}:
+    get:
+      operationId: getProject
+      summary: Get a test project by ID
+      description: >-
+        Retrieves a specific test project by its unique identifier. Returns
+        project details including name, description, creation date, and
+        summary statistics for test cases and requirements.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      responses:
+        '200':
+          description: The requested test project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v2/projects/{projectId}/testcases:
+    get:
+      operationId: listTestCases
+      summary: List test cases in a project
+      description: >-
+        Retrieves all test cases defined within a specific test project.
+        Each test case represents a single test scenario with preconditions,
+        steps, and expected results. Supports pagination and filtering.
+        Requires the TM.TestCases or TM.TestCases.Read OAuth scope.
+      tags:
+        - TestCases
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination (0-based)
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: A list of test cases in the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCaseListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTestCase
+      summary: Create a test case
+      description: >-
+        Creates a new test case within a test project. The test case can be
+        linked to automation packages deployed in Orchestrator to enable
+        automated test execution via test sets. Requires the TM.TestCases
+        OAuth scope.
+      tags:
+        - TestCases
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTestCaseRequest'
+      responses:
+        '201':
+          description: Test case created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCase'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v2/projects/{projectId}/testcases/{testCaseId}:
+    get:
+      operationId: getTestCase
+      summary: Get a test case by ID
+      description: >-
+        Retrieves a specific test case by its unique identifier within a
+        project. Returns full test case details including steps, labels,
+        custom fields, automation linkage, and preconditions.
+      tags:
+        - TestCases
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+        - $ref: '#/components/parameters/testCaseId'
+      responses:
+        '200':
+          description: The requested test case
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestCase'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v2/projects/{projectId}/testsets:
+    get:
+      operationId: listTestSets
+      summary: List test sets in a project
+      description: >-
+        Retrieves all test sets within a specific test project. Test sets
+        group test cases for coordinated execution runs and can be linked
+        to Orchestrator processes to trigger automated execution.
+      tags:
+        - TestSets
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination (0-based)
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: A list of test sets in the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSetListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTestSet
+      summary: Create a test set
+      description: >-
+        Creates a new test set within a project. The test set can include
+        test cases and be configured to execute against specific Orchestrator
+        environments. Requires the TM.TestSets OAuth scope.
+      tags:
+        - TestSets
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTestSetRequest'
+      responses:
+        '201':
+          description: Test set created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v2/projects/{projectId}/requirements:
+    get:
+      operationId: listRequirements
+      summary: List requirements in a project
+      description: >-
+        Retrieves all requirements defined within a specific test project.
+        Requirements represent business or technical specifications that
+        test cases are mapped to for traceability. Supports pagination.
+        Requires the TM.Requirements or TM.Requirements.Read OAuth scope.
+      tags:
+        - Requirements
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination (0-based)
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: A list of requirements in the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createRequirement
+      summary: Create a requirement
+      description: >-
+        Creates a new requirement within a test project. Requirements can be
+        linked to test cases to establish traceability coverage. Requires
+        the TM.Requirements OAuth scope.
+      tags:
+        - Requirements
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequirementRequest'
+      responses:
+        '201':
+          description: Requirement created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Requirement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v2/projects/{projectId}/testexecutions:
+    get:
+      operationId: listTestExecutions
+      summary: List test executions in a project
+      description: >-
+        Retrieves test execution results within a specific test project.
+        Test executions represent runs of test sets and contain the aggregate
+        pass/fail status across all included test cases. References to
+        individual test case log objects are included for drill-down.
+      tags:
+        - TestExecutions
+      parameters:
+        - $ref: '#/components/parameters/projectId'
+        - name: page
+          in: query
+          required: false
+          description: Page number for pagination (0-based)
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: Number of records per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: A list of test executions in the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestExecutionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 Bearer token obtained from the UiPath Identity Server.
+        Test Manager API scopes include TM.Projects, TM.TestCases,
+        TM.TestSets, TM.Requirements, and their read-only variants.
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the test project
+      schema:
+        type: string
+    testCaseId:
+      name: testCaseId
+      in: path
+      required: true
+      description: Unique identifier of the test case
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Project:
+      type: object
+      description: A test project container in Test Manager
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test project
+        name:
+          type: string
+          description: Display name of the test project
+        description:
+          type: string
+          description: Optional description of the project's testing scope
+        createdBy:
+          type: string
+          description: Name of the user who created the project
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was created
+        testCaseCount:
+          type: integer
+          description: Total number of test cases in the project
+        requirementCount:
+          type: integer
+          description: Total number of requirements in the project
+    CreateProjectRequest:
+      type: object
+      description: Request payload for creating a new test project
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new test project
+          maxLength: 256
+        description:
+          type: string
+          description: Optional description of the project's testing scope
+    TestCase:
+      type: object
+      description: A test case definition within a test project
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test case
+        name:
+          type: string
+          description: Display name of the test case
+        description:
+          type: string
+          description: Description of the test scenario
+        status:
+          type: string
+          enum: [Draft, Active, Deprecated]
+          description: Lifecycle status of the test case
+        automationStatus:
+          type: string
+          enum: [NotAutomated, Automated]
+          description: Whether the test case is linked to an automated robot process
+        labels:
+          type: array
+          items:
+            type: string
+          description: Labels applied to the test case for filtering and grouping
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the test case was created
+    CreateTestCaseRequest:
+      type: object
+      description: Request payload for creating a new test case
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new test case
+          maxLength: 512
+        description:
+          type: string
+          description: Description of the test scenario
+        labels:
+          type: array
+          items:
+            type: string
+          description: Labels to apply to the test case
+    TestSet:
+      type: object
+      description: A collection of test cases grouped for execution
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test set
+        name:
+          type: string
+          description: Display name of the test set
+        description:
+          type: string
+          description: Optional description of the test set's purpose
+        testCaseCount:
+          type: integer
+          description: Number of test cases included in this test set
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the test set was created
+    CreateTestSetRequest:
+      type: object
+      description: Request payload for creating a new test set
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new test set
+          maxLength: 256
+        description:
+          type: string
+          description: Optional description of the test set's purpose
+    Requirement:
+      type: object
+      description: A business or technical requirement for traceability coverage
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the requirement
+        name:
+          type: string
+          description: Display name of the requirement
+        description:
+          type: string
+          description: Detailed description of the requirement specification
+        externalId:
+          type: string
+          description: Optional external identifier linking to a third-party requirements tool
+        status:
+          type: string
+          enum: [Active, Deprecated]
+          description: Lifecycle status of the requirement
+        linkedTestCaseCount:
+          type: integer
+          description: Number of test cases currently linked to this requirement
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the requirement was created
+    CreateRequirementRequest:
+      type: object
+      description: Request payload for creating a new requirement
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new requirement
+          maxLength: 512
+        description:
+          type: string
+          description: Detailed description of the requirement specification
+        externalId:
+          type: string
+          description: Optional external identifier for integration with third-party tools
+    TestExecution:
+      type: object
+      description: A test set execution run with aggregated results
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test execution
+        testSetId:
+          type: string
+          description: Identifier of the test set that was executed
+        testSetName:
+          type: string
+          description: Display name of the test set that was executed
+        status:
+          type: string
+          enum: [Pending, Running, Passed, Failed, Blocked, Cancelled]
+          description: Aggregate execution status
+        startedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when execution began
+        finishedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when execution completed
+        totalTestCases:
+          type: integer
+          description: Total number of test cases in the execution
+        passedTestCases:
+          type: integer
+          description: Number of test cases that passed
+        failedTestCases:
+          type: integer
+          description: Number of test cases that failed
+        blockedTestCases:
+          type: integer
+          description: Number of test cases that could not be executed
+    ProjectListResponse:
+      type: object
+      description: Paginated response containing test projects
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of projects
+        page:
+          type: integer
+          description: Current page number
+        pageSize:
+          type: integer
+          description: Records per page
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    TestCaseListResponse:
+      type: object
+      description: Paginated response containing test cases
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test cases
+        testCases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCase'
+    TestSetListResponse:
+      type: object
+      description: Paginated response containing test sets
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test sets
+        testSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSet'
+    RequirementListResponse:
+      type: object
+      description: Paginated response containing requirements
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of requirements
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Requirement'
+    TestExecutionListResponse:
+      type: object
+      description: Paginated response containing test executions
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test executions
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestExecution'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        errorCode:
+          type: string
+          description: Error code identifier

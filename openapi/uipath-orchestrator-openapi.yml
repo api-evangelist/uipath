@@ -1,0 +1,1508 @@
+openapi: 3.1.0
+info:
+  title: UiPath Orchestrator API
+  description: >-
+    The UiPath Orchestrator API provides programmatic access to the core
+    automation management platform, enabling developers to manage robots, jobs,
+    processes, queues, assets, schedules, and more. Built on the OData protocol,
+    the API supports RESTful operations with filtering, sorting, and pagination
+    across all resources. It covers a broad set of resource categories including
+    folders, machines, users, roles, alerts, webhooks, and libraries, making it
+    suitable for enterprise automation governance and integration scenarios.
+    Authentication uses OAuth 2.0 tokens from the UiPath Identity Server, and
+    all endpoints are accessible under the tenant-scoped URL
+    https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_.
+  version: '2024.10'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+externalDocs:
+  description: UiPath Orchestrator API Documentation
+  url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+servers:
+  - url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Automation Cloud Orchestrator
+    variables:
+      organizationName:
+        default: your-org
+        description: The name of your UiPath organization
+      tenantName:
+        default: your-tenant
+        description: The name of your UiPath tenant
+tags:
+  - name: Jobs
+    description: Manage automation job execution, including starting, stopping, and querying job state
+  - name: Processes
+    description: Manage automation processes (published packages deployed to folders)
+  - name: Robots
+    description: Manage software robots registered with Orchestrator
+  - name: Queues
+    description: Manage transaction queues for distributing work items to robots
+  - name: QueueItems
+    description: Manage individual queue transaction items and their processing state
+  - name: Assets
+    description: Manage shared assets such as credentials, text values, integers, and boolean values
+  - name: Schedules
+    description: Manage time-based and recurring triggers for automation processes
+  - name: Folders
+    description: Manage organizational folders for grouping automation resources
+  - name: Machines
+    description: Manage machine templates and registered physical or virtual machines
+  - name: Users
+    description: Manage users and their assignments within Orchestrator
+  - name: Roles
+    description: Manage roles and their associated permissions
+  - name: Alerts
+    description: Retrieve and manage system and automation alerts
+  - name: Webhooks
+    description: Manage webhook subscriptions for Orchestrator event notifications
+  - name: Libraries
+    description: Manage reusable automation library packages
+  - name: Packages
+    description: Manage automation package uploads and versions
+  - name: StorageBuckets
+    description: Manage cloud storage buckets for storing automation artifacts
+  - name: Tasks
+    description: Manage human-in-the-loop task assignments and completions
+  - name: Tenants
+    description: Manage tenants within an organization
+  - name: Settings
+    description: Retrieve and update Orchestrator configuration settings
+security:
+  - bearerAuth: []
+paths:
+  /odata/Jobs:
+    get:
+      operationId: listJobs
+      summary: List jobs
+      description: >-
+        Retrieves a list of jobs in the current folder. Supports OData query
+        options including $filter, $orderby, $top, $skip, and $select to
+        control the result set. Jobs represent individual executions of
+        automation processes by robots.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataOrderby'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/odataSelect'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of jobs matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataJobCollection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /odata/Jobs({key}):
+    get:
+      operationId: getJob
+      summary: Get a job by ID
+      description: >-
+        Retrieves a single job by its unique integer identifier. Returns full
+        job details including state, start and end times, robot information,
+        and associated process.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/entityKey'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: The requested job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /odata/Jobs/UiPath.Server.Configuration.OData.StartJobs:
+    post:
+      operationId: startJobs
+      summary: Start jobs
+      description: >-
+        Starts one or more automation jobs for a specified process. Allows
+        specifying the strategy for robot allocation (e.g., ModernJobsCount,
+        All, RobotIds), input arguments for the process, job priority, and
+        the target folder. Returns details of the created jobs.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartJobsRequest'
+      responses:
+        '201':
+          description: Jobs were successfully created and started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataJobCollection'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Jobs/UiPath.Server.Configuration.OData.StopJob:
+    post:
+      operationId: stopJob
+      summary: Stop a job
+      description: >-
+        Sends a stop signal to a running job. The strategy can be SoftStop
+        (waits for the current activity to finish) or Kill (forcefully
+        terminates the job immediately). Requires the job ID.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopJobRequest'
+      responses:
+        '200':
+          description: Stop signal sent successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Processes:
+    get:
+      operationId: listProcesses
+      summary: List processes
+      description: >-
+        Retrieves a list of automation processes deployed in the current folder.
+        Each process represents a specific version of a published package
+        configured for execution. Supports OData filtering and pagination.
+      tags:
+        - Processes
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataOrderby'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of processes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataProcessCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Robots:
+    get:
+      operationId: listRobots
+      summary: List robots
+      description: >-
+        Retrieves a list of software robots registered with Orchestrator.
+        Each robot entry includes connection state, machine assignment, user
+        assignment, robot type, and licensing information. Supports OData
+        filtering and pagination.
+      tags:
+        - Robots
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataOrderby'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of robots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataRobotCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/QueueDefinitions:
+    get:
+      operationId: listQueues
+      summary: List queue definitions
+      description: >-
+        Retrieves all queue definitions in the current folder. Queue definitions
+        describe named queues used for distributing transaction items to robots,
+        including retry settings, unique reference enforcement, and SLA
+        configurations.
+      tags:
+        - Queues
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of queue definitions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataQueueDefinitionCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createQueue
+      summary: Create a queue definition
+      description: >-
+        Creates a new queue definition in the current folder. The queue
+        definition specifies the queue name, maximum retry count, whether
+        to accept only unique references, and enforcement settings.
+      tags:
+        - Queues
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueueDefinition'
+      responses:
+        '201':
+          description: Queue definition created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueDefinition'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/QueueItems:
+    get:
+      operationId: listQueueItems
+      summary: List queue items
+      description: >-
+        Retrieves a list of queue transaction items. Items can be filtered by
+        queue name, status, review status, and priority. Supports OData
+        filtering, ordering, and pagination.
+      tags:
+        - QueueItems
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataOrderby'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of queue items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataQueueItemCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addQueueItem
+      summary: Add a queue item
+      description: >-
+        Adds a new transaction item to a specified queue. The item can include
+        specific content (custom key-value data), priority level, deadline,
+        postpone time, and a unique reference string. Returns the created
+        queue item with its assigned ID and key.
+      tags:
+        - QueueItems
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddQueueItemRequest'
+      responses:
+        '201':
+          description: Queue item added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Assets:
+    get:
+      operationId: listAssets
+      summary: List assets
+      description: >-
+        Retrieves a list of assets defined in the current folder. Assets store
+        shared values such as credentials, text, integers, and booleans that
+        can be consumed by automation processes. Supports OData filtering and
+        pagination.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of assets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataAssetCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAsset
+      summary: Create an asset
+      description: >-
+        Creates a new asset in the current folder. The asset type determines
+        the kind of value stored: Text, Integer, Bool, or Credential. Credential
+        assets store username and password pairs securely.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asset'
+      responses:
+        '201':
+          description: Asset created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Assets({key}):
+    get:
+      operationId: getAsset
+      summary: Get an asset by ID
+      description: >-
+        Retrieves a single asset by its unique integer identifier. Returns
+        the full asset definition including type, value, and folder scope.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/entityKey'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: The requested asset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAsset
+      summary: Update an asset
+      description: >-
+        Updates an existing asset by its unique integer identifier. The
+        full asset object must be provided in the request body with the
+        updated values.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/entityKey'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asset'
+      responses:
+        '200':
+          description: Asset updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAsset
+      summary: Delete an asset
+      description: >-
+        Permanently deletes an asset from the current folder by its unique
+        integer identifier. This action cannot be undone. Processes that
+        reference this asset will fail until the asset is recreated.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/entityKey'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '204':
+          description: Asset deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /odata/ProcessSchedules:
+    get:
+      operationId: listSchedules
+      summary: List process schedules
+      description: >-
+        Retrieves a list of time-based triggers configured for automation
+        processes. Each schedule defines when and how often a process should
+        run, along with the target robots and input arguments.
+      tags:
+        - Schedules
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of process schedules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataScheduleCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Folders:
+    get:
+      operationId: listFolders
+      summary: List folders
+      description: >-
+        Retrieves a list of organizational folders accessible to the
+        authenticated user. Folders group automation resources such as
+        processes, robots, assets, and queues. Each folder has a unique
+        ID used in the X-UIPATH-OrganizationUnitId request header.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+      responses:
+        '200':
+          description: A list of folders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataFolderCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Machines:
+    get:
+      operationId: listMachines
+      summary: List machines
+      description: >-
+        Retrieves a list of machine templates and registered machines.
+        Machine templates define the number of runtimes available for
+        cloud robots, while standard machines represent physical or
+        virtual machines where Unattended Robot is installed.
+      tags:
+        - Machines
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of machines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataMachineCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Users:
+    get:
+      operationId: listUsers
+      summary: List users
+      description: >-
+        Retrieves a list of users registered in Orchestrator. Each user
+        has associated roles, robot configurations, and folder memberships.
+        Supports OData filtering and pagination.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataUserCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Roles:
+    get:
+      operationId: listRoles
+      summary: List roles
+      description: >-
+        Retrieves a list of roles defined in Orchestrator. Roles bundle
+        sets of permissions together and are assigned to users or groups
+        to control their access to resources and operations.
+      tags:
+        - Roles
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+      responses:
+        '200':
+          description: A list of roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataRoleCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Alerts:
+    get:
+      operationId: listAlerts
+      summary: List alerts
+      description: >-
+        Retrieves a list of system and automation alerts. Alerts are raised
+        for events such as job failures, robot disconnections, and queue SLA
+        breaches. Supports OData filtering by severity, component, and
+        read status.
+      tags:
+        - Alerts
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataOrderby'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataAlertCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Webhooks:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: >-
+        Retrieves all webhook subscriptions configured in Orchestrator.
+        Each webhook specifies a target URL, the events to subscribe to,
+        and an HMAC secret for payload signature verification.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataWebhookCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: >-
+        Creates a new webhook subscription. Specify the target URL, optional
+        HMAC secret for payload verification, whether to subscribe to all
+        events or specific event types, and whether to allow insecure SSL.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Webhooks({key}):
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: >-
+        Permanently deletes a webhook subscription by its unique integer
+        identifier. After deletion, the target URL will no longer receive
+        event notifications from Orchestrator.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/entityKey'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '204':
+          description: Webhook deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes():
+    get:
+      operationId: getWebhookEventTypes
+      summary: Get available webhook event types
+      description: >-
+        Retrieves the complete list of event types available for webhook
+        subscriptions in Orchestrator. Event types cover jobs, robots, queues,
+        queue items, processes, and triggers, each with a unique string
+        identifier such as job.faulted or queueItem.transactionCompleted.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of available webhook event types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEventType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/StorageBuckets:
+    get:
+      operationId: listStorageBuckets
+      summary: List storage buckets
+      description: >-
+        Retrieves a list of storage buckets defined in the current folder.
+        Storage buckets provide file storage capabilities for automation
+        processes, backed by providers such as Azure Blob, Amazon S3,
+        or the UiPath internal storage.
+      tags:
+        - StorageBuckets
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of storage buckets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataStorageBucketCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /odata/Packages:
+    get:
+      operationId: listPackages
+      summary: List packages
+      description: >-
+        Retrieves a list of automation packages uploaded to Orchestrator.
+        Each package represents a versioned NuGet package containing one
+        or more automation processes. Supports filtering by package name
+        and pagination.
+      tags:
+        - Packages
+      parameters:
+        - $ref: '#/components/parameters/odataFilter'
+        - $ref: '#/components/parameters/odataTop'
+        - $ref: '#/components/parameters/odataSkip'
+        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      responses:
+        '200':
+          description: A list of packages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataPackageCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 Bearer token obtained from the UiPath Identity Server.
+        Use the client credentials or authorization code flow to obtain
+        a token with the required Orchestrator scopes.
+  parameters:
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    odataOrderby:
+      name: $orderby
+      in: query
+      required: false
+      description: OData orderby clause (e.g., CreationTime desc)
+      schema:
+        type: string
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    odataSelect:
+      name: $select
+      in: query
+      required: false
+      description: Comma-separated list of property names to include in the response
+      schema:
+        type: string
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: >-
+        The numeric ID of the folder context for the request. Required when
+        accessing folder-scoped resources. Retrieve folder IDs using the
+        /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Job:
+      type: object
+      description: Represents a single automation job execution instance
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier for the job
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key for the job
+        ReleaseName:
+          type: string
+          description: Name of the process (release) that this job executes
+        ProcessVersion:
+          type: string
+          description: Version of the process package used in this job
+        State:
+          type: string
+          enum: [Pending, Running, Stopping, Terminating, Faulted, Successful, Stopped, Suspended, Resumed]
+          description: Current execution state of the job
+        Source:
+          type: string
+          enum: [Manual, Schedule, Queue]
+          description: How the job was initiated
+        StartTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job started executing
+        EndTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job finished executing
+        CreationTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job was created
+        Info:
+          type: string
+          description: Additional information or error message associated with the job state
+        HostMachineName:
+          type: string
+          description: Name of the machine where the robot executed the job
+        Robot:
+          $ref: '#/components/schemas/RobotRef'
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: ID of the folder in which this job resides
+        InputArguments:
+          type: string
+          description: JSON-serialized input arguments passed to the process
+        OutputArguments:
+          type: string
+          description: JSON-serialized output arguments returned by the process
+    RobotRef:
+      type: object
+      description: A lightweight reference to a robot associated with a job
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the robot
+        Name:
+          type: string
+          description: Display name of the robot
+        MachineName:
+          type: string
+          description: Hostname of the machine the robot runs on
+        MachineId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the machine
+        Version:
+          type: string
+          description: Version of the UiPath Robot software
+        Type:
+          type: string
+          enum: [Unattended, Attended, NonProduction, TestAutomation, RpaDeveloper, StudioX, HeadlessUnattended]
+          description: Licensing type of the robot
+    StartJobsRequest:
+      type: object
+      description: Request payload for starting one or more automation jobs
+      required:
+        - startInfo
+      properties:
+        startInfo:
+          $ref: '#/components/schemas/StartInfo'
+    StartInfo:
+      type: object
+      description: Parameters controlling how jobs are started
+      required:
+        - ReleaseKey
+        - Strategy
+      properties:
+        ReleaseKey:
+          type: string
+          format: uuid
+          description: GUID key of the process (release) to start
+        Strategy:
+          type: string
+          enum: [All, Specific, JobsCount, RobotIds]
+          description: Strategy for allocating robots to the job
+        RobotIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: List of robot IDs to use when Strategy is RobotIds or Specific
+        NoOfRobots:
+          type: integer
+          description: Number of robots to use when Strategy is JobsCount
+        Source:
+          type: string
+          enum: [Manual, Schedule, Queue]
+          description: Source attribution for the started jobs
+        InputArguments:
+          type: string
+          description: JSON-serialized input arguments to pass to the process
+        JobPriority:
+          type: string
+          enum: [Low, Normal, High]
+          description: Priority level for the job queue
+    StopJobRequest:
+      type: object
+      description: Request payload for stopping a running job
+      required:
+        - jobId
+        - strategy
+      properties:
+        jobId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the job to stop
+        strategy:
+          type: string
+          enum: [SoftStop, Kill]
+          description: >-
+            Stop strategy. SoftStop waits for the current activity to complete
+            before stopping; Kill immediately terminates the robot process.
+    QueueDefinition:
+      type: object
+      description: Definition of a transaction queue for distributing work items
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the queue
+        Name:
+          type: string
+          description: Display name of the queue
+        Description:
+          type: string
+          description: Optional description of the queue's purpose
+        MaxNumberOfRetries:
+          type: integer
+          minimum: 0
+          maximum: 10
+          description: Maximum number of automatic retries for failed transactions
+        AcceptAutomaticallyRetry:
+          type: boolean
+          description: Whether failed items are automatically requeued for retry
+        EnforceUniqueReference:
+          type: boolean
+          description: Whether each item must have a unique reference string
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: ID of the folder in which this queue resides
+    QueueItem:
+      type: object
+      description: A single transaction item in a queue
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the queue item
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key for the queue item
+        QueueDefinitionId:
+          type: integer
+          format: int64
+          description: ID of the queue this item belongs to
+        Status:
+          type: string
+          enum: [New, InProgress, Failed, Successful, Abandoned, Retried, Deleted]
+          description: Current processing status of the queue item
+        ReviewStatus:
+          type: string
+          enum: [None, InReview, Verified, Retried]
+          description: Manual review status for failed items
+        Priority:
+          type: string
+          enum: [Low, Normal, High]
+          description: Processing priority of the queue item
+        Reference:
+          type: string
+          description: Optional unique reference string for idempotency
+        SpecificContent:
+          type: object
+          additionalProperties: true
+          description: Custom key-value payload data for the queue item
+        Output:
+          type: object
+          additionalProperties: true
+          description: Output data written by the robot after processing
+        CreationTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the item was added to the queue
+        StartProcessing:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when processing began
+        EndProcessing:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when processing ended
+        RetryNumber:
+          type: integer
+          description: Number of times this item has been retried
+        DueDate:
+          type: string
+          format: date-time
+          description: Optional deadline for processing the item
+    AddQueueItemRequest:
+      type: object
+      description: Request payload for adding a new item to a queue
+      required:
+        - itemData
+      properties:
+        itemData:
+          $ref: '#/components/schemas/QueueItemData'
+    QueueItemData:
+      type: object
+      description: Data for creating a new queue item
+      required:
+        - Name
+      properties:
+        Name:
+          type: string
+          description: Name of the target queue definition
+        Priority:
+          type: string
+          enum: [Low, Normal, High]
+          description: Priority level for queue processing
+        SpecificContent:
+          type: object
+          additionalProperties: true
+          description: Custom key-value payload data for the item
+        Reference:
+          type: string
+          description: Optional unique reference string for this item
+        DueDate:
+          type: string
+          format: date-time
+          description: Optional deadline by which the item should be processed
+        PostponeDate:
+          type: string
+          format: date-time
+          description: Optional earliest time at which the item may be processed
+    Asset:
+      type: object
+      description: A shared asset storing a value accessible to automation processes
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the asset
+        Name:
+          type: string
+          description: Display name of the asset
+        ValueType:
+          type: string
+          enum: [Text, Integer, Bool, Credential, WindowsCredential, KeyValueList]
+          description: Data type of the asset value
+        StringValue:
+          type: string
+          description: Value when ValueType is Text
+        IntValue:
+          type: integer
+          description: Value when ValueType is Integer
+        BoolValue:
+          type: boolean
+          description: Value when ValueType is Bool
+        CredentialUsername:
+          type: string
+          description: Username portion when ValueType is Credential
+        CredentialPassword:
+          type: string
+          description: Password portion when ValueType is Credential (write-only)
+        Description:
+          type: string
+          description: Optional description of the asset's purpose
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: ID of the folder in which this asset resides
+    Webhook:
+      type: object
+      description: A webhook subscription that receives Orchestrator event notifications
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the webhook
+        Url:
+          type: string
+          format: uri
+          description: The HTTPS endpoint URL that receives event POST requests
+        Enabled:
+          type: boolean
+          description: Whether the webhook is active and sending notifications
+        Secret:
+          type: string
+          description: Optional HMAC secret for validating payload signatures via X-UiPath-Signature header
+        SubscribeToAllEvents:
+          type: boolean
+          description: Whether to receive all event types or only the specified ones
+        AllowInsecureSsl:
+          type: boolean
+          description: Whether to allow webhook delivery to endpoints with invalid SSL certificates
+        Events:
+          type: array
+          items:
+            type: string
+          description: List of event type identifiers to subscribe to when SubscribeToAllEvents is false
+    WebhookEventType:
+      type: object
+      description: An available event type that can be subscribed to via webhooks
+      properties:
+        Name:
+          type: string
+          description: Human-readable display name of the event type
+        EventType:
+          type: string
+          description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+        errorCode:
+          type: integer
+          description: Numeric error code
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+    ODataJobCollection:
+      type: object
+      description: OData collection response containing jobs
+      properties:
+        '@odata.context':
+          type: string
+          description: OData context URL
+        '@odata.count':
+          type: integer
+          description: Total number of matching records (when $count=true)
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+    ODataProcessCollection:
+      type: object
+      description: OData collection response containing processes
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique process identifier
+              Name:
+                type: string
+                description: Process display name
+              Key:
+                type: string
+                format: uuid
+                description: Unique GUID key for the process
+              Description:
+                type: string
+                description: Process description
+              ProcessVersion:
+                type: string
+                description: Version of the underlying package
+    ODataRobotCollection:
+      type: object
+      description: OData collection response containing robots
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique robot identifier
+              Name:
+                type: string
+                description: Robot display name
+              MachineName:
+                type: string
+                description: Hostname of the machine the robot is registered on
+              Type:
+                type: string
+                description: Robot licensing type
+              IsConnected:
+                type: boolean
+                description: Whether the robot is currently connected to Orchestrator
+    ODataQueueDefinitionCollection:
+      type: object
+      description: OData collection response containing queue definitions
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueDefinition'
+    ODataQueueItemCollection:
+      type: object
+      description: OData collection response containing queue items
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueItem'
+    ODataAssetCollection:
+      type: object
+      description: OData collection response containing assets
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+    ODataScheduleCollection:
+      type: object
+      description: OData collection response containing process schedules
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique schedule identifier
+              Name:
+                type: string
+                description: Schedule display name
+              ReleaseId:
+                type: integer
+                format: int64
+                description: ID of the process associated with this schedule
+              Enabled:
+                type: boolean
+                description: Whether the schedule is active
+              StartProcessCron:
+                type: string
+                description: Cron expression defining the recurrence pattern
+    ODataFolderCollection:
+      type: object
+      description: OData collection response containing folders
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique folder identifier used in X-UIPATH-OrganizationUnitId
+              Key:
+                type: string
+                format: uuid
+                description: Unique GUID key for the folder
+              DisplayName:
+                type: string
+                description: Display name of the folder
+              FullyQualifiedName:
+                type: string
+                description: Full path of the folder including parent hierarchy
+              FolderType:
+                type: string
+                enum: [Standard, Personal]
+                description: Type classification of the folder
+    ODataMachineCollection:
+      type: object
+      description: OData collection response containing machines
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique machine identifier
+              Name:
+                type: string
+                description: Display name or hostname of the machine
+              Type:
+                type: string
+                enum: [Standard, Template]
+                description: Whether this is a physical machine or a cloud robot template
+              LicenseKey:
+                type: string
+                description: License key used by the robot installed on this machine
+    ODataUserCollection:
+      type: object
+      description: OData collection response containing users
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique user identifier
+              UserName:
+                type: string
+                description: Username login identifier
+              Name:
+                type: string
+                description: Display name of the user
+              EmailAddress:
+                type: string
+                format: email
+                description: Email address of the user
+              IsActive:
+                type: boolean
+                description: Whether the user account is active
+    ODataRoleCollection:
+      type: object
+      description: OData collection response containing roles
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique role identifier
+              Name:
+                type: string
+                description: Display name of the role
+              DisplayName:
+                type: string
+                description: Human-readable display name for the role
+              IsStatic:
+                type: boolean
+                description: Whether this is a built-in system role that cannot be deleted
+    ODataAlertCollection:
+      type: object
+      description: OData collection response containing alerts
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique alert identifier
+              NotificationName:
+                type: string
+                description: Name of the alert notification
+              AlertSeverity:
+                type: string
+                enum: [Info, Warn, Error, Fatal]
+                description: Severity level of the alert
+              Message:
+                type: string
+                description: Alert message content
+              CreationTime:
+                type: string
+                format: date-time
+                description: ISO 8601 timestamp when the alert was created
+              Component:
+                type: string
+                description: The Orchestrator component that generated the alert
+    ODataWebhookCollection:
+      type: object
+      description: OData collection response containing webhooks
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    ODataStorageBucketCollection:
+      type: object
+      description: OData collection response containing storage buckets
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique storage bucket identifier
+              Name:
+                type: string
+                description: Display name of the storage bucket
+              Description:
+                type: string
+                description: Optional description of the bucket
+              StorageProvider:
+                type: string
+                enum: [UiPath, Azure, Amazon, Minio]
+                description: Cloud storage backend provider
+    ODataPackageCollection:
+      type: object
+      description: OData collection response containing packages
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: string
+                description: Package ID (name and version combined)
+              Title:
+                type: string
+                description: Package display title
+              Version:
+                type: string
+                description: Semantic version of the package
+              Description:
+                type: string
+                description: Package description from the NuGet metadata
+              Published:
+                type: string
+                format: date-time
+                description: ISO 8601 timestamp when the package was published
