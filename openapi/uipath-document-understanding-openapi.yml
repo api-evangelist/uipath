@@ -33,12 +33,12 @@ servers:
         default: your-tenant
         description: The name of your UiPath tenant
 tags:
-  - name: Discovery
-    description: Discover available projects, classifiers, and extractors
-  - name: Digitization
-    description: Convert documents into a digitized format for downstream processing
   - name: Classification
     description: Classify documents into predefined document types
+  - name: Digitization
+    description: Convert documents into a digitized format for downstream processing
+  - name: Discovery
+    description: Discover available projects, classifiers, and extractors
   - name: Extraction
     description: Extract structured data fields from documents
   - name: Validation

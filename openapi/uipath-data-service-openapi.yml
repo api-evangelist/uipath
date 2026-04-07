@@ -34,8 +34,6 @@ servers:
 tags:
   - name: Entities
     description: Perform CRUD operations on custom data entity records
-  - name: Schema
-    description: Retrieve entity schema definitions and field metadata
 security:
   - bearerAuth: []
 paths:

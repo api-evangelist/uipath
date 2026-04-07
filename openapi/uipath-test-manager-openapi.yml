@@ -35,14 +35,14 @@ servers:
 tags:
   - name: Projects
     description: Manage test projects within Test Manager
-  - name: TestCases
-    description: Manage test cases and their definitions
-  - name: TestSets
-    description: Manage test sets that group test cases for execution
   - name: Requirements
     description: Manage requirements and their traceability links to test cases
+  - name: TestCases
+    description: Manage test cases and their definitions
   - name: TestExecutions
     description: Retrieve test execution results and logs
+  - name: TestSets
+    description: Manage test sets that group test cases for execution
 security:
   - bearerAuth: []
 paths:

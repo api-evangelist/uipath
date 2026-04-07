@@ -31,18 +31,14 @@ servers:
         default: your-tenant
         description: The name of your UiPath tenant
 tags:
-  - name: Automations
-    description: Manage automation ideas and projects in the pipeline
-  - name: Users
-    description: Manage users and their roles within Automation Hub
   - name: AppInventory
     description: Manage the application inventory used in automation assessments
+  - name: Automations
+    description: Manage automation ideas and projects in the pipeline
   - name: Pipeline
     description: Retrieve automation pipeline data and status views
-  - name: Components
-    description: Manage reusable automation components and their categories
-  - name: AutomationStore
-    description: Access publicly shared automations in the Automation Store
+  - name: Users
+    description: Manage users and their roles within Automation Hub
 security:
   - apiKeyAuth: []
 paths:

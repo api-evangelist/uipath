@@ -25,14 +25,14 @@ servers:
   - url: https://cloud.uipath.com
     description: UiPath Automation Cloud Platform
 tags:
-  - name: Users
-    description: Manage user accounts across the organization
-  - name: Groups
-    description: Manage user groups and group memberships
   - name: AuditLogs
     description: Retrieve and download organization and tenant audit event logs
+  - name: Groups
+    description: Manage user groups and group memberships
   - name: Licenses
     description: Manage license allocations across user groups and services
+  - name: Users
+    description: Manage user accounts across the organization
 security:
   - bearerAuth: []
 paths:

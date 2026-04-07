@@ -31,44 +31,36 @@ servers:
         default: your-tenant
         description: The name of your UiPath tenant
 tags:
-  - name: Jobs
-    description: Manage automation job execution, including starting, stopping, and querying job state
-  - name: Processes
-    description: Manage automation processes (published packages deployed to folders)
-  - name: Robots
-    description: Manage software robots registered with Orchestrator
-  - name: Queues
-    description: Manage transaction queues for distributing work items to robots
-  - name: QueueItems
-    description: Manage individual queue transaction items and their processing state
-  - name: Assets
-    description: Manage shared assets such as credentials, text values, integers, and boolean values
-  - name: Schedules
-    description: Manage time-based and recurring triggers for automation processes
-  - name: Folders
-    description: Manage organizational folders for grouping automation resources
-  - name: Machines
-    description: Manage machine templates and registered physical or virtual machines
-  - name: Users
-    description: Manage users and their assignments within Orchestrator
-  - name: Roles
-    description: Manage roles and their associated permissions
   - name: Alerts
     description: Retrieve and manage system and automation alerts
-  - name: Webhooks
-    description: Manage webhook subscriptions for Orchestrator event notifications
-  - name: Libraries
-    description: Manage reusable automation library packages
+  - name: Assets
+    description: Manage shared assets such as credentials, text values, integers, and boolean values
+  - name: Folders
+    description: Manage organizational folders for grouping automation resources
+  - name: Jobs
+    description: Manage automation job execution, including starting, stopping, and querying job state
+  - name: Machines
+    description: Manage machine templates and registered physical or virtual machines
   - name: Packages
     description: Manage automation package uploads and versions
+  - name: Processes
+    description: Manage automation processes (published packages deployed to folders)
+  - name: QueueItems
+    description: Manage individual queue transaction items and their processing state
+  - name: Queues
+    description: Manage transaction queues for distributing work items to robots
+  - name: Robots
+    description: Manage software robots registered with Orchestrator
+  - name: Roles
+    description: Manage roles and their associated permissions
+  - name: Schedules
+    description: Manage time-based and recurring triggers for automation processes
   - name: StorageBuckets
     description: Manage cloud storage buckets for storing automation artifacts
-  - name: Tasks
-    description: Manage human-in-the-loop task assignments and completions
-  - name: Tenants
-    description: Manage tenants within an organization
-  - name: Settings
-    description: Retrieve and update Orchestrator configuration settings
+  - name: Users
+    description: Manage users and their assignments within Orchestrator
+  - name: Webhooks
+    description: Manage webhook subscriptions for Orchestrator event notifications
 security:
   - bearerAuth: []
 paths:
