@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://uipath.com/schemas/document-understanding/document-understanding.json",
+  "name": "UiPath Document Understanding Entities",
+  "description": "JSON Schema for UiPath Document Understanding entities including digitization results, classification results, extraction results, and field value structures used in intelligent document processing workflows.",
+  "type": "object",
+  "definitions": {
+    "DigitizationResult": {
+      "type": "object",
+      "name": "DigitizationResult",
+      "description": "The result of submitting a document to the Document Understanding digitization endpoint. The documentId is used in all subsequent processing steps.",
+      "required": [
+        "documentId",
+        "status"
+      ],
+      "properties": {
+        "documentId": {
+          "type": "string",
+          "description": "Unique identifier assigned to the digitized document. Must be passed to classification, extraction, and validation endpoints. Retained for seven days."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Succeeded",
+            "Failed"
+          ],
+          "description": "Outcome of the digitization operation"
+        },
+        "pageCount": {
+          "type": "int32",
+          "minimum": 1,
+          "description": "Number of pages detected and processed in the submitted document"
+        }
+      }
+    },
+    "ClassificationResultItem": {
+      "type": "object",
+      "name": "ClassificationResultItem",
+      "description": "A single classification result produced by a classifier model for a document or page range.",
+      "required": [
+        "documentTypeId",
+        "confidence"
+      ],
+      "properties": {
+        "classifierId": {
+          "type": "string",
+          "description": "Identifier of the classifier model that produced this result"
+        },
+        "documentTypeId": {
+          "type": "string",
+          "description": "Identifier of the document type that was identified by the classifier"
+        },
+        "documentTypeName": {
+          "type": "string",
+          "description": "Human-readable name of the identified document type"
+        },
+        "confidence": {
+          "type": "float",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence score for this classification (0.0 = no confidence, 1.0 = full confidence)"
+        },
+        "startPage": {
+          "type": "int32",
+          "minimum": 1,
+          "description": "First page (1-indexed) of the document section assigned this classification"
+        },
+        "endPage": {
+          "type": "int32",
+          "minimum": 1,
+          "description": "Last page (1-indexed) of the document section assigned this classification"
+        }
+      }
+    },
+    "ExtractionResultData": {
+      "type": "object",
+      "name": "ExtractionResultData",
+      "description": "The structured data extraction output containing all extracted field values and their confidence metadata.",
+      "required": [
+        "DocumentId",
+        "Fields"
+      ],
+      "properties": {
+        "ResultsVersion": {
+          "type": "int32",
+          "description": "Version number of the extraction results format schema"
+        },
+        "DocumentId": {
+          "type": "string",
+          "description": "Document identifier of the document from which data was extracted"
+        },
+        "Fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExtractedField"
+          },
+          "description": "Array of extracted field values with confidence scores and metadata"
+        }
+      }
+    },
+    "ExtractedField": {
+      "type": "object",
+      "name": "ExtractedField",
+      "description": "A single field extracted from a document, including its value, confidence score, and OCR metadata.",
+      "required": [
+        "FieldId",
+        "FieldName"
+      ],
+      "properties": {
+        "FieldId": {
+          "type": "string",
+          "description": "Identifier of the field as defined in the extractor's schema configuration"
+        },
+        "FieldName": {
+          "type": "string",
+          "description": "Display name of the extracted field"
+        },
+        "IsMissing": {
+          "type": "boolean",
+          "description": "True when the field was not found in the document; Value will be null"
+        },
+        "Value": {
+          "$ref": "#/$defs/FieldValue",
+          "description": "The extracted value with confidence score and page reference"
+        },
+        "Values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldValue"
+          },
+          "description": "For multi-value fields, all extracted occurrences of this field"
+        }
+      }
+    },
+    "FieldValue": {
+      "type": "object",
+      "name": "FieldValue",
+      "description": "An extracted field value with associated confidence score, OCR metadata, and page reference.",
+      "properties": {
+        "Value": {
+          "description": "The extracted value; type varies by field definition (string, number, boolean, or structured object)"
+        },
+        "Reference": {
+          "$ref": "#/$defs/FieldReference",
+          "description": "Reference to the location in the document from which the value was extracted"
+        },
+        "Confidence": {
+          "type": "float",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Model confidence score for this extracted value (0.0 to 1.0)"
+        },
+        "OcrConfidence": {
+          "type": "float",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "OCR engine confidence score for the text underlying this extracted value"
+        },
+        "TextType": {
+          "type": "string",
+          "enum": [
+            "Printed",
+            "Handwritten"
+          ],
+          "description": "Whether the source text was printed or handwritten"
+        },
+        "IsManual": {
+          "type": "boolean",
+          "description": "Whether this value was manually provided during human validation"
+        }
+      }
+    },
+    "FieldReference": {
+      "type": "object",
+      "name": "FieldReference",
+      "description": "A reference to the location within a document where a field value was found.",
+      "properties": {
+        "TextStartIndex": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Character start index in the document text of the extracted value"
+        },
+        "TextLength": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Length in characters of the extracted text"
+        },
+        "Tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FieldToken"
+          },
+          "description": "Individual token references with their bounding box coordinates on the page"
+        }
+      }
+    },
+    "FieldToken": {
+      "type": "object",
+      "name": "FieldToken",
+      "description": "A single token (word or text unit) contributing to an extracted field value, with page and position information.",
+      "properties": {
+        "TextStartIndex": {
+          "type": "int32",
+          "minimum": 0,
+          "description": "Character start index of this token in the full document text"
+        },
+        "TextLength": {
+          "type": "int32",
+          "minimum": 1,
+          "description": "Length in characters of this token"
+        },
+        "Page": {
+          "type": "int32",
+          "minimum": 1,
+          "description": "Page number (1-indexed) where this token appears"
+        },
+        "PageWidth": {
+          "type": "double",
+          "description": "Width of the page in document units"
+        },
+        "PageHeight": {
+          "type": "double",
+          "description": "Height of the page in document units"
+        },
+        "Left": {
+          "type": "double",
+          "description": "Left coordinate of the token bounding box"
+        },
+        "Top": {
+          "type": "double",
+          "description": "Top coordinate of the token bounding box"
+        },
+        "Width": {
+          "type": "double",
+          "description": "Width of the token bounding box"
+        },
+        "Height": {
+          "type": "double",
+          "description": "Height of the token bounding box"
+        }
+      }
+    },
+    "AsyncJobStatus": {
+      "type": "object",
+      "name": "AsyncJobStatus",
+      "description": "Status of an asynchronous Document Understanding processing job.",
+      "required": [
+        "requestId",
+        "status"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "description": "Unique identifier of the asynchronous processing job"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NotStarted",
+            "Running",
+            "Failed",
+            "Succeeded"
+          ],
+          "description": "Current execution status of the asynchronous job"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Error message populated when status is Failed"
+        }
+      }
+    }
+  }
+}

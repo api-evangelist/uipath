@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-alert-collection-structure.json",
+  "name": "ODataAlertCollection",
+  "description": "OData collection response containing alerts",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "int64",
+            "description": "Unique alert identifier"
+          },
+          "NotificationName": {
+            "type": "string",
+            "description": "Name of the alert notification"
+          },
+          "AlertSeverity": {
+            "type": "string",
+            "enum": [
+              "Info",
+              "Warn",
+              "Error",
+              "Fatal"
+            ],
+            "description": "Severity level of the alert"
+          },
+          "Message": {
+            "type": "string",
+            "description": "Alert message content"
+          },
+          "CreationTime": {
+            "type": "datetime",
+            "description": "ISO 8601 timestamp when the alert was created"
+          },
+          "Component": {
+            "type": "string",
+            "description": "The Orchestrator component that generated the alert"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -21,67 +21,73 @@ externalDocs:
   description: UiPath Orchestrator API Documentation
   url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
 servers:
-  - url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
-    description: UiPath Automation Cloud Orchestrator
-    variables:
-      organizationName:
-        default: your-org
-        description: The name of your UiPath organization
-      tenantName:
-        default: your-tenant
-        description: The name of your UiPath tenant
+- url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  description: UiPath Automation Cloud Orchestrator
+  variables:
+    organizationName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
 tags:
-  - name: Alerts
-    description: Retrieve and manage system and automation alerts
-  - name: Assets
-    description: Manage shared assets such as credentials, text values, integers, and boolean values
-  - name: Folders
-    description: Manage organizational folders for grouping automation resources
-  - name: Jobs
-    description: Manage automation job execution, including starting, stopping, and querying job state
-  - name: Machines
-    description: Manage machine templates and registered physical or virtual machines
-  - name: Packages
-    description: Manage automation package uploads and versions
-  - name: Processes
-    description: Manage automation processes (published packages deployed to folders)
-  - name: QueueItems
-    description: Manage individual queue transaction items and their processing state
-  - name: Queues
-    description: Manage transaction queues for distributing work items to robots
-  - name: Robots
-    description: Manage software robots registered with Orchestrator
-  - name: Roles
-    description: Manage roles and their associated permissions
-  - name: Schedules
-    description: Manage time-based and recurring triggers for automation processes
-  - name: StorageBuckets
-    description: Manage cloud storage buckets for storing automation artifacts
-  - name: Users
-    description: Manage users and their assignments within Orchestrator
-  - name: Webhooks
-    description: Manage webhook subscriptions for Orchestrator event notifications
+- name: Alerts
+  description: Retrieve and manage system and automation alerts
+- name: Assets
+  description: Manage shared assets such as credentials, text values, integers, and boolean values
+- name: Folders
+  description: Manage organizational folders for grouping automation resources
+- name: Jobs
+  description: Manage automation job execution, including starting, stopping, and querying job state
+- name: Machines
+  description: Manage machine templates and registered physical or virtual machines
+- name: Packages
+  description: Manage automation package uploads and versions
+- name: Processes
+  description: Manage automation processes (published packages deployed to folders)
+- name: QueueItems
+  description: Manage individual queue transaction items and their processing state
+- name: Queues
+  description: Manage transaction queues for distributing work items to robots
+- name: Robots
+  description: Manage software robots registered with Orchestrator
+- name: Roles
+  description: Manage roles and their associated permissions
+- name: Schedules
+  description: Manage time-based and recurring triggers for automation processes
+- name: StorageBuckets
+  description: Manage cloud storage buckets for storing automation artifacts
+- name: Users
+  description: Manage users and their assignments within Orchestrator
+- name: Webhooks
+  description: Manage webhook subscriptions for Orchestrator event notifications
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /odata/Jobs:
     get:
       operationId: listJobs
-      summary: List jobs
+      summary: UiPath List Jobs
       description: >-
         Retrieves a list of jobs in the current folder. Supports OData query
         options including $filter, $orderby, $top, $skip, and $select to
         control the result set. Jobs represent individual executions of
         automation processes by robots.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataOrderby'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/odataSelect'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/odataSelect'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of jobs matching the query criteria
@@ -89,25 +95,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataJobCollection'
+              examples:
+                listJobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    '@odata.context': example-value
+                    '@odata.count': 1
+                    value:
+                    - {}
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Jobs({key}):
     get:
       operationId: getJob
-      summary: Get a job by ID
+      summary: UiPath Get a Job by ID
       description: >-
         Retrieves a single job by its unique integer identifier. Returns full
         job details including state, start and end times, robot information,
         and associated process.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/entityKey'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: The requested job
@@ -115,29 +135,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Job'
+              examples:
+                getJob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    ReleaseName: example-value
+                    ProcessVersion: example-value
+                    State: Pending
+                    Source: Manual
+                    StartTime: '2026-01-15T10:30:00Z'
+                    EndTime: '2026-01-15T10:30:00Z'
+                    CreationTime: '2026-01-15T10:30:00Z'
+                    Info: example-value
+                    HostMachineName: example-value
+                    Robot:
+                      Id: {}
+                      Name: {}
+                      MachineName: {}
+                      MachineId: {}
+                      Version: {}
+                      Type: {}
+                    OrganizationUnitId: 1
+                    InputArguments: example-value
+                    OutputArguments: example-value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Jobs/UiPath.Server.Configuration.OData.StartJobs:
     post:
       operationId: startJobs
-      summary: Start jobs
+      summary: UiPath Start Jobs
       description: >-
         Starts one or more automation jobs for a specified process. Allows
         specifying the strategy for robot allocation (e.g., ModernJobsCount,
         All, RobotIds), input arguments for the process, job priority, and
         the target folder. Returns details of the created jobs.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/StartJobsRequest'
+            examples:
+              startJobsRequestExample:
+                summary: Default startJobs request
+                x-microcks-default: true
+                value:
+                  startInfo:
+                    ReleaseKey: {}
+                    Strategy: {}
+                    RobotIds: {}
+                    NoOfRobots: {}
+                    Source: {}
+                    InputArguments: {}
+                    JobPriority: {}
       responses:
         '201':
           description: Jobs were successfully created and started
@@ -145,28 +208,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataJobCollection'
+              examples:
+                startJobs201Example:
+                  summary: Default startJobs 201 response
+                  x-microcks-default: true
+                  value:
+                    '@odata.context': example-value
+                    '@odata.count': 1
+                    value:
+                    - {}
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Jobs/UiPath.Server.Configuration.OData.StopJob:
     post:
       operationId: stopJob
-      summary: Stop a job
+      summary: UiPath Stop a Job
       description: >-
         Sends a stop signal to a running job. The strategy can be SoftStop
         (waits for the current activity to finish) or Kill (forcefully
         terminates the job immediately). Requires the job ID.
       tags:
-        - Jobs
+      - Jobs
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/StopJobRequest'
+            examples:
+              stopJobRequestExample:
+                summary: Default stopJob request
+                x-microcks-default: true
+                value:
+                  jobId: 1
+                  strategy: SoftStop
       responses:
         '200':
           description: Stop signal sent successfully
@@ -174,22 +257,30 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Processes:
     get:
       operationId: listProcesses
-      summary: List processes
+      summary: UiPath List Processes
       description: >-
         Retrieves a list of automation processes deployed in the current folder.
         Each process represents a specific version of a published package
         configured for execution. Supports OData filtering and pagination.
       tags:
-        - Processes
+      - Processes
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataOrderby'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of processes
@@ -197,25 +288,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataProcessCollection'
+              examples:
+                listProcesses200Example:
+                  summary: Default listProcesses 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      Key: {}
+                      Description: {}
+                      ProcessVersion: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Robots:
     get:
       operationId: listRobots
-      summary: List robots
+      summary: UiPath List Robots
       description: >-
         Retrieves a list of software robots registered with Orchestrator.
         Each robot entry includes connection state, machine assignment, user
         assignment, robot type, and licensing information. Supports OData
         filtering and pagination.
       tags:
-        - Robots
+      - Robots
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataOrderby'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of robots
@@ -223,24 +333,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataRobotCollection'
+              examples:
+                listRobots200Example:
+                  summary: Default listRobots 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      MachineName: {}
+                      Type: {}
+                      IsConnected: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/QueueDefinitions:
     get:
       operationId: listQueues
-      summary: List queue definitions
+      summary: UiPath List Queue Definitions
       description: >-
         Retrieves all queue definitions in the current folder. Queue definitions
         describe named queues used for distributing transaction items to robots,
         including retry settings, unique reference enforcement, and SLA
         configurations.
       tags:
-        - Queues
+      - Queues
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of queue definitions
@@ -248,25 +376,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataQueueDefinitionCollection'
+              examples:
+                listQueues200Example:
+                  summary: Default listQueues 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createQueue
-      summary: Create a queue definition
+      summary: UiPath Create a Queue Definition
       description: >-
         Creates a new queue definition in the current folder. The queue
         definition specifies the queue name, maximum retry count, whether
         to accept only unique references, and enforcement settings.
       tags:
-        - Queues
+      - Queues
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/QueueDefinition'
+            examples:
+              createQueueRequestExample:
+                summary: Default createQueue request
+                x-microcks-default: true
+                value:
+                  Id: 1
+                  Name: example-value
+                  Description: example-value
+                  MaxNumberOfRetries: 1
+                  AcceptAutomaticallyRetry: true
+                  EnforceUniqueReference: true
+                  OrganizationUnitId: 1
       responses:
         '201':
           description: Queue definition created successfully
@@ -274,26 +425,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QueueDefinition'
+              examples:
+                createQueue201Example:
+                  summary: Default createQueue 201 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Name: example-value
+                    Description: example-value
+                    MaxNumberOfRetries: 1
+                    AcceptAutomaticallyRetry: true
+                    EnforceUniqueReference: true
+                    OrganizationUnitId: 1
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/QueueItems:
     get:
       operationId: listQueueItems
-      summary: List queue items
+      summary: UiPath List Queue Items
       description: >-
         Retrieves a list of queue transaction items. Items can be filtered by
         queue name, status, review status, and priority. Supports OData
         filtering, ordering, and pagination.
       tags:
-        - QueueItems
+      - QueueItems
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataOrderby'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of queue items
@@ -301,26 +472,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataQueueItemCollection'
+              examples:
+                listQueueItems200Example:
+                  summary: Default listQueueItems 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: addQueueItem
-      summary: Add a queue item
+      summary: UiPath Add a Queue Item
       description: >-
         Adds a new transaction item to a specified queue. The item can include
         specific content (custom key-value data), priority level, deadline,
         postpone time, and a unique reference string. Returns the created
         queue item with its assigned ID and key.
       tags:
-        - QueueItems
+      - QueueItems
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AddQueueItemRequest'
+            examples:
+              addQueueItemRequestExample:
+                summary: Default addQueueItem request
+                x-microcks-default: true
+                value:
+                  itemData:
+                    Name: {}
+                    Priority: {}
+                    SpecificContent: {}
+                    Reference: {}
+                    DueDate: {}
+                    PostponeDate: {}
       responses:
         '201':
           description: Queue item added successfully
@@ -328,26 +522,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QueueItem'
+              examples:
+                addQueueItem201Example:
+                  summary: Default addQueueItem 201 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    QueueDefinitionId: 1
+                    Status: New
+                    ReviewStatus: None
+                    Priority: Low
+                    Reference: example-value
+                    SpecificContent: {}
+                    Output: {}
+                    CreationTime: '2026-01-15T10:30:00Z'
+                    StartProcessing: '2026-01-15T10:30:00Z'
+                    EndProcessing: '2026-01-15T10:30:00Z'
+                    RetryNumber: 1
+                    DueDate: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Assets:
     get:
       operationId: listAssets
-      summary: List assets
+      summary: UiPath List Assets
       description: >-
         Retrieves a list of assets defined in the current folder. Assets store
         shared values such as credentials, text, integers, and booleans that
         can be consumed by automation processes. Supports OData filtering and
         pagination.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of assets
@@ -355,25 +575,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataAssetCollection'
+              examples:
+                listAssets200Example:
+                  summary: Default listAssets 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createAsset
-      summary: Create an asset
+      summary: UiPath Create an Asset
       description: >-
         Creates a new asset in the current folder. The asset type determines
         the kind of value stored: Text, Integer, Bool, or Credential. Credential
         assets store username and password pairs securely.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Asset'
+            examples:
+              createAssetRequestExample:
+                summary: Default createAsset request
+                x-microcks-default: true
+                value:
+                  Id: 1
+                  Name: example-value
+                  ValueType: Text
+                  StringValue: example-value
+                  IntValue: 1
+                  BoolValue: true
+                  CredentialUsername: example-value
+                  CredentialPassword: example-value
+                  Description: example-value
+                  OrganizationUnitId: 1
       responses:
         '201':
           description: Asset created successfully
@@ -381,22 +627,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                createAsset201Example:
+                  summary: Default createAsset 201 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Name: example-value
+                    ValueType: Text
+                    StringValue: example-value
+                    IntValue: 1
+                    BoolValue: true
+                    CredentialUsername: example-value
+                    CredentialPassword: example-value
+                    Description: example-value
+                    OrganizationUnitId: 1
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Assets({key}):
     get:
       operationId: getAsset
-      summary: Get an asset by ID
+      summary: UiPath Get an Asset by ID
       description: >-
         Retrieves a single asset by its unique integer identifier. Returns
         the full asset definition including type, value, and folder scope.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/entityKey'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: The requested asset
@@ -404,28 +670,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                getAsset200Example:
+                  summary: Default getAsset 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Name: example-value
+                    ValueType: Text
+                    StringValue: example-value
+                    IntValue: 1
+                    BoolValue: true
+                    CredentialUsername: example-value
+                    CredentialPassword: example-value
+                    Description: example-value
+                    OrganizationUnitId: 1
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateAsset
-      summary: Update an asset
+      summary: UiPath Update an Asset
       description: >-
         Updates an existing asset by its unique integer identifier. The
         full asset object must be provided in the request body with the
         updated values.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/entityKey'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Asset'
+            examples:
+              updateAssetRequestExample:
+                summary: Default updateAsset request
+                x-microcks-default: true
+                value:
+                  Id: 1
+                  Name: example-value
+                  ValueType: Text
+                  StringValue: example-value
+                  IntValue: 1
+                  BoolValue: true
+                  CredentialUsername: example-value
+                  CredentialPassword: example-value
+                  Description: example-value
+                  OrganizationUnitId: 1
       responses:
         '200':
           description: Asset updated successfully
@@ -433,24 +734,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Asset'
+              examples:
+                updateAsset200Example:
+                  summary: Default updateAsset 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Name: example-value
+                    ValueType: Text
+                    StringValue: example-value
+                    IntValue: 1
+                    BoolValue: true
+                    CredentialUsername: example-value
+                    CredentialPassword: example-value
+                    Description: example-value
+                    OrganizationUnitId: 1
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteAsset
-      summary: Delete an asset
+      summary: UiPath Delete an Asset
       description: >-
         Permanently deletes an asset from the current folder by its unique
         integer identifier. This action cannot be undone. Processes that
         reference this asset will fail until the asset is recreated.
       tags:
-        - Assets
+      - Assets
       parameters:
-        - $ref: '#/components/parameters/entityKey'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '204':
           description: Asset deleted successfully
@@ -458,21 +779,28 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/ProcessSchedules:
     get:
       operationId: listSchedules
-      summary: List process schedules
+      summary: UiPath List Process Schedules
       description: >-
         Retrieves a list of time-based triggers configured for automation
         processes. Each schedule defines when and how often a process should
         run, along with the target robots and input arguments.
       tags:
-        - Schedules
+      - Schedules
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of process schedules
@@ -480,23 +808,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataScheduleCollection'
+              examples:
+                listSchedules200Example:
+                  summary: Default listSchedules 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      ReleaseId: {}
+                      Enabled: {}
+                      StartProcessCron: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Folders:
     get:
       operationId: listFolders
-      summary: List folders
+      summary: UiPath List Folders
       description: >-
         Retrieves a list of organizational folders accessible to the
         authenticated user. Folders group automation resources such as
         processes, robots, assets, and queues. Each folder has a unique
         ID used in the X-UIPATH-OrganizationUnitId request header.
       tags:
-        - Folders
+      - Folders
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
       responses:
         '200':
           description: A list of folders
@@ -504,24 +849,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataFolderCollection'
+              examples:
+                listFolders200Example:
+                  summary: Default listFolders 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Key: {}
+                      DisplayName: {}
+                      FullyQualifiedName: {}
+                      FolderType: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Machines:
     get:
       operationId: listMachines
-      summary: List machines
+      summary: UiPath List Machines
       description: >-
         Retrieves a list of machine templates and registered machines.
         Machine templates define the number of runtimes available for
         cloud robots, while standard machines represent physical or
         virtual machines where Unattended Robot is installed.
       tags:
-        - Machines
+      - Machines
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of machines
@@ -529,22 +892,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataMachineCollection'
+              examples:
+                listMachines200Example:
+                  summary: Default listMachines 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      Type: {}
+                      LicenseKey: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Users:
     get:
       operationId: listUsers
-      summary: List users
+      summary: UiPath List Users
       description: >-
         Retrieves a list of users registered in Orchestrator. Each user
         has associated roles, robot configurations, and folder memberships.
         Supports OData filtering and pagination.
       tags:
-        - Users
+      - Users
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
       responses:
         '200':
           description: A list of users
@@ -552,22 +931,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataUserCollection'
+              examples:
+                listUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      UserName: {}
+                      Name: {}
+                      EmailAddress: {}
+                      IsActive: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Roles:
     get:
       operationId: listRoles
-      summary: List roles
+      summary: UiPath List Roles
       description: >-
         Retrieves a list of roles defined in Orchestrator. Roles bundle
         sets of permissions together and are assigned to users or groups
         to control their access to resources and operations.
       tags:
-        - Roles
+      - Roles
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
       responses:
         '200':
           description: A list of roles
@@ -575,25 +971,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataRoleCollection'
+              examples:
+                listRoles200Example:
+                  summary: Default listRoles 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      DisplayName: {}
+                      IsStatic: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Alerts:
     get:
       operationId: listAlerts
-      summary: List alerts
+      summary: UiPath List Alerts
       description: >-
         Retrieves a list of system and automation alerts. Alerts are raised
         for events such as job failures, robot disconnections, and queue SLA
         breaches. Supports OData filtering by severity, component, and
         read status.
       tags:
-        - Alerts
+      - Alerts
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataOrderby'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of alerts
@@ -601,23 +1015,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataAlertCollection'
+              examples:
+                listAlerts200Example:
+                  summary: Default listAlerts 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      NotificationName: {}
+                      AlertSeverity: {}
+                      Message: {}
+                      CreationTime: {}
+                      Component: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Webhooks:
     get:
       operationId: listWebhooks
-      summary: List webhooks
+      summary: UiPath List Webhooks
       description: >-
         Retrieves all webhook subscriptions configured in Orchestrator.
         Each webhook specifies a target URL, the events to subscribe to,
         and an HMAC secret for payload signature verification.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of webhooks
@@ -625,25 +1058,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataWebhookCollection'
+              examples:
+                listWebhooks200Example:
+                  summary: Default listWebhooks 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createWebhook
-      summary: Create a webhook
+      summary: UiPath Create a Webhook
       description: >-
         Creates a new webhook subscription. Specify the target URL, optional
         HMAC secret for payload verification, whether to subscribe to all
         events or specific event types, and whether to allow insecure SSL.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Webhook'
+            examples:
+              createWebhookRequestExample:
+                summary: Default createWebhook request
+                x-microcks-default: true
+                value:
+                  Id: 1
+                  Url: https://cloud.uipath.com/example
+                  Enabled: true
+                  Secret: example-value
+                  SubscribeToAllEvents: true
+                  AllowInsecureSsl: true
+                  Events:
+                  - example-value
       responses:
         '201':
           description: Webhook created successfully
@@ -651,23 +1108,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Webhook'
+              examples:
+                createWebhook201Example:
+                  summary: Default createWebhook 201 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Url: https://cloud.uipath.com/example
+                    Enabled: true
+                    Secret: example-value
+                    SubscribeToAllEvents: true
+                    AllowInsecureSsl: true
+                    Events:
+                    - example-value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Webhooks({key}):
     delete:
       operationId: deleteWebhook
-      summary: Delete a webhook
+      summary: UiPath Delete a Webhook
       description: >-
         Permanently deletes a webhook subscription by its unique integer
         identifier. After deletion, the target URL will no longer receive
         event notifications from Orchestrator.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/entityKey'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '204':
           description: Webhook deleted successfully
@@ -675,19 +1150,23 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes():
     get:
       operationId: getWebhookEventTypes
-      summary: Get available webhook event types
+      summary: UiPath Get Available Webhook Event Types
       description: >-
         Retrieves the complete list of event types available for webhook
         subscriptions in Orchestrator. Event types cover jobs, robots, queues,
         queue items, processes, and triggers, each with a unique string
         identifier such as job.faulted or queueItem.transactionCompleted.
       tags:
-        - Webhooks
+      - Webhooks
       parameters:
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of available webhook event types
@@ -700,24 +1179,39 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WebhookEventType'
+              examples:
+                getWebhookEventTypes200Example:
+                  summary: Default getWebhookEventTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Name: {}
+                      EventType: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/StorageBuckets:
     get:
       operationId: listStorageBuckets
-      summary: List storage buckets
+      summary: UiPath List Storage Buckets
       description: >-
         Retrieves a list of storage buckets defined in the current folder.
         Storage buckets provide file storage capabilities for automation
         processes, backed by providers such as Azure Blob, Amazon S3,
         or the UiPath internal storage.
       tags:
-        - StorageBuckets
+      - StorageBuckets
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of storage buckets
@@ -725,24 +1219,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataStorageBucketCollection'
+              examples:
+                listStorageBuckets200Example:
+                  summary: Default listStorageBuckets 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      Description: {}
+                      StorageProvider: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /odata/Packages:
     get:
       operationId: listPackages
-      summary: List packages
+      summary: UiPath List Packages
       description: >-
         Retrieves a list of automation packages uploaded to Orchestrator.
         Each package represents a versioned NuGet package containing one
         or more automation processes. Supports filtering by package name
         and pagination.
       tags:
-        - Packages
+      - Packages
       parameters:
-        - $ref: '#/components/parameters/odataFilter'
-        - $ref: '#/components/parameters/odataTop'
-        - $ref: '#/components/parameters/odataSkip'
-        - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
       responses:
         '200':
           description: A list of packages
@@ -750,8 +1261,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ODataPackageCollection'
+              examples:
+                listPackages200Example:
+                  summary: Default listPackages 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Title: {}
+                      Version: {}
+                      Description: {}
+                      Published: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -854,54 +1379,68 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier for the job
+          example: 12345
         Key:
           type: string
           format: uuid
           description: Unique GUID key for the job
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         ReleaseName:
           type: string
           description: Name of the process (release) that this job executes
+          example: Example Name
         ProcessVersion:
           type: string
           description: Version of the process package used in this job
+          example: 1.0.0
         State:
           type: string
           enum: [Pending, Running, Stopping, Terminating, Faulted, Successful, Stopped, Suspended, Resumed]
           description: Current execution state of the job
+          example: Pending
         Source:
           type: string
           enum: [Manual, Schedule, Queue]
           description: How the job was initiated
+          example: Manual
         StartTime:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the job started executing
+          example: '2026-01-15T10:30:00Z'
         EndTime:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the job finished executing
+          example: '2026-01-15T10:30:00Z'
         CreationTime:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the job was created
+          example: '2026-01-15T10:30:00Z'
         Info:
           type: string
           description: Additional information or error message associated with the job state
+          example: example-value
         HostMachineName:
           type: string
           description: Name of the machine where the robot executed the job
+          example: Example Name
         Robot:
           $ref: '#/components/schemas/RobotRef'
         OrganizationUnitId:
           type: integer
           format: int64
           description: ID of the folder in which this job resides
+          example: 12345
         InputArguments:
           type: string
           description: JSON-serialized input arguments passed to the process
+          example: example-value
         OutputArguments:
           type: string
           description: JSON-serialized output arguments returned by the process
+          example: example-value
     RobotRef:
       type: object
       description: A lightweight reference to a robot associated with a job
@@ -910,28 +1449,34 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier of the robot
+          example: 12345
         Name:
           type: string
           description: Display name of the robot
+          example: Example Name
         MachineName:
           type: string
           description: Hostname of the machine the robot runs on
+          example: Example Name
         MachineId:
           type: integer
           format: int64
           description: Unique integer identifier of the machine
+          example: 12345
         Version:
           type: string
           description: Version of the UiPath Robot software
+          example: 1.0.0
         Type:
           type: string
           enum: [Unattended, Attended, NonProduction, TestAutomation, RpaDeveloper, StudioX, HeadlessUnattended]
           description: Licensing type of the robot
+          example: Unattended
     StartJobsRequest:
       type: object
       description: Request payload for starting one or more automation jobs
       required:
-        - startInfo
+      - startInfo
       properties:
         startInfo:
           $ref: '#/components/schemas/StartInfo'
@@ -939,54 +1484,63 @@ components:
       type: object
       description: Parameters controlling how jobs are started
       required:
-        - ReleaseKey
-        - Strategy
+      - ReleaseKey
+      - Strategy
       properties:
         ReleaseKey:
           type: string
           format: uuid
           description: GUID key of the process (release) to start
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         Strategy:
           type: string
           enum: [All, Specific, JobsCount, RobotIds]
           description: Strategy for allocating robots to the job
+          example: All
         RobotIds:
           type: array
           items:
             type: integer
             format: int64
           description: List of robot IDs to use when Strategy is RobotIds or Specific
+          example: []
         NoOfRobots:
           type: integer
           description: Number of robots to use when Strategy is JobsCount
+          example: 1
         Source:
           type: string
           enum: [Manual, Schedule, Queue]
           description: Source attribution for the started jobs
+          example: Manual
         InputArguments:
           type: string
           description: JSON-serialized input arguments to pass to the process
+          example: example-value
         JobPriority:
           type: string
           enum: [Low, Normal, High]
           description: Priority level for the job queue
+          example: Low
     StopJobRequest:
       type: object
       description: Request payload for stopping a running job
       required:
-        - jobId
-        - strategy
+      - jobId
+      - strategy
       properties:
         jobId:
           type: integer
           format: int64
           description: Unique integer identifier of the job to stop
+          example: 12345
         strategy:
           type: string
           enum: [SoftStop, Kill]
           description: >-
             Stop strategy. SoftStop waits for the current activity to complete
             before stopping; Kill immediately terminates the robot process.
+          example: SoftStop
     QueueDefinition:
       type: object
       description: Definition of a transaction queue for distributing work items
@@ -995,27 +1549,34 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier of the queue
+          example: 12345
         Name:
           type: string
           description: Display name of the queue
+          example: Example Name
         Description:
           type: string
           description: Optional description of the queue's purpose
+          example: Example description for this resource.
         MaxNumberOfRetries:
           type: integer
           minimum: 0
           maximum: 10
           description: Maximum number of automatic retries for failed transactions
+          example: 1
         AcceptAutomaticallyRetry:
           type: boolean
           description: Whether failed items are automatically requeued for retry
+          example: true
         EnforceUniqueReference:
           type: boolean
           description: Whether each item must have a unique reference string
+          example: true
         OrganizationUnitId:
           type: integer
           format: int64
           description: ID of the folder in which this queue resides
+          example: 12345
     QueueItem:
       type: object
       description: A single transaction item in a queue
@@ -1024,61 +1585,75 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier of the queue item
+          example: 12345
         Key:
           type: string
           format: uuid
           description: Unique GUID key for the queue item
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
         QueueDefinitionId:
           type: integer
           format: int64
           description: ID of the queue this item belongs to
+          example: 12345
         Status:
           type: string
           enum: [New, InProgress, Failed, Successful, Abandoned, Retried, Deleted]
           description: Current processing status of the queue item
+          example: New
         ReviewStatus:
           type: string
           enum: [None, InReview, Verified, Retried]
           description: Manual review status for failed items
+          example: None
         Priority:
           type: string
           enum: [Low, Normal, High]
           description: Processing priority of the queue item
+          example: Low
         Reference:
           type: string
           description: Optional unique reference string for idempotency
+          example: example-value
         SpecificContent:
           type: object
           additionalProperties: true
           description: Custom key-value payload data for the queue item
+          example: example-value
         Output:
           type: object
           additionalProperties: true
           description: Output data written by the robot after processing
+          example: example-value
         CreationTime:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the item was added to the queue
+          example: '2026-01-15T10:30:00Z'
         StartProcessing:
           type: string
           format: date-time
           description: ISO 8601 timestamp when processing began
+          example: '2026-01-15T10:30:00Z'
         EndProcessing:
           type: string
           format: date-time
           description: ISO 8601 timestamp when processing ended
+          example: '2026-01-15T10:30:00Z'
         RetryNumber:
           type: integer
           description: Number of times this item has been retried
+          example: 1
         DueDate:
           type: string
           format: date-time
           description: Optional deadline for processing the item
+          example: '2026-01-15T10:30:00Z'
     AddQueueItemRequest:
       type: object
       description: Request payload for adding a new item to a queue
       required:
-        - itemData
+      - itemData
       properties:
         itemData:
           $ref: '#/components/schemas/QueueItemData'
@@ -1086,30 +1661,36 @@ components:
       type: object
       description: Data for creating a new queue item
       required:
-        - Name
+      - Name
       properties:
         Name:
           type: string
           description: Name of the target queue definition
+          example: Example Name
         Priority:
           type: string
           enum: [Low, Normal, High]
           description: Priority level for queue processing
+          example: Low
         SpecificContent:
           type: object
           additionalProperties: true
           description: Custom key-value payload data for the item
+          example: example-value
         Reference:
           type: string
           description: Optional unique reference string for this item
+          example: example-value
         DueDate:
           type: string
           format: date-time
           description: Optional deadline by which the item should be processed
+          example: '2026-01-15T10:30:00Z'
         PostponeDate:
           type: string
           format: date-time
           description: Optional earliest time at which the item may be processed
+          example: '2026-01-15T10:30:00Z'
     Asset:
       type: object
       description: A shared asset storing a value accessible to automation processes
@@ -1118,35 +1699,45 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier of the asset
+          example: 12345
         Name:
           type: string
           description: Display name of the asset
+          example: Example Name
         ValueType:
           type: string
           enum: [Text, Integer, Bool, Credential, WindowsCredential, KeyValueList]
           description: Data type of the asset value
+          example: Text
         StringValue:
           type: string
           description: Value when ValueType is Text
+          example: example-value
         IntValue:
           type: integer
           description: Value when ValueType is Integer
+          example: 1
         BoolValue:
           type: boolean
           description: Value when ValueType is Bool
+          example: true
         CredentialUsername:
           type: string
           description: Username portion when ValueType is Credential
+          example: Example Name
         CredentialPassword:
           type: string
           description: Password portion when ValueType is Credential (write-only)
+          example: example-value
         Description:
           type: string
           description: Optional description of the asset's purpose
+          example: Example description for this resource.
         OrganizationUnitId:
           type: integer
           format: int64
           description: ID of the folder in which this asset resides
+          example: 12345
     Webhook:
       type: object
       description: A webhook subscription that receives Orchestrator event notifications
@@ -1155,27 +1746,34 @@ components:
           type: integer
           format: int64
           description: Unique integer identifier of the webhook
+          example: 12345
         Url:
           type: string
           format: uri
           description: The HTTPS endpoint URL that receives event POST requests
+          example: https://cloud.uipath.com/example
         Enabled:
           type: boolean
           description: Whether the webhook is active and sending notifications
+          example: true
         Secret:
           type: string
           description: Optional HMAC secret for validating payload signatures via X-UiPath-Signature header
+          example: example-value
         SubscribeToAllEvents:
           type: boolean
           description: Whether to receive all event types or only the specified ones
+          example: true
         AllowInsecureSsl:
           type: boolean
           description: Whether to allow webhook delivery to endpoints with invalid SSL certificates
+          example: true
         Events:
           type: array
           items:
             type: string
           description: List of event type identifiers to subscribe to when SubscribeToAllEvents is false
+          example: []
     WebhookEventType:
       type: object
       description: An available event type that can be subscribed to via webhooks
@@ -1183,9 +1781,11 @@ components:
         Name:
           type: string
           description: Human-readable display name of the event type
+          example: Example Name
         EventType:
           type: string
           description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
+          example: Standard
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -1193,12 +1793,15 @@ components:
         message:
           type: string
           description: Human-readable error message
+          example: example-value
         errorCode:
           type: integer
           description: Numeric error code
+          example: 1
         traceId:
           type: string
           description: Trace identifier for support and debugging
+          example: abc123
     ODataJobCollection:
       type: object
       description: OData collection response containing jobs
@@ -1206,13 +1809,16 @@ components:
         '@odata.context':
           type: string
           description: OData context URL
+          example: example-value
         '@odata.count':
           type: integer
           description: Total number of matching records (when $count=true)
+          example: 42
         value:
           type: array
           items:
             $ref: '#/components/schemas/Job'
+          example: []
     ODataProcessCollection:
       type: object
       description: OData collection response containing processes
@@ -1239,6 +1845,7 @@ components:
               ProcessVersion:
                 type: string
                 description: Version of the underlying package
+          example: []
     ODataRobotCollection:
       type: object
       description: OData collection response containing robots
@@ -1264,6 +1871,7 @@ components:
               IsConnected:
                 type: boolean
                 description: Whether the robot is currently connected to Orchestrator
+          example: []
     ODataQueueDefinitionCollection:
       type: object
       description: OData collection response containing queue definitions
@@ -1272,6 +1880,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueueDefinition'
+          example: []
     ODataQueueItemCollection:
       type: object
       description: OData collection response containing queue items
@@ -1280,6 +1889,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueueItem'
+          example: []
     ODataAssetCollection:
       type: object
       description: OData collection response containing assets
@@ -1288,6 +1898,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Asset'
+          example: []
     ODataScheduleCollection:
       type: object
       description: OData collection response containing process schedules
@@ -1314,6 +1925,7 @@ components:
               StartProcessCron:
                 type: string
                 description: Cron expression defining the recurrence pattern
+          example: []
     ODataFolderCollection:
       type: object
       description: OData collection response containing folders
@@ -1341,6 +1953,7 @@ components:
                 type: string
                 enum: [Standard, Personal]
                 description: Type classification of the folder
+          example: []
     ODataMachineCollection:
       type: object
       description: OData collection response containing machines
@@ -1364,6 +1977,7 @@ components:
               LicenseKey:
                 type: string
                 description: License key used by the robot installed on this machine
+          example: []
     ODataUserCollection:
       type: object
       description: OData collection response containing users
@@ -1390,6 +2004,7 @@ components:
               IsActive:
                 type: boolean
                 description: Whether the user account is active
+          example: []
     ODataRoleCollection:
       type: object
       description: OData collection response containing roles
@@ -1412,6 +2027,7 @@ components:
               IsStatic:
                 type: boolean
                 description: Whether this is a built-in system role that cannot be deleted
+          example: []
     ODataAlertCollection:
       type: object
       description: OData collection response containing alerts
@@ -1442,6 +2058,7 @@ components:
               Component:
                 type: string
                 description: The Orchestrator component that generated the alert
+          example: []
     ODataWebhookCollection:
       type: object
       description: OData collection response containing webhooks
@@ -1450,6 +2067,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Webhook'
+          example: []
     ODataStorageBucketCollection:
       type: object
       description: OData collection response containing storage buckets
@@ -1473,6 +2091,7 @@ components:
                 type: string
                 enum: [UiPath, Azure, Amazon, Minio]
                 description: Cloud storage backend provider
+          example: []
     ODataPackageCollection:
       type: object
       description: OData collection response containing packages
@@ -1498,3 +2117,4 @@ components:
                 type: string
                 format: date-time
                 description: ISO 8601 timestamp when the package was published
+          example: []

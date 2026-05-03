@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-robot-collection-structure.json",
+  "name": "ODataRobotCollection",
+  "description": "OData collection response containing robots",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "int64",
+            "description": "Unique robot identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Robot display name"
+          },
+          "MachineName": {
+            "type": "string",
+            "description": "Hostname of the machine the robot is registered on"
+          },
+          "Type": {
+            "type": "string",
+            "description": "Robot licensing type"
+          },
+          "IsConnected": {
+            "type": "boolean",
+            "description": "Whether the robot is currently connected to Orchestrator"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-create-test-set-request-schema.json",
+  "title": "CreateTestSetRequest",
+  "description": "Request payload for creating a new test set",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new test set",
+      "maxLength": 256,
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the test set's purpose",
+      "example": "Example description for this resource."
+    }
+  }
+}

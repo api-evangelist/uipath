@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-process-collection-structure.json",
+  "name": "ODataProcessCollection",
+  "description": "OData collection response containing processes",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "int64",
+            "description": "Unique process identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Process display name"
+          },
+          "Key": {
+            "type": "uuid",
+            "description": "Unique GUID key for the process"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Process description"
+          },
+          "ProcessVersion": {
+            "type": "string",
+            "description": "Version of the underlying package"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

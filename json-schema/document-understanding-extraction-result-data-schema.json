@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-extraction-result-data-schema.json",
+  "title": "ExtractionResultData",
+  "description": "Structured extraction result containing field values and confidence scores",
+  "type": "object",
+  "properties": {
+    "ResultsVersion": {
+      "type": "integer",
+      "description": "Version of the extraction results format",
+      "example": "1.0.0"
+    },
+    "DocumentId": {
+      "type": "string",
+      "description": "Document identifier of the extracted document",
+      "example": "abc123"
+    },
+    "Fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExtractedField"
+      },
+      "description": "List of extracted field values",
+      "example": []
+    }
+  }
+}

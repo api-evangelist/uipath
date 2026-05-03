@@ -1,0 +1,198 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "UiPath Intelligent Document Processing"
+  description: "End-to-end workflow for intelligent document processing combining Document Understanding for OCR and data extraction with Orchestrator for automation orchestration. Used by document processing teams and RPA developers building invoice, contract, and form automation workflows."
+  tags:
+    - UiPath
+    - Document Understanding
+    - Intelligent Document Processing
+    - OCR
+    - Data Extraction
+    - Machine Learning
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      UIPATH_BEARER_TOKEN: UIPATH_BEARER_TOKEN
+
+capability:
+  consumes:
+    - import: document-understanding
+      location: ./shared/document-understanding.yaml
+    - import: orchestrator
+      location: ./shared/orchestrator.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: idp-api
+      description: "Unified REST API for intelligent document processing using UiPath Document Understanding and Orchestrator."
+      resources:
+        - path: /v1/projects
+          name: projects
+          description: "Document understanding projects"
+          operations:
+            - method: GET
+              name: list-projects
+              description: "List document understanding projects"
+              call: "document-understanding.list-projects"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/documents/digitize
+          name: digitization
+          description: "Document OCR digitization"
+          operations:
+            - method: POST
+              name: digitize-document
+              description: "OCR digitize a document"
+              call: "document-understanding.digitize-document"
+              with:
+                documentUrl: "rest.documentUrl"
+                projectId: "rest.projectId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/documents/classify
+          name: classification
+          description: "Document classification"
+          operations:
+            - method: POST
+              name: classify-document
+              description: "Classify a document type"
+              call: "document-understanding.classify-document"
+              with:
+                documentUrl: "rest.documentUrl"
+                projectId: "rest.projectId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/documents/extract
+          name: extraction
+          description: "Document data extraction"
+          operations:
+            - method: POST
+              name: extract-document
+              description: "Extract structured data from document"
+              call: "document-understanding.extract-document"
+              with:
+                documentUrl: "rest.documentUrl"
+                projectId: "rest.projectId"
+                extractorId: "rest.extractorId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/extraction-results/{requestId}
+          name: extraction-results
+          description: "Extraction result retrieval"
+          operations:
+            - method: GET
+              name: get-extraction-result
+              description: "Get document extraction results"
+              call: "document-understanding.get-extraction-result"
+              with:
+                requestId: "rest.requestId"
+                projectId: "rest.projectId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/jobs
+          name: jobs
+          description: "Automation jobs for document processing"
+          operations:
+            - method: GET
+              name: list-jobs
+              description: "List document processing jobs"
+              call: "orchestrator.list-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9081
+      namespace: idp-mcp
+      transport: http
+      description: "MCP server for AI-assisted intelligent document processing using UiPath Document Understanding."
+      tools:
+        - name: list-du-projects
+          description: "List available Document Understanding projects"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "document-understanding.list-projects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: digitize-document
+          description: "Digitize a document using OCR to extract text content"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "document-understanding.digitize-document"
+          with:
+            documentUrl: "tools.documentUrl"
+            projectId: "tools.projectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: classify-document
+          description: "Classify a document to identify its type (invoice, contract, form, etc.)"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "document-understanding.classify-document"
+          with:
+            documentUrl: "tools.documentUrl"
+            projectId: "tools.projectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: extract-document-data
+          description: "Extract structured data fields from a document using an ML extractor"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "document-understanding.extract-document"
+          with:
+            documentUrl: "tools.documentUrl"
+            projectId: "tools.projectId"
+            extractorId: "tools.extractorId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-extraction-result
+          description: "Retrieve the results of an asynchronous data extraction request"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "document-understanding.get-extraction-result"
+          with:
+            requestId: "tools.requestId"
+            projectId: "tools.projectId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-extractors
+          description: "List available ML extractors for a Document Understanding project"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "document-understanding.list-extractors"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: orchestrator-list-jobs
+          description: "List Orchestrator automation jobs for document processing workflows"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."

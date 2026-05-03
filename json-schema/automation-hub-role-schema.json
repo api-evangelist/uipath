@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-role-schema.json",
+  "title": "Role",
+  "description": "A role defining a set of permissions in Automation Hub",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique integer identifier of the role",
+      "example": 12345
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the role",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the permissions granted by this role",
+      "example": "Example description for this resource."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-digitization-request-schema.json",
+  "title": "DigitizationRequest",
+  "description": "Request payload for digitizing a document",
+  "type": "object",
+  "required": [
+    "documentId"
+  ],
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "description": "Reference identifier for the document. This can be a file path or a document reference key used by UiPath activities.",
+      "example": "abc123"
+    },
+    "contentType": {
+      "type": "string",
+      "enum": [
+        "image/jpeg",
+        "image/png",
+        "application/pdf",
+        "image/tiff"
+      ],
+      "description": "MIME type of the document being submitted",
+      "example": "image/jpeg"
+    },
+    "documentBase64": {
+      "type": "string",
+      "description": "Base64-encoded document content when submitting inline",
+      "example": "example-value"
+    }
+  }
+}

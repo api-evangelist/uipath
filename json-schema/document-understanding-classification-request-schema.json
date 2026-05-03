@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-classification-request-schema.json",
+  "title": "ClassificationRequest",
+  "description": "Request payload for classifying a previously digitized document",
+  "type": "object",
+  "required": [
+    "documentId",
+    "classifiersOptions"
+  ],
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "description": "Document ID returned by the digitization endpoint",
+      "example": "abc123"
+    },
+    "classifiersOptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ClassifierOption"
+      },
+      "description": "Classifiers to apply with their configuration options",
+      "example": []
+    }
+  }
+}

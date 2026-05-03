@@ -1,0 +1,355 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AddQueueItemRequest": "uipath:AddQueueItemRequest",
+    "Asset": "uipath:Asset",
+    "Job": "uipath:Job",
+    "ODataAlertCollection": "uipath:ODataAlertCollection",
+    "ODataAssetCollection": "uipath:ODataAssetCollection",
+    "ODataFolderCollection": "uipath:ODataFolderCollection",
+    "ODataJobCollection": "uipath:ODataJobCollection",
+    "ODataMachineCollection": "uipath:ODataMachineCollection",
+    "ODataPackageCollection": "uipath:ODataPackageCollection",
+    "ODataProcessCollection": "uipath:ODataProcessCollection",
+    "ODataQueueDefinitionCollection": "uipath:ODataQueueDefinitionCollection",
+    "ODataQueueItemCollection": "uipath:ODataQueueItemCollection",
+    "ODataRobotCollection": "uipath:ODataRobotCollection",
+    "ODataRoleCollection": "uipath:ODataRoleCollection",
+    "ODataScheduleCollection": "uipath:ODataScheduleCollection",
+    "ODataStorageBucketCollection": "uipath:ODataStorageBucketCollection",
+    "ODataUserCollection": "uipath:ODataUserCollection",
+    "ODataWebhookCollection": "uipath:ODataWebhookCollection",
+    "QueueDefinition": "uipath:QueueDefinition",
+    "QueueItemData": "uipath:QueueItemData",
+    "QueueItem": "uipath:QueueItem",
+    "RobotRef": "uipath:RobotRef",
+    "StartInfo": "uipath:StartInfo",
+    "StartJobsRequest": "uipath:StartJobsRequest",
+    "StopJobRequest": "uipath:StopJobRequest",
+    "WebhookEventType": "uipath:WebhookEventType",
+    "Webhook": "uipath:Webhook",
+    "itemData": {
+      "@id": "uipath:itemData",
+      "@type": "xsd:string"
+    },
+    "Id": {
+      "@id": "uipath:Id",
+      "@type": "xsd:integer"
+    },
+    "Name": {
+      "@id": "uipath:Name",
+      "@type": "xsd:string"
+    },
+    "ValueType": {
+      "@id": "uipath:ValueType",
+      "@type": "xsd:string"
+    },
+    "StringValue": {
+      "@id": "uipath:StringValue",
+      "@type": "xsd:string"
+    },
+    "IntValue": {
+      "@id": "uipath:IntValue",
+      "@type": "xsd:integer"
+    },
+    "BoolValue": {
+      "@id": "uipath:BoolValue",
+      "@type": "xsd:boolean"
+    },
+    "CredentialUsername": {
+      "@id": "uipath:CredentialUsername",
+      "@type": "xsd:string"
+    },
+    "CredentialPassword": {
+      "@id": "uipath:CredentialPassword",
+      "@type": "xsd:string"
+    },
+    "Description": {
+      "@id": "uipath:Description",
+      "@type": "xsd:string"
+    },
+    "OrganizationUnitId": {
+      "@id": "uipath:OrganizationUnitId",
+      "@type": "xsd:integer"
+    },
+    "Key": {
+      "@id": "uipath:Key",
+      "@type": "xsd:string"
+    },
+    "ReleaseName": {
+      "@id": "uipath:ReleaseName",
+      "@type": "xsd:string"
+    },
+    "ProcessVersion": {
+      "@id": "uipath:ProcessVersion",
+      "@type": "xsd:string"
+    },
+    "State": {
+      "@id": "uipath:State",
+      "@type": "xsd:string"
+    },
+    "Source": {
+      "@id": "uipath:Source",
+      "@type": "xsd:string"
+    },
+    "StartTime": {
+      "@id": "uipath:StartTime",
+      "@type": "xsd:dateTime"
+    },
+    "EndTime": {
+      "@id": "uipath:EndTime",
+      "@type": "xsd:dateTime"
+    },
+    "CreationTime": {
+      "@id": "uipath:CreationTime",
+      "@type": "xsd:dateTime"
+    },
+    "Info": {
+      "@id": "uipath:Info",
+      "@type": "xsd:string"
+    },
+    "HostMachineName": {
+      "@id": "uipath:HostMachineName",
+      "@type": "xsd:string"
+    },
+    "Robot": {
+      "@id": "uipath:Robot",
+      "@type": "xsd:string"
+    },
+    "InputArguments": {
+      "@id": "uipath:InputArguments",
+      "@type": "xsd:string"
+    },
+    "OutputArguments": {
+      "@id": "uipath:OutputArguments",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "uipath:value",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "NotificationName": {
+      "@id": "uipath:NotificationName",
+      "@type": "xsd:string"
+    },
+    "AlertSeverity": {
+      "@id": "uipath:AlertSeverity",
+      "@type": "xsd:string"
+    },
+    "Message": {
+      "@id": "uipath:Message",
+      "@type": "xsd:string"
+    },
+    "Component": {
+      "@id": "uipath:Component",
+      "@type": "xsd:string"
+    },
+    "DisplayName": {
+      "@id": "uipath:DisplayName",
+      "@type": "xsd:string"
+    },
+    "FullyQualifiedName": {
+      "@id": "uipath:FullyQualifiedName",
+      "@type": "xsd:string"
+    },
+    "FolderType": {
+      "@id": "uipath:FolderType",
+      "@type": "xsd:string"
+    },
+    "@odata.context": {
+      "@id": "uipath:@odata.context",
+      "@type": "xsd:string"
+    },
+    "@odata.count": {
+      "@id": "uipath:@odata.count",
+      "@type": "xsd:integer"
+    },
+    "Type": {
+      "@id": "uipath:Type",
+      "@type": "xsd:string"
+    },
+    "LicenseKey": {
+      "@id": "uipath:LicenseKey",
+      "@type": "xsd:string"
+    },
+    "Title": {
+      "@id": "uipath:Title",
+      "@type": "xsd:string"
+    },
+    "Version": {
+      "@id": "uipath:Version",
+      "@type": "xsd:string"
+    },
+    "Published": {
+      "@id": "uipath:Published",
+      "@type": "xsd:dateTime"
+    },
+    "MachineName": {
+      "@id": "uipath:MachineName",
+      "@type": "xsd:string"
+    },
+    "IsConnected": {
+      "@id": "uipath:IsConnected",
+      "@type": "xsd:boolean"
+    },
+    "IsStatic": {
+      "@id": "uipath:IsStatic",
+      "@type": "xsd:boolean"
+    },
+    "ReleaseId": {
+      "@id": "uipath:ReleaseId",
+      "@type": "xsd:integer"
+    },
+    "Enabled": {
+      "@id": "uipath:Enabled",
+      "@type": "xsd:boolean"
+    },
+    "StartProcessCron": {
+      "@id": "uipath:StartProcessCron",
+      "@type": "xsd:string"
+    },
+    "StorageProvider": {
+      "@id": "uipath:StorageProvider",
+      "@type": "xsd:string"
+    },
+    "UserName": {
+      "@id": "uipath:UserName",
+      "@type": "xsd:string"
+    },
+    "EmailAddress": {
+      "@id": "uipath:EmailAddress",
+      "@type": "xsd:string"
+    },
+    "IsActive": {
+      "@id": "uipath:IsActive",
+      "@type": "xsd:boolean"
+    },
+    "MaxNumberOfRetries": {
+      "@id": "uipath:MaxNumberOfRetries",
+      "@type": "xsd:integer"
+    },
+    "AcceptAutomaticallyRetry": {
+      "@id": "uipath:AcceptAutomaticallyRetry",
+      "@type": "xsd:boolean"
+    },
+    "EnforceUniqueReference": {
+      "@id": "uipath:EnforceUniqueReference",
+      "@type": "xsd:boolean"
+    },
+    "Priority": {
+      "@id": "uipath:Priority",
+      "@type": "xsd:string"
+    },
+    "SpecificContent": {
+      "@id": "uipath:SpecificContent",
+      "@type": "@id"
+    },
+    "Reference": {
+      "@id": "uipath:Reference",
+      "@type": "xsd:string"
+    },
+    "DueDate": {
+      "@id": "uipath:DueDate",
+      "@type": "xsd:dateTime"
+    },
+    "PostponeDate": {
+      "@id": "uipath:PostponeDate",
+      "@type": "xsd:dateTime"
+    },
+    "QueueDefinitionId": {
+      "@id": "uipath:QueueDefinitionId",
+      "@type": "xsd:integer"
+    },
+    "Status": {
+      "@id": "uipath:Status",
+      "@type": "xsd:string"
+    },
+    "ReviewStatus": {
+      "@id": "uipath:ReviewStatus",
+      "@type": "xsd:string"
+    },
+    "Output": {
+      "@id": "uipath:Output",
+      "@type": "@id"
+    },
+    "StartProcessing": {
+      "@id": "uipath:StartProcessing",
+      "@type": "xsd:dateTime"
+    },
+    "EndProcessing": {
+      "@id": "uipath:EndProcessing",
+      "@type": "xsd:dateTime"
+    },
+    "RetryNumber": {
+      "@id": "uipath:RetryNumber",
+      "@type": "xsd:integer"
+    },
+    "MachineId": {
+      "@id": "uipath:MachineId",
+      "@type": "xsd:integer"
+    },
+    "ReleaseKey": {
+      "@id": "uipath:ReleaseKey",
+      "@type": "xsd:string"
+    },
+    "Strategy": {
+      "@id": "uipath:Strategy",
+      "@type": "xsd:string"
+    },
+    "RobotIds": {
+      "@id": "uipath:RobotIds",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "NoOfRobots": {
+      "@id": "uipath:NoOfRobots",
+      "@type": "xsd:integer"
+    },
+    "JobPriority": {
+      "@id": "uipath:JobPriority",
+      "@type": "xsd:string"
+    },
+    "startInfo": {
+      "@id": "uipath:startInfo",
+      "@type": "xsd:string"
+    },
+    "jobId": {
+      "@id": "uipath:jobId",
+      "@type": "xsd:integer"
+    },
+    "strategy": {
+      "@id": "uipath:strategy",
+      "@type": "xsd:string"
+    },
+    "EventType": {
+      "@id": "uipath:EventType",
+      "@type": "xsd:string"
+    },
+    "Url": {
+      "@id": "uipath:Url",
+      "@type": "@id"
+    },
+    "Secret": {
+      "@id": "uipath:Secret",
+      "@type": "xsd:string"
+    },
+    "SubscribeToAllEvents": {
+      "@id": "uipath:SubscribeToAllEvents",
+      "@type": "xsd:boolean"
+    },
+    "AllowInsecureSsl": {
+      "@id": "uipath:AllowInsecureSsl",
+      "@type": "xsd:boolean"
+    },
+    "Events": {
+      "@id": "uipath:Events",
+      "@container": "@set",
+      "@type": "xsd:string"
+    }
+  }
+}

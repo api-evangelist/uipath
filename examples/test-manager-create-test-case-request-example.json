@@ -1,0 +1,7 @@
+{
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "labels": [
+    "example-value"
+  ]
+}

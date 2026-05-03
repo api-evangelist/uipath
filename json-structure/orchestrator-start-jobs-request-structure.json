@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-start-jobs-request-structure.json",
+  "name": "StartJobsRequest",
+  "description": "Request payload for starting one or more automation jobs",
+  "type": "object",
+  "required": [
+    "startInfo"
+  ],
+  "properties": {
+    "startInfo": {
+      "$ref": "#/components/schemas/StartInfo"
+    }
+  }
+}

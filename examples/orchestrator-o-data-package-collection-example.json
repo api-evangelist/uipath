@@ -1,0 +1,11 @@
+{
+  "value": [
+    {
+      "Id": "item-001",
+      "Title": "example-value",
+      "Version": "1.0.0",
+      "Description": "Example description for this resource.",
+      "Published": "2026-01-15T10:30:00Z"
+    }
+  ]
+}

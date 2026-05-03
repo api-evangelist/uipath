@@ -1,0 +1,10 @@
+{
+  "value": [
+    {
+      "Id": 58,
+      "Name": "Example Name",
+      "Type": "Standard",
+      "LicenseKey": "example-value"
+    }
+  ]
+}

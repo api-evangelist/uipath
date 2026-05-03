@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-webhook-event-type-schema.json",
+  "title": "WebhookEventType",
+  "description": "An available event type that can be subscribed to via webhooks",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Human-readable display name of the event type",
+      "example": "Example Name"
+    },
+    "EventType": {
+      "type": "string",
+      "description": "Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)",
+      "example": "Standard"
+    }
+  }
+}

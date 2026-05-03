@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-update-group-license-allocation-request-structure.json",
+  "name": "UpdateGroupLicenseAllocationRequest",
+  "description": "Request payload for updating license allocation for a group",
+  "type": "object",
+  "properties": {
+    "userLicenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/LicenseAllocationEntry"
+      },
+      "example": []
+    }
+  }
+}

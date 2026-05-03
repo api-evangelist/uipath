@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-start-info-structure.json",
+  "name": "StartInfo",
+  "description": "Parameters controlling how jobs are started",
+  "type": "object",
+  "required": [
+    "ReleaseKey",
+    "Strategy"
+  ],
+  "properties": {
+    "ReleaseKey": {
+      "type": "uuid",
+      "description": "GUID key of the process (release) to start",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "Strategy": {
+      "type": "string",
+      "enum": [
+        "All",
+        "Specific",
+        "JobsCount",
+        "RobotIds"
+      ],
+      "description": "Strategy for allocating robots to the job",
+      "example": "All"
+    },
+    "RobotIds": {
+      "type": "array",
+      "items": {
+        "type": "int64"
+      },
+      "description": "List of robot IDs to use when Strategy is RobotIds or Specific",
+      "example": []
+    },
+    "NoOfRobots": {
+      "type": "int32",
+      "description": "Number of robots to use when Strategy is JobsCount",
+      "example": 1
+    },
+    "Source": {
+      "type": "string",
+      "enum": [
+        "Manual",
+        "Schedule",
+        "Queue"
+      ],
+      "description": "Source attribution for the started jobs",
+      "example": "Manual"
+    },
+    "InputArguments": {
+      "type": "string",
+      "description": "JSON-serialized input arguments to pass to the process",
+      "example": "example-value"
+    },
+    "JobPriority": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Normal",
+        "High"
+      ],
+      "description": "Priority level for the job queue",
+      "example": "Low"
+    }
+  }
+}

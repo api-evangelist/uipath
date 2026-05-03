@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-o-data-storage-bucket-collection-schema.json",
+  "title": "ODataStorageBucketCollection",
+  "description": "OData collection response containing storage buckets",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique storage bucket identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Display name of the storage bucket"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Optional description of the bucket"
+          },
+          "StorageProvider": {
+            "type": "string",
+            "enum": [
+              "UiPath",
+              "Azure",
+              "Amazon",
+              "Minio"
+            ],
+            "description": "Cloud storage backend provider"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

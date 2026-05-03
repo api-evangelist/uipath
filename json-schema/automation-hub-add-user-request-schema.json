@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-add-user-request-schema.json",
+  "title": "AddUserRequest",
+  "description": "Request payload for adding a new user to Automation Hub",
+  "type": "object",
+  "required": [
+    "email",
+    "role"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the user to add",
+      "example": "user@example.com"
+    },
+    "role": {
+      "type": "string",
+      "description": "Role to assign to the user",
+      "example": "example-value"
+    }
+  }
+}

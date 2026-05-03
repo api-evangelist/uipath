@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-add-queue-item-request-structure.json",
+  "name": "AddQueueItemRequest",
+  "description": "Request payload for adding a new item to a queue",
+  "type": "object",
+  "required": [
+    "itemData"
+  ],
+  "properties": {
+    "itemData": {
+      "$ref": "#/components/schemas/QueueItemData"
+    }
+  }
+}

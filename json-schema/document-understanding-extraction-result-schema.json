@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-extraction-result-schema.json",
+  "title": "ExtractionResult",
+  "description": "Result of an asynchronous extraction job",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "description": "Unique identifier of the extraction job",
+      "example": "abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NotStarted",
+        "Running",
+        "Failed",
+        "Succeeded"
+      ],
+      "description": "Current status of the extraction job",
+      "example": "NotStarted"
+    },
+    "result": {
+      "type": "object",
+      "description": "Extraction output, populated when status is Succeeded",
+      "properties": {
+        "documentId": {
+          "type": "string",
+          "description": "Document ID from which data was extracted"
+        },
+        "extractionResult": {
+          "$ref": "#/components/schemas/ExtractionResultData"
+        }
+      },
+      "example": "example-value"
+    }
+  }
+}

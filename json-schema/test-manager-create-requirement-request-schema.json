@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-create-requirement-request-schema.json",
+  "title": "CreateRequirementRequest",
+  "description": "Request payload for creating a new requirement",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new requirement",
+      "maxLength": 512,
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the requirement specification",
+      "example": "Example description for this resource."
+    },
+    "externalId": {
+      "type": "string",
+      "description": "Optional external identifier for integration with third-party tools",
+      "example": "abc123"
+    }
+  }
+}

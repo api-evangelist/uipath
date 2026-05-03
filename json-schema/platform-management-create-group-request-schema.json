@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/platform-management-create-group-request-schema.json",
+  "title": "CreateGroupRequest",
+  "description": "Request payload for creating a new user group",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new group",
+      "example": "Example Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Local",
+        "RoboticsGroup"
+      ],
+      "description": "Type of group to create",
+      "example": "Local"
+    }
+  }
+}

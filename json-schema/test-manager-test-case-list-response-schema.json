@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-test-case-list-response-schema.json",
+  "title": "TestCaseListResponse",
+  "description": "Paginated response containing test cases",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "integer",
+      "description": "Total number of test cases",
+      "example": 42
+    },
+    "testCases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TestCase"
+      },
+      "example": []
+    }
+  }
+}

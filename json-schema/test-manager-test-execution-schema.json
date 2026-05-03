@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-test-execution-schema.json",
+  "title": "TestExecution",
+  "description": "A test set execution run with aggregated results",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the test execution",
+      "example": "abc123"
+    },
+    "testSetId": {
+      "type": "string",
+      "description": "Identifier of the test set that was executed",
+      "example": "abc123"
+    },
+    "testSetName": {
+      "type": "string",
+      "description": "Display name of the test set that was executed",
+      "example": "Example Name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Running",
+        "Passed",
+        "Failed",
+        "Blocked",
+        "Cancelled"
+      ],
+      "description": "Aggregate execution status",
+      "example": "Pending"
+    },
+    "startedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when execution began",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "finishedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when execution completed",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "totalTestCases": {
+      "type": "integer",
+      "description": "Total number of test cases in the execution",
+      "example": 42
+    },
+    "passedTestCases": {
+      "type": "integer",
+      "description": "Number of test cases that passed",
+      "example": 1
+    },
+    "failedTestCases": {
+      "type": "integer",
+      "description": "Number of test cases that failed",
+      "example": 1
+    },
+    "blockedTestCases": {
+      "type": "integer",
+      "description": "Number of test cases that could not be executed",
+      "example": 1
+    }
+  }
+}

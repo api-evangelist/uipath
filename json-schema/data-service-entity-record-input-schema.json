@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/data-service-entity-record-input-schema.json",
+  "title": "EntityRecordInput",
+  "description": "Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.",
+  "type": "object",
+  "additionalProperties": true
+}

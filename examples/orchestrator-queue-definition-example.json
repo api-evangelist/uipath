@@ -1,0 +1,9 @@
+{
+  "Id": 77,
+  "Name": "Example Name",
+  "Description": "Example description for this resource.",
+  "MaxNumberOfRetries": 91,
+  "AcceptAutomaticallyRetry": true,
+  "EnforceUniqueReference": true,
+  "OrganizationUnitId": 25
+}

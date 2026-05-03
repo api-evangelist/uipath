@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-robot-ref-structure.json",
+  "name": "RobotRef",
+  "description": "A lightweight reference to a robot associated with a job",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "int64",
+      "description": "Unique integer identifier of the robot",
+      "example": 12345
+    },
+    "Name": {
+      "type": "string",
+      "description": "Display name of the robot",
+      "example": "Example Name"
+    },
+    "MachineName": {
+      "type": "string",
+      "description": "Hostname of the machine the robot runs on",
+      "example": "Example Name"
+    },
+    "MachineId": {
+      "type": "int64",
+      "description": "Unique integer identifier of the machine",
+      "example": 12345
+    },
+    "Version": {
+      "type": "string",
+      "description": "Version of the UiPath Robot software",
+      "example": "1.0.0"
+    },
+    "Type": {
+      "type": "string",
+      "enum": [
+        "Unattended",
+        "Attended",
+        "NonProduction",
+        "TestAutomation",
+        "RpaDeveloper",
+        "StudioX",
+        "HeadlessUnattended"
+      ],
+      "description": "Licensing type of the robot",
+      "example": "Unattended"
+    }
+  }
+}

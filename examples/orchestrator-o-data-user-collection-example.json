@@ -1,0 +1,11 @@
+{
+  "value": [
+    {
+      "Id": 62,
+      "UserName": "Example Name",
+      "Name": "Example Name",
+      "EmailAddress": "user@example.com",
+      "IsActive": true
+    }
+  ]
+}

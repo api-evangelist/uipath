@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/data-service-entity-record-input-structure.json",
+  "name": "EntityRecordInput",
+  "description": "Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.",
+  "type": "object",
+  "additionalProperties": true
+}

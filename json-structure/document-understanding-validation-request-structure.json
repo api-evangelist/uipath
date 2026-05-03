@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-validation-request-structure.json",
+  "name": "ValidationRequest",
+  "description": "Request payload for validating document processing results",
+  "type": "object",
+  "required": [
+    "documentId"
+  ],
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "description": "Document ID of the document whose results are to be validated",
+      "example": "abc123"
+    },
+    "classificationResult": {
+      "$ref": "#/components/schemas/ClassificationResultItem"
+    },
+    "extractionResult": {
+      "$ref": "#/components/schemas/ExtractionResultData"
+    }
+  }
+}

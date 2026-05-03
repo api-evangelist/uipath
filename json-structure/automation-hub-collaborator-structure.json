@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/automation-hub-collaborator-structure.json",
+  "name": "Collaborator",
+  "description": "A user collaborating on an automation idea or project",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "int32",
+      "description": "Unique integer identifier of the collaborating user",
+      "example": 12345
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the collaborator",
+      "example": "Example Name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the collaborator",
+      "example": "user@example.com"
+    },
+    "role": {
+      "type": "string",
+      "description": "Role of this collaborator on the automation",
+      "example": "example-value"
+    }
+  }
+}

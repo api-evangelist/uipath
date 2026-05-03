@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-test-set-list-response-structure.json",
+  "name": "TestSetListResponse",
+  "description": "Paginated response containing test sets",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "int32",
+      "description": "Total number of test sets",
+      "example": 42
+    },
+    "testSets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TestSet"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-classifier-option-schema.json",
+  "title": "ClassifierOption",
+  "description": "Configuration for applying a specific classifier",
+  "type": "object",
+  "required": [
+    "classifierId"
+  ],
+  "properties": {
+    "classifierId": {
+      "type": "string",
+      "description": "Unique identifier of the classifier to apply",
+      "example": "abc123"
+    }
+  }
+}

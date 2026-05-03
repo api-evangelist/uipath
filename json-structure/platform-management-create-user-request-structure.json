@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-create-user-request-structure.json",
+  "name": "CreateUserRequest",
+  "description": "Request payload for creating a new user account",
+  "type": "object",
+  "required": [
+    "email",
+    "name"
+  ],
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address for the new user account",
+      "example": "user@example.com"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for the new user",
+      "example": "Example Name"
+    },
+    "surname": {
+      "type": "string",
+      "description": "Surname of the new user",
+      "example": "Example Name"
+    }
+  }
+}

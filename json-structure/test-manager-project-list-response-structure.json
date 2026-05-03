@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-project-list-response-structure.json",
+  "name": "ProjectListResponse",
+  "description": "Paginated response containing test projects",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "int32",
+      "description": "Total number of projects",
+      "example": 42
+    },
+    "page": {
+      "type": "int32",
+      "description": "Current page number",
+      "example": 1
+    },
+    "pageSize": {
+      "type": "int32",
+      "description": "Records per page",
+      "example": 1
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Project"
+      },
+      "example": []
+    }
+  }
+}

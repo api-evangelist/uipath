@@ -21,31 +21,31 @@ externalDocs:
   description: UiPath Automation Hub API Documentation
   url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
 servers:
-  - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
-    description: UiPath Automation Cloud Automation Hub
-    variables:
-      orgName:
-        default: your-org
-        description: The name of your UiPath organization
-      tenantName:
-        default: your-tenant
-        description: The name of your UiPath tenant
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
 tags:
-  - name: AppInventory
-    description: Manage the application inventory used in automation assessments
-  - name: Automations
-    description: Manage automation ideas and projects in the pipeline
-  - name: Pipeline
-    description: Retrieve automation pipeline data and status views
-  - name: Users
-    description: Manage users and their roles within Automation Hub
+- name: AppInventory
+  description: Manage the application inventory used in automation assessments
+- name: Automations
+  description: Manage automation ideas and projects in the pipeline
+- name: Pipeline
+  description: Retrieve automation pipeline data and status views
+- name: Users
+  description: Manage users and their roles within Automation Hub
 security:
-  - apiKeyAuth: []
+- apiKeyAuth: []
 paths:
   /automations:
     get:
       operationId: listAutomations
-      summary: List automations
+      summary: UiPath List Automations
       description: >-
         Retrieves a list of automation ideas and projects from Automation Hub.
         Supports filtering by phase, status, and other pipeline attributes.
@@ -53,37 +53,41 @@ paths:
         cost-benefit analysis data, and submission details. Used by CoE teams
         to programmatically query and track the automation pipeline.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - name: phase
-          in: query
-          required: false
-          description: Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)
-          schema:
-            type: string
-        - name: status
-          in: query
-          required: false
-          description: Filter automations by status within their current phase
-          schema:
-            type: string
-        - name: page
-          in: query
-          required: false
-          description: Page number for pagination (1-based)
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: pageSize
-          in: query
-          required: false
-          description: Number of records per page
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 20
+      - name: phase
+        in: query
+        required: false
+        description: Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)
+        schema:
+          type: string
+        example: example-value
+      - name: status
+        in: query
+        required: false
+        description: Filter automations by status within their current phase
+        schema:
+          type: string
+        example: Active
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (1-based)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
       responses:
         '200':
           description: A paginated list of automations
@@ -91,13 +95,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AutomationListResponse'
+              examples:
+                listAutomations200Example:
+                  summary: Default listAutomations 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    page: 1
+                    pageSize: 1
+                    automations:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createAutomationIdea
-      summary: Create an automation idea
+      summary: UiPath Create an Automation Idea
       description: >-
         Creates a new automation idea in Automation Hub. The submitted idea
         enters the pipeline at the Idea phase and is available for assessment
@@ -105,13 +122,26 @@ paths:
         include the idea name, description, submitter information, and the
         estimated benefit details used in cost-benefit analysis.
       tags:
-        - Automations
+      - Automations
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateAutomationIdeaRequest'
+            examples:
+              createAutomationIdeaRequestExample:
+                summary: Default createAutomationIdea request
+                x-microcks-default: true
+                value:
+                  name: example-value
+                  description: example-value
+                  estimatedBenefit:
+                    estimatedTimeSavingsPerYear: {}
+                    estimatedFTESavings: {}
+                    estimatedCostSavingsPerYear: {}
+                  tags:
+                  - example-value
       responses:
         '201':
           description: Automation idea created successfully
@@ -119,22 +149,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Automation'
+              examples:
+                createAutomationIdea201Example:
+                  summary: Default createAutomationIdea 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /automations/{automationId}:
     get:
       operationId: getAutomation
-      summary: Get an automation by ID
+      summary: UiPath Get an Automation by ID
       description: >-
         Retrieves a single automation record by its unique identifier.
         Returns full details including pipeline phase, status, cost-benefit
         analysis data, collaborators, documents, and tags.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - $ref: '#/components/parameters/automationId'
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
       responses:
         '200':
           description: The requested automation record
@@ -142,28 +195,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Automation'
+              examples:
+                getAutomation200Example:
+                  summary: Default getAutomation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     patch:
       operationId: updateAutomation
-      summary: Update an automation
+      summary: UiPath Update an Automation
       description: >-
         Partially updates an automation record by its unique identifier.
         Commonly used to advance an automation through the pipeline by
         updating its phase and status. Only fields included in the request
         body are modified.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - $ref: '#/components/parameters/automationId'
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateAutomationRequest'
+            examples:
+              updateAutomationRequestExample:
+                summary: Default updateAutomation request
+                x-microcks-default: true
+                value:
+                  phase: Idea
+                  status: example-value
+                  description: example-value
+                  estimatedBenefit:
+                    estimatedTimeSavingsPerYear: {}
+                    estimatedFTESavings: {}
+                    estimatedCostSavingsPerYear: {}
       responses:
         '200':
           description: Automation updated successfully
@@ -171,23 +259,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Automation'
+              examples:
+                updateAutomation200Example:
+                  summary: Default updateAutomation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteAutomation
-      summary: Delete an automation
+      summary: UiPath Delete an Automation
       description: >-
         Permanently deletes an automation record from Automation Hub by its
         unique identifier. This action removes the idea and all associated
         documents, comments, and collaborator data. This action cannot be undone.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - $ref: '#/components/parameters/automationId'
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
       responses:
         '204':
           description: Automation deleted successfully
@@ -195,18 +306,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /automations/{automationId}/collaborators:
     get:
       operationId: listAutomationCollaborators
-      summary: List collaborators for an automation
+      summary: UiPath List Collaborators for an Automation
       description: >-
         Retrieves the list of collaborators assigned to a specific automation
         idea or project. Collaborators have defined roles such as subject
         matter expert, developer, or reviewer.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - $ref: '#/components/parameters/automationId'
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
       responses:
         '200':
           description: A list of collaborators for the automation
@@ -219,26 +334,41 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Collaborator'
+              examples:
+                listAutomationCollaborators200Example:
+                  summary: Default listAutomationCollaborators 200 response
+                  x-microcks-default: true
+                  value:
+                    collaborators:
+                    - userId: {}
+                      name: {}
+                      email: {}
+                      role: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: removeAutomationCollaborator
-      summary: Remove a collaborator from an automation
+      summary: UiPath Remove a Collaborator from an Automation
       description: >-
         Removes a collaborator from an automation by their user ID. The
         user will lose access to collaborate on the automation idea or project.
       tags:
-        - Automations
+      - Automations
       parameters:
-        - $ref: '#/components/parameters/automationId'
-        - name: userId
-          in: query
-          required: true
-          description: Unique identifier of the user to remove as a collaborator
-          schema:
-            type: integer
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      - name: userId
+        in: query
+        required: true
+        description: Unique identifier of the user to remove as a collaborator
+        schema:
+          type: integer
+        example: 12345
       responses:
         '204':
           description: Collaborator removed successfully
@@ -246,17 +376,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /automationpipeline:
     get:
       operationId: getAutomationPipeline
-      summary: Get automation pipeline data
+      summary: UiPath Get Automation Pipeline Data
       description: >-
         Retrieves aggregated pipeline data showing the distribution of
         automations across phases and statuses. Used for reporting and
         dashboard views by CoE administrators to understand the overall
         health and throughput of the automation program.
       tags:
-        - Pipeline
+      - Pipeline
       responses:
         '200':
           description: Automation pipeline summary data
@@ -264,36 +397,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PipelineData'
+              examples:
+                getAutomationPipeline200Example:
+                  summary: Default getAutomationPipeline 200 response
+                  x-microcks-default: true
+                  value:
+                    phases:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /users:
     get:
       operationId: listUsers
-      summary: List users
+      summary: UiPath List Users
       description: >-
         Retrieves a list of users registered in Automation Hub. Returns user
         identifiers, names, email addresses, and assigned roles. Used by
         administrators to manage user assignments and role configurations.
       tags:
-        - Users
+      - Users
       parameters:
-        - name: page
-          in: query
-          required: false
-          description: Page number for pagination (1-based)
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: pageSize
-          in: query
-          required: false
-          description: Number of records per page
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 20
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (1-based)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
       responses:
         '200':
           description: A list of users
@@ -301,25 +446,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserListResponse'
+              examples:
+                listUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    users:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /adduser:
     post:
       operationId: addUser
-      summary: Add a user
+      summary: UiPath Add a User
       description: >-
         Adds a new user to Automation Hub. The user must already exist in
         the UiPath identity directory. This endpoint assigns the user a
         role within Automation Hub and makes them available for collaboration
         and idea submission.
       tags:
-        - Users
+      - Users
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AddUserRequest'
+            examples:
+              addUserRequestExample:
+                summary: Default addUser request
+                x-microcks-default: true
+                value:
+                  email: user@example.com
+                  role: example-value
       responses:
         '201':
           description: User added successfully
@@ -327,26 +490,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                addUser201Example:
+                  summary: Default addUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    email: user@example.com
+                    role: example-value
+                    isActive: true
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /edituser:
     post:
       operationId: editUser
-      summary: Edit a user
+      summary: UiPath Edit a User
       description: >-
         Updates an existing user's properties in Automation Hub, such as
         their assigned role or active status. The user is identified by
         their unique ID in the request body.
       tags:
-        - Users
+      - Users
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EditUserRequest'
+            examples:
+              editUserRequestExample:
+                summary: Default editUser request
+                x-microcks-default: true
+                value:
+                  id: 1
+                  role: example-value
+                  isActive: true
       responses:
         '200':
           description: User updated successfully
@@ -354,21 +538,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+              examples:
+                editUser200Example:
+                  summary: Default editUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    email: user@example.com
+                    role: example-value
+                    isActive: true
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /roles:
     get:
       operationId: listRoles
-      summary: List roles
+      summary: UiPath List Roles
       description: >-
         Retrieves the list of roles available in Automation Hub. Each role
         defines a set of permissions controlling what a user can view and
         perform within the platform. Roles are assigned when adding or
         editing users.
       tags:
-        - Users
+      - Users
       responses:
         '200':
           description: A list of available roles
@@ -381,37 +578,51 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Role'
+              examples:
+                listRoles200Example:
+                  summary: Default listRoles 200 response
+                  x-microcks-default: true
+                  value:
+                    roles:
+                    - id: {}
+                      name: {}
+                      description: {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /appinventory:
     get:
       operationId: listAppInventory
-      summary: List application inventory
+      summary: UiPath List Application Inventory
       description: >-
         Retrieves the application inventory used for automation assessments.
         Each entry represents a business application that may be involved
         in automations. Inventory data is used in the assessment process
         to calculate automation complexity and effort.
       tags:
-        - AppInventory
+      - AppInventory
       parameters:
-        - name: page
-          in: query
-          required: false
-          description: Page number for pagination (1-based)
-          schema:
-            type: integer
-            minimum: 1
-            default: 1
-        - name: pageSize
-          in: query
-          required: false
-          description: Number of records per page
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 100
-            default: 20
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (1-based)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
       responses:
         '200':
           description: A list of application inventory entries
@@ -419,18 +630,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInventoryListResponse'
+              examples:
+                listAppInventory200Example:
+                  summary: Default listAppInventory 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    applications:
+                    - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: bulkUpsertAppInventory
-      summary: Bulk add or update application inventory
+      summary: UiPath Bulk Add or Update Application Inventory
       description: >-
         Adds or updates application entries in bulk. If an application with
         the same name already exists, it will be updated; otherwise, a new
         entry is created. This endpoint is designed for bulk synchronization
         of the application inventory from an external CMDB or asset register.
       tags:
-        - AppInventory
+      - AppInventory
       requestBody:
         required: true
         content:
@@ -442,6 +664,17 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/Application'
+            examples:
+              bulkUpsertAppInventoryRequestExample:
+                summary: Default bulkUpsertAppInventory request
+                x-microcks-default: true
+                value:
+                  applications:
+                  - id: {}
+                    name: {}
+                    vendor: {}
+                    category: {}
+                    description: {}
       responses:
         '200':
           description: Applications upserted successfully
@@ -449,27 +682,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInventoryListResponse'
+              examples:
+                bulkUpsertAppInventory200Example:
+                  summary: Default bulkUpsertAppInventory 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    applications:
+                    - {}
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /appinventory/{applicationId}:
     delete:
       operationId: deleteApplication
-      summary: Delete an application from inventory
+      summary: UiPath Delete an Application from Inventory
       description: >-
         Permanently removes an application entry from the application inventory
         by its unique identifier. Automations that reference this application
         will lose the association.
       tags:
-        - AppInventory
+      - AppInventory
       parameters:
-        - name: applicationId
-          in: path
-          required: true
-          description: Unique identifier of the application to delete
-          schema:
-            type: integer
+      - name: applicationId
+        in: path
+        required: true
+        description: Unique identifier of the application to delete
+        schema:
+          type: integer
+        example: 12345
       responses:
         '204':
           description: Application deleted successfully
@@ -477,6 +722,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     apiKeyAuth:
@@ -528,30 +776,38 @@ components:
         id:
           type: integer
           description: Unique integer identifier of the automation
+          example: 12345
         name:
           type: string
           description: Display name of the automation idea
+          example: Example Name
         description:
           type: string
           description: Detailed description of the automation idea and its business value
+          example: Example description for this resource.
         phase:
           type: string
           enum: [Idea, Assessment, Analysis, Development, Testing, Production, OnHold, Rejected]
           description: Current phase of the automation in the pipeline
+          example: Idea
         status:
           type: string
           description: Current status within the active phase
+          example: Active
         submittedBy:
           type: string
           description: Name of the user who submitted the automation idea
+          example: example-value
         submittedDate:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the idea was submitted
+          example: '2026-01-15T10:30:00Z'
         lastModified:
           type: string
           format: date-time
           description: ISO 8601 timestamp of the last modification
+          example: '2026-01-15T10:30:00Z'
         estimatedBenefit:
           $ref: '#/components/schemas/BenefitData'
         tags:
@@ -559,6 +815,7 @@ components:
           items:
             type: string
           description: Tags associated with the automation for categorization
+          example: []
     BenefitData:
       type: object
       description: Estimated cost-benefit analysis data for an automation idea
@@ -566,26 +823,31 @@ components:
         estimatedTimeSavingsPerYear:
           type: number
           description: Estimated hours saved per year by automating this process
+          example: 1.0
         estimatedFTESavings:
           type: number
           description: Full-time equivalent headcount savings from the automation
+          example: 1.0
         estimatedCostSavingsPerYear:
           type: number
           description: Estimated monetary cost savings per year in the organization's currency
+          example: 1.0
     CreateAutomationIdeaRequest:
       type: object
       description: Request payload for creating a new automation idea
       required:
-        - name
-        - description
+      - name
+      - description
       properties:
         name:
           type: string
           description: Display name of the automation idea
           maxLength: 256
+          example: Example Name
         description:
           type: string
           description: Detailed description of the automation opportunity
+          example: Example description for this resource.
         estimatedBenefit:
           $ref: '#/components/schemas/BenefitData'
         tags:
@@ -593,6 +855,7 @@ components:
           items:
             type: string
           description: Tags for categorizing the automation idea
+          example: []
     UpdateAutomationRequest:
       type: object
       description: Request payload for partially updating an automation record
@@ -601,12 +864,15 @@ components:
           type: string
           enum: [Idea, Assessment, Analysis, Development, Testing, Production, OnHold, Rejected]
           description: Updated pipeline phase for the automation
+          example: Idea
         status:
           type: string
           description: Updated status within the current phase
+          example: Active
         description:
           type: string
           description: Updated description of the automation
+          example: Example description for this resource.
         estimatedBenefit:
           $ref: '#/components/schemas/BenefitData'
     Collaborator:
@@ -616,16 +882,20 @@ components:
         userId:
           type: integer
           description: Unique integer identifier of the collaborating user
+          example: 12345
         name:
           type: string
           description: Display name of the collaborator
+          example: Example Name
         email:
           type: string
           format: email
           description: Email address of the collaborator
+          example: user@example.com
         role:
           type: string
           description: Role of this collaborator on the automation
+          example: example-value
     AutomationListResponse:
       type: object
       description: Paginated response containing automation records
@@ -633,16 +903,20 @@ components:
         totalCount:
           type: integer
           description: Total number of automations matching the query
+          example: 42
         page:
           type: integer
           description: Current page number
+          example: 1
         pageSize:
           type: integer
           description: Number of records per page
+          example: 1
         automations:
           type: array
           items:
             $ref: '#/components/schemas/Automation'
+          example: []
     PipelineData:
       type: object
       description: Summary of the automation pipeline distribution across phases
@@ -651,6 +925,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PhaseCount'
+          example: []
     PhaseCount:
       type: object
       description: Count of automations in a specific pipeline phase
@@ -658,9 +933,11 @@ components:
         phase:
           type: string
           description: Name of the pipeline phase
+          example: example-value
         count:
           type: integer
           description: Number of automations in this phase
+          example: 42
     User:
       type: object
       description: A user in Automation Hub
@@ -668,48 +945,58 @@ components:
         id:
           type: integer
           description: Unique integer identifier of the user
+          example: 12345
         name:
           type: string
           description: Display name of the user
+          example: Example Name
         email:
           type: string
           format: email
           description: Email address of the user
+          example: user@example.com
         role:
           type: string
           description: Role assigned to the user in Automation Hub
+          example: example-value
         isActive:
           type: boolean
           description: Whether the user account is active
+          example: true
     AddUserRequest:
       type: object
       description: Request payload for adding a new user to Automation Hub
       required:
-        - email
-        - role
+      - email
+      - role
       properties:
         email:
           type: string
           format: email
           description: Email address of the user to add
+          example: user@example.com
         role:
           type: string
           description: Role to assign to the user
+          example: example-value
     EditUserRequest:
       type: object
       description: Request payload for updating an existing user in Automation Hub
       required:
-        - id
+      - id
       properties:
         id:
           type: integer
           description: Unique identifier of the user to update
+          example: 12345
         role:
           type: string
           description: Updated role to assign to the user
+          example: example-value
         isActive:
           type: boolean
           description: Updated active status for the user account
+          example: true
     Role:
       type: object
       description: A role defining a set of permissions in Automation Hub
@@ -717,33 +1004,41 @@ components:
         id:
           type: integer
           description: Unique integer identifier of the role
+          example: 12345
         name:
           type: string
           description: Display name of the role
+          example: Example Name
         description:
           type: string
           description: Description of the permissions granted by this role
+          example: Example description for this resource.
     Application:
       type: object
       description: A business application entry in the application inventory
       required:
-        - name
+      - name
       properties:
         id:
           type: integer
           description: Unique integer identifier of the application
+          example: 12345
         name:
           type: string
           description: Display name of the application
+          example: Example Name
         vendor:
           type: string
           description: Vendor or provider of the application
+          example: example-value
         category:
           type: string
           description: Category classification of the application
+          example: example-value
         description:
           type: string
           description: Optional description of the application
+          example: Example description for this resource.
     AppInventoryListResponse:
       type: object
       description: Response containing application inventory entries
@@ -751,10 +1046,12 @@ components:
         totalCount:
           type: integer
           description: Total number of application inventory entries
+          example: 42
         applications:
           type: array
           items:
             $ref: '#/components/schemas/Application'
+          example: []
     UserListResponse:
       type: object
       description: Paginated response containing user records
@@ -762,10 +1059,12 @@ components:
         totalCount:
           type: integer
           description: Total number of users
+          example: 42
         users:
           type: array
           items:
             $ref: '#/components/schemas/User'
+          example: []
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -773,6 +1072,8 @@ components:
         message:
           type: string
           description: Human-readable error message
+          example: example-value
         code:
           type: integer
           description: Numeric error code
+          example: 1

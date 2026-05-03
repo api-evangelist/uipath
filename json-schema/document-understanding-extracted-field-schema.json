@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-extracted-field-schema.json",
+  "title": "ExtractedField",
+  "description": "A single extracted field with its value and confidence metadata",
+  "type": "object",
+  "properties": {
+    "FieldId": {
+      "type": "string",
+      "description": "Identifier of the extracted field as defined in the extractor schema",
+      "example": "abc123"
+    },
+    "FieldName": {
+      "type": "string",
+      "description": "Display name of the extracted field",
+      "example": "Example Name"
+    },
+    "IsMissing": {
+      "type": "boolean",
+      "description": "Whether the field was not found in the document",
+      "example": true
+    },
+    "Value": {
+      "$ref": "#/components/schemas/FieldValue"
+    }
+  }
+}

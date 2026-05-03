@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-user-collection-structure.json",
+  "name": "ODataUserCollection",
+  "description": "OData collection response containing users",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "int64",
+            "description": "Unique user identifier"
+          },
+          "UserName": {
+            "type": "string",
+            "description": "Username login identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Display name of the user"
+          },
+          "EmailAddress": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the user"
+          },
+          "IsActive": {
+            "type": "boolean",
+            "description": "Whether the user account is active"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

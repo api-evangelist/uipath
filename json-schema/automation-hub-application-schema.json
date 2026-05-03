@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-application-schema.json",
+  "title": "Application",
+  "description": "A business application entry in the application inventory",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique integer identifier of the application",
+      "example": 12345
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the application",
+      "example": "Example Name"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Vendor or provider of the application",
+      "example": "example-value"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category classification of the application",
+      "example": "example-value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the application",
+      "example": "Example description for this resource."
+    }
+  }
+}

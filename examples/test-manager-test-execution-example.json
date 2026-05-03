@@ -1,0 +1,12 @@
+{
+  "id": "item-001",
+  "testSetId": "item-001",
+  "testSetName": "Example Name",
+  "status": "Pending",
+  "startedOn": "2026-01-15T10:30:00Z",
+  "finishedOn": "2026-01-15T10:30:00Z",
+  "totalTestCases": 34,
+  "passedTestCases": 81,
+  "failedTestCases": 40,
+  "blockedTestCases": 66
+}

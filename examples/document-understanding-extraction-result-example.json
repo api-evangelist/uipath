@@ -1,0 +1,8 @@
+{
+  "requestId": "item-001",
+  "status": "NotStarted",
+  "result": {
+    "documentId": "item-001",
+    "extractionResult": {}
+  }
+}

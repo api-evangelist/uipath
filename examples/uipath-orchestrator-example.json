@@ -1,0 +1,50 @@
+{
+  "job": {
+    "Id": 89,
+    "Key": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "ReleaseName": "Example Name",
+    "ProcessVersion": "1.0.0",
+    "State": "Pending",
+    "Source": "Manual",
+    "StartTime": "2026-01-15T10:30:00Z",
+    "EndTime": "2026-01-15T10:30:00Z",
+    "CreationTime": "2026-01-15T10:30:00Z",
+    "Info": "example-value",
+    "HostMachineName": "Example Name",
+    "Robot": {},
+    "OrganizationUnitId": 5,
+    "InputArguments": "example-value",
+    "OutputArguments": "example-value",
+    "JobPriority": "Low"
+  },
+  "queueItem": {
+    "Id": 51,
+    "Key": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "QueueDefinitionId": 62,
+    "Status": "New",
+    "ReviewStatus": "None",
+    "Priority": "Low",
+    "Reference": "example-value",
+    "SpecificContent": {},
+    "Output": {},
+    "CreationTime": "2026-01-15T10:30:00Z",
+    "StartProcessing": "2026-01-15T10:30:00Z",
+    "EndProcessing": "2026-01-15T10:30:00Z",
+    "RetryNumber": 38,
+    "DueDate": "2026-01-15T10:30:00Z",
+    "PostponeDate": "2026-01-15T10:30:00Z",
+    "Robot": {}
+  },
+  "asset": {
+    "Id": 83,
+    "Name": "Example Name",
+    "ValueType": "Text",
+    "StringValue": "example-value",
+    "IntValue": 55,
+    "BoolValue": true,
+    "CredentialUsername": "Example Name",
+    "CredentialPassword": "example-value",
+    "Description": "Example description for this resource.",
+    "OrganizationUnitId": 52
+  }
+}

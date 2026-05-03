@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-extractor-structure.json",
+  "name": "Extractor",
+  "description": "A model that extracts structured data fields from a document",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the extractor",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the extractor",
+      "example": "Example Name"
+    },
+    "documentType": {
+      "type": "string",
+      "description": "Document type this extractor is designed for",
+      "example": "Standard"
+    },
+    "extractorType": {
+      "type": "string",
+      "enum": [
+        "Specialized",
+        "GenerativeAI",
+        "FormExtractor",
+        "IntelligentFormExtractor"
+      ],
+      "description": "Technology category of the extractor model",
+      "example": "Specialized"
+    }
+  }
+}

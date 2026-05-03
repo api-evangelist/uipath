@@ -1,0 +1,173 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AsyncJobStartResponse": "uipath:AsyncJobStartResponse",
+    "ClassificationRequest": "uipath:ClassificationRequest",
+    "ClassificationResultItem": "uipath:ClassificationResultItem",
+    "ClassificationResult": "uipath:ClassificationResult",
+    "ClassifierOption": "uipath:ClassifierOption",
+    "Classifier": "uipath:Classifier",
+    "DigitizationRequest": "uipath:DigitizationRequest",
+    "DigitizationResult": "uipath:DigitizationResult",
+    "ExtractedField": "uipath:ExtractedField",
+    "ExtractionRequest": "uipath:ExtractionRequest",
+    "ExtractionResultData": "uipath:ExtractionResultData",
+    "ExtractionResult": "uipath:ExtractionResult",
+    "ExtractorOption": "uipath:ExtractorOption",
+    "Extractor": "uipath:Extractor",
+    "FieldValue": "uipath:FieldValue",
+    "Project": "uipath:Project",
+    "ValidationRequest": "uipath:ValidationRequest",
+    "requestId": {
+      "@id": "uipath:requestId",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "uipath:status",
+      "@type": "xsd:string"
+    },
+    "documentId": {
+      "@id": "uipath:documentId",
+      "@type": "xsd:string"
+    },
+    "classifiersOptions": {
+      "@id": "uipath:classifiersOptions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "classifierId": {
+      "@id": "uipath:classifierId",
+      "@type": "xsd:string"
+    },
+    "documentTypeId": {
+      "@id": "uipath:documentTypeId",
+      "@type": "xsd:string"
+    },
+    "confidence": {
+      "@id": "uipath:confidence",
+      "@type": "xsd:float"
+    },
+    "startPage": {
+      "@id": "uipath:startPage",
+      "@type": "xsd:integer"
+    },
+    "endPage": {
+      "@id": "uipath:endPage",
+      "@type": "xsd:integer"
+    },
+    "result": {
+      "@id": "uipath:result",
+      "@type": "@id"
+    },
+    "classificationResults": {
+      "@id": "uipath:classificationResults",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "uipath:id",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "classifierType": {
+      "@id": "uipath:classifierType",
+      "@type": "xsd:string"
+    },
+    "documentTypes": {
+      "@id": "uipath:documentTypes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "contentType": {
+      "@id": "uipath:contentType",
+      "@type": "xsd:string"
+    },
+    "documentBase64": {
+      "@id": "uipath:documentBase64",
+      "@type": "xsd:string"
+    },
+    "pageCount": {
+      "@id": "uipath:pageCount",
+      "@type": "xsd:integer"
+    },
+    "FieldId": {
+      "@id": "uipath:FieldId",
+      "@type": "xsd:string"
+    },
+    "FieldName": {
+      "@id": "uipath:FieldName",
+      "@type": "xsd:string"
+    },
+    "IsMissing": {
+      "@id": "uipath:IsMissing",
+      "@type": "xsd:boolean"
+    },
+    "Value": {
+      "@id": "uipath:Value",
+      "@type": "xsd:string"
+    },
+    "extractorsOptions": {
+      "@id": "uipath:extractorsOptions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "ResultsVersion": {
+      "@id": "uipath:ResultsVersion",
+      "@type": "xsd:integer"
+    },
+    "DocumentId": {
+      "@id": "uipath:DocumentId",
+      "@type": "xsd:string"
+    },
+    "Fields": {
+      "@id": "uipath:Fields",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "extractionResult": {
+      "@id": "uipath:extractionResult",
+      "@type": "xsd:string"
+    },
+    "extractorId": {
+      "@id": "uipath:extractorId",
+      "@type": "xsd:string"
+    },
+    "documentType": {
+      "@id": "uipath:documentType",
+      "@type": "xsd:string"
+    },
+    "extractorType": {
+      "@id": "uipath:extractorType",
+      "@type": "xsd:string"
+    },
+    "Confidence": {
+      "@id": "uipath:Confidence",
+      "@type": "xsd:float"
+    },
+    "OcrConfidence": {
+      "@id": "uipath:OcrConfidence",
+      "@type": "xsd:float"
+    },
+    "TextType": {
+      "@id": "uipath:TextType",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "extractorsUrl": {
+      "@id": "uipath:extractorsUrl",
+      "@type": "@id"
+    },
+    "classifiersUrl": {
+      "@id": "uipath:classifiersUrl",
+      "@type": "@id"
+    },
+    "classificationResult": {
+      "@id": "uipath:classificationResult",
+      "@type": "xsd:string"
+    }
+  }
+}

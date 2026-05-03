@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-o-data-machine-collection-schema.json",
+  "title": "ODataMachineCollection",
+  "description": "OData collection response containing machines",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique machine identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Display name or hostname of the machine"
+          },
+          "Type": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Template"
+            ],
+            "description": "Whether this is a physical machine or a cloud robot template"
+          },
+          "LicenseKey": {
+            "type": "string",
+            "description": "License key used by the robot installed on this machine"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

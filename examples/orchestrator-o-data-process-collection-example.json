@@ -1,0 +1,11 @@
+{
+  "value": [
+    {
+      "Id": 28,
+      "Name": "Example Name",
+      "Key": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "Description": "Example description for this resource.",
+      "ProcessVersion": "1.0.0"
+    }
+  ]
+}

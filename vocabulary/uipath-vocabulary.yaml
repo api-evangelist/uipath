@@ -1,0 +1,485 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "UiPath"
+  description: "Unified vocabulary for UiPath automation platform APIs covering operational resources, actions, schemas, and capability workflows."
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: orchestrator
+      name: "UiPath Orchestrator API"
+      version: "2024.10"
+      baseUrl: "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_"
+      status: active
+    - namespace: automation-hub
+      name: "UiPath Automation Hub API"
+      version: "1.0"
+      baseUrl: "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1"
+      status: active
+    - namespace: document-understanding
+      name: "UiPath Document Understanding API"
+      version: "1.0"
+      baseUrl: "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework"
+      status: active
+    - namespace: data-service
+      name: "UiPath Data Service API"
+      version: "1.0"
+      baseUrl: "https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService"
+      status: active
+    - namespace: platform-management
+      name: "UiPath Platform Management API"
+      version: "2024.10"
+      baseUrl: "https://cloud.uipath.com"
+      status: active
+    - namespace: test-manager
+      name: "UiPath Test Manager API"
+      version: "2"
+      baseUrl: "https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_"
+      status: active
+
+  resources:
+    - name: jobs
+      api: orchestrator
+      actions: [list, get, start, stop]
+      description: "Automation job executions managed by Orchestrator"
+    - name: robots
+      api: orchestrator
+      actions: [list]
+      description: "Registered software robots executing automation workflows"
+    - name: processes
+      api: orchestrator
+      actions: [list]
+      description: "Published automation packages deployed to folders"
+    - name: queues
+      api: orchestrator
+      actions: [list, create]
+      description: "Transaction queues for distributing work across robots"
+    - name: queue-items
+      api: orchestrator
+      actions: [list, add]
+      description: "Individual transaction items within automation queues"
+    - name: assets
+      api: orchestrator
+      actions: [list, get, create, update, delete]
+      description: "Shared credentials, text values, integers, and boolean values"
+    - name: alerts
+      api: orchestrator
+      actions: [list]
+      description: "System and automation monitoring alerts"
+    - name: webhooks
+      api: orchestrator
+      actions: [list, create, delete]
+      description: "Event-driven webhook subscriptions for automation events"
+    - name: folders
+      api: orchestrator
+      actions: [list]
+      description: "Organizational containers for grouping automation resources"
+    - name: machines
+      api: orchestrator
+      actions: [list]
+      description: "Machine templates for running automation robots"
+    - name: automations
+      api: automation-hub
+      actions: [list, get, create, update, delete]
+      description: "Automation ideas and projects in the pipeline"
+    - name: pipeline
+      api: automation-hub
+      actions: [get]
+      description: "Overall automation program pipeline and metrics"
+    - name: documents
+      api: document-understanding
+      actions: [digitize, classify, extract, validate]
+      description: "Documents submitted for intelligent processing"
+    - name: projects
+      api: document-understanding
+      actions: [list]
+      description: "Document Understanding ML model projects"
+    - name: extractors
+      api: document-understanding
+      actions: [list]
+      description: "ML extraction models for structured data extraction"
+    - name: entity-records
+      api: data-service
+      actions: [list, get, create, update, delete, query]
+      description: "Records stored in custom Data Service entities"
+    - name: users
+      api: platform-management
+      actions: [get, create, delete]
+      description: "Organization users with platform access"
+    - name: groups
+      api: platform-management
+      actions: [list, get, create]
+      description: "User groups for access management and licensing"
+    - name: audit-events
+      api: platform-management
+      actions: [query]
+      description: "Audit log events for compliance and governance"
+    - name: license-allocations
+      api: platform-management
+      actions: [get, update]
+      description: "License assignments to user groups"
+    - name: test-projects
+      api: test-manager
+      actions: [list, get, create]
+      description: "Test management projects containing test cases and sets"
+    - name: test-cases
+      api: test-manager
+      actions: [list, get, create]
+      description: "Individual test cases within test projects"
+    - name: test-sets
+      api: test-manager
+      actions: [list, create]
+      description: "Grouped collections of test cases for execution"
+    - name: test-executions
+      api: test-manager
+      actions: [list]
+      description: "Test execution records and results"
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a collection of resources"
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a single resource by identifier"
+    - name: create
+      httpMethod: POST
+      pattern: write
+      description: "Create a new resource"
+    - name: update
+      httpMethod: PUT
+      pattern: write
+      description: "Update an existing resource"
+    - name: patch
+      httpMethod: PATCH
+      pattern: write
+      description: "Partially update an existing resource"
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+      description: "Delete a resource"
+    - name: start
+      httpMethod: POST
+      pattern: write
+      description: "Start an automation job execution"
+    - name: stop
+      httpMethod: POST
+      pattern: destructive
+      description: "Stop a running automation job"
+    - name: digitize
+      httpMethod: POST
+      pattern: write
+      description: "Run OCR digitization on a document"
+    - name: classify
+      httpMethod: POST
+      pattern: query
+      description: "Classify a document using ML models"
+    - name: extract
+      httpMethod: POST
+      pattern: query
+      description: "Extract structured data from a document"
+    - name: validate
+      httpMethod: POST
+      pattern: query
+      description: "Validate extracted data against business rules"
+    - name: query
+      httpMethod: POST
+      pattern: query
+      description: "Query resources with complex filter expressions"
+    - name: add
+      httpMethod: POST
+      pattern: write
+      description: "Add an item to a collection"
+
+  schemas:
+    core:
+      - name: Job
+        api: orchestrator
+        description: "Automation job with state, start/end times, robot, and process"
+      - name: Robot
+        api: orchestrator
+        description: "Software robot with name, type, and connection status"
+      - name: Queue
+        api: orchestrator
+        description: "Transaction queue definition with processing settings"
+      - name: QueueItem
+        api: orchestrator
+        description: "Transaction item with specific content and processing status"
+      - name: Asset
+        api: orchestrator
+        description: "Shared asset with name, type, and value"
+    document-processing:
+      - name: DigitizationResult
+        api: document-understanding
+        description: "OCR digitization result with text content and confidence"
+      - name: ClassificationResult
+        api: document-understanding
+        description: "Document type classification result with confidence score"
+      - name: ExtractionResult
+        api: document-understanding
+        description: "Structured data extraction result with field values"
+    automation-pipeline:
+      - name: Automation
+        api: automation-hub
+        description: "Automation idea with phase, status, and benefit data"
+      - name: PipelineData
+        api: automation-hub
+        description: "Pipeline overview with counts by phase and status"
+    data:
+      - name: EntityRecord
+        api: data-service
+        description: "Custom data record with entity-specific fields"
+    identity:
+      - name: User
+        api: platform-management
+        description: "Organization user with roles and license assignments"
+      - name: Group
+        api: platform-management
+        description: "User group for access management"
+    testing:
+      - name: TestCase
+        api: test-manager
+        description: "Individual test case with steps and expected results"
+      - name: TestExecution
+        api: test-manager
+        description: "Test execution record with pass/fail results"
+
+  parameters:
+    pagination:
+      - name: page
+        description: "Page number for paginated results"
+        apis: [automation-hub, test-manager]
+      - name: pageSize
+        description: "Number of results per page"
+        apis: [automation-hub, test-manager]
+      - name: $top
+        description: "OData maximum records to return"
+        apis: [orchestrator, data-service]
+      - name: $skip
+        description: "OData records to skip for pagination"
+        apis: [orchestrator, data-service]
+    filters:
+      - name: $filter
+        description: "OData filter expression"
+        apis: [orchestrator, data-service]
+      - name: $orderby
+        description: "OData sort order expression"
+        apis: [orchestrator, data-service]
+      - name: phase
+        description: "Automation pipeline phase filter"
+        apis: [automation-hub]
+      - name: status
+        description: "Resource status filter"
+        apis: [automation-hub]
+    identifiers:
+      - name: automationId
+        description: "Automation Hub automation identifier"
+        apis: [automation-hub]
+      - name: projectId
+        description: "Document Understanding or Test Manager project identifier"
+        apis: [document-understanding, test-manager]
+      - name: entityName
+        description: "Data Service entity name"
+        apis: [data-service]
+      - name: recordId
+        description: "Data Service record identifier"
+        apis: [data-service]
+      - name: userId
+        description: "Platform Management user identifier"
+        apis: [platform-management]
+
+  enums:
+    jobStates:
+      - Pending
+      - Running
+      - Successful
+      - Faulted
+      - Stopped
+      - Suspended
+      - Resumed
+    assetTypes:
+      - Text
+      - Integer
+      - Boolean
+      - Credential
+    automationPhases:
+      - Idea
+      - Qualification
+      - Analysis
+      - Solution Design
+      - Development
+      - Testing
+      - Deployed
+    automationStatuses:
+      - Draft
+      - Submitted
+      - Under Review
+      - Approved
+      - Rejected
+      - Implemented
+    webhookEventTypes:
+      - job.created
+      - job.stateChanged
+      - job.faulted
+      - queueItem.added
+      - queueItem.transactionStarted
+      - queueItem.transactionCompleted
+      - queueItem.transactionFailed
+
+  authentication:
+    schemes:
+      - type: Bearer OAuth 2.0
+        apis: [orchestrator, document-understanding, data-service, platform-management, test-manager]
+        description: "OAuth 2.0 bearer tokens from UiPath Identity Server"
+        tokenUrl: "https://cloud.uipath.com/identity_/connect/token"
+      - type: API Key Header
+        apis: [automation-hub]
+        headerName: "X-Authorization"
+        description: "API key generated from Automation Hub Admin Console"
+
+capability:
+  workflows:
+    - name: "Automation Operations"
+      file: "capabilities/automation-operations.yaml"
+      description: "Manage robots, jobs, queues, and assets in Orchestrator"
+      apis: [orchestrator, data-service]
+      toolCount: 10
+      personas: [RPA Developer, Automation Operator]
+      domains: [Automation, Operations]
+    - name: "Intelligent Document Processing"
+      file: "capabilities/intelligent-document-processing.yaml"
+      description: "OCR, classify, and extract data from documents"
+      apis: [document-understanding, orchestrator]
+      toolCount: 7
+      personas: [Document Processing Specialist, RPA Developer]
+      domains: [Document Processing, Automation]
+    - name: "Automation Governance"
+      file: "capabilities/automation-governance.yaml"
+      description: "Manage automation pipeline, users, licenses, and quality"
+      apis: [automation-hub, platform-management, test-manager]
+      toolCount: 11
+      personas: [CoE Manager, Platform Administrator, QA Engineer]
+      domains: [Governance, Administration, Quality Assurance]
+
+  personas:
+    - id: rpa-developer
+      name: "RPA Developer"
+      description: "Develops and deploys automation workflows using UiPath Studio and Python SDK"
+      workflows: ["Automation Operations", "Intelligent Document Processing"]
+    - id: automation-operator
+      name: "Automation Operator"
+      description: "Monitors and manages running automations, robots, queues, and alerts"
+      workflows: ["Automation Operations"]
+    - id: document-processing-specialist
+      name: "Document Processing Specialist"
+      description: "Configures and manages Document Understanding models and extraction pipelines"
+      workflows: ["Intelligent Document Processing"]
+    - id: coe-manager
+      name: "CoE Manager"
+      description: "Oversees the automation program pipeline, prioritization, and ROI tracking"
+      workflows: ["Automation Governance"]
+    - id: platform-administrator
+      name: "Platform Administrator"
+      description: "Manages users, groups, licenses, and organizational settings"
+      workflows: ["Automation Governance"]
+    - id: qa-engineer
+      name: "QA Engineer"
+      description: "Creates and manages test projects, test cases, and execution reports"
+      workflows: ["Automation Governance"]
+
+  domains:
+    - name: "Automation"
+      description: "Core RPA automation lifecycle from development to execution"
+      resources: [jobs, robots, processes, queues, assets]
+    - name: "Operations"
+      description: "Day-to-day monitoring and management of running automations"
+      resources: [jobs, alerts, queues, robots]
+    - name: "Document Processing"
+      description: "Intelligent processing of structured and unstructured documents"
+      resources: [documents, extractors, projects]
+    - name: "Governance"
+      description: "Oversight of the automation program including pipeline, compliance, and quality"
+      resources: [automations, pipeline, audit-events, license-allocations]
+    - name: "Administration"
+      description: "Platform configuration including users, groups, and licenses"
+      resources: [users, groups, license-allocations]
+    - name: "Quality Assurance"
+      description: "Test management and automated quality verification"
+      resources: [test-projects, test-cases, test-executions]
+
+  namespaces:
+    consumed:
+      - namespace: orchestrator
+        type: http
+        port: null
+      - namespace: automation-hub
+        type: http
+        port: null
+      - namespace: document-understanding
+        type: http
+        port: null
+      - namespace: data-service
+        type: http
+        port: null
+      - namespace: platform-management
+        type: http
+        port: null
+      - namespace: test-manager
+        type: http
+        port: null
+    restExposed:
+      - namespace: automation-operations-api
+        port: 8080
+      - namespace: idp-api
+        port: 8081
+      - namespace: automation-governance-api
+        port: 8082
+    mcpExposed:
+      - namespace: automation-operations-mcp
+        port: 9080
+      - namespace: idp-mcp
+        port: 9081
+      - namespace: automation-governance-mcp
+        port: 9082
+
+  binds:
+    - name: UIPATH_BEARER_TOKEN
+      description: "OAuth 2.0 bearer token for Orchestrator, Document Understanding, Data Service, Platform Management, and Test Manager APIs"
+      workflows: ["Automation Operations", "Intelligent Document Processing", "Automation Governance"]
+    - name: UIPATH_AUTOMATION_HUB_API_KEY
+      description: "API key for Automation Hub generated from Admin Console"
+      workflows: ["Automation Governance"]
+
+crossReference:
+  - resource: jobs
+    operations: [list-jobs, get-job, start-jobs, stop-job]
+    workflows: ["Automation Operations", "Intelligent Document Processing"]
+    personas: [RPA Developer, Automation Operator]
+  - resource: queues
+    operations: [list-queues, create-queue, list-queue-items, add-queue-item]
+    workflows: ["Automation Operations"]
+    personas: [RPA Developer, Automation Operator]
+  - resource: assets
+    operations: [list-assets, get-asset, create-asset, update-asset, delete-asset]
+    workflows: ["Automation Operations"]
+    personas: [RPA Developer, Automation Operator]
+  - resource: documents
+    operations: [digitize-document, classify-document, extract-document, get-extraction-result]
+    workflows: ["Intelligent Document Processing"]
+    personas: [Document Processing Specialist, RPA Developer]
+  - resource: automations
+    operations: [list-automations, get-automation, create-automation-idea, update-automation]
+    workflows: ["Automation Governance"]
+    personas: [CoE Manager]
+  - resource: users
+    operations: [get-user, create-user, delete-user]
+    workflows: ["Automation Governance"]
+    personas: [Platform Administrator]
+  - resource: test-executions
+    operations: [list-test-executions]
+    workflows: ["Automation Governance"]
+    personas: [QA Engineer, CoE Manager]

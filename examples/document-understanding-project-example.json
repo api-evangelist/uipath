@@ -1,0 +1,7 @@
+{
+  "id": "item-001",
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "extractorsUrl": "https://cloud.uipath.com/example",
+  "classifiersUrl": "https://cloud.uipath.com/example"
+}

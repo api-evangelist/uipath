@@ -1,0 +1,10 @@
+{
+  "value": [
+    {
+      "Id": 25,
+      "Name": "Example Name",
+      "Description": "Example description for this resource.",
+      "StorageProvider": "UiPath"
+    }
+  ]
+}

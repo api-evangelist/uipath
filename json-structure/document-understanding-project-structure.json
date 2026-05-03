@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-project-structure.json",
+  "name": "Project",
+  "description": "A Document Understanding project containing classifiers and extractors",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the project",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the project",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the project's purpose",
+      "example": "Example description for this resource."
+    },
+    "extractorsUrl": {
+      "type": "uri",
+      "description": "URL to retrieve the list of extractors for this project",
+      "example": "https://cloud.uipath.com/example"
+    },
+    "classifiersUrl": {
+      "type": "uri",
+      "description": "URL to retrieve the list of classifiers for this project",
+      "example": "https://cloud.uipath.com/example"
+    }
+  }
+}

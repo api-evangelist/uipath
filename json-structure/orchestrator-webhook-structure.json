@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-webhook-structure.json",
+  "name": "Webhook",
+  "description": "A webhook subscription that receives Orchestrator event notifications",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "int64",
+      "description": "Unique integer identifier of the webhook",
+      "example": 12345
+    },
+    "Url": {
+      "type": "uri",
+      "description": "The HTTPS endpoint URL that receives event POST requests",
+      "example": "https://cloud.uipath.com/example"
+    },
+    "Enabled": {
+      "type": "boolean",
+      "description": "Whether the webhook is active and sending notifications",
+      "example": true
+    },
+    "Secret": {
+      "type": "string",
+      "description": "Optional HMAC secret for validating payload signatures via X-UiPath-Signature header",
+      "example": "example-value"
+    },
+    "SubscribeToAllEvents": {
+      "type": "boolean",
+      "description": "Whether to receive all event types or only the specified ones",
+      "example": true
+    },
+    "AllowInsecureSsl": {
+      "type": "boolean",
+      "description": "Whether to allow webhook delivery to endpoints with invalid SSL certificates",
+      "example": true
+    },
+    "Events": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of event type identifiers to subscribe to when SubscribeToAllEvents is false",
+      "example": []
+    }
+  }
+}

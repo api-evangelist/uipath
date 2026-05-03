@@ -22,25 +22,25 @@ externalDocs:
   description: UiPath Data Service API Documentation
   url: https://docs.uipath.com/data-service/automation-cloud/latest/user-guide/api-access
 servers:
-  - url: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService
-    description: UiPath Automation Cloud Data Service
-    variables:
-      organizationName:
-        default: your-org
-        description: The name of your UiPath organization
-      tenantName:
-        default: your-tenant
-        description: The name of your UiPath tenant
+- url: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService
+  description: UiPath Automation Cloud Data Service
+  variables:
+    organizationName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
 tags:
-  - name: Entities
-    description: Perform CRUD operations on custom data entity records
+- name: Entities
+  description: Perform CRUD operations on custom data entity records
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /{entityName}:
     get:
       operationId: listEntityRecords
-      summary: List records for an entity
+      summary: UiPath List Records for an Entity
       description: >-
         Retrieves a list of records for the specified custom entity type. Supports
         filtering with query expressions, ordering, pagination via skip and top,
@@ -48,48 +48,55 @@ paths:
         on the schema configured within the tenant's Data Service instance.
         Requires the DataService.Data.Read or DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
-        - name: $filter
-          in: query
-          required: false
-          description: Filter expression to narrow results by field values
-          schema:
-            type: string
-        - name: $orderby
-          in: query
-          required: false
-          description: Field name and direction to sort results (e.g., CreatedOn desc)
-          schema:
-            type: string
-        - name: $top
-          in: query
-          required: false
-          description: Maximum number of records to return
-          schema:
-            type: integer
-            minimum: 1
-            maximum: 1000
-        - name: $skip
-          in: query
-          required: false
-          description: Number of records to skip for pagination
-          schema:
-            type: integer
-            minimum: 0
-        - name: $select
-          in: query
-          required: false
-          description: Comma-separated list of field names to include in the response
-          schema:
-            type: string
-        - name: $expand
-          in: query
-          required: false
-          description: Related entity references to expand inline in the response
-          schema:
-            type: string
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
+      - name: $filter
+        in: query
+        required: false
+        description: Filter expression to narrow results by field values
+        schema:
+          type: string
+        example: example-value
+      - name: $orderby
+        in: query
+        required: false
+        description: Field name and direction to sort results (e.g., CreatedOn desc)
+        schema:
+          type: string
+        example: example-value
+      - name: $top
+        in: query
+        required: false
+        description: Maximum number of records to return
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+        example: 1
+      - name: $skip
+        in: query
+        required: false
+        description: Number of records to skip for pagination
+        schema:
+          type: integer
+          minimum: 0
+        example: 1
+      - name: $select
+        in: query
+        required: false
+        description: Comma-separated list of field names to include in the response
+        schema:
+          type: string
+        example: example-value
+      - name: $expand
+        in: query
+        required: false
+        description: Related entity references to expand inline in the response
+        schema:
+          type: string
+        example: example-value
       responses:
         '200':
           description: A list of entity records matching the query criteria
@@ -97,6 +104,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EntityRecordCollection'
+              examples:
+                listEntityRecords200Example:
+                  summary: Default listEntityRecords 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    value:
+                    - {}
+                    nextLink: https://cloud.uipath.com/example
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -105,9 +121,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createEntityRecord
-      summary: Create an entity record
+      summary: UiPath Create an Entity Record
       description: >-
         Creates a new record for the specified custom entity type. The request
         body must conform to the entity's schema definition. System-generated
@@ -115,15 +134,21 @@ paths:
         and should not be included in the request body. Requires the
         DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EntityRecordInput'
+            examples:
+              createEntityRecordRequestExample:
+                summary: Default createEntityRecord request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Entity record created successfully
@@ -131,38 +156,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EntityRecord'
+              examples:
+                createEntityRecord200Example:
+                  summary: Default createEntityRecord 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: example-value
+                    CreatedOn: '2026-01-15T10:30:00Z'
+                    CreatedBy: example-value
+                    ModifiedOn: '2026-01-15T10:30:00Z'
+                    ModifiedBy: example-value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{entityName}/{recordId}:
     get:
       operationId: getEntityRecord
-      summary: Get an entity record by ID
+      summary: UiPath Get an Entity Record by ID
       description: >-
         Retrieves a single entity record by its unique identifier. Returns
         all fields of the record including system fields. Supports the
         $select parameter to limit the fields returned. Requires the
         DataService.Data.Read or DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
-        - $ref: '#/components/parameters/recordId'
-        - name: $select
-          in: query
-          required: false
-          description: Comma-separated list of field names to include in the response
-          schema:
-            type: string
-        - name: $expand
-          in: query
-          required: false
-          description: Related entity references to expand inline in the response
-          schema:
-            type: string
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
+      - $ref: '#/components/parameters/recordId'
+        example: example-value
+      - name: $select
+        in: query
+        required: false
+        description: Comma-separated list of field names to include in the response
+        schema:
+          type: string
+        example: example-value
+      - name: $expand
+        in: query
+        required: false
+        description: Related entity references to expand inline in the response
+        schema:
+          type: string
+        example: example-value
       responses:
         '200':
           description: The requested entity record
@@ -170,15 +212,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EntityRecord'
+              examples:
+                getEntityRecord200Example:
+                  summary: Default getEntityRecord 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: example-value
+                    CreatedOn: '2026-01-15T10:30:00Z'
+                    CreatedBy: example-value
+                    ModifiedOn: '2026-01-15T10:30:00Z'
+                    ModifiedBy: example-value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateEntityRecord
-      summary: Update an entity record
+      summary: UiPath Update an Entity Record
       description: >-
         Updates an existing entity record by its unique identifier. The
         request body should include only the fields to update. System-managed
@@ -186,16 +241,23 @@ paths:
         ModifiedOn and ModifiedBy are updated automatically. Requires the
         DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
+      - $ref: '#/components/parameters/recordId'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EntityRecordInput'
+            examples:
+              updateEntityRecordRequestExample:
+                summary: Default updateEntityRecord request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Entity record updated successfully
@@ -203,6 +265,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EntityRecord'
+              examples:
+                updateEntityRecord200Example:
+                  summary: Default updateEntityRecord 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: example-value
+                    CreatedOn: '2026-01-15T10:30:00Z'
+                    CreatedBy: example-value
+                    ModifiedOn: '2026-01-15T10:30:00Z'
+                    ModifiedBy: example-value
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -211,17 +283,22 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteEntityRecord
-      summary: Delete an entity record
+      summary: UiPath Delete an Entity Record
       description: >-
         Permanently deletes an entity record by its unique identifier.
         This action cannot be undone. Requires the DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
-        - $ref: '#/components/parameters/recordId'
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
+      - $ref: '#/components/parameters/recordId'
+        example: example-value
       responses:
         '204':
           description: Entity record deleted successfully
@@ -231,10 +308,13 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /{entityName}/query:
     post:
       operationId: queryEntityRecords
-      summary: Query entity records with advanced filtering
+      summary: UiPath Query Entity Records with Advanced Filtering
       description: >-
         Performs an advanced query against the entity using a structured
         filter expression in the request body. Supports complex conditions,
@@ -242,15 +322,31 @@ paths:
         operators. Returns a paginated list of matching records.
         Requires the DataService.Data.Read or DataService.Data scope.
       tags:
-        - Entities
+      - Entities
       parameters:
-        - $ref: '#/components/parameters/entityName'
+      - $ref: '#/components/parameters/entityName'
+        example: example-value
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EntityQueryRequest'
+            examples:
+              queryEntityRecordsRequestExample:
+                summary: Default queryEntityRecords request
+                x-microcks-default: true
+                value:
+                  filterGroup:
+                    logicalOperator: {}
+                    queryFilters: {}
+                    filterGroups: {}
+                  selectedFields:
+                  - example-value
+                  orderBy:
+                  - {}
+                  start: 1
+                  limit: 1
       responses:
         '200':
           description: Records matching the query criteria
@@ -258,10 +354,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EntityRecordCollection'
+              examples:
+                queryEntityRecords200Example:
+                  summary: Default queryEntityRecords 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    value:
+                    - {}
+                    nextLink: https://cloud.uipath.com/example
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -325,20 +433,25 @@ components:
         Id:
           type: string
           description: Unique system-assigned identifier of the record
+          example: abc123
         CreatedOn:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the record was created
+          example: '2026-01-15T10:30:00Z'
         CreatedBy:
           type: string
           description: Identifier of the user or process that created the record
+          example: example-value
         ModifiedOn:
           type: string
           format: date-time
           description: ISO 8601 timestamp of the last modification
+          example: '2026-01-15T10:30:00Z'
         ModifiedBy:
           type: string
           description: Identifier of the user or process that last modified the record
+          example: example-value
       additionalProperties: true
     EntityRecordInput:
       type: object
@@ -355,15 +468,18 @@ components:
         totalCount:
           type: integer
           description: Total number of records matching the query
+          example: 42
         value:
           type: array
           items:
             $ref: '#/components/schemas/EntityRecord'
           description: Array of entity records for the current page
+          example: []
         nextLink:
           type: string
           format: uri
           description: URL for the next page of results, if more records are available
+          example: https://cloud.uipath.com/example
     EntityQueryRequest:
       type: object
       description: Advanced query request with structured filter conditions
@@ -375,19 +491,23 @@ components:
           items:
             type: string
           description: List of field names to include in the response
+          example: []
         orderBy:
           type: array
           items:
             $ref: '#/components/schemas/OrderByClause'
+          example: []
         start:
           type: integer
           minimum: 0
           description: Zero-based offset for pagination
+          example: 1
         limit:
           type: integer
           minimum: 1
           maximum: 1000
           description: Maximum number of records to return
+          example: 1
     FilterGroup:
       type: object
       description: A group of filter conditions joined by a logical operator
@@ -396,46 +516,54 @@ components:
           type: string
           enum: [AND, OR]
           description: Logical operator combining the conditions in this group
+          example: AND
         queryFilters:
           type: array
           items:
             $ref: '#/components/schemas/QueryFilter'
           description: List of individual field filter conditions
+          example: []
         filterGroups:
           type: array
           items:
             $ref: '#/components/schemas/FilterGroup'
           description: Nested filter groups for complex query expressions
+          example: []
     QueryFilter:
       type: object
       description: A single field comparison condition in a query
       required:
-        - fieldName
-        - operator
-        - value
+      - fieldName
+      - operator
+      - value
       properties:
         fieldName:
           type: string
           description: Name of the entity field to filter on
+          example: Example Name
         operator:
           type: string
           enum: [equals, notEquals, lessThan, lessThanOrEquals, greaterThan, greaterThanOrEquals, contains, startsWith, endsWith, isNull, isNotNull]
           description: Comparison operator for the filter condition
+          example: equals
         value:
           description: Value to compare against; type depends on the field type
+          example: example-value
     OrderByClause:
       type: object
       description: Sort specification for query results
       required:
-        - fieldName
+      - fieldName
       properties:
         fieldName:
           type: string
           description: Name of the field to sort by
+          example: Example Name
         descending:
           type: boolean
           default: false
           description: Whether to sort in descending order
+          example: true
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -443,9 +571,12 @@ components:
         message:
           type: string
           description: Human-readable error message
+          example: example-value
         errorCode:
           type: string
           description: Error code identifier
+          example: example-value
         traceId:
           type: string
           description: Trace identifier for support and debugging
+          example: abc123

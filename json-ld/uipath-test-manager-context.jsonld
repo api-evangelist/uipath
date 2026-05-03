@@ -1,0 +1,135 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CreateProjectRequest": "uipath:CreateProjectRequest",
+    "CreateRequirementRequest": "uipath:CreateRequirementRequest",
+    "CreateTestCaseRequest": "uipath:CreateTestCaseRequest",
+    "CreateTestSetRequest": "uipath:CreateTestSetRequest",
+    "ProjectListResponse": "uipath:ProjectListResponse",
+    "Project": "uipath:Project",
+    "RequirementListResponse": "uipath:RequirementListResponse",
+    "Requirement": "uipath:Requirement",
+    "TestCaseListResponse": "uipath:TestCaseListResponse",
+    "TestCase": "uipath:TestCase",
+    "TestExecutionListResponse": "uipath:TestExecutionListResponse",
+    "TestExecution": "uipath:TestExecution",
+    "TestSetListResponse": "uipath:TestSetListResponse",
+    "TestSet": "uipath:TestSet",
+    "name": "schema:name",
+    "description": "schema:description",
+    "externalId": {
+      "@id": "uipath:externalId",
+      "@type": "xsd:string"
+    },
+    "labels": {
+      "@id": "uipath:labels",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "uipath:totalCount",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "uipath:page",
+      "@type": "xsd:integer"
+    },
+    "pageSize": {
+      "@id": "uipath:pageSize",
+      "@type": "xsd:integer"
+    },
+    "projects": {
+      "@id": "uipath:projects",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "uipath:id",
+      "@type": "xsd:string"
+    },
+    "createdBy": {
+      "@id": "uipath:createdBy",
+      "@type": "xsd:string"
+    },
+    "createdOn": {
+      "@id": "uipath:createdOn",
+      "@type": "xsd:dateTime"
+    },
+    "testCaseCount": {
+      "@id": "uipath:testCaseCount",
+      "@type": "xsd:integer"
+    },
+    "requirementCount": {
+      "@id": "uipath:requirementCount",
+      "@type": "xsd:integer"
+    },
+    "requirements": {
+      "@id": "uipath:requirements",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "uipath:status",
+      "@type": "xsd:string"
+    },
+    "linkedTestCaseCount": {
+      "@id": "uipath:linkedTestCaseCount",
+      "@type": "xsd:integer"
+    },
+    "testCases": {
+      "@id": "uipath:testCases",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "automationStatus": {
+      "@id": "uipath:automationStatus",
+      "@type": "xsd:string"
+    },
+    "executions": {
+      "@id": "uipath:executions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "testSetId": {
+      "@id": "uipath:testSetId",
+      "@type": "xsd:string"
+    },
+    "testSetName": {
+      "@id": "uipath:testSetName",
+      "@type": "xsd:string"
+    },
+    "startedOn": {
+      "@id": "uipath:startedOn",
+      "@type": "xsd:dateTime"
+    },
+    "finishedOn": {
+      "@id": "uipath:finishedOn",
+      "@type": "xsd:dateTime"
+    },
+    "totalTestCases": {
+      "@id": "uipath:totalTestCases",
+      "@type": "xsd:integer"
+    },
+    "passedTestCases": {
+      "@id": "uipath:passedTestCases",
+      "@type": "xsd:integer"
+    },
+    "failedTestCases": {
+      "@id": "uipath:failedTestCases",
+      "@type": "xsd:integer"
+    },
+    "blockedTestCases": {
+      "@id": "uipath:blockedTestCases",
+      "@type": "xsd:integer"
+    },
+    "testSets": {
+      "@id": "uipath:testSets",
+      "@container": "@set",
+      "@type": "xsd:string"
+    }
+  }
+}

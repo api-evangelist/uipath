@@ -1,0 +1,9 @@
+{
+  "id": "item-001",
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "externalId": "item-001",
+  "status": "Active",
+  "linkedTestCaseCount": 75,
+  "createdOn": "2026-01-15T10:30:00Z"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/platform-management-audit-source-schema.json",
+  "title": "AuditSource",
+  "description": "A service that generates audit events",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name identifier of the audit event source service",
+      "example": "Example Name"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of event target categories for this source",
+      "example": []
+    }
+  }
+}

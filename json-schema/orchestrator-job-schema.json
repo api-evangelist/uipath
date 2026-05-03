@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-job-schema.json",
+  "title": "Job",
+  "description": "Represents a single automation job execution instance",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique integer identifier for the job",
+      "example": 12345
+    },
+    "Key": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique GUID key for the job",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "ReleaseName": {
+      "type": "string",
+      "description": "Name of the process (release) that this job executes",
+      "example": "Example Name"
+    },
+    "ProcessVersion": {
+      "type": "string",
+      "description": "Version of the process package used in this job",
+      "example": "1.0.0"
+    },
+    "State": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Running",
+        "Stopping",
+        "Terminating",
+        "Faulted",
+        "Successful",
+        "Stopped",
+        "Suspended",
+        "Resumed"
+      ],
+      "description": "Current execution state of the job",
+      "example": "Pending"
+    },
+    "Source": {
+      "type": "string",
+      "enum": [
+        "Manual",
+        "Schedule",
+        "Queue"
+      ],
+      "description": "How the job was initiated",
+      "example": "Manual"
+    },
+    "StartTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the job started executing",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "EndTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the job finished executing",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "CreationTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the job was created",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "Info": {
+      "type": "string",
+      "description": "Additional information or error message associated with the job state",
+      "example": "example-value"
+    },
+    "HostMachineName": {
+      "type": "string",
+      "description": "Name of the machine where the robot executed the job",
+      "example": "Example Name"
+    },
+    "Robot": {
+      "$ref": "#/components/schemas/RobotRef"
+    },
+    "OrganizationUnitId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "ID of the folder in which this job resides",
+      "example": 12345
+    },
+    "InputArguments": {
+      "type": "string",
+      "description": "JSON-serialized input arguments passed to the process",
+      "example": "example-value"
+    },
+    "OutputArguments": {
+      "type": "string",
+      "description": "JSON-serialized output arguments returned by the process",
+      "example": "example-value"
+    }
+  }
+}

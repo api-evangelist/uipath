@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-classifier-structure.json",
+  "name": "Classifier",
+  "description": "A model that classifies documents into predefined document types",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the classifier",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the classifier",
+      "example": "Example Name"
+    },
+    "classifierType": {
+      "type": "string",
+      "enum": [
+        "Specialized",
+        "GenerativeAI",
+        "KeywordBased"
+      ],
+      "description": "Technology category of the classifier model",
+      "example": "Specialized"
+    },
+    "documentTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of document type labels this classifier can identify",
+      "example": "Standard"
+    }
+  }
+}

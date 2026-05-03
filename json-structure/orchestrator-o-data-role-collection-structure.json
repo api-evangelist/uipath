@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-role-collection-structure.json",
+  "name": "ODataRoleCollection",
+  "description": "OData collection response containing roles",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "int64",
+            "description": "Unique role identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Display name of the role"
+          },
+          "DisplayName": {
+            "type": "string",
+            "description": "Human-readable display name for the role"
+          },
+          "IsStatic": {
+            "type": "boolean",
+            "description": "Whether this is a built-in system role that cannot be deleted"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

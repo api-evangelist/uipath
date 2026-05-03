@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/data-service-entity-record-collection-schema.json",
+  "title": "EntityRecordCollection",
+  "description": "A paginated collection of entity records",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "integer",
+      "description": "Total number of records matching the query",
+      "example": 42
+    },
+    "value": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/EntityRecord"
+      },
+      "description": "Array of entity records for the current page",
+      "example": []
+    },
+    "nextLink": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the next page of results, if more records are available",
+      "example": "https://cloud.uipath.com/example"
+    }
+  }
+}

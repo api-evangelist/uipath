@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-automation-list-response-schema.json",
+  "title": "AutomationListResponse",
+  "description": "Paginated response containing automation records",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "integer",
+      "description": "Total number of automations matching the query",
+      "example": 42
+    },
+    "page": {
+      "type": "integer",
+      "description": "Current page number",
+      "example": 1
+    },
+    "pageSize": {
+      "type": "integer",
+      "description": "Number of records per page",
+      "example": 1
+    },
+    "automations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Automation"
+      },
+      "example": []
+    }
+  }
+}

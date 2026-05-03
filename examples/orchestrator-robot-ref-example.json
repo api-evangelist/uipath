@@ -1,0 +1,8 @@
+{
+  "Id": 82,
+  "Name": "Example Name",
+  "MachineName": "Example Name",
+  "MachineId": 10,
+  "Version": "1.0.0",
+  "Type": "Unattended"
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/data-service-query-filter-schema.json",
+  "title": "QueryFilter",
+  "description": "A single field comparison condition in a query",
+  "type": "object",
+  "required": [
+    "fieldName",
+    "operator",
+    "value"
+  ],
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "description": "Name of the entity field to filter on",
+      "example": "Example Name"
+    },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "equals",
+        "notEquals",
+        "lessThan",
+        "lessThanOrEquals",
+        "greaterThan",
+        "greaterThanOrEquals",
+        "contains",
+        "startsWith",
+        "endsWith",
+        "isNull",
+        "isNotNull"
+      ],
+      "description": "Comparison operator for the filter condition",
+      "example": "equals"
+    },
+    "value": {
+      "description": "Value to compare against; type depends on the field type",
+      "example": "example-value"
+    }
+  }
+}

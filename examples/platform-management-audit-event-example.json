@@ -1,0 +1,14 @@
+{
+  "id": "item-001",
+  "createdOn": "2026-01-15T10:30:00Z",
+  "organizationId": "item-001",
+  "actorId": "item-001",
+  "actorEmail": "user@example.com",
+  "eventType": "Standard",
+  "eventSource": "example-value",
+  "eventTarget": "example-value",
+  "eventDetails": {},
+  "eventSummary": "example-value",
+  "status": 0,
+  "clientInfo": {}
+}

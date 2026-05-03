@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/automation-hub-benefit-data-structure.json",
+  "name": "BenefitData",
+  "description": "Estimated cost-benefit analysis data for an automation idea",
+  "type": "object",
+  "properties": {
+    "estimatedTimeSavingsPerYear": {
+      "type": "double",
+      "description": "Estimated hours saved per year by automating this process",
+      "example": 1.0
+    },
+    "estimatedFTESavings": {
+      "type": "double",
+      "description": "Full-time equivalent headcount savings from the automation",
+      "example": 1.0
+    },
+    "estimatedCostSavingsPerYear": {
+      "type": "double",
+      "description": "Estimated monetary cost savings per year in the organization's currency",
+      "example": 1.0
+    }
+  }
+}

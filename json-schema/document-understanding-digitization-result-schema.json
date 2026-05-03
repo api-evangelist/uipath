@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-digitization-result-schema.json",
+  "title": "DigitizationResult",
+  "description": "Result of a document digitization operation",
+  "type": "object",
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "description": "Unique identifier assigned to the digitized document. Use this ID in subsequent classification, extraction, and validation calls. Results are retained for seven days.",
+      "example": "abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Succeeded",
+        "Failed"
+      ],
+      "description": "Outcome of the digitization operation",
+      "example": "Succeeded"
+    },
+    "pageCount": {
+      "type": "integer",
+      "description": "Number of pages detected in the document",
+      "example": 42
+    }
+  }
+}

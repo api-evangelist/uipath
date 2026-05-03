@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-field-value-schema.json",
+  "title": "FieldValue",
+  "description": "The extracted value with confidence and source reference",
+  "type": "object",
+  "properties": {
+    "Value": {
+      "description": "Extracted value, which may be a string, number, or object depending on field type",
+      "example": "example-value"
+    },
+    "Confidence": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score for the extracted value (0.0 to 1.0)",
+      "example": 1.0
+    },
+    "OcrConfidence": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "OCR confidence score for the text underlying this value",
+      "example": 1.0
+    },
+    "TextType": {
+      "type": "string",
+      "enum": [
+        "Printed",
+        "Handwritten"
+      ],
+      "description": "Whether the source text was printed or handwritten",
+      "example": "Printed"
+    }
+  }
+}

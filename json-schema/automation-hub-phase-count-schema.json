@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-phase-count-schema.json",
+  "title": "PhaseCount",
+  "description": "Count of automations in a specific pipeline phase",
+  "type": "object",
+  "properties": {
+    "phase": {
+      "type": "string",
+      "description": "Name of the pipeline phase",
+      "example": "example-value"
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of automations in this phase",
+      "example": 42
+    }
+  }
+}

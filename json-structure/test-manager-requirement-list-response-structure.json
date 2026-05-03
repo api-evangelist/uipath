@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-requirement-list-response-structure.json",
+  "name": "RequirementListResponse",
+  "description": "Paginated response containing requirements",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "int32",
+      "description": "Total number of requirements",
+      "example": 42
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Requirement"
+      },
+      "example": []
+    }
+  }
+}

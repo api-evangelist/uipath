@@ -1,0 +1,11 @@
+{
+  "Id": 90,
+  "Url": "https://cloud.uipath.com/example",
+  "Enabled": true,
+  "Secret": "example-value",
+  "SubscribeToAllEvents": true,
+  "AllowInsecureSsl": true,
+  "Events": [
+    "example-value"
+  ]
+}

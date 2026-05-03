@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/document-understanding-classification-result-item-schema.json",
+  "title": "ClassificationResultItem",
+  "description": "Classification result for a specific document or page range",
+  "type": "object",
+  "properties": {
+    "classifierId": {
+      "type": "string",
+      "description": "Identifier of the classifier that produced this result",
+      "example": "abc123"
+    },
+    "documentTypeId": {
+      "type": "string",
+      "description": "Identified document type identifier",
+      "example": "abc123"
+    },
+    "confidence": {
+      "type": "number",
+      "format": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score of the classification result (0.0 to 1.0)",
+      "example": 1.0
+    },
+    "startPage": {
+      "type": "integer",
+      "description": "First page of the classified document section",
+      "example": 1
+    },
+    "endPage": {
+      "type": "integer",
+      "description": "Last page of the classified document section",
+      "example": 1
+    }
+  }
+}

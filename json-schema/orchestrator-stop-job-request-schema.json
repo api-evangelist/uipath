@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-stop-job-request-schema.json",
+  "title": "StopJobRequest",
+  "description": "Request payload for stopping a running job",
+  "type": "object",
+  "required": [
+    "jobId",
+    "strategy"
+  ],
+  "properties": {
+    "jobId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique integer identifier of the job to stop",
+      "example": 12345
+    },
+    "strategy": {
+      "type": "string",
+      "enum": [
+        "SoftStop",
+        "Kill"
+      ],
+      "description": "Stop strategy. SoftStop waits for the current activity to complete before stopping; Kill immediately terminates the robot process.",
+      "example": "SoftStop"
+    }
+  }
+}

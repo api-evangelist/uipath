@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-test-case-schema.json",
+  "title": "TestCase",
+  "description": "A test case definition within a test project",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the test case",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the test case",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the test scenario",
+      "example": "Example description for this resource."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Active",
+        "Deprecated"
+      ],
+      "description": "Lifecycle status of the test case",
+      "example": "Draft"
+    },
+    "automationStatus": {
+      "type": "string",
+      "enum": [
+        "NotAutomated",
+        "Automated"
+      ],
+      "description": "Whether the test case is linked to an automated robot process",
+      "example": "NotAutomated"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Labels applied to the test case for filtering and grouping",
+      "example": []
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the test case was created",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

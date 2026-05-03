@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-queue-item-structure.json",
+  "name": "QueueItem",
+  "description": "A single transaction item in a queue",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "int64",
+      "description": "Unique integer identifier of the queue item",
+      "example": 12345
+    },
+    "Key": {
+      "type": "uuid",
+      "description": "Unique GUID key for the queue item",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    "QueueDefinitionId": {
+      "type": "int64",
+      "description": "ID of the queue this item belongs to",
+      "example": 12345
+    },
+    "Status": {
+      "type": "string",
+      "enum": [
+        "New",
+        "InProgress",
+        "Failed",
+        "Successful",
+        "Abandoned",
+        "Retried",
+        "Deleted"
+      ],
+      "description": "Current processing status of the queue item",
+      "example": "New"
+    },
+    "ReviewStatus": {
+      "type": "string",
+      "enum": [
+        "None",
+        "InReview",
+        "Verified",
+        "Retried"
+      ],
+      "description": "Manual review status for failed items",
+      "example": "None"
+    },
+    "Priority": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Normal",
+        "High"
+      ],
+      "description": "Processing priority of the queue item",
+      "example": "Low"
+    },
+    "Reference": {
+      "type": "string",
+      "description": "Optional unique reference string for idempotency",
+      "example": "example-value"
+    },
+    "SpecificContent": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Custom key-value payload data for the queue item",
+      "example": "example-value"
+    },
+    "Output": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Output data written by the robot after processing",
+      "example": "example-value"
+    },
+    "CreationTime": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when the item was added to the queue",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "StartProcessing": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when processing began",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "EndProcessing": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when processing ended",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "RetryNumber": {
+      "type": "int32",
+      "description": "Number of times this item has been retried",
+      "example": 1
+    },
+    "DueDate": {
+      "type": "datetime",
+      "description": "Optional deadline for processing the item",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,373 @@
+rules:
+  # ============================================================
+  # INFO / METADATA
+  # ============================================================
+  info-title-required:
+    description: API title must be present and start with "UiPath"
+    severity: error
+    given: $.info.title
+    then:
+      function: pattern
+      functionOptions:
+        match: "^UiPath"
+
+  info-description-required:
+    description: API info must have a description with at least 50 characters
+    severity: error
+    given: $.info.description
+    then:
+      function: length
+      functionOptions:
+        min: 50
+
+  info-version-required:
+    description: API info must include a version
+    severity: error
+    given: $.info.version
+    then:
+      function: truthy
+
+  info-contact-url:
+    description: API contact should include a URL
+    severity: warn
+    given: $.info.contact.url
+    then:
+      function: truthy
+
+  info-terms-of-service:
+    description: API should reference UiPath terms of service
+    severity: warn
+    given: $.info.termsOfService
+    then:
+      function: truthy
+
+  # ============================================================
+  # OPENAPI VERSION
+  # ============================================================
+  openapi-version:
+    description: OpenAPI version must be 3.0.x or 3.1.x
+    severity: error
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions:
+        match: "^3\\.(0|1)\\."
+
+  # ============================================================
+  # SERVERS
+  # ============================================================
+  servers-defined:
+    description: At least one server must be defined
+    severity: error
+    given: $.servers
+    then:
+      function: length
+      functionOptions:
+        min: 1
+
+  servers-https:
+    description: All server URLs must use HTTPS
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  servers-description:
+    description: Each server should have a description
+    severity: warn
+    given: $.servers[*].description
+    then:
+      function: truthy
+
+  # ============================================================
+  # PATHS — NAMING CONVENTIONS
+  # ============================================================
+  paths-kebab-case:
+    description: Path segments must use kebab-case (no underscores or camelCase)
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "_[a-z]|[a-z][A-Z]"
+
+  paths-no-trailing-slash:
+    description: Paths must not have a trailing slash
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\\/$"
+
+  paths-no-query-string:
+    description: Paths must not contain query strings
+    severity: error
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "\\?"
+
+  # ============================================================
+  # OPERATIONS
+  # ============================================================
+  operation-operationId-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operationId-camelCase:
+    description: OperationId must use camelCase
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-uipath-prefix:
+    description: Operation summary must start with "UiPath"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: "^UiPath"
+
+  operation-description-required:
+    description: Every operation must have a description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete,head,options]
+    then:
+      field: description
+      function: truthy
+
+  operation-tags-required:
+    description: Every operation must have at least one tag
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  operation-operationId-verb-prefix:
+    description: OperationId should start with a standard verb (list, get, create, update, delete, add, remove, search, run, upload)
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(list|get|create|update|delete|add|remove|search|run|upload|submit|validate|execute|process|start|stop|cancel|manage)"
+
+  # ============================================================
+  # TAGS
+  # ============================================================
+  tags-global-defined:
+    description: Global tags array should be defined
+    severity: warn
+    given: $.tags
+    then:
+      function: truthy
+
+  tags-description:
+    description: All tags should have descriptions
+    severity: warn
+    given: $.tags[*].description
+    then:
+      function: truthy
+
+  # ============================================================
+  # PARAMETERS
+  # ============================================================
+  parameter-description-required:
+    description: Every parameter must have a description
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  parameter-schema-type:
+    description: Every parameter schema must have a type defined
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*].schema
+    then:
+      field: type
+      function: truthy
+
+  parameter-pagination-pageSize:
+    description: Pagination size parameter should be named 'pageSize' (not 'limit' or 'size')
+    severity: info
+    given: $.paths[*][get].parameters[*]
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: "^(limit|page_size|size)$"
+
+  parameter-no-api-key-in-query:
+    description: API keys should be passed in headers, not query parameters
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.name == 'api_key' || @.name == 'apiKey' || @.name == 'access_token')]
+    then:
+      field: in
+      function: pattern
+      functionOptions:
+        notMatch: "^query$"
+
+  # ============================================================
+  # REQUEST BODIES
+  # ============================================================
+  request-body-json-content:
+    description: Request body should include application/json content type
+    severity: warn
+    given: $.paths[*][post,put,patch].requestBody.content
+    then:
+      field: application/json
+      function: truthy
+
+  request-body-description:
+    description: Request body should have a description
+    severity: info
+    given: $.paths[*][post,put,patch].requestBody
+    then:
+      field: description
+      function: truthy
+
+  # ============================================================
+  # RESPONSES
+  # ============================================================
+  response-success-required:
+    description: Every operation must define at least one 2xx response
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ['200']
+            - required: ['201']
+            - required: ['202']
+            - required: ['204']
+
+  response-error-401:
+    description: Operations should define a 401 Unauthorized response
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses
+    then:
+      field: '401'
+      function: truthy
+
+  response-error-400:
+    description: Operations with request bodies should define a 400 Bad Request response
+    severity: warn
+    given: $.paths[*][post,put,patch].responses
+    then:
+      field: '400'
+      function: truthy
+
+  response-description-required:
+    description: Every response must have a description
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  # ============================================================
+  # SCHEMAS — PROPERTY NAMING
+  # ============================================================
+  schema-description:
+    description: Top-level schemas should have a description
+    severity: warn
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy
+
+  schema-type-defined:
+    description: Schema properties should have a type defined
+    severity: warn
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: type
+      function: truthy
+
+  schema-property-camelCase:
+    description: Schema property names should use camelCase
+    severity: info
+    given: $.components.schemas[*].properties[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # ============================================================
+  # SECURITY
+  # ============================================================
+  security-schemes-defined:
+    description: Security schemes should be defined in components
+    severity: warn
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+
+  security-global-defined:
+    description: Global security should be defined at the spec level
+    severity: warn
+    given: $.security
+    then:
+      function: truthy
+
+  # ============================================================
+  # HTTP METHOD CONVENTIONS
+  # ============================================================
+  delete-no-request-body:
+    description: DELETE operations should not have a request body
+    severity: warn
+    given: $.paths[*].delete
+    then:
+      field: requestBody
+      function: falsy
+
+  get-no-request-body:
+    description: GET operations must not have a request body
+    severity: error
+    given: $.paths[*].get
+    then:
+      field: requestBody
+      function: falsy
+
+  # ============================================================
+  # GENERAL QUALITY
+  # ============================================================
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings
+    severity: error
+    given: $..description
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"
+
+  external-docs-encouraged:
+    description: API spec should include externalDocs pointing to documentation
+    severity: info
+    given: $.externalDocs
+    then:
+      function: truthy

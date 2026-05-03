@@ -1,0 +1,128 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AddUserRequest": "uipath:AddUserRequest",
+    "AppInventoryListResponse": "uipath:AppInventoryListResponse",
+    "Application": "uipath:Application",
+    "AutomationListResponse": "uipath:AutomationListResponse",
+    "Automation": "uipath:Automation",
+    "BenefitData": "uipath:BenefitData",
+    "Collaborator": "uipath:Collaborator",
+    "CreateAutomationIdeaRequest": "uipath:CreateAutomationIdeaRequest",
+    "EditUserRequest": "uipath:EditUserRequest",
+    "PhaseCount": "uipath:PhaseCount",
+    "PipelineData": "uipath:PipelineData",
+    "Role": "uipath:Role",
+    "UpdateAutomationRequest": "uipath:UpdateAutomationRequest",
+    "UserListResponse": "uipath:UserListResponse",
+    "User": "uipath:User",
+    "email": "schema:email",
+    "role": {
+      "@id": "uipath:role",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "uipath:totalCount",
+      "@type": "xsd:integer"
+    },
+    "applications": {
+      "@id": "uipath:applications",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "uipath:id",
+      "@type": "xsd:integer"
+    },
+    "name": "schema:name",
+    "vendor": {
+      "@id": "uipath:vendor",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "uipath:category",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "page": {
+      "@id": "uipath:page",
+      "@type": "xsd:integer"
+    },
+    "pageSize": {
+      "@id": "uipath:pageSize",
+      "@type": "xsd:integer"
+    },
+    "automations": {
+      "@id": "uipath:automations",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "phase": {
+      "@id": "uipath:phase",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "uipath:status",
+      "@type": "xsd:string"
+    },
+    "submittedBy": {
+      "@id": "uipath:submittedBy",
+      "@type": "xsd:string"
+    },
+    "submittedDate": {
+      "@id": "uipath:submittedDate",
+      "@type": "xsd:dateTime"
+    },
+    "lastModified": {
+      "@id": "uipath:lastModified",
+      "@type": "xsd:dateTime"
+    },
+    "estimatedBenefit": {
+      "@id": "uipath:estimatedBenefit",
+      "@type": "xsd:string"
+    },
+    "tags": {
+      "@id": "uipath:tags",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "estimatedTimeSavingsPerYear": {
+      "@id": "uipath:estimatedTimeSavingsPerYear",
+      "@type": "xsd:decimal"
+    },
+    "estimatedFTESavings": {
+      "@id": "uipath:estimatedFTESavings",
+      "@type": "xsd:decimal"
+    },
+    "estimatedCostSavingsPerYear": {
+      "@id": "uipath:estimatedCostSavingsPerYear",
+      "@type": "xsd:decimal"
+    },
+    "userId": {
+      "@id": "uipath:userId",
+      "@type": "xsd:integer"
+    },
+    "isActive": {
+      "@id": "uipath:isActive",
+      "@type": "xsd:boolean"
+    },
+    "count": {
+      "@id": "uipath:count",
+      "@type": "xsd:integer"
+    },
+    "phases": {
+      "@id": "uipath:phases",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "users": {
+      "@id": "uipath:users",
+      "@container": "@set",
+      "@type": "xsd:string"
+    }
+  }
+}

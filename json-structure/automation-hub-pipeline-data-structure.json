@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/automation-hub-pipeline-data-structure.json",
+  "name": "PipelineData",
+  "description": "Summary of the automation pipeline distribution across phases",
+  "type": "object",
+  "properties": {
+    "phases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PhaseCount"
+      },
+      "example": []
+    }
+  }
+}

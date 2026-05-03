@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-package-collection-structure.json",
+  "name": "ODataPackageCollection",
+  "description": "OData collection response containing packages",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "description": "Package ID (name and version combined)"
+          },
+          "Title": {
+            "type": "string",
+            "description": "Package display title"
+          },
+          "Version": {
+            "type": "string",
+            "description": "Semantic version of the package"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Package description from the NuGet metadata"
+          },
+          "Published": {
+            "type": "datetime",
+            "description": "ISO 8601 timestamp when the package was published"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-extractor-option-structure.json",
+  "name": "ExtractorOption",
+  "description": "Configuration for applying a specific extractor",
+  "type": "object",
+  "required": [
+    "extractorId"
+  ],
+  "properties": {
+    "extractorId": {
+      "type": "string",
+      "description": "Unique identifier of the extractor to apply",
+      "example": "abc123"
+    }
+  }
+}

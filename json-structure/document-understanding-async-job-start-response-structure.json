@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-async-job-start-response-structure.json",
+  "name": "AsyncJobStartResponse",
+  "description": "Response returned when an asynchronous processing job is started",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "description": "Unique identifier of the asynchronous job. Use this to poll for results.",
+      "example": "abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NotStarted",
+        "Running",
+        "Failed",
+        "Succeeded"
+      ],
+      "description": "Initial status of the asynchronous job",
+      "example": "NotStarted"
+    }
+  }
+}

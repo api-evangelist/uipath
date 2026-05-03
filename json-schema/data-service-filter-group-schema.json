@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/data-service-filter-group-schema.json",
+  "title": "FilterGroup",
+  "description": "A group of filter conditions joined by a logical operator",
+  "type": "object",
+  "properties": {
+    "logicalOperator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "description": "Logical operator combining the conditions in this group",
+      "example": "AND"
+    },
+    "queryFilters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/QueryFilter"
+      },
+      "description": "List of individual field filter conditions",
+      "example": []
+    },
+    "filterGroups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/FilterGroup"
+      },
+      "description": "Nested filter groups for complex query expressions",
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": 85,
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "phase": "Idea",
+  "status": "Active",
+  "submittedBy": "example-value",
+  "submittedDate": "2026-01-15T10:30:00Z",
+  "lastModified": "2026-01-15T10:30:00Z",
+  "estimatedBenefit": {},
+  "tags": [
+    "example-value"
+  ]
+}

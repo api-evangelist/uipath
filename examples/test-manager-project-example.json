@@ -1,0 +1,9 @@
+{
+  "id": "item-001",
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "createdBy": "example-value",
+  "createdOn": "2026-01-15T10:30:00Z",
+  "testCaseCount": 45,
+  "requirementCount": 30
+}

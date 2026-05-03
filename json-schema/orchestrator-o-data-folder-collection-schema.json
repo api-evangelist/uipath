@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-o-data-folder-collection-schema.json",
+  "title": "ODataFolderCollection",
+  "description": "OData collection response containing folders",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique folder identifier used in X-UIPATH-OrganizationUnitId"
+          },
+          "Key": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique GUID key for the folder"
+          },
+          "DisplayName": {
+            "type": "string",
+            "description": "Display name of the folder"
+          },
+          "FullyQualifiedName": {
+            "type": "string",
+            "description": "Full path of the folder including parent hierarchy"
+          },
+          "FolderType": {
+            "type": "string",
+            "enum": [
+              "Standard",
+              "Personal"
+            ],
+            "description": "Type classification of the folder"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

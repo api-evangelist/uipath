@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/automation-hub-pipeline-data-schema.json",
+  "title": "PipelineData",
+  "description": "Summary of the automation pipeline distribution across phases",
+  "type": "object",
+  "properties": {
+    "phases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PhaseCount"
+      },
+      "example": []
+    }
+  }
+}

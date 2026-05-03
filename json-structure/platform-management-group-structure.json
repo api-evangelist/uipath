@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-group-structure.json",
+  "name": "Group",
+  "description": "A user group in the UiPath organization",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the group",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the group",
+      "example": "Example Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Local",
+        "DirectoryGroup",
+        "RoboticsGroup"
+      ],
+      "description": "Type classification of the group",
+      "example": "Local"
+    },
+    "userCount": {
+      "type": "int32",
+      "description": "Number of members currently in the group",
+      "example": 42
+    }
+  }
+}

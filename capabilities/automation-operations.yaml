@@ -1,0 +1,250 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "UiPath Automation Operations"
+  description: "Unified workflow for automation operators managing robots, jobs, queues, and assets in the UiPath Orchestrator. Used by RPA developers and operations teams to deploy, monitor, and manage running automations at scale."
+  tags:
+    - UiPath
+    - Orchestrator
+    - Automation Operations
+    - RPA
+    - Robots
+    - Jobs
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      UIPATH_BEARER_TOKEN: UIPATH_BEARER_TOKEN
+
+capability:
+  consumes:
+    - import: orchestrator
+      location: ./shared/orchestrator.yaml
+    - import: data-service
+      location: ./shared/data-service.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: automation-operations-api
+      description: "Unified REST API for managing UiPath automation operations including jobs, queues, robots, and assets."
+      resources:
+        - path: /v1/jobs
+          name: jobs
+          description: "Automation job management"
+          operations:
+            - method: GET
+              name: list-jobs
+              description: "List automation jobs with filtering"
+              call: "orchestrator.list-jobs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: start-jobs
+              description: "Start automation jobs"
+              call: "orchestrator.start-jobs"
+              with:
+                startInfo: "rest.startInfo"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/robots
+          name: robots
+          description: "Automation robot management"
+          operations:
+            - method: GET
+              name: list-robots
+              description: "List all registered robots"
+              call: "orchestrator.list-robots"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/queues
+          name: queues
+          description: "Transaction queue management"
+          operations:
+            - method: GET
+              name: list-queues
+              description: "List all queue definitions"
+              call: "orchestrator.list-queues"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/queue-items
+          name: queue-items
+          description: "Queue transaction item management"
+          operations:
+            - method: GET
+              name: list-queue-items
+              description: "List queue transaction items"
+              call: "orchestrator.list-queue-items"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: add-queue-item
+              description: "Add item to queue"
+              call: "orchestrator.add-queue-item"
+              with:
+                itemData: "rest.itemData"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/assets
+          name: assets
+          description: "Shared asset management"
+          operations:
+            - method: GET
+              name: list-assets
+              description: "List shared assets"
+              call: "orchestrator.list-assets"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-asset
+              description: "Create a new shared asset"
+              call: "orchestrator.create-asset"
+              with:
+                assetName: "rest.assetName"
+                valueType: "rest.valueType"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/alerts
+          name: alerts
+          description: "System and automation alerts"
+          operations:
+            - method: GET
+              name: list-alerts
+              description: "List automation alerts"
+              call: "orchestrator.list-alerts"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/data/{entityName}/records
+          name: data-records
+          description: "Automation data storage records"
+          operations:
+            - method: GET
+              name: list-entity-records
+              description: "List data entity records"
+              call: "data-service.list-entity-records"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: automation-operations-mcp
+      transport: http
+      description: "MCP server for AI-assisted automation operations management across UiPath Orchestrator and Data Service."
+      tools:
+        - name: list-jobs
+          description: "List automation jobs with optional filtering and pagination"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-jobs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: start-jobs
+          description: "Start one or more UiPath automation jobs"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "orchestrator.start-jobs"
+          with:
+            startInfo: "tools.startInfo"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: stop-job
+          description: "Stop a running automation job"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "orchestrator.stop-job"
+          with:
+            jobId: "tools.jobId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-robots
+          description: "List all registered automation robots and their status"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-robots"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-queues
+          description: "List all transaction queue definitions"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-queues"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: add-queue-item
+          description: "Add a new transaction item to an automation queue"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "orchestrator.add-queue-item"
+          with:
+            itemData: "tools.itemData"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-assets
+          description: "List shared automation assets like credentials and variables"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-assets"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-alerts
+          description: "List system and automation alerts for monitoring"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "orchestrator.list-alerts"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-data-records
+          description: "List records from a Data Service entity"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "data-service.list-entity-records"
+          with:
+            entityName: "tools.entityName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-data-record
+          description: "Create a new record in a Data Service entity"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "data-service.create-entity-record"
+          with:
+            entityName: "tools.entityName"
+            recordData: "tools.recordData"
+          outputParameters:
+            - type: object
+              mapping: "$."

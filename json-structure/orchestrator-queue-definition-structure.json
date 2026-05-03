@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-queue-definition-structure.json",
+  "name": "QueueDefinition",
+  "description": "Definition of a transaction queue for distributing work items",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "int64",
+      "description": "Unique integer identifier of the queue",
+      "example": 12345
+    },
+    "Name": {
+      "type": "string",
+      "description": "Display name of the queue",
+      "example": "Example Name"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Optional description of the queue's purpose",
+      "example": "Example description for this resource."
+    },
+    "MaxNumberOfRetries": {
+      "type": "int32",
+      "minimum": 0,
+      "maximum": 10,
+      "description": "Maximum number of automatic retries for failed transactions",
+      "example": 1
+    },
+    "AcceptAutomaticallyRetry": {
+      "type": "boolean",
+      "description": "Whether failed items are automatically requeued for retry",
+      "example": true
+    },
+    "EnforceUniqueReference": {
+      "type": "boolean",
+      "description": "Whether each item must have a unique reference string",
+      "example": true
+    },
+    "OrganizationUnitId": {
+      "type": "int64",
+      "description": "ID of the folder in which this queue resides",
+      "example": 12345
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-add-queue-item-request-schema.json",
+  "title": "AddQueueItemRequest",
+  "description": "Request payload for adding a new item to a queue",
+  "type": "object",
+  "required": [
+    "itemData"
+  ],
+  "properties": {
+    "itemData": {
+      "$ref": "#/components/schemas/QueueItemData"
+    }
+  }
+}

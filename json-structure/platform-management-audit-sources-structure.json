@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-audit-sources-structure.json",
+  "name": "AuditSources",
+  "description": "Available audit event sources and categories",
+  "type": "object",
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AuditSource"
+      },
+      "example": []
+    }
+  }
+}

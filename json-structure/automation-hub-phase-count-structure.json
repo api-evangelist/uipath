@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/automation-hub-phase-count-structure.json",
+  "name": "PhaseCount",
+  "description": "Count of automations in a specific pipeline phase",
+  "type": "object",
+  "properties": {
+    "phase": {
+      "type": "string",
+      "description": "Name of the pipeline phase",
+      "example": "example-value"
+    },
+    "count": {
+      "type": "int32",
+      "description": "Number of automations in this phase",
+      "example": 42
+    }
+  }
+}

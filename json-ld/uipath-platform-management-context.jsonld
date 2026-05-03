@@ -1,0 +1,143 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AuditEventCollection": "uipath:AuditEventCollection",
+    "AuditEvent": "uipath:AuditEvent",
+    "AuditSource": "uipath:AuditSource",
+    "AuditSources": "uipath:AuditSources",
+    "ClientInfo": "uipath:ClientInfo",
+    "CreateGroupRequest": "uipath:CreateGroupRequest",
+    "CreateUserRequest": "uipath:CreateUserRequest",
+    "GroupLicenseAllocation": "uipath:GroupLicenseAllocation",
+    "Group": "uipath:Group",
+    "LicenseAllocationEntry": "uipath:LicenseAllocationEntry",
+    "UpdateGroupLicenseAllocationRequest": "uipath:UpdateGroupLicenseAllocationRequest",
+    "User": "uipath:User",
+    "auditEvents": {
+      "@id": "uipath:auditEvents",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "next": {
+      "@id": "uipath:next",
+      "@type": "@id"
+    },
+    "previous": {
+      "@id": "uipath:previous",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "uipath:id",
+      "@type": "xsd:string"
+    },
+    "createdOn": {
+      "@id": "uipath:createdOn",
+      "@type": "xsd:dateTime"
+    },
+    "organizationId": {
+      "@id": "uipath:organizationId",
+      "@type": "xsd:string"
+    },
+    "actorId": {
+      "@id": "uipath:actorId",
+      "@type": "xsd:string"
+    },
+    "actorEmail": {
+      "@id": "uipath:actorEmail",
+      "@type": "xsd:string"
+    },
+    "eventType": {
+      "@id": "uipath:eventType",
+      "@type": "xsd:string"
+    },
+    "eventSource": {
+      "@id": "uipath:eventSource",
+      "@type": "xsd:string"
+    },
+    "eventTarget": {
+      "@id": "uipath:eventTarget",
+      "@type": "xsd:string"
+    },
+    "eventDetails": {
+      "@id": "uipath:eventDetails",
+      "@type": "@id"
+    },
+    "eventSummary": {
+      "@id": "uipath:eventSummary",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "uipath:status",
+      "@type": "xsd:integer"
+    },
+    "clientInfo": {
+      "@id": "uipath:clientInfo",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "targets": {
+      "@id": "uipath:targets",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "sources": {
+      "@id": "uipath:sources",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "ipAddress": {
+      "@id": "uipath:ipAddress",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "uipath:country",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "uipath:type",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "surname": {
+      "@id": "uipath:surname",
+      "@type": "xsd:string"
+    },
+    "groupId": {
+      "@id": "uipath:groupId",
+      "@type": "xsd:string"
+    },
+    "userLicenses": {
+      "@id": "uipath:userLicenses",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "userCount": {
+      "@id": "uipath:userCount",
+      "@type": "xsd:integer"
+    },
+    "code": {
+      "@id": "uipath:code",
+      "@type": "xsd:string"
+    },
+    "totalCount": {
+      "@id": "uipath:totalCount",
+      "@type": "xsd:integer"
+    },
+    "usedCount": {
+      "@id": "uipath:usedCount",
+      "@type": "xsd:integer"
+    },
+    "isActive": {
+      "@id": "uipath:isActive",
+      "@type": "xsd:boolean"
+    },
+    "lastLoginDate": {
+      "@id": "uipath:lastLoginDate",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

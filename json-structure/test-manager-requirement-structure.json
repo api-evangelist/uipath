@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-requirement-structure.json",
+  "name": "Requirement",
+  "description": "A business or technical requirement for traceability coverage",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the requirement",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the requirement",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the requirement specification",
+      "example": "Example description for this resource."
+    },
+    "externalId": {
+      "type": "string",
+      "description": "Optional external identifier linking to a third-party requirements tool",
+      "example": "abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Deprecated"
+      ],
+      "description": "Lifecycle status of the requirement",
+      "example": "Active"
+    },
+    "linkedTestCaseCount": {
+      "type": "int32",
+      "description": "Number of test cases currently linked to this requirement",
+      "example": 42
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when the requirement was created",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

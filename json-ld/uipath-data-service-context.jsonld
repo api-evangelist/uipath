@@ -1,0 +1,97 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "uipath": "https://uipath.com/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "EntityQueryRequest": "uipath:EntityQueryRequest",
+    "EntityRecordCollection": "uipath:EntityRecordCollection",
+    "EntityRecordInput": "uipath:EntityRecordInput",
+    "EntityRecord": "uipath:EntityRecord",
+    "FilterGroup": "uipath:FilterGroup",
+    "OrderByClause": "uipath:OrderByClause",
+    "QueryFilter": "uipath:QueryFilter",
+    "filterGroup": {
+      "@id": "uipath:filterGroup",
+      "@type": "xsd:string"
+    },
+    "selectedFields": {
+      "@id": "uipath:selectedFields",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "orderBy": {
+      "@id": "uipath:orderBy",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "start": {
+      "@id": "uipath:start",
+      "@type": "xsd:integer"
+    },
+    "limit": {
+      "@id": "uipath:limit",
+      "@type": "xsd:integer"
+    },
+    "totalCount": {
+      "@id": "uipath:totalCount",
+      "@type": "xsd:integer"
+    },
+    "value": {
+      "@id": "uipath:value",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "nextLink": {
+      "@id": "uipath:nextLink",
+      "@type": "@id"
+    },
+    "Id": {
+      "@id": "uipath:Id",
+      "@type": "xsd:string"
+    },
+    "CreatedOn": {
+      "@id": "uipath:CreatedOn",
+      "@type": "xsd:dateTime"
+    },
+    "CreatedBy": {
+      "@id": "uipath:CreatedBy",
+      "@type": "xsd:string"
+    },
+    "ModifiedOn": {
+      "@id": "uipath:ModifiedOn",
+      "@type": "xsd:dateTime"
+    },
+    "ModifiedBy": {
+      "@id": "uipath:ModifiedBy",
+      "@type": "xsd:string"
+    },
+    "logicalOperator": {
+      "@id": "uipath:logicalOperator",
+      "@type": "xsd:string"
+    },
+    "queryFilters": {
+      "@id": "uipath:queryFilters",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "filterGroups": {
+      "@id": "uipath:filterGroups",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "fieldName": {
+      "@id": "uipath:fieldName",
+      "@type": "xsd:string"
+    },
+    "descending": {
+      "@id": "uipath:descending",
+      "@type": "xsd:boolean"
+    },
+    "operator": {
+      "@id": "uipath:operator",
+      "@type": "xsd:string"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-o-data-schedule-collection-schema.json",
+  "title": "ODataScheduleCollection",
+  "description": "OData collection response containing process schedules",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unique schedule identifier"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Schedule display name"
+          },
+          "ReleaseId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the process associated with this schedule"
+          },
+          "Enabled": {
+            "type": "boolean",
+            "description": "Whether the schedule is active"
+          },
+          "StartProcessCron": {
+            "type": "string",
+            "description": "Cron expression defining the recurrence pattern"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

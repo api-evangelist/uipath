@@ -1,0 +1,8 @@
+{
+  "id": "item-001",
+  "name": "Example Name",
+  "email": "user@example.com",
+  "isActive": true,
+  "createdOn": "2026-01-15T10:30:00Z",
+  "lastLoginDate": "2026-01-15T10:30:00Z"
+}

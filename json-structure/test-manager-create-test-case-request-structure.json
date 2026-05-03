@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-create-test-case-request-structure.json",
+  "name": "CreateTestCaseRequest",
+  "description": "Request payload for creating a new test case",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new test case",
+      "maxLength": 512,
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the test scenario",
+      "example": "Example description for this resource."
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Labels to apply to the test case",
+      "example": []
+    }
+  }
+}

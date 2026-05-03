@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-field-value-structure.json",
+  "name": "FieldValue",
+  "description": "The extracted value with confidence and source reference",
+  "type": "object",
+  "properties": {
+    "Value": {
+      "description": "Extracted value, which may be a string, number, or object depending on field type",
+      "example": "example-value"
+    },
+    "Confidence": {
+      "type": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score for the extracted value (0.0 to 1.0)",
+      "example": 1.0
+    },
+    "OcrConfidence": {
+      "type": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "OCR confidence score for the text underlying this value",
+      "example": 1.0
+    },
+    "TextType": {
+      "type": "string",
+      "enum": [
+        "Printed",
+        "Handwritten"
+      ],
+      "description": "Whether the source text was printed or handwritten",
+      "example": "Printed"
+    }
+  }
+}

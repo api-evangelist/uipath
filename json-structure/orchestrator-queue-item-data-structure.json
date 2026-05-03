@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-queue-item-data-structure.json",
+  "name": "QueueItemData",
+  "description": "Data for creating a new queue item",
+  "type": "object",
+  "required": [
+    "Name"
+  ],
+  "properties": {
+    "Name": {
+      "type": "string",
+      "description": "Name of the target queue definition",
+      "example": "Example Name"
+    },
+    "Priority": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Normal",
+        "High"
+      ],
+      "description": "Priority level for queue processing",
+      "example": "Low"
+    },
+    "SpecificContent": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Custom key-value payload data for the item",
+      "example": "example-value"
+    },
+    "Reference": {
+      "type": "string",
+      "description": "Optional unique reference string for this item",
+      "example": "example-value"
+    },
+    "DueDate": {
+      "type": "datetime",
+      "description": "Optional deadline by which the item should be processed",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "PostponeDate": {
+      "type": "datetime",
+      "description": "Optional earliest time at which the item may be processed",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

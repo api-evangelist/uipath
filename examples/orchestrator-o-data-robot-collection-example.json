@@ -1,0 +1,11 @@
+{
+  "value": [
+    {
+      "Id": 18,
+      "Name": "Example Name",
+      "MachineName": "Example Name",
+      "Type": "Standard",
+      "IsConnected": true
+    }
+  ]
+}

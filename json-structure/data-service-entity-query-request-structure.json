@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/data-service-entity-query-request-structure.json",
+  "name": "EntityQueryRequest",
+  "description": "Advanced query request with structured filter conditions",
+  "type": "object",
+  "properties": {
+    "filterGroup": {
+      "$ref": "#/components/schemas/FilterGroup"
+    },
+    "selectedFields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of field names to include in the response",
+      "example": []
+    },
+    "orderBy": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OrderByClause"
+      },
+      "example": []
+    },
+    "start": {
+      "type": "int32",
+      "minimum": 0,
+      "description": "Zero-based offset for pagination",
+      "example": 1
+    },
+    "limit": {
+      "type": "int32",
+      "minimum": 1,
+      "maximum": 1000,
+      "description": "Maximum number of records to return",
+      "example": 1
+    }
+  }
+}

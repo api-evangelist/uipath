@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/orchestrator-o-data-job-collection-structure.json",
+  "name": "ODataJobCollection",
+  "description": "OData collection response containing jobs",
+  "type": "object",
+  "properties": {
+    "@odata.context": {
+      "type": "string",
+      "description": "OData context URL",
+      "example": "example-value"
+    },
+    "@odata.count": {
+      "type": "int32",
+      "description": "Total number of matching records (when $count=true)",
+      "example": 42
+    },
+    "value": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Job"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-audit-event-collection-structure.json",
+  "name": "AuditEventCollection",
+  "description": "Collection of audit events with pagination links",
+  "type": "object",
+  "properties": {
+    "auditEvents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/AuditEvent"
+      },
+      "example": []
+    },
+    "next": {
+      "type": "uri",
+      "description": "URL to retrieve newer audit events relative to the current result set",
+      "example": "https://cloud.uipath.com/example"
+    },
+    "previous": {
+      "type": "uri",
+      "description": "URL to retrieve older audit events relative to the current result set",
+      "example": "https://cloud.uipath.com/example"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "value": [
+    {
+      "Id": 26,
+      "Name": "Example Name",
+      "ReleaseId": 20,
+      "Enabled": true,
+      "StartProcessCron": "example-value"
+    }
+  ]
+}

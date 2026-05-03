@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-test-execution-list-response-schema.json",
+  "title": "TestExecutionListResponse",
+  "description": "Paginated response containing test executions",
+  "type": "object",
+  "properties": {
+    "totalCount": {
+      "type": "integer",
+      "description": "Total number of test executions",
+      "example": 42
+    },
+    "executions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TestExecution"
+      },
+      "example": []
+    }
+  }
+}

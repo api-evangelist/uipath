@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-license-allocation-entry-structure.json",
+  "name": "LicenseAllocationEntry",
+  "description": "A single license type allocation for a group",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "License product code identifier",
+      "example": "example-value"
+    },
+    "totalCount": {
+      "type": "int32",
+      "description": "Total number of licenses allocated to the group",
+      "example": 42
+    },
+    "usedCount": {
+      "type": "int32",
+      "description": "Number of licenses currently consumed by group members",
+      "example": 42
+    }
+  }
+}

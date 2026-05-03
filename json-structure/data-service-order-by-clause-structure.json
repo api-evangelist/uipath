@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/data-service-order-by-clause-structure.json",
+  "name": "OrderByClause",
+  "description": "Sort specification for query results",
+  "type": "object",
+  "required": [
+    "fieldName"
+  ],
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "description": "Name of the field to sort by",
+      "example": "Example Name"
+    },
+    "descending": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to sort in descending order",
+      "example": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "value": [
+    {
+      "Id": 2,
+      "Name": "Example Name",
+      "DisplayName": "Example Name",
+      "IsStatic": true
+    }
+  ]
+}

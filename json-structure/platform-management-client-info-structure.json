@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-client-info-structure.json",
+  "name": "ClientInfo",
+  "description": "Client connection information for an audit event",
+  "type": "object",
+  "properties": {
+    "ipAddress": {
+      "type": "string",
+      "description": "IP address from which the action was performed",
+      "example": "example-value"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country resolved from the IP address",
+      "example": 42
+    }
+  }
+}

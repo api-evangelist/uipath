@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/platform-management-group-license-allocation-schema.json",
+  "title": "GroupLicenseAllocation",
+  "description": "License allocation rule for a user group",
+  "type": "object",
+  "properties": {
+    "groupId": {
+      "type": "string",
+      "description": "Unique identifier of the group this allocation applies to",
+      "example": "abc123"
+    },
+    "userLicenses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/LicenseAllocationEntry"
+      },
+      "example": []
+    }
+  }
+}

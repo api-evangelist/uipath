@@ -1,0 +1,17 @@
+{
+  "Id": 80,
+  "Key": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "ReleaseName": "Example Name",
+  "ProcessVersion": "1.0.0",
+  "State": "Pending",
+  "Source": "Manual",
+  "StartTime": "2026-01-15T10:30:00Z",
+  "EndTime": "2026-01-15T10:30:00Z",
+  "CreationTime": "2026-01-15T10:30:00Z",
+  "Info": "example-value",
+  "HostMachineName": "Example Name",
+  "Robot": {},
+  "OrganizationUnitId": 6,
+  "InputArguments": "example-value",
+  "OutputArguments": "example-value"
+}

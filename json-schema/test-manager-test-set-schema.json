@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-test-set-schema.json",
+  "title": "TestSet",
+  "description": "A collection of test cases grouped for execution",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the test set",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the test set",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the test set's purpose",
+      "example": "Example description for this resource."
+    },
+    "testCaseCount": {
+      "type": "integer",
+      "description": "Number of test cases included in this test set",
+      "example": 42
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the test set was created",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

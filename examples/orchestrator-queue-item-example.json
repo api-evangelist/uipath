@@ -1,0 +1,16 @@
+{
+  "Id": 66,
+  "Key": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "QueueDefinitionId": 90,
+  "Status": "New",
+  "ReviewStatus": "None",
+  "Priority": "Low",
+  "Reference": "example-value",
+  "SpecificContent": {},
+  "Output": {},
+  "CreationTime": "2026-01-15T10:30:00Z",
+  "StartProcessing": "2026-01-15T10:30:00Z",
+  "EndProcessing": "2026-01-15T10:30:00Z",
+  "RetryNumber": 48,
+  "DueDate": "2026-01-15T10:30:00Z"
+}

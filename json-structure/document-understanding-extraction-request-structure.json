@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-extraction-request-structure.json",
+  "name": "ExtractionRequest",
+  "description": "Request payload for extracting data from a previously digitized document",
+  "type": "object",
+  "required": [
+    "documentId",
+    "extractorsOptions"
+  ],
+  "properties": {
+    "documentId": {
+      "type": "string",
+      "description": "Document ID returned by the digitization endpoint",
+      "example": "abc123"
+    },
+    "documentTypeId": {
+      "type": "string",
+      "description": "Document type identifier to guide extraction",
+      "example": "abc123"
+    },
+    "extractorsOptions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExtractorOption"
+      },
+      "description": "Extractors to apply with their configuration options",
+      "example": []
+    }
+  }
+}

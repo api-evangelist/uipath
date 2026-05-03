@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-classification-result-item-structure.json",
+  "name": "ClassificationResultItem",
+  "description": "Classification result for a specific document or page range",
+  "type": "object",
+  "properties": {
+    "classifierId": {
+      "type": "string",
+      "description": "Identifier of the classifier that produced this result",
+      "example": "abc123"
+    },
+    "documentTypeId": {
+      "type": "string",
+      "description": "Identified document type identifier",
+      "example": "abc123"
+    },
+    "confidence": {
+      "type": "float",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score of the classification result (0.0 to 1.0)",
+      "example": 1.0
+    },
+    "startPage": {
+      "type": "int32",
+      "description": "First page of the classified document section",
+      "example": 1
+    },
+    "endPage": {
+      "type": "int32",
+      "description": "Last page of the classified document section",
+      "example": 1
+    }
+  }
+}

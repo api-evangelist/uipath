@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/automation-hub-create-automation-idea-request-structure.json",
+  "name": "CreateAutomationIdeaRequest",
+  "description": "Request payload for creating a new automation idea",
+  "type": "object",
+  "required": [
+    "name",
+    "description"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name of the automation idea",
+      "maxLength": 256,
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the automation opportunity",
+      "example": "Example description for this resource."
+    },
+    "estimatedBenefit": {
+      "$ref": "#/components/schemas/BenefitData"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for categorizing the automation idea",
+      "example": []
+    }
+  }
+}

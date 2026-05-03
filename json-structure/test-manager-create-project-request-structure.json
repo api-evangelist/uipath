@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/test-manager-create-project-request-structure.json",
+  "name": "CreateProjectRequest",
+  "description": "Request payload for creating a new test project",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new test project",
+      "maxLength": 256,
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the project's testing scope",
+      "example": "Example description for this resource."
+    }
+  }
+}

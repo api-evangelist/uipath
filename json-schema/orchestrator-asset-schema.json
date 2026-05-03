@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/orchestrator-asset-schema.json",
+  "title": "Asset",
+  "description": "A shared asset storing a value accessible to automation processes",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Unique integer identifier of the asset",
+      "example": 12345
+    },
+    "Name": {
+      "type": "string",
+      "description": "Display name of the asset",
+      "example": "Example Name"
+    },
+    "ValueType": {
+      "type": "string",
+      "enum": [
+        "Text",
+        "Integer",
+        "Bool",
+        "Credential",
+        "WindowsCredential",
+        "KeyValueList"
+      ],
+      "description": "Data type of the asset value",
+      "example": "Text"
+    },
+    "StringValue": {
+      "type": "string",
+      "description": "Value when ValueType is Text",
+      "example": "example-value"
+    },
+    "IntValue": {
+      "type": "integer",
+      "description": "Value when ValueType is Integer",
+      "example": 1
+    },
+    "BoolValue": {
+      "type": "boolean",
+      "description": "Value when ValueType is Bool",
+      "example": true
+    },
+    "CredentialUsername": {
+      "type": "string",
+      "description": "Username portion when ValueType is Credential",
+      "example": "Example Name"
+    },
+    "CredentialPassword": {
+      "type": "string",
+      "description": "Password portion when ValueType is Credential (write-only)",
+      "example": "example-value"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Optional description of the asset's purpose",
+      "example": "Example description for this resource."
+    },
+    "OrganizationUnitId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "ID of the folder in which this asset resides",
+      "example": 12345
+    }
+  }
+}

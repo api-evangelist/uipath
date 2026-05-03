@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-schema/test-manager-project-schema.json",
+  "title": "Project",
+  "description": "A test project container in Test Manager",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the test project",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the test project",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the project's testing scope",
+      "example": "Example description for this resource."
+    },
+    "createdBy": {
+      "type": "string",
+      "description": "Name of the user who created the project",
+      "example": "example-value"
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the project was created",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "testCaseCount": {
+      "type": "integer",
+      "description": "Total number of test cases in the project",
+      "example": 42
+    },
+    "requirementCount": {
+      "type": "integer",
+      "description": "Total number of requirements in the project",
+      "example": 42
+    }
+  }
+}

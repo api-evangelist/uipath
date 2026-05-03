@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/document-understanding-classification-result-structure.json",
+  "name": "ClassificationResult",
+  "description": "Result of an asynchronous classification job",
+  "type": "object",
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "description": "Unique identifier of the classification job",
+      "example": "abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NotStarted",
+        "Running",
+        "Failed",
+        "Succeeded"
+      ],
+      "description": "Current status of the classification job",
+      "example": "NotStarted"
+    },
+    "result": {
+      "type": "object",
+      "description": "Classification output, populated when status is Succeeded",
+      "properties": {
+        "documentId": {
+          "type": "string",
+          "description": "Document ID that was classified"
+        },
+        "classificationResults": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ClassificationResultItem"
+          }
+        }
+      },
+      "example": "example-value"
+    }
+  }
+}

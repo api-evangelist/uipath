@@ -1,0 +1,8 @@
+{
+  "id": "item-001",
+  "name": "Example Name",
+  "classifierType": "Specialized",
+  "documentTypes": [
+    "Standard"
+  ]
+}

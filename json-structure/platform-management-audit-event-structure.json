@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/json-structure/platform-management-audit-event-structure.json",
+  "name": "AuditEvent",
+  "description": "A single audit event record",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the audit event",
+      "example": "abc123"
+    },
+    "createdOn": {
+      "type": "datetime",
+      "description": "ISO 8601 timestamp when the event occurred",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "Identifier of the organization in which the event occurred",
+      "example": "abc123"
+    },
+    "actorId": {
+      "type": "string",
+      "description": "Identifier of the user or service that performed the action",
+      "example": "abc123"
+    },
+    "actorEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the actor who performed the action",
+      "example": "user@example.com"
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Type identifier of the audit event",
+      "example": "Standard"
+    },
+    "eventSource": {
+      "type": "string",
+      "description": "Service that generated the audit event",
+      "example": "example-value"
+    },
+    "eventTarget": {
+      "type": "string",
+      "description": "Category of resource targeted by the action",
+      "example": "example-value"
+    },
+    "eventDetails": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Detailed payload of the audit event in service-specific format",
+      "example": "example-value"
+    },
+    "eventSummary": {
+      "type": "string",
+      "description": "Human-readable summary of the audit event",
+      "example": "example-value"
+    },
+    "status": {
+      "type": "int32",
+      "enum": [
+        0,
+        1
+      ],
+      "description": "Outcome status (0 = success, 1 = failed)",
+      "example": 0
+    },
+    "clientInfo": {
+      "$ref": "#/components/schemas/ClientInfo"
+    }
+  }
+}

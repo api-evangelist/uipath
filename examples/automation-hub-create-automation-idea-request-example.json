@@ -1,0 +1,8 @@
+{
+  "name": "Example Name",
+  "description": "Example description for this resource.",
+  "estimatedBenefit": {},
+  "tags": [
+    "example-value"
+  ]
+}
