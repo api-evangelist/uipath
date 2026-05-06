@@ -4,114 +4,63 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: UiPath
 providerId: uipath
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Automation
-  - Robotic Process Automation
   - RPA
-  - Artificial Intelligence
-  - Document Processing
-  - Enterprise Automation
-  - Orchestration
-  - Testing
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the UiPath API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: UiPath publishes per-organization, rolling-five-minute rate limits for the Identity Server
+  API (Automation Cloud only — not Public Sector or Dedicated). Each HTTP method has its own ceiling.
+  Throttled requests return HTTP 429.
+sources:
+  - https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/api-rate-limits-for-identity-server
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
+  - name: Identity Server GET (Automation Cloud)
+    scope: account
+    metric: requests_per_5_minutes
+    limit: 300
     timeFrame: minute
-    applies:
-      - UiPath Orchestrator API
-      - UiPath Automation Hub API
-      - UiPath Document Understanding API
-      - UiPath Data Service API
-      - UiPath Platform Management API
-      - UiPath Test Manager API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - UiPath Orchestrator API
-      - UiPath Automation Hub API
-      - UiPath Document Understanding API
-      - UiPath Data Service API
-      - UiPath Platform Management API
-      - UiPath Test Manager API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
+    notes: 300 GET requests per organization per rolling 5-minute window. Automation Cloud only — does
+      not apply to Public Sector or Dedicated variants.
+  - name: Identity Server POST (Automation Cloud)
+    scope: account
+    metric: requests_per_5_minutes
+    limit: 24000
     timeFrame: minute
-    applies:
-      - UiPath Orchestrator API
-      - UiPath Automation Hub API
-      - UiPath Document Understanding API
-      - UiPath Data Service API
-      - UiPath Platform Management API
-      - UiPath Test Manager API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - UiPath Orchestrator API
-      - UiPath Automation Hub API
-      - UiPath Document Understanding API
-      - UiPath Data Service API
-      - UiPath Platform Management API
-      - UiPath Test Manager API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+    notes: 24,000 POST requests per organization per rolling 5-minute window.
+  - name: Identity Server PUT (Automation Cloud)
+    scope: account
+    metric: requests_per_5_minutes
+    limit: 160
     timeFrame: minute
-    applies:
-      - UiPath Orchestrator API
-      - UiPath Automation Hub API
-      - UiPath Document Understanding API
-      - UiPath Data Service API
-      - UiPath Platform Management API
-      - UiPath Test Manager API
+    notes: 160 PUT requests per organization per rolling 5-minute window.
+  - name: Identity Server PATCH (Automation Cloud)
+    scope: account
+    metric: requests_per_5_minutes
+    limit: 160
+    timeFrame: minute
+    notes: 160 PATCH requests per organization per rolling 5-minute window.
+  - name: Identity Server DELETE (Automation Cloud)
+    scope: account
+    metric: requests_per_5_minutes
+    limit: 160
+    timeFrame: minute
+    notes: 160 DELETE requests per organization per rolling 5-minute window.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Per-Organization Scope
+    description: Limits are enforced per organization, not per user or per application.
+  - name: Rolling Window
+    description: The 5-minute evaluation window is rolling, not fixed; counters do not reset on a clock
+      boundary.
+  - name: Cloud Variants
+    description: Published Identity Server limits apply to Automation Cloud. Public Sector and Dedicated
+      variants follow their own (separately documented) thresholds.
+  - name: 429 Handling
+    description: On HTTP 429, plan integration to stay within limits and apply backoff. UiPath advises
+      designing to stay under the documented thresholds rather than relying on retry.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

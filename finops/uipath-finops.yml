@@ -1,184 +1,97 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: UiPath
+providerId: uipath
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Automation
+  - RPA
+  - AI
+  - FinOps
+  - FOCUS
+description: 'FOCUS-aligned FinOps for UiPath: tiered subscription model with one self-service Basic
+  tier ($25/month, EU only) and contact-sales Standard / Enterprise tiers covering Automation Cloud and
+  Test Cloud. Billable units are users, robots, AI agent calls, and document-understanding consumption.'
+sources:
+  - https://www.uipath.com/pricing
+  - https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/api-rate-limits-for-identity-server
+  - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: UiPath
-providerId: uipath
-publisherName: UiPath
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - Automation
-  - Robotic Process Automation
-  - RPA
-  - Artificial Intelligence
-  - Document Processing
-  - Enterprise Automation
-  - Orchestration
-  - Testing
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the UiPath API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: UiPath, Inc.
+serviceCategory: Automation / RPA
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Tiered Subscription
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
+    - Usage
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: UiPath
-  ServiceCategory: Developer Tools / API
+  ServiceName: UiPath Automation Cloud
+  ServiceCategory: Automation / RPA
   ProviderName: UiPath
-  PublisherName: UiPath
-  InvoiceIssuerName: UiPath
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: UiPath, Inc.
+  InvoiceIssuerName: UiPath, Inc.
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
+  - name: user_seats
+    description: User entitlements (Basic, Plus, Pro) per organization
+    unit: seat
+    aggregation: max
+    dimensions:
+      - user_type
+      - tier
+  - name: robots
+    description: Attended and unattended robots licensed per organization
+    unit: robot
+    aggregation: max
+    dimensions:
+      - robot_type
+      - tier
+  - name: ai_agent_calls
+    description: AI agent invocations (Standard / Enterprise tiers, unlimited inside contract terms)
+    unit: invocation
+    aggregation: sum
+    dimensions:
+      - agent
+      - tier
+  - name: document_understanding_pages
+    description: Pages processed by document classification / extraction
+    unit: page
+    aggregation: sum
+    dimensions:
+      - model
   - name: api_requests
-    description: Count of billable API requests
+    description: Identity Server / Orchestrator API calls (subject to per-org rate limits)
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: UiPath Orchestrator API
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
-    tags:
-      - Orchestrator
-      - Robots
-      - Jobs
-      - Queues
-      - Automation
-    serviceName: UiPath Orchestrator API
-    serviceCategory: API
-  - name: UiPath Automation Hub API
-    baseURL: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
-    tags:
-      - Automation Hub
-      - Pipeline Management
-      - Center of Excellence
-      - Ideas
-    serviceName: UiPath Automation Hub API
-    serviceCategory: API
-  - name: UiPath Document Understanding API
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/du_
-    tags:
-      - Document Understanding
-      - Machine Learning
-      - OCR
-      - Data Extraction
-      - Intelligent Document Processing
-    serviceName: UiPath Document Understanding API
-    serviceCategory: API
-  - name: UiPath Data Service API
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_
-    tags:
-      - Data Service
-      - Data Storage
-      - Records
-      - Entities
-    serviceName: UiPath Data Service API
-    serviceCategory: API
-  - name: UiPath Platform Management API
-    baseURL: https://cloud.uipath.com
-    tags:
-      - Platform Management
-      - Administration
-      - Organizations
-      - Tenants
-      - Licensing
-    serviceName: UiPath Platform Management API
-    serviceCategory: API
-  - name: UiPath Test Manager API
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
-    tags:
-      - Testing
-      - Quality Assurance
-      - CI/CD
-      - Test Automation
-    serviceName: UiPath Test Manager API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - service
+      - http_method
+principles:
+  - name: Visibility
+    description: Use the Automation Cloud admin console, Insights dashboards, and Orchestrator audit
+      APIs to attribute robot, user, and agent consumption per tenant and folder.
+  - name: Allocation
+    description: Tag automations and Orchestrator folders with consuming team / process owner so robot-hours,
+      AI agent calls, and document-understanding pages can be charged back.
+  - name: Optimization
+    description: Right-size between Basic / Standard / Enterprise tiers, retire idle robots, batch documents
+      to amortize per-page costs, and design integrations to stay under the Identity Server 5-minute
+      method limits to avoid 429-driven retries.
+  - name: Accountability
+    description: Center-of-Excellence and platform owners review tier entitlement vs actual robot, agent,
+      and document consumption ahead of each renewal.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
