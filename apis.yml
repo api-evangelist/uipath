@@ -64,7 +64,7 @@ apis:
         url: json-schema/orchestrator-asset-schema.json
       - type: JSONStructure
         url: json-structure/orchestrator-job-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-orchestrator-context.jsonld
   - aid: uipath:uipath-automation-hub-api
     name: UiPath Automation Hub API
@@ -90,7 +90,7 @@ apis:
         url: json-schema/automation-hub-automation-schema.json
       - type: JSONStructure
         url: json-structure/automation-hub-automation-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-automation-hub-context.jsonld
   - aid: uipath:uipath-document-understanding-api
     name: UiPath Document Understanding API
@@ -116,7 +116,7 @@ apis:
         url: json-schema/uipath-document-understanding-schema.json
       - type: JSONStructure
         url: json-structure/document-understanding-digitization-result-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-document-understanding-context.jsonld
   - aid: uipath:uipath-data-service-api
     name: UiPath Data Service API
@@ -141,7 +141,7 @@ apis:
         url: json-schema/data-service-entity-record-schema.json
       - type: JSONStructure
         url: json-structure/data-service-entity-record-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-data-service-context.jsonld
   - aid: uipath:uipath-platform-management-api
     name: UiPath Platform Management API
@@ -165,7 +165,7 @@ apis:
         url: openapi/uipath-platform-management-openapi.yml
       - type: JSONStructure
         url: json-structure/platform-management-user-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-platform-management-context.jsonld
   - aid: uipath:uipath-test-manager-api
     name: UiPath Test Manager API
@@ -190,7 +190,7 @@ apis:
         url: json-schema/test-manager-test-case-schema.json
       - type: JSONStructure
         url: json-structure/test-manager-test-case-structure.json
-      - type: JSON-LD
+      - type: JSONLD
         url: json-ld/uipath-test-manager-context.jsonld
 common:
   - type: Website
@@ -240,7 +240,7 @@ common:
     title: UiPath CLI
   - type: CLI
     url: https://docs.uipath.com/automation-cloud/docs/uipath-cli
-  - type: Signup
+  - type: SignUp
     url: https://cloud.uipath.com/portal_/cloudrpa
   - type: GettingStarted
     url: https://docs.uipath.com/automation-cloud/docs/introduction
