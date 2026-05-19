@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Roles
+  description: 'UiPath Orchestrator API — Roles. 1 operations. Lead operation: UiPath List Roles. Self-contained Naftiko capability
+    covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Roles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-roles
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Roles business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Roles
+      path: /odata/Roles
+      operations:
+      - name: listroles
+        method: GET
+        description: UiPath List Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-roles-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Roles. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/roles
+      name: odata-roles
+      description: REST surface for odata-Roles.
+      operations:
+      - method: GET
+        name: listroles
+        description: UiPath List Roles
+        call: orchestrator-roles.listroles
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-roles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Roles. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: uipath-list-roles
+      description: UiPath List Roles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-roles.listroles
+      outputParameters:
+      - type: object
+        mapping: $.

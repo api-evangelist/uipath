@@ -1,0 +1,154 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Platform Management API — Groups
+  description: 'UiPath Platform Management API — Groups. 3 operations. Lead operation: UiPath Create a Group. Self-contained
+    Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-management-groups
+    baseUri: https://cloud.uipath.com
+    description: UiPath Platform Management API — Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: organizationName-identity_-api-Group
+      path: /{organizationName}/identity_/api/Group
+      operations:
+      - name: creategroup
+        method: POST
+        description: UiPath Create a Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: organizationName-identity_-api-Group-partitionGlobalId
+      path: /{organizationName}/identity_/api/Group/{partitionGlobalId}
+      operations:
+      - name: listgroups
+        method: GET
+        description: UiPath List Groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: organizationName-identity_-api-Group-partitionGlobalId-groupId
+      path: /{organizationName}/identity_/api/Group/{partitionGlobalId}/{groupId}
+      operations:
+      - name: getgroup
+        method: GET
+        description: UiPath Get a Group by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: groupId
+          in: path
+          type: string
+          description: Unique identifier of the group
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-management-groups-rest
+    port: 8080
+    description: REST adapter for UiPath Platform Management API — Groups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{organizationname}/identity/api/group
+      name: organizationname-identity-api-group
+      description: REST surface for organizationName-identity_-api-Group.
+      operations:
+      - method: POST
+        name: creategroup
+        description: UiPath Create a Group
+        call: platform-management-groups.creategroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{organizationname}/identity/api/group/{partitionglobalid}
+      name: organizationname-identity-api-group-partitionglobalid
+      description: REST surface for organizationName-identity_-api-Group-partitionGlobalId.
+      operations:
+      - method: GET
+        name: listgroups
+        description: UiPath List Groups
+        call: platform-management-groups.listgroups
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{organizationname}/identity/api/group/{partitionglobalid}/{groupid}
+      name: organizationname-identity-api-group-partitionglobalid-groupid
+      description: REST surface for organizationName-identity_-api-Group-partitionGlobalId-groupId.
+      operations:
+      - method: GET
+        name: getgroup
+        description: UiPath Get a Group by ID
+        call: platform-management-groups.getgroup
+        with:
+          groupId: rest.groupId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-management-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Platform Management API — Groups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-create-group
+      description: UiPath Create a Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-management-groups.creategroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-list-groups
+      description: UiPath List Groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-management-groups.listgroups
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-group-id
+      description: UiPath Get a Group by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-management-groups.getgroup
+      with:
+        groupId: tools.groupId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,186 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Jobs
+  description: 'UiPath Orchestrator API — Jobs. 4 operations. Lead operation: UiPath List Jobs. Self-contained Naftiko capability
+    covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-jobs
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Jobs
+      path: /odata/Jobs
+      operations:
+      - name: listjobs
+        method: GET
+        description: UiPath List Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: odata-Jobs({key})
+      path: /odata/Jobs({key})
+      operations:
+      - name: getjob
+        method: GET
+        description: UiPath Get a Job by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: odata-Jobs-UiPath.Server.Configuration.OData.StartJobs
+      path: /odata/Jobs/UiPath.Server.Configuration.OData.StartJobs
+      operations:
+      - name: startjobs
+        method: POST
+        description: UiPath Start Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: odata-Jobs-UiPath.Server.Configuration.OData.StopJob
+      path: /odata/Jobs/UiPath.Server.Configuration.OData.StopJob
+      operations:
+      - name: stopjob
+        method: POST
+        description: UiPath Stop a Job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-jobs-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Jobs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/jobs
+      name: odata-jobs
+      description: REST surface for odata-Jobs.
+      operations:
+      - method: GET
+        name: listjobs
+        description: UiPath List Jobs
+        call: orchestrator-jobs.listjobs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/jobs-key
+      name: odata-jobs-key
+      description: REST surface for odata-Jobs({key}).
+      operations:
+      - method: GET
+        name: getjob
+        description: UiPath Get a Job by ID
+        call: orchestrator-jobs.getjob
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/jobs/uipath-server-configuration-odata-startjobs
+      name: odata-jobs-uipath-server-configuration-odata-startjobs
+      description: REST surface for odata-Jobs-UiPath.Server.Configuration.OData.StartJobs.
+      operations:
+      - method: POST
+        name: startjobs
+        description: UiPath Start Jobs
+        call: orchestrator-jobs.startjobs
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/jobs/uipath-server-configuration-odata-stopjob
+      name: odata-jobs-uipath-server-configuration-odata-stopjob
+      description: REST surface for odata-Jobs-UiPath.Server.Configuration.OData.StopJob.
+      operations:
+      - method: POST
+        name: stopjob
+        description: UiPath Stop a Job
+        call: orchestrator-jobs.stopjob
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Jobs. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: uipath-list-jobs
+      description: UiPath List Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-jobs.listjobs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-job-id
+      description: UiPath Get a Job by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-jobs.getjob
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-start-jobs
+      description: UiPath Start Jobs
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orchestrator-jobs.startjobs
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-stop-job
+      description: UiPath Stop a Job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orchestrator-jobs.stopjob
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

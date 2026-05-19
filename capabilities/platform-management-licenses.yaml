@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Platform Management API — Licenses
+  description: 'UiPath Platform Management API — Licenses. 2 operations. Lead operation: UiPath Get License Allocation for
+    a Group. Self-contained Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Licenses
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-management-licenses
+    baseUri: https://cloud.uipath.com
+    description: UiPath Platform Management API — Licenses business capability. Self-contained, no shared references.
+    resources:
+    - name: organizationName-la-api-account-accountId-user-license-group-groupId
+      path: /{organizationName}/la/api/account/{accountId}/user-license/group/{groupId}
+      operations:
+      - name: getgrouplicenseallocation
+        method: GET
+        description: UiPath Get License Allocation for a Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          description: Unique identifier of the organization account
+          required: true
+        - name: groupId
+          in: path
+          type: string
+          description: Unique identifier of the user group
+          required: true
+      - name: updategrouplicenseallocation
+        method: PUT
+        description: UiPath Update License Allocation for a Group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accountId
+          in: path
+          type: string
+          description: Unique identifier of the organization account
+          required: true
+        - name: groupId
+          in: path
+          type: string
+          description: Unique identifier of the user group
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-management-licenses-rest
+    port: 8080
+    description: REST adapter for UiPath Platform Management API — Licenses. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/{organizationname}/la/api/account/{accountid}/user-license/group/{groupid}
+      name: organizationname-la-api-account-accountid-user-license-group-groupid
+      description: REST surface for organizationName-la-api-account-accountId-user-license-group-groupId.
+      operations:
+      - method: GET
+        name: getgrouplicenseallocation
+        description: UiPath Get License Allocation for a Group
+        call: platform-management-licenses.getgrouplicenseallocation
+        with:
+          accountId: rest.accountId
+          groupId: rest.groupId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updategrouplicenseallocation
+        description: UiPath Update License Allocation for a Group
+        call: platform-management-licenses.updategrouplicenseallocation
+        with:
+          accountId: rest.accountId
+          groupId: rest.groupId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-management-licenses-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Platform Management API — Licenses. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: uipath-get-license-allocation-group
+      description: UiPath Get License Allocation for a Group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-management-licenses.getgrouplicenseallocation
+      with:
+        accountId: tools.accountId
+        groupId: tools.groupId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-update-license-allocation-group
+      description: UiPath Update License Allocation for a Group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: platform-management-licenses.updategrouplicenseallocation
+      with:
+        accountId: tools.accountId
+        groupId: tools.groupId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Test Manager API — TestSets
+  description: 'UiPath Test Manager API — TestSets. 2 operations. Lead operation: UiPath List Test Sets in a Project. Self-contained
+    Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - TestSets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: test-manager-testsets
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
+    description: UiPath Test Manager API — TestSets business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-projects-projectId-testsets
+      path: /api/v2/projects/{projectId}/testsets
+      operations:
+      - name: listtestsets
+        method: GET
+        description: UiPath List Test Sets in a Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination (0-based)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of records per page
+      - name: createtestset
+        method: POST
+        description: UiPath Create a Test Set
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: test-manager-testsets-rest
+    port: 8080
+    description: REST adapter for UiPath Test Manager API — TestSets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v2/projects/{projectid}/testsets
+      name: api-v2-projects-projectid-testsets
+      description: REST surface for api-v2-projects-projectId-testsets.
+      operations:
+      - method: GET
+        name: listtestsets
+        description: UiPath List Test Sets in a Project
+        call: test-manager-testsets.listtestsets
+        with:
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtestset
+        description: UiPath Create a Test Set
+        call: test-manager-testsets.createtestset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: test-manager-testsets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Test Manager API — TestSets. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-test-sets-project
+      description: UiPath List Test Sets in a Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: test-manager-testsets.listtestsets
+      with:
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-test-set
+      description: UiPath Create a Test Set
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: test-manager-testsets.createtestset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Webhooks
+  description: 'UiPath Orchestrator API — Webhooks. 4 operations. Lead operation: UiPath List Webhooks. Self-contained Naftiko
+    capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-webhooks
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Webhooks
+      path: /odata/Webhooks
+      operations:
+      - name: listwebhooks
+        method: GET
+        description: UiPath List Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhook
+        method: POST
+        description: UiPath Create a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: odata-Webhooks({key})
+      path: /odata/Webhooks({key})
+      operations:
+      - name: deletewebhook
+        method: DELETE
+        description: UiPath Delete a Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: odata-Webhooks-UiPath.Server.Configuration.OData.GetEventTypes()
+      path: /odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes()
+      operations:
+      - name: getwebhookeventtypes
+        method: GET
+        description: UiPath Get Available Webhook Event Types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-webhooks-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Webhooks. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/webhooks
+      name: odata-webhooks
+      description: REST surface for odata-Webhooks.
+      operations:
+      - method: GET
+        name: listwebhooks
+        description: UiPath List Webhooks
+        call: orchestrator-webhooks.listwebhooks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhook
+        description: UiPath Create a Webhook
+        call: orchestrator-webhooks.createwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/webhooks-key
+      name: odata-webhooks-key
+      description: REST surface for odata-Webhooks({key}).
+      operations:
+      - method: DELETE
+        name: deletewebhook
+        description: UiPath Delete a Webhook
+        call: orchestrator-webhooks.deletewebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/webhooks/uipath-server-configuration-odata-geteventtypes
+      name: odata-webhooks-uipath-server-configuration-odata-geteventtypes
+      description: REST surface for odata-Webhooks-UiPath.Server.Configuration.OData.GetEventTypes().
+      operations:
+      - method: GET
+        name: getwebhookeventtypes
+        description: UiPath Get Available Webhook Event Types
+        call: orchestrator-webhooks.getwebhookeventtypes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Webhooks. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-webhooks
+      description: UiPath List Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-webhooks.listwebhooks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-webhook
+      description: UiPath Create a Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orchestrator-webhooks.createwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-delete-webhook
+      description: UiPath Delete a Webhook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orchestrator-webhooks.deletewebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-available-webhook-event
+      description: UiPath Get Available Webhook Event Types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-webhooks.getwebhookeventtypes
+      outputParameters:
+      - type: object
+        mapping: $.

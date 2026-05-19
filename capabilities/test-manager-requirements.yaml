@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Test Manager API — Requirements
+  description: 'UiPath Test Manager API — Requirements. 2 operations. Lead operation: UiPath List Requirements in a Project.
+    Self-contained Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Requirements
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: test-manager-requirements
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
+    description: UiPath Test Manager API — Requirements business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-projects-projectId-requirements
+      path: /api/v2/projects/{projectId}/requirements
+      operations:
+      - name: listrequirements
+        method: GET
+        description: UiPath List Requirements in a Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination (0-based)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of records per page
+      - name: createrequirement
+        method: POST
+        description: UiPath Create a Requirement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: test-manager-requirements-rest
+    port: 8080
+    description: REST adapter for UiPath Test Manager API — Requirements. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v2/projects/{projectid}/requirements
+      name: api-v2-projects-projectid-requirements
+      description: REST surface for api-v2-projects-projectId-requirements.
+      operations:
+      - method: GET
+        name: listrequirements
+        description: UiPath List Requirements in a Project
+        call: test-manager-requirements.listrequirements
+        with:
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrequirement
+        description: UiPath Create a Requirement
+        call: test-manager-requirements.createrequirement
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: test-manager-requirements-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Test Manager API — Requirements. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-requirements-project
+      description: UiPath List Requirements in a Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: test-manager-requirements.listrequirements
+      with:
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-requirement
+      description: UiPath Create a Requirement
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: test-manager-requirements.createrequirement
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

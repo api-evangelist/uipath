@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Alerts
+  description: 'UiPath Orchestrator API — Alerts. 1 operations. Lead operation: UiPath List Alerts. Self-contained Naftiko
+    capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Alerts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-alerts
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Alerts business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Alerts
+      path: /odata/Alerts
+      operations:
+      - name: listalerts
+        method: GET
+        description: UiPath List Alerts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-alerts-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Alerts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/alerts
+      name: odata-alerts
+      description: REST surface for odata-Alerts.
+      operations:
+      - method: GET
+        name: listalerts
+        description: UiPath List Alerts
+        call: orchestrator-alerts.listalerts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-alerts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Alerts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-alerts
+      description: UiPath List Alerts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-alerts.listalerts
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,293 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Data Service API — Entities
+  description: 'UiPath Data Service API — Entities. 6 operations. Lead operation: UiPath List Records for an Entity. Self-contained
+    Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Entities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: data-service-entities
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService
+    description: UiPath Data Service API — Entities business capability. Self-contained, no shared references.
+    resources:
+    - name: entityName
+      path: /{entityName}
+      operations:
+      - name: listentityrecords
+        method: GET
+        description: UiPath List Records for an Entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: $filter
+          in: query
+          type: string
+          description: Filter expression to narrow results by field values
+        - name: $orderby
+          in: query
+          type: string
+          description: Field name and direction to sort results (e.g., CreatedOn desc)
+        - name: $top
+          in: query
+          type: integer
+          description: Maximum number of records to return
+        - name: $skip
+          in: query
+          type: integer
+          description: Number of records to skip for pagination
+        - name: $select
+          in: query
+          type: string
+          description: Comma-separated list of field names to include in the response
+        - name: $expand
+          in: query
+          type: string
+          description: Related entity references to expand inline in the response
+      - name: createentityrecord
+        method: POST
+        description: UiPath Create an Entity Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: entityName-query
+      path: /{entityName}/query
+      operations:
+      - name: queryentityrecords
+        method: POST
+        description: UiPath Query Entity Records with Advanced Filtering
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: entityName-recordId
+      path: /{entityName}/{recordId}
+      operations:
+      - name: getentityrecord
+        method: GET
+        description: UiPath Get an Entity Record by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: $select
+          in: query
+          type: string
+          description: Comma-separated list of field names to include in the response
+        - name: $expand
+          in: query
+          type: string
+          description: Related entity references to expand inline in the response
+      - name: updateentityrecord
+        method: PUT
+        description: UiPath Update an Entity Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteentityrecord
+        method: DELETE
+        description: UiPath Delete an Entity Record
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: data-service-entities-rest
+    port: 8080
+    description: REST adapter for UiPath Data Service API — Entities. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{entityname}
+      name: entityname
+      description: REST surface for entityName.
+      operations:
+      - method: GET
+        name: listentityrecords
+        description: UiPath List Records for an Entity
+        call: data-service-entities.listentityrecords
+        with:
+          $filter: rest.$filter
+          $orderby: rest.$orderby
+          $top: rest.$top
+          $skip: rest.$skip
+          $select: rest.$select
+          $expand: rest.$expand
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createentityrecord
+        description: UiPath Create an Entity Record
+        call: data-service-entities.createentityrecord
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{entityname}/query
+      name: entityname-query
+      description: REST surface for entityName-query.
+      operations:
+      - method: POST
+        name: queryentityrecords
+        description: UiPath Query Entity Records with Advanced Filtering
+        call: data-service-entities.queryentityrecords
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/{entityname}/{recordid}
+      name: entityname-recordid
+      description: REST surface for entityName-recordId.
+      operations:
+      - method: GET
+        name: getentityrecord
+        description: UiPath Get an Entity Record by ID
+        call: data-service-entities.getentityrecord
+        with:
+          $select: rest.$select
+          $expand: rest.$expand
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateentityrecord
+        description: UiPath Update an Entity Record
+        call: data-service-entities.updateentityrecord
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteentityrecord
+        description: UiPath Delete an Entity Record
+        call: data-service-entities.deleteentityrecord
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: data-service-entities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Data Service API — Entities. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-records-entity
+      description: UiPath List Records for an Entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-service-entities.listentityrecords
+      with:
+        $filter: tools.$filter
+        $orderby: tools.$orderby
+        $top: tools.$top
+        $skip: tools.$skip
+        $select: tools.$select
+        $expand: tools.$expand
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-entity-record
+      description: UiPath Create an Entity Record
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: data-service-entities.createentityrecord
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-query-entity-records-advanced
+      description: UiPath Query Entity Records with Advanced Filtering
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: data-service-entities.queryentityrecords
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-entity-record-id
+      description: UiPath Get an Entity Record by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: data-service-entities.getentityrecord
+      with:
+        $select: tools.$select
+        $expand: tools.$expand
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-update-entity-record
+      description: UiPath Update an Entity Record
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: data-service-entities.updateentityrecord
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-delete-entity-record
+      description: UiPath Delete an Entity Record
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: data-service-entities.deleteentityrecord
+      outputParameters:
+      - type: object
+        mapping: $.

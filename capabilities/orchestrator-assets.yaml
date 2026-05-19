@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Assets
+  description: 'UiPath Orchestrator API — Assets. 5 operations. Lead operation: UiPath List Assets. Self-contained Naftiko
+    capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Assets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-assets
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Assets business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Assets
+      path: /odata/Assets
+      operations:
+      - name: listassets
+        method: GET
+        description: UiPath List Assets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createasset
+        method: POST
+        description: UiPath Create an Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: odata-Assets({key})
+      path: /odata/Assets({key})
+      operations:
+      - name: getasset
+        method: GET
+        description: UiPath Get an Asset by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateasset
+        method: PUT
+        description: UiPath Update an Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteasset
+        method: DELETE
+        description: UiPath Delete an Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-assets-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Assets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/assets
+      name: odata-assets
+      description: REST surface for odata-Assets.
+      operations:
+      - method: GET
+        name: listassets
+        description: UiPath List Assets
+        call: orchestrator-assets.listassets
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createasset
+        description: UiPath Create an Asset
+        call: orchestrator-assets.createasset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/odata/assets-key
+      name: odata-assets-key
+      description: REST surface for odata-Assets({key}).
+      operations:
+      - method: GET
+        name: getasset
+        description: UiPath Get an Asset by ID
+        call: orchestrator-assets.getasset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateasset
+        description: UiPath Update an Asset
+        call: orchestrator-assets.updateasset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteasset
+        description: UiPath Delete an Asset
+        call: orchestrator-assets.deleteasset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-assets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Assets. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-assets
+      description: UiPath List Assets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-assets.listassets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-asset
+      description: UiPath Create an Asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: orchestrator-assets.createasset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-asset-id
+      description: UiPath Get an Asset by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-assets.getasset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-update-asset
+      description: UiPath Update an Asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: orchestrator-assets.updateasset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-delete-asset
+      description: UiPath Delete an Asset
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: orchestrator-assets.deleteasset
+      outputParameters:
+      - type: object
+        mapping: $.

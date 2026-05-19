@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Document Understanding API — Extraction
+  description: 'UiPath Document Understanding API — Extraction. 2 operations. Lead operation: UiPath Start Asynchronous Document
+    Extraction. Self-contained Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Extraction
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: document-understanding-extraction
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework
+    description: UiPath Document Understanding API — Extraction business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-projectId-extraction-start
+      path: /projects/{projectId}/extraction/start
+      operations:
+      - name: extractdocumentasync
+        method: POST
+        description: UiPath Start Asynchronous Document Extraction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-projectId-extraction-requestId-result
+      path: /projects/{projectId}/extraction/{requestId}/result
+      operations:
+      - name: getextractionresult
+        method: GET
+        description: UiPath Get Asynchronous Extraction Result
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: document-understanding-extraction-rest
+    port: 8080
+    description: REST adapter for UiPath Document Understanding API — Extraction. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{projectid}/extraction/start
+      name: projects-projectid-extraction-start
+      description: REST surface for projects-projectId-extraction-start.
+      operations:
+      - method: POST
+        name: extractdocumentasync
+        description: UiPath Start Asynchronous Document Extraction
+        call: document-understanding-extraction.extractdocumentasync
+        with:
+          api-version: rest.api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectid}/extraction/{requestid}/result
+      name: projects-projectid-extraction-requestid-result
+      description: REST surface for projects-projectId-extraction-requestId-result.
+      operations:
+      - method: GET
+        name: getextractionresult
+        description: UiPath Get Asynchronous Extraction Result
+        call: document-understanding-extraction.getextractionresult
+        with:
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: document-understanding-extraction-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Document Understanding API — Extraction. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: uipath-start-asynchronous-document-extraction
+      description: UiPath Start Asynchronous Document Extraction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: document-understanding-extraction.extractdocumentasync
+      with:
+        api-version: tools.api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-asynchronous-extraction-result
+      description: UiPath Get Asynchronous Extraction Result
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: document-understanding-extraction.getextractionresult
+      with:
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.

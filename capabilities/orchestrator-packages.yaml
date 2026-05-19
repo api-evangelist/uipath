@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Packages
+  description: 'UiPath Orchestrator API — Packages. 1 operations. Lead operation: UiPath List Packages. Self-contained Naftiko
+    capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Packages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-packages
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Packages business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Packages
+      path: /odata/Packages
+      operations:
+      - name: listpackages
+        method: GET
+        description: UiPath List Packages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-packages-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Packages. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/packages
+      name: odata-packages
+      description: REST surface for odata-Packages.
+      operations:
+      - method: GET
+        name: listpackages
+        description: UiPath List Packages
+        call: orchestrator-packages.listpackages
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-packages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Packages. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-packages
+      description: UiPath List Packages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-packages.listpackages
+      outputParameters:
+      - type: object
+        mapping: $.

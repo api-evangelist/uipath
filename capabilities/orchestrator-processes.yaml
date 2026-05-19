@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Orchestrator API — Processes
+  description: 'UiPath Orchestrator API — Processes. 1 operations. Lead operation: UiPath List Processes. Self-contained Naftiko
+    capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Processes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: orchestrator-processes
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+    description: UiPath Orchestrator API — Processes business capability. Self-contained, no shared references.
+    resources:
+    - name: odata-Processes
+      path: /odata/Processes
+      operations:
+      - name: listprocesses
+        method: GET
+        description: UiPath List Processes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: orchestrator-processes-rest
+    port: 8080
+    description: REST adapter for UiPath Orchestrator API — Processes. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/odata/processes
+      name: odata-processes
+      description: REST surface for odata-Processes.
+      operations:
+      - method: GET
+        name: listprocesses
+        description: UiPath List Processes
+        call: orchestrator-processes.listprocesses
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: orchestrator-processes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Orchestrator API — Processes. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-processes
+      description: UiPath List Processes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: orchestrator-processes.listprocesses
+      outputParameters:
+      - type: object
+        mapping: $.

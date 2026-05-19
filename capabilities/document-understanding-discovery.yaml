@@ -1,0 +1,161 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Document Understanding API — Discovery
+  description: 'UiPath Document Understanding API — Discovery. 3 operations. Lead operation: UiPath List Document Understanding
+    Projects. Self-contained Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: document-understanding-discovery
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework
+    description: UiPath Document Understanding API — Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: projects
+      path: /projects
+      operations:
+      - name: listprojects
+        method: GET
+        description: UiPath List Document Understanding Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+    - name: projects-projectId-classifiers
+      path: /projects/{projectId}/classifiers
+      operations:
+      - name: listclassifiers
+        method: GET
+        description: UiPath List Classifiers for a Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+    - name: projects-projectId-extractors
+      path: /projects/{projectId}/extractors
+      operations:
+      - name: listextractors
+        method: GET
+        description: UiPath List Extractors for a Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: document-understanding-discovery-rest
+    port: 8080
+    description: REST adapter for UiPath Document Understanding API — Discovery. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects
+      name: projects
+      description: REST surface for projects.
+      operations:
+      - method: GET
+        name: listprojects
+        description: UiPath List Document Understanding Projects
+        call: document-understanding-discovery.listprojects
+        with:
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectid}/classifiers
+      name: projects-projectid-classifiers
+      description: REST surface for projects-projectId-classifiers.
+      operations:
+      - method: GET
+        name: listclassifiers
+        description: UiPath List Classifiers for a Project
+        call: document-understanding-discovery.listclassifiers
+        with:
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectid}/extractors
+      name: projects-projectid-extractors
+      description: REST surface for projects-projectId-extractors.
+      operations:
+      - method: GET
+        name: listextractors
+        description: UiPath List Extractors for a Project
+        call: document-understanding-discovery.listextractors
+        with:
+          api-version: rest.api-version
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: document-understanding-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Document Understanding API — Discovery. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: uipath-list-document-understanding-projects
+      description: UiPath List Document Understanding Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: document-understanding-discovery.listprojects
+      with:
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-list-classifiers-project
+      description: UiPath List Classifiers for a Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: document-understanding-discovery.listclassifiers
+      with:
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-list-extractors-project
+      description: UiPath List Extractors for a Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: document-understanding-discovery.listextractors
+      with:
+        api-version: tools.api-version
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,152 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Test Manager API — Projects
+  description: 'UiPath Test Manager API — Projects. 3 operations. Lead operation: UiPath List Test Projects. Self-contained
+    Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Projects
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: test-manager-projects
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
+    description: UiPath Test Manager API — Projects business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v2-projects
+      path: /api/v2/projects
+      operations:
+      - name: listprojects
+        method: GET
+        description: UiPath List Test Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination (0-based)
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of records per page
+      - name: createproject
+        method: POST
+        description: UiPath Create a Test Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v2-projects-projectId
+      path: /api/v2/projects/{projectId}
+      operations:
+      - name: getproject
+        method: GET
+        description: UiPath Get a Test Project by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: test-manager-projects-rest
+    port: 8080
+    description: REST adapter for UiPath Test Manager API — Projects. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/api/v2/projects
+      name: api-v2-projects
+      description: REST surface for api-v2-projects.
+      operations:
+      - method: GET
+        name: listprojects
+        description: UiPath List Test Projects
+        call: test-manager-projects.listprojects
+        with:
+          page: rest.page
+          pageSize: rest.pageSize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createproject
+        description: UiPath Create a Test Project
+        call: test-manager-projects.createproject
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/projects/{projectid}
+      name: api-v2-projects-projectid
+      description: REST surface for api-v2-projects-projectId.
+      operations:
+      - method: GET
+        name: getproject
+        description: UiPath Get a Test Project by ID
+        call: test-manager-projects.getproject
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: test-manager-projects-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Test Manager API — Projects. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: uipath-list-test-projects
+      description: UiPath List Test Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: test-manager-projects.listprojects
+      with:
+        page: tools.page
+        pageSize: tools.pageSize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-create-test-project
+      description: UiPath Create a Test Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: test-manager-projects.createproject
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uipath-get-test-project-id
+      description: UiPath Get a Test Project by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: test-manager-projects.getproject
+      outputParameters:
+      - type: object
+        mapping: $.

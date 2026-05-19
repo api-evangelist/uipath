@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: UiPath Document Understanding API — Validation
+  description: 'UiPath Document Understanding API — Validation. 1 operations. Lead operation: UiPath Start Asynchronous Document
+    Validation. Self-contained Naftiko capability covering one Uipath business surface.'
+  tags:
+  - Uipath
+  - Validation
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UIPATH_API_KEY: UIPATH_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: document-understanding-validation
+    baseUri: https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework
+    description: UiPath Document Understanding API — Validation business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-projectId-validation-start
+      path: /projects/{projectId}/validation/start
+      operations:
+      - name: validatedocumentasync
+        method: POST
+        description: UiPath Start Asynchronous Document Validation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api-version
+          in: query
+          type: string
+          description: API version to use for this request
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UIPATH_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: document-understanding-validation-rest
+    port: 8080
+    description: REST adapter for UiPath Document Understanding API — Validation. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/projects/{projectid}/validation/start
+      name: projects-projectid-validation-start
+      description: REST surface for projects-projectId-validation-start.
+      operations:
+      - method: POST
+        name: validatedocumentasync
+        description: UiPath Start Asynchronous Document Validation
+        call: document-understanding-validation.validatedocumentasync
+        with:
+          api-version: rest.api-version
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: document-understanding-validation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for UiPath Document Understanding API — Validation. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: uipath-start-asynchronous-document-validation
+      description: UiPath Start Asynchronous Document Validation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: document-understanding-validation.validatedocumentasync
+      with:
+        api-version: tools.api-version
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
