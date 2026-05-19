@@ -23,7 +23,7 @@ tags:
   - Testing
 url: https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/apis.yml
 created: '2025-01-01'
-modified: '2026-05-03'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
   - aid: uipath:uipath-orchestrator-api
@@ -315,6 +315,12 @@ common:
         description: Strategic enterprise automation with full infrastructure control, BYOK, multi-region deployment, and advanced AI capabilities.
       - name: Automation Cloud Public Sector
         description: FedRAMP Moderate authorized automation solution for U.S. government and public sector organizations.
+  - name: MCP Server
+    url: https://github.com/UiPath/uipath-mcp-python
+    type: MCPServer
+  - name: Agent Skills
+    url: https://github.com/UiPath/skills
+    type: AgentSkill
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
