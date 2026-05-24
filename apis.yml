@@ -368,6 +368,8 @@ common:
   - name: Agent Skills
     url: https://github.com/UiPath/skills
     type: AgentSkill
+  - type: LLMsTxt
+    url: https://docs.uipath.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
