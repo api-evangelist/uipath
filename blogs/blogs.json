@@ -2,12 +2,19 @@
   "repo": "uipath",
   "feeds": [
     {
-      "source": "https://www.uipath.com/blog",
+      "source": "https://www.uipath.com/blog/rss.xml",
       "feed_url": "https://www.uipath.com/blog/rss.xml",
-      "title": "UiPath RSS Feed",
-      "saved": 41
+      "saved": 0,
+      "error": "no_feed_no_posts"
+    },
+    {
+      "source": "https://cloud.uipath.com",
+      "feed_url": "https://cloud.uipath.com",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 41
 }
