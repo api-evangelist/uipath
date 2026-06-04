@@ -1,0 +1,125 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Upsert a Data Service Entity Record
+  summary: Query an entity by a key field and update the match or create a new record.
+  description: >-
+    A common Data Service integration pattern. The workflow runs a structured
+    query against a custom entity to find a record whose key field equals a
+    supplied value, then branches: when a match is found it updates the existing
+    record by ID, and when no match is found it creates a new record. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dataServiceApi
+  url: ../openapi/uipath-data-service-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-entity-record
+  summary: Upsert a Data Service entity record by a unique key field.
+  description: >-
+    Queries the entity for a record matching the key field/value, then either
+    updates the matched record or creates a new one.
+  inputs:
+    type: object
+    required:
+    - entityName
+    - keyField
+    - keyValue
+    - fields
+    properties:
+      entityName:
+        type: string
+        description: Name of the custom entity type as defined in the tenant schema.
+      keyField:
+        type: string
+        description: Field name used to detect an existing record (e.g. Email).
+      keyValue:
+        type: string
+        description: Value of the key field to match on.
+      fields:
+        type: object
+        description: Map of field name/value pairs to write to the record.
+  steps:
+  - stepId: findRecord
+    description: >-
+      Run a structured query against the entity for a record where the key field
+      equals the supplied value, returning at most one match.
+    operationId: queryEntityRecords
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    requestBody:
+      contentType: application/json
+      payload:
+        filterGroup:
+          logicalOperator: AND
+          queryFilters:
+          - fieldName: $inputs.keyField
+            operator: equals
+            value: $inputs.keyValue
+        start: 0
+        limit: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedRecordId: $response.body#/value/0/Id
+      totalCount: $response.body#/totalCount
+    onSuccess:
+    - name: recordExists
+      type: goto
+      stepId: updateExisting
+      criteria:
+      - context: $response.body
+        condition: $.totalCount > 0
+        type: jsonpath
+    - name: recordMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.totalCount == 0
+        type: jsonpath
+  - stepId: updateExisting
+    description: >-
+      Update the matched record by its ID with the supplied field values.
+    operationId: updateEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    - name: recordId
+      in: path
+      value: $steps.findRecord.outputs.matchedRecordId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.fields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/Id
+      modifiedOn: $response.body#/ModifiedOn
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new entity record with the supplied field values when no existing
+      record matched the key value.
+    operationId: createEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    requestBody:
+      contentType: application/json
+      payload: $inputs.fields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/Id
+      createdOn: $response.body#/CreatedOn
+  outputs:
+    updatedRecordId: $steps.updateExisting.outputs.recordId
+    createdRecordId: $steps.createNew.outputs.recordId

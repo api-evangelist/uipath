@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Rotate an Asset Value
+  summary: Read an existing asset, write an updated value, and verify the change.
+  description: >-
+    A credential and configuration rotation pattern for Orchestrator assets. The
+    workflow reads an asset by its ID to capture its current definition, issues a
+    full update carrying the new value while preserving the asset's type and name,
+    and re-reads the asset to verify the rotation took effect. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: rotate-asset-value
+  summary: Read, update, and re-verify a text asset value.
+  description: >-
+    Retrieves a Text asset by ID, updates it with a new string value while
+    preserving its identity, and reads it back to confirm the new value.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - assetId
+    - newStringValue
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      assetId:
+        type: integer
+        description: Unique integer identifier of the asset to rotate.
+      newStringValue:
+        type: string
+        description: The new text value to write into the asset.
+  steps:
+  - stepId: readAsset
+    description: >-
+      Retrieve the current asset definition by ID so its name and type can be
+      preserved during the update.
+    operationId: getAsset
+    parameters:
+    - name: key
+      in: path
+      value: $inputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assetName: $response.body#/Name
+      valueType: $response.body#/ValueType
+      currentValue: $response.body#/StringValue
+  - stepId: updateAsset
+    description: >-
+      Update the asset with the new text value, preserving the asset ID, name,
+      and value type captured from the read step.
+    operationId: updateAsset
+    parameters:
+    - name: key
+      in: path
+      value: $inputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $inputs.assetId
+        Name: $steps.readAsset.outputs.assetName
+        ValueType: $steps.readAsset.outputs.valueType
+        StringValue: $inputs.newStringValue
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedValue: $response.body#/StringValue
+  - stepId: verifyAsset
+    description: >-
+      Re-read the asset by ID to confirm the rotated value is now persisted.
+    operationId: getAsset
+    parameters:
+    - name: key
+      in: path
+      value: $inputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedValue: $response.body#/StringValue
+  outputs:
+    assetId: $inputs.assetId
+    previousValue: $steps.readAsset.outputs.currentValue
+    verifiedValue: $steps.verifyAsset.outputs.verifiedValue

@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Bootstrap a Test Project
+  summary: Create a test project, seed a test case and a test set, then read back the project.
+  description: >-
+    A scaffolding pattern for Test Manager. The workflow creates a new test
+    project, adds a first test case to it, creates a test set to group future
+    runs, and finally reads the project back to capture its updated summary
+    statistics. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: testManagerApi
+  url: ../openapi/uipath-test-manager-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bootstrap-test-project
+  summary: Create a test project then seed a test case and a test set.
+  description: >-
+    Creates a test project, adds a test case and a test set, and reads the
+    project back to confirm.
+  inputs:
+    type: object
+    required:
+    - projectName
+    - testCaseName
+    - testSetName
+    properties:
+      projectName:
+        type: string
+        description: Name of the test project to create.
+      projectDescription:
+        type: string
+        description: Optional description of the test project.
+      testCaseName:
+        type: string
+        description: Name of the first test case to create.
+      testSetName:
+        type: string
+        description: Name of the test set to create.
+  steps:
+  - stepId: createProject
+    description: >-
+      Create a new test project to act as the container for test cases and test
+      sets.
+    operationId: createProject
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.projectName
+        description: $inputs.projectDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      projectId: $response.body#/id
+  - stepId: createTestCase
+    description: >-
+      Create the first test case within the new project.
+    operationId: createTestCase
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.createProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.testCaseName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      testCaseId: $response.body#/id
+  - stepId: createTestSet
+    description: >-
+      Create a test set within the project to group test cases for coordinated
+      execution.
+    operationId: createTestSet
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.createProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.testSetName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      testSetId: $response.body#/id
+  - stepId: readProject
+    description: >-
+      Read the project back by its ID to capture the updated summary statistics
+      after seeding.
+    operationId: getProject
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.createProject.outputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      testCaseCount: $response.body#/testCaseCount
+  outputs:
+    projectId: $steps.createProject.outputs.projectId
+    testCaseId: $steps.createTestCase.outputs.testCaseId
+    testSetId: $steps.createTestSet.outputs.testSetId
+    testCaseCount: $steps.readProject.outputs.testCaseCount

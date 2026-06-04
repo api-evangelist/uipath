@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Trigger a Scheduled Process On Demand
+  summary: Find a configured schedule, resolve its process, and run it immediately.
+  description: >-
+    A pattern for kicking off a scheduled automation ahead of its trigger time.
+    The workflow lists the process schedules in a folder to find an enabled
+    trigger and the release it points at, lists the processes to resolve that
+    release's GUID key, and then starts a job immediately. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: trigger-scheduled-process-now
+  summary: Resolve a schedule's process and start a job for it on demand.
+  description: >-
+    Finds an enabled schedule by name to obtain its release ID, resolves the
+    matching process to obtain its release key, and starts a job immediately.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - scheduleName
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      scheduleName:
+        type: string
+        description: Name of the process schedule to trigger on demand.
+      inputArguments:
+        type: string
+        description: JSON-serialized input arguments passed to the process.
+  steps:
+  - stepId: findSchedule
+    description: >-
+      List the process schedules in the folder filtered to the supplied name to
+      capture the release ID the schedule targets.
+    operationId: listSchedules
+    parameters:
+    - name: $filter
+      in: query
+      value: "Name eq '$inputs.scheduleName'"
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      releaseId: $response.body#/value/0/ReleaseId
+      scheduleEnabled: $response.body#/value/0/Enabled
+  - stepId: resolveProcess
+    description: >-
+      List the processes in the folder filtered to the schedule's release ID to
+      resolve the GUID release key required to start a job.
+    operationId: listProcesses
+    parameters:
+    - name: $filter
+      in: query
+      value: "Id eq $steps.findSchedule.outputs.releaseId"
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      releaseKey: $response.body#/value/0/Key
+  - stepId: startNow
+    description: >-
+      Start a job immediately for the resolved process using the All allocation
+      strategy.
+    operationId: startJobs
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        startInfo:
+          ReleaseKey: $steps.resolveProcess.outputs.releaseKey
+          Strategy: All
+          Source: Manual
+          InputArguments: $inputs.inputArguments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      jobId: $response.body#/value/0/Id
+      jobState: $response.body#/value/0/State
+  outputs:
+    releaseKey: $steps.resolveProcess.outputs.releaseKey
+    jobId: $steps.startNow.outputs.jobId
+    jobState: $steps.startNow.outputs.jobState

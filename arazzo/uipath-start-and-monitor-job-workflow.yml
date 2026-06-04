@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Start and Monitor a Job
+  summary: Start a job for a process and poll its state until it reaches a terminal outcome.
+  description: >-
+    The canonical run-and-wait Orchestrator pattern. The workflow starts a job
+    for a known release key, then repeatedly retrieves the job by its ID,
+    looping while the job is still Pending or Running and ending once the job
+    reaches a terminal state such as Successful, Faulted, or Stopped. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: start-and-monitor-job
+  summary: Start a job and poll until it reaches a terminal state.
+  description: >-
+    Starts a job for the supplied release key in the supplied folder, then polls
+    the job by ID until its State leaves the Pending/Running set.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - releaseKey
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context for the job.
+      releaseKey:
+        type: string
+        description: GUID release key of the process to start.
+      inputArguments:
+        type: string
+        description: JSON-serialized input arguments passed to the process.
+  steps:
+  - stepId: startJob
+    description: >-
+      Start a single job for the supplied release key using the All allocation
+      strategy in the supplied folder context.
+    operationId: startJobs
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        startInfo:
+          ReleaseKey: $inputs.releaseKey
+          Strategy: All
+          Source: Manual
+          InputArguments: $inputs.inputArguments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      jobId: $response.body#/value/0/Id
+      jobKey: $response.body#/value/0/Key
+  - stepId: pollJob
+    description: >-
+      Retrieve the started job by its ID. Loop back while the job is still
+      Pending or Running; otherwise fall through to record the terminal state.
+    operationId: getJob
+    parameters:
+    - name: key
+      in: path
+      value: $steps.startJob.outputs.jobId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/State
+      info: $response.body#/Info
+      endTime: $response.body#/EndTime
+      outputArguments: $response.body#/OutputArguments
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollJob
+      criteria:
+      - context: $response.body
+        condition: $.State == 'Pending' || $.State == 'Running'
+        type: jsonpath
+  outputs:
+    jobId: $steps.startJob.outputs.jobId
+    finalState: $steps.pollJob.outputs.state
+    outputArguments: $steps.pollJob.outputs.outputArguments

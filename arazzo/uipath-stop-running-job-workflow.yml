@@ -1,0 +1,79 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Find and Stop a Running Job
+  summary: Locate a currently running job and send it a stop signal.
+  description: >-
+    An operational control pattern for Orchestrator. The workflow lists jobs
+    filtered to the Running state to discover the job ID of an active execution,
+    then sends a stop signal using the requested strategy — SoftStop to let the
+    current activity finish, or Kill to terminate immediately. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: stop-running-job
+  summary: Discover a running job and stop it using the chosen strategy.
+  description: >-
+    Lists running jobs to obtain the ID of the first match, then issues a stop
+    request with the supplied strategy.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - strategy
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      strategy:
+        type: string
+        description: Stop strategy, either SoftStop or Kill.
+      jobFilter:
+        type: string
+        description: Optional additional OData filter to further narrow the running job (e.g. ReleaseName eq 'Invoicing').
+  steps:
+  - stepId: findRunningJob
+    description: >-
+      List jobs in the folder filtered to the Running state, ordered by most
+      recent creation, returning the ID of the job to stop.
+    operationId: listJobs
+    parameters:
+    - name: $filter
+      in: query
+      value: "State eq 'Running'"
+    - name: $orderby
+      in: query
+      value: CreationTime desc
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/value/0/Id
+      jobState: $response.body#/value/0/State
+  - stepId: stopJob
+    description: >-
+      Send a stop signal to the discovered running job using the supplied
+      strategy.
+    operationId: stopJob
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        jobId: $steps.findRunningJob.outputs.jobId
+        strategy: $inputs.strategy
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    stoppedJobId: $steps.findRunningJob.outputs.jobId

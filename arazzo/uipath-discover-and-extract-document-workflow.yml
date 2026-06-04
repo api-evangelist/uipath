@@ -1,0 +1,133 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Discover Extractors and Extract a Document
+  summary: Resolve a project, discover its extractors, digitize a document, and extract data with polling.
+  description: >-
+    A discovery-driven Document Understanding pipeline. The workflow lists the
+    available projects to resolve a project by name, lists the extractors
+    configured in that project to confirm a document type is supported, digitizes
+    a document, and then runs an asynchronous extraction with polling until the
+    fields are ready. The poll loop repeats while the async status is NotStarted
+    or Running. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentUnderstandingApi
+  url: ../openapi/uipath-document-understanding-openapi.yml
+  type: openapi
+workflows:
+- workflowId: discover-and-extract-document
+  summary: Resolve a project, discover extractors, digitize, and extract with polling.
+  description: >-
+    Resolves a project by name, discovers its extractors, digitizes a document,
+    and runs an async extraction with polling.
+  inputs:
+    type: object
+    required:
+    - projectName
+    - documentBase64
+    - contentType
+    - documentTypeId
+    properties:
+      projectName:
+        type: string
+        description: Display name of the Document Understanding project to resolve.
+      documentBase64:
+        type: string
+        description: Base64-encoded document content to digitize.
+      contentType:
+        type: string
+        description: MIME type of the document (e.g. image/jpeg, application/pdf).
+      documentTypeId:
+        type: string
+        description: Document type identifier to apply during extraction.
+  steps:
+  - stepId: findProject
+    description: >-
+      List the available Document Understanding projects to resolve the project
+      ID for the supplied project name.
+    operationId: listProjects
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projectId: $response.body#/projects/0/id
+      projectName: $response.body#/projects/0/name
+  - stepId: discoverExtractors
+    description: >-
+      List the extractors configured in the resolved project to confirm the
+      target document type can be extracted.
+    operationId: listExtractors
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstExtractorId: $response.body#/extractors/0/id
+  - stepId: digitize
+    description: >-
+      Submit the document for digitization to obtain the document ID used by the
+      extraction step.
+    operationId: digitizeDocument
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        contentType: $inputs.contentType
+        documentBase64: $inputs.documentBase64
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentId: $response.body#/documentId
+  - stepId: startExtraction
+    description: >-
+      Start an asynchronous extraction job for the digitized document using the
+      supplied document type and capture the request ID for polling.
+    operationId: extractDocumentAsync
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        documentId: $steps.digitize.outputs.documentId
+        documentTypeId: $inputs.documentTypeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionRequestId: $response.body#/requestId
+  - stepId: pollExtraction
+    description: >-
+      Retrieve the extraction result by its request ID. Loop back while the job
+      is still NotStarted or Running; otherwise record the final result.
+    operationId: getExtractionResult
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    - name: requestId
+      in: path
+      value: $steps.startExtraction.outputs.extractionRequestId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionStatus: $response.body#/status
+      extractionResult: $response.body#/result
+    onSuccess:
+    - name: stillExtracting
+      type: goto
+      stepId: pollExtraction
+      criteria:
+      - context: $response.body
+        condition: $.status == 'NotStarted' || $.status == 'Running'
+        type: jsonpath
+  outputs:
+    projectId: $steps.findProject.outputs.projectId
+    documentId: $steps.digitize.outputs.documentId
+    extractionStatus: $steps.pollExtraction.outputs.extractionStatus
+    extractionResult: $steps.pollExtraction.outputs.extractionResult

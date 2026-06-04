@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Resolve Folder and Start a Job
+  summary: Resolve a folder context, pick a deployed process, and start a job in it.
+  description: >-
+    A common Orchestrator entry-point pattern. The workflow first lists the
+    folders the caller can access to obtain the numeric folder ID required by
+    the X-UIPATH-OrganizationUnitId header, then lists the processes deployed
+    in that folder to obtain a release key, and finally starts a job for the
+    chosen process. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resolve-folder-start-job
+  summary: Resolve folder context then start a job for a deployed process.
+  description: >-
+    Lists accessible folders to obtain the organization unit ID, lists the
+    processes deployed in that folder, and starts a job for the first matching
+    process using the supplied robot allocation strategy.
+  inputs:
+    type: object
+    required:
+    - folderName
+    - processNameFilter
+    - strategy
+    properties:
+      folderName:
+        type: string
+        description: Display name of the target folder to resolve the organization unit ID for.
+      processNameFilter:
+        type: string
+        description: OData filter expression to locate the deployed process (e.g. Name eq 'Invoicing').
+      strategy:
+        type: string
+        description: Robot allocation strategy for the job (All, Specific, JobsCount, RobotIds).
+      inputArguments:
+        type: string
+        description: JSON-serialized input arguments passed to the process.
+  steps:
+  - stepId: findFolder
+    description: >-
+      List the folders accessible to the caller, filtered to the supplied
+      folder name, to resolve the numeric folder ID used as the organization
+      unit context.
+    operationId: listFolders
+    parameters:
+    - name: $filter
+      in: query
+      value: "DisplayName eq '$inputs.folderName'"
+    - name: $top
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      folderId: $response.body#/value/0/Id
+  - stepId: findProcess
+    description: >-
+      List the processes deployed in the resolved folder, narrowed by the
+      supplied name filter, returning the release key needed to start a job.
+    operationId: listProcesses
+    parameters:
+    - name: $filter
+      in: query
+      value: $inputs.processNameFilter
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $steps.findFolder.outputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      releaseKey: $response.body#/value/0/Key
+      processName: $response.body#/value/0/Name
+  - stepId: startJob
+    description: >-
+      Start a job for the resolved process in the resolved folder using the
+      supplied allocation strategy and input arguments.
+    operationId: startJobs
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $steps.findFolder.outputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        startInfo:
+          ReleaseKey: $steps.findProcess.outputs.releaseKey
+          Strategy: $inputs.strategy
+          Source: Manual
+          InputArguments: $inputs.inputArguments
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      jobId: $response.body#/value/0/Id
+      jobKey: $response.body#/value/0/Key
+      jobState: $response.body#/value/0/State
+  outputs:
+    folderId: $steps.findFolder.outputs.folderId
+    releaseKey: $steps.findProcess.outputs.releaseKey
+    jobId: $steps.startJob.outputs.jobId
+    jobState: $steps.startJob.outputs.jobState

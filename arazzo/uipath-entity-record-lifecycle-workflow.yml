@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Data Service Entity Record Lifecycle
+  summary: Create, read, update, and delete a custom entity record end to end.
+  description: >-
+    A full CRUD lifecycle for a Data Service entity record. The workflow creates
+    a record from a supplied field map, reads it back by the returned ID, applies
+    an update, and finally deletes it — exercising every operation a record goes
+    through. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: dataServiceApi
+  url: ../openapi/uipath-data-service-openapi.yml
+  type: openapi
+workflows:
+- workflowId: entity-record-lifecycle
+  summary: Create then read, update, and delete a Data Service entity record.
+  description: >-
+    Creates an entity record, reads it by ID, updates it, and deletes it,
+    confirming each stage succeeds.
+  inputs:
+    type: object
+    required:
+    - entityName
+    - createFields
+    - updateFields
+    properties:
+      entityName:
+        type: string
+        description: Name of the custom entity type as defined in the tenant schema.
+      createFields:
+        type: object
+        description: Field name/value pairs for the initial record creation.
+      updateFields:
+        type: object
+        description: Field name/value pairs applied during the update step.
+  steps:
+  - stepId: createRecord
+    description: >-
+      Create a new entity record from the supplied creation fields.
+    operationId: createEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    requestBody:
+      contentType: application/json
+      payload: $inputs.createFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      recordId: $response.body#/Id
+      createdOn: $response.body#/CreatedOn
+  - stepId: readRecord
+    description: >-
+      Retrieve the created record by its returned ID to confirm it exists.
+    operationId: getEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    - name: recordId
+      in: path
+      value: $steps.createRecord.outputs.recordId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      readModifiedOn: $response.body#/ModifiedOn
+  - stepId: updateRecord
+    description: >-
+      Update the record by its ID with the supplied update fields.
+    operationId: updateEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    - name: recordId
+      in: path
+      value: $steps.createRecord.outputs.recordId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.updateFields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modifiedOn: $response.body#/ModifiedOn
+  - stepId: deleteRecord
+    description: >-
+      Permanently delete the record by its ID, completing the lifecycle.
+    operationId: deleteEntityRecord
+    parameters:
+    - name: entityName
+      in: path
+      value: $inputs.entityName
+    - name: recordId
+      in: path
+      value: $steps.createRecord.outputs.recordId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    recordId: $steps.createRecord.outputs.recordId
+    finalModifiedOn: $steps.updateRecord.outputs.modifiedOn

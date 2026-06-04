@@ -1,0 +1,70 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Find and Remove a Webhook
+  summary: Locate a webhook by its target URL and delete the subscription.
+  description: >-
+    A teardown pattern for Orchestrator event integrations. The workflow lists
+    the webhook subscriptions filtered to a target URL to resolve the numeric ID
+    of the subscription to remove, then deletes that webhook so the endpoint stops
+    receiving event notifications. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: cleanup-webhook
+  summary: Resolve a webhook by URL and delete it.
+  description: >-
+    Lists webhooks filtered to the supplied target URL to find the subscription
+    ID, then deletes that webhook.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - targetUrl
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      targetUrl:
+        type: string
+        description: The target URL of the webhook subscription to remove.
+  steps:
+  - stepId: findWebhook
+    description: >-
+      List webhooks filtered to the supplied target URL to resolve the ID of the
+      subscription to delete.
+    operationId: listWebhooks
+    parameters:
+    - name: $filter
+      in: query
+      value: "Url eq '$inputs.targetUrl'"
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/value/0/Id
+  - stepId: deleteWebhook
+    description: >-
+      Permanently delete the resolved webhook subscription by its ID so the
+      endpoint no longer receives notifications.
+    operationId: deleteWebhook
+    parameters:
+    - name: key
+      in: path
+      value: $steps.findWebhook.outputs.webhookId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    deletedWebhookId: $steps.findWebhook.outputs.webhookId

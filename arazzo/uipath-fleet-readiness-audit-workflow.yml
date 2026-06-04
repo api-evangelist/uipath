@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Fleet Readiness Audit
+  summary: Resolve a folder, then inventory its machines, robots, and recent jobs.
+  description: >-
+    An operational health-check pattern for Orchestrator. The workflow resolves a
+    folder context, then walks the automation fleet in that folder by listing the
+    registered machines, the robots and their connection state, and the most
+    recent jobs — giving a single readiness snapshot before scheduling new work.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: fleet-readiness-audit
+  summary: Inventory machines, robots, and recent jobs for a resolved folder.
+  description: >-
+    Resolves a folder by name, then lists its machines, robots, and recent jobs
+    to produce a readiness snapshot.
+  inputs:
+    type: object
+    required:
+    - folderName
+    properties:
+      folderName:
+        type: string
+        description: Display name of the folder to audit.
+  steps:
+  - stepId: resolveFolder
+    description: >-
+      Resolve the folder by display name to obtain the numeric organization unit
+      ID used for the fleet listings.
+    operationId: listFolders
+    parameters:
+    - name: $filter
+      in: query
+      value: "DisplayName eq '$inputs.folderName'"
+    - name: $top
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      folderId: $response.body#/value/0/Id
+  - stepId: listMachinesStep
+    description: >-
+      List the machines available in the resolved folder context.
+    operationId: listMachines
+    parameters:
+    - name: $top
+      in: query
+      value: 100
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $steps.resolveFolder.outputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstMachineName: $response.body#/value/0/Name
+  - stepId: listRobotsStep
+    description: >-
+      List the robots in the resolved folder along with their connection state.
+    operationId: listRobots
+    parameters:
+    - name: $top
+      in: query
+      value: 100
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $steps.resolveFolder.outputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstRobotName: $response.body#/value/0/Name
+      firstRobotConnected: $response.body#/value/0/IsConnected
+  - stepId: listRecentJobs
+    description: >-
+      List the most recent jobs in the folder, ordered by creation time, to see
+      recent execution activity.
+    operationId: listJobs
+    parameters:
+    - name: $orderby
+      in: query
+      value: CreationTime desc
+    - name: $top
+      in: query
+      value: 20
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $steps.resolveFolder.outputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestJobState: $response.body#/value/0/State
+  outputs:
+    folderId: $steps.resolveFolder.outputs.folderId
+    firstMachineName: $steps.listMachinesStep.outputs.firstMachineName
+    firstRobotConnected: $steps.listRobotsStep.outputs.firstRobotConnected
+    latestJobState: $steps.listRecentJobs.outputs.latestJobState

@@ -1,0 +1,152 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Digitize, Classify, and Extract a Document
+  summary: Run the full document understanding pipeline with polling for async results.
+  description: >-
+    The end-to-end Document Understanding pipeline. The workflow digitizes a
+    base64-encoded document to obtain a document ID, starts an asynchronous
+    classification and polls until it completes, then starts an asynchronous
+    extraction against the digitized document and polls until the extracted
+    fields are ready. Poll loops repeat while the async job status is NotStarted
+    or Running. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: documentUnderstandingApi
+  url: ../openapi/uipath-document-understanding-openapi.yml
+  type: openapi
+workflows:
+- workflowId: digitize-classify-extract
+  summary: Digitize a document, then classify and extract it with async polling.
+  description: >-
+    Digitizes a document to obtain a document ID, runs async classification with
+    polling, then runs async extraction with polling against the same document.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - documentBase64
+    - contentType
+    - documentTypeId
+    properties:
+      projectId:
+        type: string
+        description: Unique identifier of the Document Understanding project.
+      documentBase64:
+        type: string
+        description: Base64-encoded document content to digitize.
+      contentType:
+        type: string
+        description: MIME type of the document (e.g. image/jpeg, application/pdf).
+      documentTypeId:
+        type: string
+        description: Document type identifier to apply during extraction.
+  steps:
+  - stepId: digitize
+    description: >-
+      Submit the document for digitization to obtain the document ID used by the
+      classification and extraction steps.
+    operationId: digitizeDocument
+    parameters:
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        contentType: $inputs.contentType
+        documentBase64: $inputs.documentBase64
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentId: $response.body#/documentId
+      digitizationStatus: $response.body#/status
+  - stepId: startClassification
+    description: >-
+      Start an asynchronous classification job for the digitized document and
+      capture the request ID for polling.
+    operationId: classifyDocumentAsync
+    parameters:
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        documentId: $steps.digitize.outputs.documentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      classificationRequestId: $response.body#/requestId
+  - stepId: pollClassification
+    description: >-
+      Retrieve the classification result by its request ID. Loop back while the
+      job is still NotStarted or Running; otherwise continue to extraction.
+    operationId: getClassificationResult
+    parameters:
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: requestId
+      in: path
+      value: $steps.startClassification.outputs.classificationRequestId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      classificationStatus: $response.body#/status
+    onSuccess:
+    - name: stillClassifying
+      type: goto
+      stepId: pollClassification
+      criteria:
+      - context: $response.body
+        condition: $.status == 'NotStarted' || $.status == 'Running'
+        type: jsonpath
+  - stepId: startExtraction
+    description: >-
+      Start an asynchronous extraction job for the digitized document using the
+      supplied document type and capture the request ID for polling.
+    operationId: extractDocumentAsync
+    parameters:
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        documentId: $steps.digitize.outputs.documentId
+        documentTypeId: $inputs.documentTypeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionRequestId: $response.body#/requestId
+  - stepId: pollExtraction
+    description: >-
+      Retrieve the extraction result by its request ID. Loop back while the job
+      is still NotStarted or Running; otherwise record the final result.
+    operationId: getExtractionResult
+    parameters:
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    - name: requestId
+      in: path
+      value: $steps.startExtraction.outputs.extractionRequestId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      extractionStatus: $response.body#/status
+      extractionResult: $response.body#/result
+    onSuccess:
+    - name: stillExtracting
+      type: goto
+      stepId: pollExtraction
+      criteria:
+      - context: $response.body
+        condition: $.status == 'NotStarted' || $.status == 'Running'
+        type: jsonpath
+  outputs:
+    documentId: $steps.digitize.outputs.documentId
+    classificationStatus: $steps.pollClassification.outputs.classificationStatus
+    extractionStatus: $steps.pollExtraction.outputs.extractionStatus
+    extractionResult: $steps.pollExtraction.outputs.extractionResult

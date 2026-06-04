@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Establish Requirement Traceability
+  summary: Resolve a test project, create a requirement and a covering test case, then list test cases.
+  description: >-
+    A traceability pattern for Test Manager. The workflow lists the available
+    test projects to resolve a target project by name, creates a requirement to
+    represent a specification, adds a test case intended to cover it, and lists
+    the project's test cases to confirm the new coverage is present. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: testManagerApi
+  url: ../openapi/uipath-test-manager-openapi.yml
+  type: openapi
+workflows:
+- workflowId: requirement-traceability
+  summary: Resolve a project, create a requirement and covering test case, then list cases.
+  description: >-
+    Resolves a test project by name, creates a requirement and a covering test
+    case, and lists the project's test cases to confirm.
+  inputs:
+    type: object
+    required:
+    - projectName
+    - requirementName
+    - testCaseName
+    properties:
+      projectName:
+        type: string
+        description: Name of the existing test project to resolve.
+      requirementName:
+        type: string
+        description: Name of the requirement to create.
+      externalId:
+        type: string
+        description: Optional external identifier for the requirement (e.g. a Jira key).
+      testCaseName:
+        type: string
+        description: Name of the test case created to cover the requirement.
+  steps:
+  - stepId: findProject
+    description: >-
+      List the available test projects to resolve the project ID for the supplied
+      project name.
+    operationId: listProjects
+    parameters:
+    - name: pageSize
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projectId: $response.body#/projects/0/id
+  - stepId: createRequirement
+    description: >-
+      Create a requirement within the resolved project to represent the
+      specification to be covered.
+    operationId: createRequirement
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.requirementName
+        externalId: $inputs.externalId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      requirementId: $response.body#/id
+  - stepId: createCoveringTestCase
+    description: >-
+      Create a test case in the project intended to cover the new requirement.
+    operationId: createTestCase
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.testCaseName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      testCaseId: $response.body#/id
+  - stepId: listProjectTestCases
+    description: >-
+      List the project's test cases to confirm the newly created covering test
+      case is present.
+    operationId: listTestCases
+    parameters:
+    - name: projectId
+      in: path
+      value: $steps.findProject.outputs.projectId
+    - name: pageSize
+      in: query
+      value: 100
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalCount: $response.body#/totalCount
+  outputs:
+    projectId: $steps.findProject.outputs.projectId
+    requirementId: $steps.createRequirement.outputs.requirementId
+    testCaseId: $steps.createCoveringTestCase.outputs.testCaseId
+    totalCount: $steps.listProjectTestCases.outputs.totalCount

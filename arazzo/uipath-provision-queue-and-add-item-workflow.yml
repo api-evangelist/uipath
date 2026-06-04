@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Provision a Queue and Add an Item
+  summary: Create a transaction queue and seed it with its first work item.
+  description: >-
+    A bootstrap pattern for queue-based automation. The workflow creates a new
+    queue definition in a folder, then adds a transaction item targeting that
+    queue by name, and finally lists the queue items to confirm the item landed.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-queue-and-add-item
+  summary: Create a queue definition then add and confirm a first transaction item.
+  description: >-
+    Creates a queue definition, adds a transaction item referencing the new
+    queue by name, and lists queue items filtered to that queue to confirm.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - queueName
+    - specificContent
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      queueName:
+        type: string
+        description: Name of the queue to create and add the item to.
+      maxRetries:
+        type: integer
+        description: Maximum number of automatic retries for failed transactions.
+      reference:
+        type: string
+        description: Optional unique reference string for the seeded item.
+      specificContent:
+        type: object
+        description: Custom key-value payload data for the first queue item.
+  steps:
+  - stepId: createQueue
+    description: >-
+      Create a queue definition in the folder with the supplied name and retry
+      configuration.
+    operationId: createQueue
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.queueName
+        MaxNumberOfRetries: $inputs.maxRetries
+        AcceptAutomaticallyRetry: true
+        EnforceUniqueReference: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      queueId: $response.body#/Id
+      queueName: $response.body#/Name
+  - stepId: addItem
+    description: >-
+      Add the first transaction item to the newly created queue, referencing it
+      by name and carrying the supplied specific content.
+    operationId: addQueueItem
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        itemData:
+          Name: $steps.createQueue.outputs.queueName
+          Priority: Normal
+          SpecificContent: $inputs.specificContent
+          Reference: $inputs.reference
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      queueItemId: $response.body#/Id
+      queueItemStatus: $response.body#/Status
+  - stepId: confirmItems
+    description: >-
+      List the queue items filtered to the new queue definition to confirm the
+      seeded item is present.
+    operationId: listQueueItems
+    parameters:
+    - name: $filter
+      in: query
+      value: "QueueDefinitionId eq $steps.createQueue.outputs.queueId"
+    - name: $top
+      in: query
+      value: 10
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstItemId: $response.body#/value/0/Id
+  outputs:
+    queueId: $steps.createQueue.outputs.queueId
+    queueItemId: $steps.addItem.outputs.queueItemId
+    queueItemStatus: $steps.addItem.outputs.queueItemStatus

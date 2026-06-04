@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Register a Job Event Webhook
+  summary: Discover available event types, create a webhook, and confirm its registration.
+  description: >-
+    An event-driven integration setup for Orchestrator. The workflow first
+    retrieves the catalog of available webhook event types so the caller can
+    confirm the desired job events are supported, then creates a webhook
+    subscription pointing at a target URL, and finally lists webhooks to confirm
+    the new subscription is registered. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-job-webhook
+  summary: List event types, create a webhook, then confirm it exists.
+  description: >-
+    Retrieves the available webhook event types, creates a webhook subscribed to
+    the supplied events, and lists webhooks to verify the registration.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - targetUrl
+    - events
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      targetUrl:
+        type: string
+        description: The HTTPS endpoint URL that will receive event POST requests.
+      secret:
+        type: string
+        description: Optional HMAC secret for validating payload signatures.
+      events:
+        type: array
+        description: List of event type identifiers to subscribe to (e.g. job.faulted).
+        items:
+          type: string
+  steps:
+  - stepId: listEventTypes
+    description: >-
+      Retrieve the catalog of available webhook event types so the desired job
+      events can be confirmed as supported before subscribing.
+    operationId: getWebhookEventTypes
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstEventType: $response.body#/value/0/EventType
+  - stepId: createWebhook
+    description: >-
+      Create a webhook subscription pointing at the target URL and subscribed to
+      the supplied event types.
+    operationId: createWebhook
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        Url: $inputs.targetUrl
+        Enabled: true
+        Secret: $inputs.secret
+        SubscribeToAllEvents: false
+        Events: $inputs.events
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      webhookId: $response.body#/Id
+      webhookUrl: $response.body#/Url
+  - stepId: confirmWebhook
+    description: >-
+      List webhooks filtered to the registered target URL to confirm the new
+      subscription is present and enabled.
+    operationId: listWebhooks
+    parameters:
+    - name: $filter
+      in: query
+      value: "Url eq '$inputs.targetUrl'"
+    - name: $top
+      in: query
+      value: 5
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedWebhookId: $response.body#/value/0/Id
+  outputs:
+    webhookId: $steps.createWebhook.outputs.webhookId
+    confirmedWebhookId: $steps.confirmWebhook.outputs.confirmedWebhookId

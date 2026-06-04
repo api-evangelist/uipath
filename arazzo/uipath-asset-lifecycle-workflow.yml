@@ -1,0 +1,115 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Asset Lifecycle
+  summary: Create, read, update, and delete a shared asset end to end.
+  description: >-
+    A full CRUD lifecycle for an Orchestrator asset. The workflow creates a text
+    asset in a folder, reads it back by the returned ID, updates its value, and
+    finally deletes it — exercising every operation an asset goes through during
+    its life. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: asset-lifecycle
+  summary: Create then read, update, and delete a text asset.
+  description: >-
+    Creates a Text asset, reads it by ID, updates its value, and deletes it,
+    confirming the success of each stage.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - assetName
+    - initialValue
+    - updatedValue
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      assetName:
+        type: string
+        description: Display name for the new asset.
+      initialValue:
+        type: string
+        description: Initial text value to store in the asset.
+      updatedValue:
+        type: string
+        description: Replacement text value applied during the update step.
+  steps:
+  - stepId: createAsset
+    description: >-
+      Create a new Text asset in the folder with the supplied name and initial
+      value.
+    operationId: createAsset
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.assetName
+        ValueType: Text
+        StringValue: $inputs.initialValue
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      assetId: $response.body#/Id
+  - stepId: readAsset
+    description: >-
+      Retrieve the newly created asset by its returned ID to confirm it exists.
+    operationId: getAsset
+    parameters:
+    - name: key
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      readValue: $response.body#/StringValue
+  - stepId: updateAsset
+    description: >-
+      Update the asset with the replacement value, preserving its ID, name, and
+      type.
+    operationId: updateAsset
+    parameters:
+    - name: key
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        Id: $steps.createAsset.outputs.assetId
+        Name: $inputs.assetName
+        ValueType: Text
+        StringValue: $inputs.updatedValue
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedValue: $response.body#/StringValue
+  - stepId: deleteAsset
+    description: >-
+      Permanently delete the asset by its ID, completing the lifecycle.
+    operationId: deleteAsset
+    parameters:
+    - name: key
+      in: path
+      value: $steps.createAsset.outputs.assetId
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    assetId: $steps.createAsset.outputs.assetId
+    finalUpdatedValue: $steps.updateAsset.outputs.updatedValue

@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: UiPath Add and Track a Queue Item
+  summary: Resolve an existing queue, add a transaction item, and read back its status.
+  description: >-
+    A producer-side queue pattern. The workflow lists the queue definitions in a
+    folder to resolve a target queue by name, adds a transaction item to it, and
+    then lists the queue items for that queue to track the new item's processing
+    status. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: orchestratorApi
+  url: ../openapi/uipath-orchestrator-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-and-track-queue-item
+  summary: Resolve a queue by name, add an item, and track its status.
+  description: >-
+    Resolves a queue definition by name, adds a transaction item, and lists the
+    items for that queue to observe the new item's status.
+  inputs:
+    type: object
+    required:
+    - folderId
+    - queueName
+    - specificContent
+    properties:
+      folderId:
+        type: integer
+        description: Numeric folder ID used as the organization unit context.
+      queueName:
+        type: string
+        description: Name of the existing queue to add the item to.
+      priority:
+        type: string
+        description: Processing priority for the new item (Low, Normal, High).
+      reference:
+        type: string
+        description: Optional unique reference string for the item.
+      specificContent:
+        type: object
+        description: Custom key-value payload data for the queue item.
+  steps:
+  - stepId: resolveQueue
+    description: >-
+      List queue definitions in the folder filtered to the supplied queue name
+      to confirm it exists and capture its ID.
+    operationId: listQueues
+    parameters:
+    - name: $filter
+      in: query
+      value: "Name eq '$inputs.queueName'"
+    - name: $top
+      in: query
+      value: 1
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queueId: $response.body#/value/0/Id
+      queueName: $response.body#/value/0/Name
+  - stepId: addItem
+    description: >-
+      Add a transaction item to the resolved queue, referencing it by name and
+      carrying the supplied specific content and priority.
+    operationId: addQueueItem
+    parameters:
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    requestBody:
+      contentType: application/json
+      payload:
+        itemData:
+          Name: $steps.resolveQueue.outputs.queueName
+          Priority: $inputs.priority
+          SpecificContent: $inputs.specificContent
+          Reference: $inputs.reference
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      queueItemId: $response.body#/Id
+      status: $response.body#/Status
+  - stepId: trackItems
+    description: >-
+      List the queue items for the resolved queue, ordered by most recent
+      creation, to track the status of the newly added item.
+    operationId: listQueueItems
+    parameters:
+    - name: $filter
+      in: query
+      value: "QueueDefinitionId eq $steps.resolveQueue.outputs.queueId"
+    - name: $orderby
+      in: query
+      value: CreationTime desc
+    - name: $top
+      in: query
+      value: 5
+    - name: X-UIPATH-OrganizationUnitId
+      in: header
+      value: $inputs.folderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      latestItemStatus: $response.body#/value/0/Status
+  outputs:
+    queueId: $steps.resolveQueue.outputs.queueId
+    queueItemId: $steps.addItem.outputs.queueItemId
+    latestItemStatus: $steps.trackItems.outputs.latestItemStatus
