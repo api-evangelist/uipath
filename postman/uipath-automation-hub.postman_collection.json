@@ -1,0 +1,2998 @@
+{
+  "info": {
+    "_postman_id": "9a6a7a52-c568-4ac4-aac8-eb23873352db",
+    "name": "UiPath Automation Hub API",
+    "description": "The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.\n\nContact Support:\n Name: UiPath Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:04.000Z",
+    "updatedAt": "2026-06-05T15:02:04.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a6a7a52-c568-4ac4-aac8-eb23873352db"
+  },
+  "item": [
+    {
+      "name": "automations",
+      "item": [
+        {
+          "name": "{automationId}",
+          "item": [
+            {
+              "name": "collaborators",
+              "item": [
+                {
+                  "name": "UiPath List Collaborators for an Automation",
+                  "id": "5b593b06-5de6-4039-a6ca-f50f71c2c67e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId/collaborators",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId",
+                        "collaborators"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4c0ad7e9-2ab7-4648-8deb-9cca8522aa4d",
+                          "key": "automationId",
+                          "value": "<integer>",
+                          "description": "(Required) Unique integer identifier of the automation idea or project"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the list of collaborators assigned to a specific automation idea or project. Collaborators have defined roles such as subject matter expert, developer, or reviewer."
+                  },
+                  "response": [
+                    {
+                      "id": "86d961e4-3d50-49fd-8222-db34f835f13b",
+                      "name": "A list of collaborators for the automation",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"collaborators\": [\n    {\n      \"userId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\"\n    },\n    {\n      \"userId\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-86d961e4-3d50-49fd-8222-db34f835f13b"
+                    },
+                    {
+                      "id": "900e8317-043e-462a-8abe-0e26a07ff911",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-900e8317-043e-462a-8abe-0e26a07ff911"
+                    },
+                    {
+                      "id": "056ecf0f-0109-4051-89fe-45d705d7951b",
+                      "name": "The requested resource was not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-056ecf0f-0109-4051-89fe-45d705d7951b"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-5b593b06-5de6-4039-a6ca-f50f71c2c67e"
+                },
+                {
+                  "name": "UiPath Remove a Collaborator from an Automation",
+                  "id": "3bad8e89-e8b0-4af2-8da6-7d9492b69cb8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId/collaborators?userId=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId",
+                        "collaborators"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Unique identifier of the user to remove as a collaborator",
+                          "key": "userId",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "577775cb-aa60-4d31-9c35-cc4fa3a6bfcb",
+                          "key": "automationId",
+                          "value": "<integer>",
+                          "description": "(Required) Unique integer identifier of the automation idea or project"
+                        }
+                      ]
+                    },
+                    "description": "Removes a collaborator from an automation by their user ID. The user will lose access to collaborate on the automation idea or project."
+                  },
+                  "response": [
+                    {
+                      "id": "f6c797e3-2dc9-4fa0-9c3c-f6f0ac977369",
+                      "name": "Collaborator removed successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators?userId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique identifier of the user to remove as a collaborator",
+                              "key": "userId",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-f6c797e3-2dc9-4fa0-9c3c-f6f0ac977369"
+                    },
+                    {
+                      "id": "13440eaf-a655-4613-a7dd-47bd49c8cbbe",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators?userId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique identifier of the user to remove as a collaborator",
+                              "key": "userId",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-13440eaf-a655-4613-a7dd-47bd49c8cbbe"
+                    },
+                    {
+                      "id": "b8699476-c226-445f-8d8c-800a692eb029",
+                      "name": "The requested resource was not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/automations/:automationId/collaborators?userId=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "automations",
+                            ":automationId",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique identifier of the user to remove as a collaborator",
+                              "key": "userId",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "automationId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:02:04.000Z",
+                      "updatedAt": "2026-06-05T15:02:04.000Z",
+                      "uid": "35240-b8699476-c226-445f-8d8c-800a692eb029"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-3bad8e89-e8b0-4af2-8da6-7d9492b69cb8"
+                }
+              ],
+              "id": "b8b4a885-2310-4580-98b5-d613c65f18ab",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-b8b4a885-2310-4580-98b5-d613c65f18ab"
+            },
+            {
+              "name": "UiPath Get an Automation by ID",
+              "id": "386c16d1-5794-4670-bd5b-1feac3ba56d2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automations/:automationId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1d382e50-8596-493b-9070-54981e992242",
+                      "key": "automationId",
+                      "value": "<integer>",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    }
+                  ]
+                },
+                "description": "Retrieves a single automation record by its unique identifier. Returns full details including pipeline phase, status, cost-benefit analysis data, collaborators, documents, and tags."
+              },
+              "response": [
+                {
+                  "id": "903c9a9c-29e9-4dd2-bd9a-4d3e6030839e",
+                  "name": "The requested automation record",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phase\": \"Production\",\n  \"status\": \"<string>\",\n  \"submittedBy\": \"<string>\",\n  \"submittedDate\": \"<dateTime>\",\n  \"lastModified\": \"<dateTime>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-903c9a9c-29e9-4dd2-bd9a-4d3e6030839e"
+                },
+                {
+                  "id": "e60cdd07-73e5-4aa3-96cc-f4acfe520faf",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-e60cdd07-73e5-4aa3-96cc-f4acfe520faf"
+                },
+                {
+                  "id": "e0f4e26b-1472-4aed-afee-c8fc04494903",
+                  "name": "The requested resource was not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-e0f4e26b-1472-4aed-afee-c8fc04494903"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-386c16d1-5794-4670-bd5b-1feac3ba56d2"
+            },
+            {
+              "name": "UiPath Update an Automation",
+              "id": "9824afe3-7705-4f0d-8a4d-38f7987d88fb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phase\": \"Testing\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automations/:automationId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "df427b8b-7af5-4e5a-baa8-05a718a03bd7",
+                      "key": "automationId",
+                      "value": "<integer>",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    }
+                  ]
+                },
+                "description": "Partially updates an automation record by its unique identifier. Commonly used to advance an automation through the pipeline by updating its phase and status. Only fields included in the request body are modified."
+              },
+              "response": [
+                {
+                  "id": "b300292b-fa54-4374-8c7b-5074743eda0b",
+                  "name": "Automation updated successfully",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"phase\": \"Testing\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phase\": \"Production\",\n  \"status\": \"<string>\",\n  \"submittedBy\": \"<string>\",\n  \"submittedDate\": \"<dateTime>\",\n  \"lastModified\": \"<dateTime>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-b300292b-fa54-4374-8c7b-5074743eda0b"
+                },
+                {
+                  "id": "d3b9f372-3ed4-40ca-a216-04575991e28c",
+                  "name": "The request was malformed or contained invalid parameters",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"phase\": \"Testing\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-d3b9f372-3ed4-40ca-a216-04575991e28c"
+                },
+                {
+                  "id": "0f1e8200-53e5-4431-ba30-ee05b8541967",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"phase\": \"Testing\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-0f1e8200-53e5-4431-ba30-ee05b8541967"
+                },
+                {
+                  "id": "d6d47ed1-8ffa-41b7-ae2c-c5d13be75b72",
+                  "name": "The requested resource was not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"phase\": \"Testing\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-d6d47ed1-8ffa-41b7-ae2c-c5d13be75b72"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-9824afe3-7705-4f0d-8a4d-38f7987d88fb"
+            },
+            {
+              "name": "UiPath Delete an Automation",
+              "id": "0c50e027-7b81-494d-8e25-d25be09fda60",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automations/:automationId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "814738e0-6b98-4d0c-bc02-274070cb3ec5",
+                      "key": "automationId",
+                      "value": "<integer>",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    }
+                  ]
+                },
+                "description": "Permanently deletes an automation record from Automation Hub by its unique identifier. This action removes the idea and all associated documents, comments, and collaborator data. This action cannot be undone."
+              },
+              "response": [
+                {
+                  "id": "44ac425a-ed41-41be-a620-2fcabfb3b85f",
+                  "name": "Automation deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-44ac425a-ed41-41be-a620-2fcabfb3b85f"
+                },
+                {
+                  "id": "35bd47d9-f7b0-4ab0-b9e8-78f3c7ada175",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-35bd47d9-f7b0-4ab0-b9e8-78f3c7ada175"
+                },
+                {
+                  "id": "06f1cabf-cb45-495a-af11-25a70d9c74fc",
+                  "name": "The requested resource was not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/automations/:automationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "automations",
+                        ":automationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "automationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-06f1cabf-cb45-495a-af11-25a70d9c74fc"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-0c50e027-7b81-494d-8e25-d25be09fda60"
+            }
+          ],
+          "id": "3c214e37-deea-47d2-8c37-b39bbc289b2c",
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-3c214e37-deea-47d2-8c37-b39bbc289b2c"
+        },
+        {
+          "name": "UiPath List Automations",
+          "id": "b1604075-89e4-4ee5-969b-a20c095e6372",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/automations?phase=<string>&status=<string>&page=1&pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "automations"
+              ],
+              "query": [
+                {
+                  "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)",
+                  "key": "phase",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter automations by status within their current phase",
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Page number for pagination (1-based)",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of records per page",
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieves a list of automation ideas and projects from Automation Hub. Supports filtering by phase, status, and other pipeline attributes. Returns a paginated list of automation records including metadata, cost-benefit analysis data, and submission details. Used by CoE teams to programmatically query and track the automation pipeline."
+          },
+          "response": [
+            {
+              "id": "72782bdc-f8a6-4dcd-b516-19421a4ad2f6",
+              "name": "A paginated list of automations",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automations?phase=<string>&status=<string>&page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)",
+                      "key": "phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter automations by status within their current phase",
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"automations\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"phase\": \"Idea\",\n      \"status\": \"<string>\",\n      \"submittedBy\": \"<string>\",\n      \"submittedDate\": \"<dateTime>\",\n      \"lastModified\": \"<dateTime>\",\n      \"estimatedBenefit\": {\n        \"estimatedTimeSavingsPerYear\": \"<number>\",\n        \"estimatedFTESavings\": \"<number>\",\n        \"estimatedCostSavingsPerYear\": \"<number>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"phase\": \"Testing\",\n      \"status\": \"<string>\",\n      \"submittedBy\": \"<string>\",\n      \"submittedDate\": \"<dateTime>\",\n      \"lastModified\": \"<dateTime>\",\n      \"estimatedBenefit\": {\n        \"estimatedTimeSavingsPerYear\": \"<number>\",\n        \"estimatedFTESavings\": \"<number>\",\n        \"estimatedCostSavingsPerYear\": \"<number>\"\n      },\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-72782bdc-f8a6-4dcd-b516-19421a4ad2f6"
+            },
+            {
+              "id": "a75e41d8-7602-453a-b570-4e0752e8bd46",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automations?phase=<string>&status=<string>&page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)",
+                      "key": "phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter automations by status within their current phase",
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-a75e41d8-7602-453a-b570-4e0752e8bd46"
+            },
+            {
+              "id": "ab4416ec-e9b0-4a09-8482-6254b6898a11",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automations?phase=<string>&status=<string>&page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)",
+                      "key": "phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter automations by status within their current phase",
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-ab4416ec-e9b0-4a09-8482-6254b6898a11"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-b1604075-89e4-4ee5-969b-a20c095e6372"
+        },
+        {
+          "name": "UiPath Create an Automation Idea",
+          "id": "10120a3d-ceb1-4e57-b371-32c3acc5878f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/automations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "automations"
+              ]
+            },
+            "description": "Creates a new automation idea in Automation Hub. The submitted idea enters the pipeline at the Idea phase and is available for assessment and prioritization by CoE administrators. The request body must include the idea name, description, submitter information, and the estimated benefit details used in cost-benefit analysis."
+          },
+          "response": [
+            {
+              "id": "46838a88-5e9f-4ab9-adb3-51a58e2f2b52",
+              "name": "Automation idea created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"phase\": \"Production\",\n  \"status\": \"<string>\",\n  \"submittedBy\": \"<string>\",\n  \"submittedDate\": \"<dateTime>\",\n  \"lastModified\": \"<dateTime>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-46838a88-5e9f-4ab9-adb3-51a58e2f2b52"
+            },
+            {
+              "id": "4d572a3b-4163-4873-845a-5accf90b76f4",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-4d572a3b-4163-4873-845a-5accf90b76f4"
+            },
+            {
+              "id": "0c2445bd-045e-4d39-be07-7bf823447c5c",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/automations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automations"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-0c2445bd-045e-4d39-be07-7bf823447c5c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-10120a3d-ceb1-4e57-b371-32c3acc5878f"
+        }
+      ],
+      "id": "dbdff15d-c561-4c5f-9a9c-3d2ffa25c4ae",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-dbdff15d-c561-4c5f-9a9c-3d2ffa25c4ae"
+    },
+    {
+      "name": "automationpipeline",
+      "item": [
+        {
+          "name": "UiPath Get Automation Pipeline Data",
+          "id": "a12051d2-2a0c-41d7-83bb-6a4ab7e23958",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/automationpipeline",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "automationpipeline"
+              ]
+            },
+            "description": "Retrieves aggregated pipeline data showing the distribution of automations across phases and statuses. Used for reporting and dashboard views by CoE administrators to understand the overall health and throughput of the automation program."
+          },
+          "response": [
+            {
+              "id": "6323cc3e-0a38-4734-a2e6-2ac66d7db8dd",
+              "name": "Automation pipeline summary data",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automationpipeline",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automationpipeline"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"phases\": [\n    {\n      \"phase\": \"<string>\",\n      \"count\": \"<integer>\"\n    },\n    {\n      \"phase\": \"<string>\",\n      \"count\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-6323cc3e-0a38-4734-a2e6-2ac66d7db8dd"
+            },
+            {
+              "id": "7ea3e038-3b82-4ca3-bb16-272d346273f9",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/automationpipeline",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "automationpipeline"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-7ea3e038-3b82-4ca3-bb16-272d346273f9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-a12051d2-2a0c-41d7-83bb-6a4ab7e23958"
+        }
+      ],
+      "id": "e44d4c2b-bb8f-4313-acde-61a97111f710",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-e44d4c2b-bb8f-4313-acde-61a97111f710"
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "UiPath List Users",
+          "id": "ca69b45b-ce40-429f-97f5-f87c94b57a16",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users?page=1&pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "description": "Page number for pagination (1-based)",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of records per page",
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieves a list of users registered in Automation Hub. Returns user identifiers, names, email addresses, and assigned roles. Used by administrators to manage user assignments and role configurations."
+          },
+          "response": [
+            {
+              "id": "6c31615c-d4c8-42c0-b18f-6f634bfa164e",
+              "name": "A list of users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"isActive\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"<string>\",\n      \"isActive\": \"<boolean>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-6c31615c-d4c8-42c0-b18f-6f634bfa164e"
+            },
+            {
+              "id": "8c793b76-e53c-4d87-a25a-943fd5942dbf",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-8c793b76-e53c-4d87-a25a-943fd5942dbf"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-ca69b45b-ce40-429f-97f5-f87c94b57a16"
+        }
+      ],
+      "id": "ae7e27c3-c8bf-4b4e-8fcb-316f510f9b2d",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-ae7e27c3-c8bf-4b4e-8fcb-316f510f9b2d"
+    },
+    {
+      "name": "adduser",
+      "item": [
+        {
+          "name": "UiPath Add a User",
+          "id": "7b8ac16e-3667-4701-919c-11902cdb1ad8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/adduser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "adduser"
+              ]
+            },
+            "description": "Adds a new user to Automation Hub. The user must already exist in the UiPath identity directory. This endpoint assigns the user a role within Automation Hub and makes them available for collaboration and idea submission."
+          },
+          "response": [
+            {
+              "id": "12d6f68b-c011-43ce-aedf-623de848e966",
+              "name": "User added successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/adduser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adduser"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-12d6f68b-c011-43ce-aedf-623de848e966"
+            },
+            {
+              "id": "cc95d31a-7b3d-4f46-a8f8-c724685e1675",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/adduser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adduser"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-cc95d31a-7b3d-4f46-a8f8-c724685e1675"
+            },
+            {
+              "id": "4b98d95d-3d41-4d67-91df-aa14a3186cc9",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/adduser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adduser"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-4b98d95d-3d41-4d67-91df-aa14a3186cc9"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-7b8ac16e-3667-4701-919c-11902cdb1ad8"
+        }
+      ],
+      "id": "e0e51189-e03b-4dcd-8883-79455f783a53",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-e0e51189-e03b-4dcd-8883-79455f783a53"
+    },
+    {
+      "name": "edituser",
+      "item": [
+        {
+          "name": "UiPath Edit a User",
+          "id": "9ef1dff4-6454-43fc-8f98-fe9184716be5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/edituser",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "edituser"
+              ]
+            },
+            "description": "Updates an existing user's properties in Automation Hub, such as their assigned role or active status. The user is identified by their unique ID in the request body."
+          },
+          "response": [
+            {
+              "id": "80734ec3-6fcc-4a5d-8889-bfd03df59672",
+              "name": "User updated successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/edituser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "edituser"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-80734ec3-6fcc-4a5d-8889-bfd03df59672"
+            },
+            {
+              "id": "01582e59-66fd-4acc-b686-1fc3b25c1621",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/edituser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "edituser"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-01582e59-66fd-4acc-b686-1fc3b25c1621"
+            },
+            {
+              "id": "0a19c5b0-b423-4058-9170-c079f92bd60b",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/edituser",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "edituser"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-0a19c5b0-b423-4058-9170-c079f92bd60b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-9ef1dff4-6454-43fc-8f98-fe9184716be5"
+        }
+      ],
+      "id": "de999b58-40f1-4208-b89f-1003915e469d",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-de999b58-40f1-4208-b89f-1003915e469d"
+    },
+    {
+      "name": "roles",
+      "item": [
+        {
+          "name": "UiPath List Roles",
+          "id": "ba3feaa7-b5a8-4b3c-866a-ef04589c7b22",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            },
+            "description": "Retrieves the list of roles available in Automation Hub. Each role defines a set of permissions controlling what a user can view and perform within the platform. Roles are assigned when adding or editing users."
+          },
+          "response": [
+            {
+              "id": "40888de1-27c1-4e0f-8d19-20f3d49f6e6a",
+              "name": "A list of available roles",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/roles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "roles"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"roles\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-40888de1-27c1-4e0f-8d19-20f3d49f6e6a"
+            },
+            {
+              "id": "bc9104ee-f2aa-4553-8033-84b5444ca2d5",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/roles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "roles"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-bc9104ee-f2aa-4553-8033-84b5444ca2d5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-ba3feaa7-b5a8-4b3c-866a-ef04589c7b22"
+        }
+      ],
+      "id": "14349a43-0849-46d4-a5d1-6753cb766bdc",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-14349a43-0849-46d4-a5d1-6753cb766bdc"
+    },
+    {
+      "name": "appinventory",
+      "item": [
+        {
+          "name": "{applicationId}",
+          "item": [
+            {
+              "name": "UiPath Delete an Application from Inventory",
+              "id": "ab2a6f06-c785-4a3a-b974-67b687f2479a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory/:applicationId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory",
+                    ":applicationId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e48a3e41-9322-492a-8f8e-597b361a9a0c",
+                      "key": "applicationId",
+                      "value": "<integer>",
+                      "description": "(Required) Unique identifier of the application to delete"
+                    }
+                  ]
+                },
+                "description": "Permanently removes an application entry from the application inventory by its unique identifier. Automations that reference this application will lose the association."
+              },
+              "response": [
+                {
+                  "id": "6f8564b9-6cd4-403b-a625-7885b2ca47d0",
+                  "name": "Application deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appinventory/:applicationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appinventory",
+                        ":applicationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "applicationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-6f8564b9-6cd4-403b-a625-7885b2ca47d0"
+                },
+                {
+                  "id": "50d67781-3dc3-45bf-9d69-636c14b5e416",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appinventory/:applicationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appinventory",
+                        ":applicationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "applicationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-50d67781-3dc3-45bf-9d69-636c14b5e416"
+                },
+                {
+                  "id": "8a4092d5-b227-4338-bf6d-84dc3b07ecc1",
+                  "name": "The requested resource was not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/appinventory/:applicationId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "appinventory",
+                        ":applicationId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "applicationId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:02:04.000Z",
+                  "updatedAt": "2026-06-05T15:02:04.000Z",
+                  "uid": "35240-8a4092d5-b227-4338-bf6d-84dc3b07ecc1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-ab2a6f06-c785-4a3a-b974-67b687f2479a"
+            }
+          ],
+          "id": "ff6c51fb-46a4-4910-b20a-155aa14d6ed2",
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-ff6c51fb-46a4-4910-b20a-155aa14d6ed2"
+        },
+        {
+          "name": "UiPath List Application Inventory",
+          "id": "4de9ea6a-8e5c-4d3a-8fc0-812a9930c67a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/appinventory?page=1&pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appinventory"
+              ],
+              "query": [
+                {
+                  "description": "Page number for pagination (1-based)",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of records per page",
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retrieves the application inventory used for automation assessments. Each entry represents a business application that may be involved in automations. Inventory data is used in the assessment process to calculate automation complexity and effort."
+          },
+          "response": [
+            {
+              "id": "40d25bea-d785-42ca-ac95-94feb34f7a5f",
+              "name": "A list of application inventory entries",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory?page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory"
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-40d25bea-d785-42ca-ac95-94feb34f7a5f"
+            },
+            {
+              "id": "22b87f07-6b7b-4d86-9c00-bb28c67967b8",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory?page=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory"
+                  ],
+                  "query": [
+                    {
+                      "description": "Page number for pagination (1-based)",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of records per page",
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-22b87f07-6b7b-4d86-9c00-bb28c67967b8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-4de9ea6a-8e5c-4d3a-8fc0-812a9930c67a"
+        },
+        {
+          "name": "UiPath Bulk Add or Update Application Inventory",
+          "id": "28d552e1-a70b-4af2-8faa-04275c88a7f4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/appinventory",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appinventory"
+              ]
+            },
+            "description": "Adds or updates application entries in bulk. If an application with the same name already exists, it will be updated; otherwise, a new entry is created. This endpoint is designed for bulk synchronization of the application inventory from an external CMDB or asset register."
+          },
+          "response": [
+            {
+              "id": "767b5c33-c6a0-490b-9ed4-2971f9904919",
+              "name": "Applications upserted successfully",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-767b5c33-c6a0-490b-9ed4-2971f9904919"
+            },
+            {
+              "id": "b03682cd-6d08-4016-8ddd-405626485157",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-b03682cd-6d08-4016-8ddd-405626485157"
+            },
+            {
+              "id": "d9c57c79-39fa-4c75-9c39-769574b9db72",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/appinventory",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "appinventory"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:02:04.000Z",
+              "updatedAt": "2026-06-05T15:02:04.000Z",
+              "uid": "35240-d9c57c79-39fa-4c75-9c39-769574b9db72"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:04.000Z",
+          "updatedAt": "2026-06-05T15:02:04.000Z",
+          "uid": "35240-28d552e1-a70b-4af2-8faa-04275c88a7f4"
+        }
+      ],
+      "id": "c5ec7179-c9d9-4c3e-ab75-b571f5cd7a96",
+      "createdAt": "2026-06-05T15:02:04.000Z",
+      "updatedAt": "2026-06-05T15:02:04.000Z",
+      "uid": "35240-c5ec7179-c9d9-4c3e-ab75-b571f5cd7a96"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "orgName",
+      "value": "your-org"
+    },
+    {
+      "key": "tenantName",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.uipath.com/{{orgName}}/{{tenantName}}/automationhub_/api/v1"
+    }
+  ]
+}

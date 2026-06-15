@@ -1,0 +1,981 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Orchestrator API",
+    "version": "2024.10"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Jobs",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData orderby clause (e.g., CreationTime desc)"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              },
+              {
+                "name": "$select",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of property names to include in the response"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of jobs in the current folder. Supports OData query options including $filter, $orderby, $top, $skip, and $select to control the result set. Jobs represent individual executions of automation processes by robots."
+        },
+        {
+          "info": {
+            "name": "UiPath Get a Job by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Jobs(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Retrieves a single job by its unique integer identifier. Returns full job details including state, start and end times, robot information, and associated process."
+        },
+        {
+          "info": {
+            "name": "UiPath Start Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts one or more automation jobs for a specified process. Allows specifying the strategy for robot allocation (e.g., ModernJobsCount, All, RobotIds), input arguments for the process, job priority, and the target folder. Returns details of the created jobs."
+        },
+        {
+          "info": {
+            "name": "UiPath Stop a Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Jobs/UiPath.Server.Configuration.OData.StopJob",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a stop signal to a running job. The strategy can be SoftStop (waits for the current activity to finish) or Kill (forcefully terminates the job immediately). Requires the job ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Processes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Processes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Processes",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData orderby clause (e.g., CreationTime desc)"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of automation processes deployed in the current folder. Each process represents a specific version of a published package configured for execution. Supports OData filtering and pagination."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Robots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Robots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Robots",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData orderby clause (e.g., CreationTime desc)"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of software robots registered with Orchestrator. Each robot entry includes connection state, machine assignment, user assignment, robot type, and licensing information. Supports OData filtering and pagination."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Queue Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/QueueDefinitions",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves all queue definitions in the current folder. Queue definitions describe named queues used for distributing transaction items to robots, including retry settings, unique reference enforcement, and SLA configurations."
+        },
+        {
+          "info": {
+            "name": "UiPath Create a Queue Definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/QueueDefinitions",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new queue definition in the current folder. The queue definition specifies the queue name, maximum retry count, whether to accept only unique references, and enforcement settings."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "QueueItems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Queue Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/QueueItems",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData orderby clause (e.g., CreationTime desc)"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of queue transaction items. Items can be filtered by queue name, status, review status, and priority. Supports OData filtering, ordering, and pagination."
+        },
+        {
+          "info": {
+            "name": "UiPath Add a Queue Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/QueueItems",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new transaction item to a specified queue. The item can include specific content (custom key-value data), priority level, deadline, postpone time, and a unique reference string. Returns the created queue item with its assigned ID and key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Assets",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of assets defined in the current folder. Assets store shared values such as credentials, text, integers, and booleans that can be consumed by automation processes. Supports OData filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "UiPath Create an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Assets",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new asset in the current folder. The asset type determines the kind of value stored: Text, Integer, Bool, or Credential. Credential assets store username and password pairs securely."
+        },
+        {
+          "info": {
+            "name": "UiPath Get an Asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Retrieves a single asset by its unique integer identifier. Returns the full asset definition including type, value, and folder scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Update an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing asset by its unique integer identifier. The full asset object must be provided in the request body with the updated values."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an asset from the current folder by its unique integer identifier. This action cannot be undone. Processes that reference this asset will fail until the asset is recreated."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Process Schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/ProcessSchedules",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of time-based triggers configured for automation processes. Each schedule defines when and how often a process should run, along with the target robots and input arguments."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Folders",
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of organizational folders accessible to the authenticated user. Folders group automation resources such as processes, robots, assets, and queues. Each folder has a unique ID used in the X-UIPATH-OrganizationUnitId request header."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Machines",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Machines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Machines",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of machine templates and registered machines. Machine templates define the number of runtimes available for cloud robots, while standard machines represent physical or virtual machines where Unattended Robot is installed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Users",
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of users registered in Orchestrator. Each user has associated roles, robot configurations, and folder memberships. Supports OData filtering and pagination."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Roles",
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of roles defined in Orchestrator. Roles bundle sets of permissions together and are assigned to users or groups to control their access to resources and operations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Alerts",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$orderby",
+                "value": "",
+                "type": "query",
+                "description": "OData orderby clause (e.g., CreationTime desc)"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of system and automation alerts. Alerts are raised for events such as job failures, robot disconnections, and queue SLA breaches. Supports OData filtering by severity, component, and read status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Webhooks",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves all webhook subscriptions configured in Orchestrator. Each webhook specifies a target URL, the events to subscribe to, and an HMAC secret for payload signature verification."
+        },
+        {
+          "info": {
+            "name": "UiPath Create a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Webhooks",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription. Specify the target URL, optional HMAC secret for payload verification, whether to subscribe to all events or specific event types, and whether to allow insecure SSL."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Webhooks(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook subscription by its unique integer identifier. After deletion, the target URL will no longer receive event notifications from Orchestrator."
+        },
+        {
+          "info": {
+            "name": "UiPath Get Available Webhook Event Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes()",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the complete list of event types available for webhook subscriptions in Orchestrator. Event types cover jobs, robots, queues, queue items, processes, and triggers, each with a unique string identifier such as job.faulted or queueItem.transactionCompleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "StorageBuckets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Storage Buckets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/StorageBuckets",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of storage buckets defined in the current folder. Storage buckets provide file storage capabilities for automation processes, backed by providers such as Azure Blob, Amazon S3, or the UiPath internal storage."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_/odata/Packages",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of automation packages uploaded to Orchestrator. Each package represents a versioned NuGet package containing one or more automation processes. Supports filtering by package name and pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

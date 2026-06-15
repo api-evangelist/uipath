@@ -1,0 +1,2692 @@
+{
+  "info": {
+    "_postman_id": "54ccb04d-84bf-434b-9966-0c6ca15c4bb9",
+    "name": "UiPath Test Manager API",
+    "description": "The UiPath Test Manager API allows external tools and systems to integrate with UiPath's test management platform for managing test projects, test cases, test sets, requirements, and execution results programmatically. API access uses OAuth 2.0 scopes including TM.Projects and TM.Requirements.Read, enabling fine-grained control over permissions granted to integrated tooling. The API is suited for integrating third-party test management or defect tracking systems with UiPath automation testing workflows. Rate limits apply to API requests to ensure platform stability across all tenants. The Swagger interface is accessible by appending /swagger/index.html to the Test Manager URL. The base URL for Automation Cloud follows the pattern https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_.\n\nContact Support:\n Name: UiPath Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:29.000Z",
+    "updatedAt": "2026-06-05T15:02:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-54ccb04d-84bf-434b-9966-0c6ca15c4bb9"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v2",
+          "item": [
+            {
+              "name": "projects",
+              "item": [
+                {
+                  "name": "{projectId}",
+                  "item": [
+                    {
+                      "name": "testcases",
+                      "item": [
+                        {
+                          "name": "{testCaseId}",
+                          "item": [
+                            {
+                              "name": "UiPath Get a Test Case by ID",
+                              "id": "c997a80d-e9d1-4790-b823-43910c261bdf",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases/:testCaseId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases",
+                                    ":testCaseId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "740ec99d-4c0b-46be-855b-d8cf97883b44",
+                                      "key": "projectId",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique identifier of the test project"
+                                    },
+                                    {
+                                      "id": "8ed669ea-18ca-4f45-b3ae-013c6d608381",
+                                      "key": "testCaseId",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique identifier of the test case"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves a specific test case by its unique identifier within a project. Returns full test case details including steps, labels, custom fields, automation linkage, and preconditions."
+                              },
+                              "response": [
+                                {
+                                  "id": "4ed4b12d-0ebe-4718-99cc-978f0a0b7497",
+                                  "name": "The requested test case",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases/:testCaseId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "projects",
+                                        ":projectId",
+                                        "testcases",
+                                        ":testCaseId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "projectId"
+                                        },
+                                        {
+                                          "key": "testCaseId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"Active\",\n  \"automationStatus\": \"NotAutomated\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdOn\": \"<dateTime>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:29.000Z",
+                                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                                  "uid": "35240-4ed4b12d-0ebe-4718-99cc-978f0a0b7497"
+                                },
+                                {
+                                  "id": "8a0f2727-6eac-4023-a286-393953fe433c",
+                                  "name": "The request lacks valid authentication credentials",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases/:testCaseId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "projects",
+                                        ":projectId",
+                                        "testcases",
+                                        ":testCaseId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "projectId"
+                                        },
+                                        {
+                                          "key": "testCaseId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:29.000Z",
+                                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                                  "uid": "35240-8a0f2727-6eac-4023-a286-393953fe433c"
+                                },
+                                {
+                                  "id": "ab5a4c7b-88b3-4d80-ba00-8aeb81b9b317",
+                                  "name": "The requested resource was not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases/:testCaseId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v2",
+                                        "projects",
+                                        ":projectId",
+                                        "testcases",
+                                        ":testCaseId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "projectId"
+                                        },
+                                        {
+                                          "key": "testCaseId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:29.000Z",
+                                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                                  "uid": "35240-ab5a4c7b-88b3-4d80-ba00-8aeb81b9b317"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-c997a80d-e9d1-4790-b823-43910c261bdf"
+                            }
+                          ],
+                          "id": "57fe8b5f-aa7b-473d-b41d-7befcf682036",
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-57fe8b5f-aa7b-473d-b41d-7befcf682036"
+                        },
+                        {
+                          "name": "UiPath List Test Cases in a Project",
+                          "id": "b79b4a92-9142-42fc-be56-6a27d5cea68e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases?page=0&pageSize=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "testcases"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Page number for pagination (0-based)",
+                                  "key": "page",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "pageSize",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ad801406-a54d-4bf6-8904-952a7904838c",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves all test cases defined within a specific test project. Each test case represents a single test scenario with preconditions, steps, and expected results. Supports pagination and filtering. Requires the TM.TestCases or TM.TestCases.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "769f13af-941f-4b48-a7f4-b7cc2f822fef",
+                              "name": "A list of test cases in the project",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"testCases\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"Draft\",\n      \"automationStatus\": \"Automated\",\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"createdOn\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"Draft\",\n      \"automationStatus\": \"NotAutomated\",\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"createdOn\": \"<dateTime>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-769f13af-941f-4b48-a7f4-b7cc2f822fef"
+                            },
+                            {
+                              "id": "75983839-1a0b-4892-8da8-553b98e10218",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-75983839-1a0b-4892-8da8-553b98e10218"
+                            },
+                            {
+                              "id": "68628b40-79c9-46a9-8db9-e2c757039953",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-68628b40-79c9-46a9-8db9-e2c757039953"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-b79b4a92-9142-42fc-be56-6a27d5cea68e"
+                        },
+                        {
+                          "name": "UiPath Create a Test Case",
+                          "id": "fab584be-df19-4f89-9e3d-4f35261fbaed",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "testcases"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7ebcfce6-974f-4688-9294-1bdfc9bf635c",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Creates a new test case within a test project. The test case can be linked to automation packages deployed in Orchestrator to enable automated test execution via test sets. Requires the TM.TestCases OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "ff1a0a2f-f629-4ac4-a7a8-e94ede52e6dc",
+                              "name": "Test case created successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"Active\",\n  \"automationStatus\": \"NotAutomated\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdOn\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-ff1a0a2f-f629-4ac4-a7a8-e94ede52e6dc"
+                            },
+                            {
+                              "id": "d551d45e-bc46-4b74-b25e-71e918ba09c8",
+                              "name": "The request was malformed or contained invalid parameters",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-d551d45e-bc46-4b74-b25e-71e918ba09c8"
+                            },
+                            {
+                              "id": "bb375cc9-c0b4-4c3b-844f-95799ba9df7c",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testcases",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testcases"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-bb375cc9-c0b4-4c3b-844f-95799ba9df7c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-fab584be-df19-4f89-9e3d-4f35261fbaed"
+                        }
+                      ],
+                      "id": "8c8c3c64-aa23-4131-96f5-5c23002f4c53",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-8c8c3c64-aa23-4131-96f5-5c23002f4c53"
+                    },
+                    {
+                      "name": "testsets",
+                      "item": [
+                        {
+                          "name": "UiPath List Test Sets in a Project",
+                          "id": "8c78f5e1-8e2e-43e6-88c1-24e61a3c144f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets?page=0&pageSize=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "testsets"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Page number for pagination (0-based)",
+                                  "key": "page",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "pageSize",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "65739f87-15ea-4d4b-a9d6-ec2dce53b698",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves all test sets within a specific test project. Test sets group test cases for coordinated execution runs and can be linked to Orchestrator processes to trigger automated execution."
+                          },
+                          "response": [
+                            {
+                              "id": "0871004d-9219-4860-8444-51a5bb908e29",
+                              "name": "A list of test sets in the project",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"testSets\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"testCaseCount\": \"<integer>\",\n      \"createdOn\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"testCaseCount\": \"<integer>\",\n      \"createdOn\": \"<dateTime>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-0871004d-9219-4860-8444-51a5bb908e29"
+                            },
+                            {
+                              "id": "cc80d31a-c659-429d-a3fa-8168054d34ec",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-cc80d31a-c659-429d-a3fa-8168054d34ec"
+                            },
+                            {
+                              "id": "6868856a-24ed-4a0b-a299-25981283d6bb",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-6868856a-24ed-4a0b-a299-25981283d6bb"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-8c78f5e1-8e2e-43e6-88c1-24e61a3c144f"
+                        },
+                        {
+                          "name": "UiPath Create a Test Set",
+                          "id": "439383f1-860e-4a3c-860c-5514bff9456f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "testsets"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "69a1f20a-83c6-4dcc-b747-b77f91446a15",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Creates a new test set within a project. The test set can include test cases and be configured to execute against specific Orchestrator environments. Requires the TM.TestSets OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "7f927775-3297-4a1b-b93e-28deb5e0a0ac",
+                              "name": "Test set created successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"testCaseCount\": \"<integer>\",\n  \"createdOn\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-7f927775-3297-4a1b-b93e-28deb5e0a0ac"
+                            },
+                            {
+                              "id": "dec6d676-c3b3-4ffb-aede-ee96065ee2a3",
+                              "name": "The request was malformed or contained invalid parameters",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-dec6d676-c3b3-4ffb-aede-ee96065ee2a3"
+                            },
+                            {
+                              "id": "6fffe8da-7eb9-426a-8704-93aeb93a34a4",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testsets",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testsets"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-6fffe8da-7eb9-426a-8704-93aeb93a34a4"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-439383f1-860e-4a3c-860c-5514bff9456f"
+                        }
+                      ],
+                      "id": "5369e246-f0f7-417a-8777-824ae96f43aa",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-5369e246-f0f7-417a-8777-824ae96f43aa"
+                    },
+                    {
+                      "name": "requirements",
+                      "item": [
+                        {
+                          "name": "UiPath List Requirements in a Project",
+                          "id": "a483274f-5a35-43b1-8aed-a0cb31be55f3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements?page=0&pageSize=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "requirements"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Page number for pagination (0-based)",
+                                  "key": "page",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "pageSize",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0ba69cf1-65b0-45c6-8945-294c8cd1a7d2",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves all requirements defined within a specific test project. Requirements represent business or technical specifications that test cases are mapped to for traceability. Supports pagination. Requires the TM.Requirements or TM.Requirements.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "0a2a2988-fc36-43c5-9b92-6a462fbd9e08",
+                              "name": "A list of requirements in the project",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"requirements\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"status\": \"Active\",\n      \"linkedTestCaseCount\": \"<integer>\",\n      \"createdOn\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"externalId\": \"<string>\",\n      \"status\": \"Deprecated\",\n      \"linkedTestCaseCount\": \"<integer>\",\n      \"createdOn\": \"<dateTime>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-0a2a2988-fc36-43c5-9b92-6a462fbd9e08"
+                            },
+                            {
+                              "id": "d858195f-365f-4f88-a497-ec71d3709b91",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-d858195f-365f-4f88-a497-ec71d3709b91"
+                            },
+                            {
+                              "id": "14c4c39b-0c38-4a8b-866d-b6e4a38132e4",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-14c4c39b-0c38-4a8b-866d-b6e4a38132e4"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-a483274f-5a35-43b1-8aed-a0cb31be55f3"
+                        },
+                        {
+                          "name": "UiPath Create a Requirement",
+                          "id": "22593f12-cf38-4315-9a5b-3ab49c3ca602",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "requirements"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "551089fd-9f52-4a5b-ab00-08e210c3e6cc",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Creates a new requirement within a test project. Requirements can be linked to test cases to establish traceability coverage. Requires the TM.Requirements OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "a2a54994-249b-4b39-8b3b-c0f1904b599e",
+                              "name": "Requirement created successfully",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Created",
+                              "code": 201,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"status\": \"Deprecated\",\n  \"linkedTestCaseCount\": \"<integer>\",\n  \"createdOn\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-a2a54994-249b-4b39-8b3b-c0f1904b599e"
+                            },
+                            {
+                              "id": "3407227d-852e-4d84-b5f7-7af381f02b38",
+                              "name": "The request was malformed or contained invalid parameters",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-3407227d-852e-4d84-b5f7-7af381f02b38"
+                            },
+                            {
+                              "id": "138271ee-7b94-42b2-b9b5-1c3c74908edf",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/requirements",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "requirements"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-138271ee-7b94-42b2-b9b5-1c3c74908edf"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-22593f12-cf38-4315-9a5b-3ab49c3ca602"
+                        }
+                      ],
+                      "id": "b2f833b3-4cb7-4c1e-8f0e-849fe99aa2f7",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-b2f833b3-4cb7-4c1e-8f0e-849fe99aa2f7"
+                    },
+                    {
+                      "name": "testexecutions",
+                      "item": [
+                        {
+                          "name": "UiPath List Test Executions in a Project",
+                          "id": "c3392f09-9438-4f22-b16c-522971fac940",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId/testexecutions?page=0&pageSize=20",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId",
+                                "testexecutions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Page number for pagination (0-based)",
+                                  "key": "page",
+                                  "value": "0"
+                                },
+                                {
+                                  "description": "Number of records per page",
+                                  "key": "pageSize",
+                                  "value": "20"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "109ccd9b-4431-44de-bafa-d2898c1d97ad",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the test project"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves test execution results within a specific test project. Test executions represent runs of test sets and contain the aggregate pass/fail status across all included test cases. References to individual test case log objects are included for drill-down."
+                          },
+                          "response": [
+                            {
+                              "id": "078ae057-cab7-4e50-9172-b63e777fd4dc",
+                              "name": "A list of test executions in the project",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testexecutions?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testexecutions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"executions\": [\n    {\n      \"id\": \"<string>\",\n      \"testSetId\": \"<string>\",\n      \"testSetName\": \"<string>\",\n      \"status\": \"Pending\",\n      \"startedOn\": \"<dateTime>\",\n      \"finishedOn\": \"<dateTime>\",\n      \"totalTestCases\": \"<integer>\",\n      \"passedTestCases\": \"<integer>\",\n      \"failedTestCases\": \"<integer>\",\n      \"blockedTestCases\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"testSetId\": \"<string>\",\n      \"testSetName\": \"<string>\",\n      \"status\": \"Pending\",\n      \"startedOn\": \"<dateTime>\",\n      \"finishedOn\": \"<dateTime>\",\n      \"totalTestCases\": \"<integer>\",\n      \"passedTestCases\": \"<integer>\",\n      \"failedTestCases\": \"<integer>\",\n      \"blockedTestCases\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-078ae057-cab7-4e50-9172-b63e777fd4dc"
+                            },
+                            {
+                              "id": "9cc9ad8c-006d-4f99-a491-f7c82997339d",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testexecutions?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testexecutions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-9cc9ad8c-006d-4f99-a491-f7c82997339d"
+                            },
+                            {
+                              "id": "9bd84ef9-2df2-44b2-844e-d58fd8f2937c",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v2/projects/:projectId/testexecutions?page=0&pageSize=20",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v2",
+                                    "projects",
+                                    ":projectId",
+                                    "testexecutions"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Page number for pagination (0-based)",
+                                      "key": "page",
+                                      "value": "0"
+                                    },
+                                    {
+                                      "description": "Number of records per page",
+                                      "key": "pageSize",
+                                      "value": "20"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:29.000Z",
+                              "updatedAt": "2026-06-05T15:02:29.000Z",
+                              "uid": "35240-9bd84ef9-2df2-44b2-844e-d58fd8f2937c"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-c3392f09-9438-4f22-b16c-522971fac940"
+                        }
+                      ],
+                      "id": "71197dab-1f3a-45c0-819d-6887def8e302",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-71197dab-1f3a-45c0-819d-6887def8e302"
+                    },
+                    {
+                      "name": "UiPath Get a Test Project by ID",
+                      "id": "aa7a5685-aa72-41e5-8682-f7f068e35a0f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "099e13a1-9283-4e65-8249-86954ddd8b00",
+                              "key": "projectId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the test project"
+                            }
+                          ]
+                        },
+                        "description": "Retrieves a specific test project by its unique identifier. Returns project details including name, description, creation date, and summary statistics for test cases and requirements."
+                      },
+                      "response": [
+                        {
+                          "id": "b4eb6fc6-51e4-4de6-b5e4-0f113b986192",
+                          "name": "The requested test project",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createdBy\": \"<string>\",\n  \"createdOn\": \"<dateTime>\",\n  \"testCaseCount\": \"<integer>\",\n  \"requirementCount\": \"<integer>\"\n}",
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-b4eb6fc6-51e4-4de6-b5e4-0f113b986192"
+                        },
+                        {
+                          "id": "095a7a8c-99a4-443b-b32c-55c6a821b4c2",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-095a7a8c-99a4-443b-b32c-55c6a821b4c2"
+                        },
+                        {
+                          "id": "ef864a84-71aa-444f-b6ef-ef2b11123cfc",
+                          "name": "The requested resource was not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v2/projects/:projectId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v2",
+                                "projects",
+                                ":projectId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:29.000Z",
+                          "updatedAt": "2026-06-05T15:02:29.000Z",
+                          "uid": "35240-ef864a84-71aa-444f-b6ef-ef2b11123cfc"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-aa7a5685-aa72-41e5-8682-f7f068e35a0f"
+                    }
+                  ],
+                  "id": "2d16400b-edce-4b9f-9d56-7c2153212847",
+                  "createdAt": "2026-06-05T15:02:29.000Z",
+                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                  "uid": "35240-2d16400b-edce-4b9f-9d56-7c2153212847"
+                },
+                {
+                  "name": "UiPath List Test Projects",
+                  "id": "a13c101e-3269-45df-88aa-91a5b1196493",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/projects?page=0&pageSize=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "projects"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for pagination (0-based)",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Number of records per page",
+                          "key": "pageSize",
+                          "value": "20"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves all test projects accessible to the authenticated user. Projects are the top-level containers for test cases, requirements, test sets, and execution results. Requires the TM.Projects or TM.Projects.Read OAuth scope."
+                  },
+                  "response": [
+                    {
+                      "id": "9d387ba4-2197-4851-b5bf-7240458eece2",
+                      "name": "A list of test projects",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects?page=0&pageSize=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination (0-based)",
+                              "key": "page",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Number of records per page",
+                              "key": "pageSize",
+                              "value": "20"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"totalCount\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\",\n  \"projects\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"createdBy\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"testCaseCount\": \"<integer>\",\n      \"requirementCount\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"createdBy\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"testCaseCount\": \"<integer>\",\n      \"requirementCount\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-9d387ba4-2197-4851-b5bf-7240458eece2"
+                    },
+                    {
+                      "id": "684646d0-d459-4cb1-93c7-e1f3e7b84884",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects?page=0&pageSize=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination (0-based)",
+                              "key": "page",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Number of records per page",
+                              "key": "pageSize",
+                              "value": "20"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-684646d0-d459-4cb1-93c7-e1f3e7b84884"
+                    },
+                    {
+                      "id": "ce357f1c-4de9-4687-acba-f73b9a43c8ee",
+                      "name": "The authenticated user does not have permission to perform this action",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects?page=0&pageSize=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for pagination (0-based)",
+                              "key": "page",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Number of records per page",
+                              "key": "pageSize",
+                              "value": "20"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-ce357f1c-4de9-4687-acba-f73b9a43c8ee"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:29.000Z",
+                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                  "uid": "35240-a13c101e-3269-45df-88aa-91a5b1196493"
+                },
+                {
+                  "name": "UiPath Create a Test Project",
+                  "id": "9c6998b8-420e-4f8d-ac20-769cfd2cdb20",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v2/projects",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v2",
+                        "projects"
+                      ]
+                    },
+                    "description": "Creates a new test project in Test Manager. The project becomes the container for all test cases, requirements, and test sets associated with the testing effort. Requires the TM.Projects OAuth scope."
+                  },
+                  "response": [
+                    {
+                      "id": "f2a99299-b25c-4ad0-b105-e78a6da470fa",
+                      "name": "Test project created successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"createdBy\": \"<string>\",\n  \"createdOn\": \"<dateTime>\",\n  \"testCaseCount\": \"<integer>\",\n  \"requirementCount\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-f2a99299-b25c-4ad0-b105-e78a6da470fa"
+                    },
+                    {
+                      "id": "8a6a88d6-9ea2-44e5-867e-e5de0e9d991d",
+                      "name": "The request was malformed or contained invalid parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-8a6a88d6-9ea2-44e5-867e-e5de0e9d991d"
+                    },
+                    {
+                      "id": "24a3429c-30d1-4ab5-bb87-dc932a0c8267",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v2/projects",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v2",
+                            "projects"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:29.000Z",
+                      "updatedAt": "2026-06-05T15:02:29.000Z",
+                      "uid": "35240-24a3429c-30d1-4ab5-bb87-dc932a0c8267"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:29.000Z",
+                  "updatedAt": "2026-06-05T15:02:29.000Z",
+                  "uid": "35240-9c6998b8-420e-4f8d-ac20-769cfd2cdb20"
+                }
+              ],
+              "id": "815a2046-5213-43a5-909a-bb9a42906670",
+              "createdAt": "2026-06-05T15:02:29.000Z",
+              "updatedAt": "2026-06-05T15:02:29.000Z",
+              "uid": "35240-815a2046-5213-43a5-909a-bb9a42906670"
+            }
+          ],
+          "id": "0b648c7b-c705-46b0-9b3b-3ec26a446b13",
+          "createdAt": "2026-06-05T15:02:29.000Z",
+          "updatedAt": "2026-06-05T15:02:29.000Z",
+          "uid": "35240-0b648c7b-c705-46b0-9b3b-3ec26a446b13"
+        }
+      ],
+      "id": "ebf702c6-f843-4866-a8ed-7049a73619e1",
+      "createdAt": "2026-06-05T15:02:29.000Z",
+      "updatedAt": "2026-06-05T15:02:29.000Z",
+      "uid": "35240-ebf702c6-f843-4866-a8ed-7049a73619e1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organizationName",
+      "value": "your-org"
+    },
+    {
+      "key": "tenantName",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.uipath.com/{{organizationName}}/{{tenantName}}/testmanager_"
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Platform Management API",
+    "version": "2024.10"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get a User by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/User/:userId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user"
+              }
+            ]
+          },
+          "docs": "Retrieves user account information by the user's unique identifier. Returns user properties including name, email address, active status, and authentication configuration. Requires the PM.Users or PM.Users.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/User/:userId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the user"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a user account from the organization by their unique identifier. This action removes the user from all tenants and revokes their access to UiPath Automation Cloud. This action cannot be undone. Requires the PM.Users OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Create a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/User",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user account in the UiPath organization. The user will receive an invitation email to set up their credentials. The request must include the user's email address, display name, and the tenants or roles to initially assign. Requires the PM.Users OAuth scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/Group/:partitionGlobalId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "partitionGlobalId",
+                "value": "",
+                "type": "path",
+                "description": "Global partition identifier for the organization or tenant scope"
+              }
+            ]
+          },
+          "docs": "Retrieves all user groups within the specified organizational partition (tenant or organization). Groups aggregate users for role assignment and license allocation. Requires the PM.Groups or PM.Groups.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Get a Group by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/Group/:partitionGlobalId/:groupId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "partitionGlobalId",
+                "value": "",
+                "type": "path",
+                "description": "Global partition identifier for the organization or tenant scope"
+              },
+              {
+                "name": "groupId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the group"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific user group by its unique identifier within the specified organizational partition. Returns group details including name, description, and member count. Requires the PM.Groups or PM.Groups.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Create a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/:organizationName/identity_/api/Group",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user group in the organization. Groups are used to assign roles in bulk, allocate licenses, and control access to automation resources. Members can be added after group creation. Requires the PM.Groups OAuth scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AuditLogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get Organization Audit Event Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/orgaudit_/api/query/sources",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about available audit event sources at the organization level. Returns the list of services that generate audit events along with available event types and categories for use as filters in the query events endpoint. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Query Organization Audit Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/orgaudit_/api/query/events",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event source service name"
+              },
+              {
+                "name": "maxCount",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of audit events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves audit events at the organization level filtered by time range, event source, event type, user, and other criteria. Returns a paginated list of audit events with actor information, event details, and status. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Query Tenant Audit Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/:tenantName/tenantaudit_/api/query/events",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "tenantName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath tenant"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event source service name"
+              },
+              {
+                "name": "maxCount",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of audit events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves audit events scoped to a specific tenant, filtered by time range, event source, event type, user, and other criteria. Tenant-level audit events cover actions within Orchestrator, Document Understanding, and other tenant-scoped services. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Licenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get License Allocation for a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "accountId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the organization account"
+              },
+              {
+                "name": "groupId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the user group"
+              }
+            ]
+          },
+          "docs": "Retrieves the user license allocation rule for a specific group within the organization account. Returns the license types allocated to the group and the current usage count. Requires the PM.License or PM.License.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Update License Allocation for a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "accountId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the organization account"
+              },
+              {
+                "name": "groupId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the user group"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allocates or updates user licenses for a specific group. The rule defines which license types members of this group are entitled to. This controls the licenses automatically assigned when a member of the group first logs in. Requires the PM.License OAuth scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

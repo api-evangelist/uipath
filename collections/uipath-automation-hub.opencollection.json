@@ -1,0 +1,343 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations",
+            "params": [
+              {
+                "name": "phase",
+                "value": "example-value",
+                "type": "query",
+                "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)"
+              },
+              {
+                "name": "status",
+                "value": "Active",
+                "type": "query",
+                "description": "Filter automations by status within their current phase"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of automation ideas and projects from Automation Hub. Supports filtering by phase, status, and other pipeline attributes. Returns a paginated list of automation records including metadata, cost-benefit analysis data, and submission details. Used by CoE teams to programmatically query and track the automation pipeline."
+        },
+        {
+          "info": {
+            "name": "UiPath Create an Automation Idea",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation idea in Automation Hub. The submitted idea enters the pipeline at the Idea phase and is available for assessment and prioritization by CoE administrators. The request body must include the idea name, description, submitter information, and the estimated benefit details used in cost-benefit analysis."
+        },
+        {
+          "info": {
+            "name": "UiPath Get an Automation by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Retrieves a single automation record by its unique identifier. Returns full details including pipeline phase, status, cost-benefit analysis data, collaborators, documents, and tags."
+        },
+        {
+          "info": {
+            "name": "UiPath Update an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates an automation record by its unique identifier. Commonly used to advance an automation through the pipeline by updating its phase and status. Only fields included in the request body are modified."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an automation record from Automation Hub by its unique identifier. This action removes the idea and all associated documents, comments, and collaborator data. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "UiPath List Collaborators for an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId/collaborators",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of collaborators assigned to a specific automation idea or project. Collaborators have defined roles such as subject matter expert, developer, or reviewer."
+        },
+        {
+          "info": {
+            "name": "UiPath Remove a Collaborator from an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId/collaborators",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              },
+              {
+                "name": "userId",
+                "value": "12345",
+                "type": "query",
+                "description": "Unique identifier of the user to remove as a collaborator"
+              }
+            ]
+          },
+          "docs": "Removes a collaborator from an automation by their user ID. The user will lose access to collaborate on the automation idea or project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pipeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get Automation Pipeline Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automationpipeline"
+          },
+          "docs": "Retrieves aggregated pipeline data showing the distribution of automations across phases and statuses. Used for reporting and dashboard views by CoE administrators to understand the overall health and throughput of the automation program."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/users",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of users registered in Automation Hub. Returns user identifiers, names, email addresses, and assigned roles. Used by administrators to manage user assignments and role configurations."
+        },
+        {
+          "info": {
+            "name": "UiPath Add a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/adduser",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new user to Automation Hub. The user must already exist in the UiPath identity directory. This endpoint assigns the user a role within Automation Hub and makes them available for collaboration and idea submission."
+        },
+        {
+          "info": {
+            "name": "UiPath Edit a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/edituser",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing user's properties in Automation Hub, such as their assigned role or active status. The user is identified by their unique ID in the request body."
+        },
+        {
+          "info": {
+            "name": "UiPath List Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/roles"
+          },
+          "docs": "Retrieves the list of roles available in Automation Hub. Each role defines a set of permissions controlling what a user can view and perform within the platform. Roles are assigned when adding or editing users."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AppInventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Application Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Retrieves the application inventory used for automation assessments. Each entry represents a business application that may be involved in automations. Inventory data is used in the assessment process to calculate automation complexity and effort."
+        },
+        {
+          "info": {
+            "name": "UiPath Bulk Add or Update Application Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or updates application entries in bulk. If an application with the same name already exists, it will be updated; otherwise, a new entry is created. This endpoint is designed for bulk synchronization of the application inventory from an external CMDB or asset register."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Application from Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "12345",
+                "type": "path",
+                "description": "Unique identifier of the application to delete"
+              }
+            ]
+          },
+          "docs": "Permanently removes an application entry from the application inventory by its unique identifier. Automations that reference this application will lose the association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2004 @@
+{
+  "info": {
+    "_postman_id": "54832d7d-5c6e-4915-826f-eabaf7e864b7",
+    "name": "UiPath Data Service API",
+    "description": "The UiPath Data Service API, also referred to as the Data Fabric OpenAPI, enables external applications to interact with structured data entities stored in UiPath's cloud data platform. It supports schema management and data operations including reading, creating, updating, and deleting entity records, with access governed by granular role-based permissions. The API uses OAuth 2.0 for authorization, with access tokens valid for one hour and support for refresh tokens. Developers can download a tenant-specific OpenAPI 3.0 specification in JSON format from within the Data Service interface for use with code generation and integration tooling. Entity schemas are defined per-tenant, so the specific entity types and fields available vary by organization configuration.\n\nContact Support:\n Name: UiPath Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:18.000Z",
+    "updatedAt": "2026-06-05T15:02:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-54832d7d-5c6e-4915-826f-eabaf7e864b7"
+  },
+  "item": [
+    {
+      "name": "{entityName}",
+      "item": [
+        {
+          "name": "{recordId}",
+          "item": [
+            {
+              "name": "UiPath Get an Entity Record by ID",
+              "id": "204ef4cc-9886-4e9b-8e19-af62c1aa3883",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName/:recordId?$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName",
+                    ":recordId"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "8dc08441-05f3-4c2f-869e-f9ccda917611",
+                      "key": "entityName",
+                      "value": "<string>",
+                      "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                    },
+                    {
+                      "id": "2eaf2f16-9f1a-4981-9aa7-db60a246b147",
+                      "key": "recordId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the entity record"
+                    }
+                  ]
+                },
+                "description": "Retrieves a single entity record by its unique identifier. Returns all fields of the record including system fields. Supports the $select parameter to limit the fields returned. Requires the DataService.Data.Read or DataService.Data scope."
+              },
+              "response": [
+                {
+                  "id": "9baf94b2-2db1-4bed-bab2-e20e2f3e4903",
+                  "name": "The requested entity record",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId?$select=<string>&$expand=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of field names to include in the response",
+                          "key": "$select",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related entity references to expand inline in the response",
+                          "key": "$expand",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Id\": \"<string>\",\n  \"CreatedOn\": \"<dateTime>\",\n  \"CreatedBy\": \"<string>\",\n  \"ModifiedOn\": \"<dateTime>\",\n  \"ModifiedBy\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-9baf94b2-2db1-4bed-bab2-e20e2f3e4903"
+                },
+                {
+                  "id": "6dd726c6-ea28-46e1-958a-3a81cb6fff94",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId?$select=<string>&$expand=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of field names to include in the response",
+                          "key": "$select",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related entity references to expand inline in the response",
+                          "key": "$expand",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-6dd726c6-ea28-46e1-958a-3a81cb6fff94"
+                },
+                {
+                  "id": "6ec0a84f-1ef1-451f-8179-3363e135f102",
+                  "name": "The authenticated user does not have permission to perform this action",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId?$select=<string>&$expand=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of field names to include in the response",
+                          "key": "$select",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related entity references to expand inline in the response",
+                          "key": "$expand",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-6ec0a84f-1ef1-451f-8179-3363e135f102"
+                },
+                {
+                  "id": "7f7db14e-21c0-464b-8395-f5d1f5bdf418",
+                  "name": "The requested entity type or record was not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId?$select=<string>&$expand=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "query": [
+                        {
+                          "description": "Comma-separated list of field names to include in the response",
+                          "key": "$select",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Related entity references to expand inline in the response",
+                          "key": "$expand",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-7f7db14e-21c0-464b-8395-f5d1f5bdf418"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-204ef4cc-9886-4e9b-8e19-af62c1aa3883"
+            },
+            {
+              "name": "UiPath Update an Entity Record",
+              "id": "20581f65-a773-4b4b-af4d-0b22420ffc1c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName/:recordId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName",
+                    ":recordId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2720b1aa-17a2-40b2-8b89-867e989f3ce4",
+                      "key": "entityName",
+                      "value": "<string>",
+                      "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                    },
+                    {
+                      "id": "460c697b-067b-4369-8eec-4939cce119c1",
+                      "key": "recordId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the entity record"
+                    }
+                  ]
+                },
+                "description": "Updates an existing entity record by its unique identifier. The request body should include only the fields to update. System-managed fields such as Id, CreatedOn, and CreatedBy cannot be modified. ModifiedOn and ModifiedBy are updated automatically. Requires the DataService.Data scope."
+              },
+              "response": [
+                {
+                  "id": "2e71c4b0-3cb4-42c7-ae69-247ba03d3172",
+                  "name": "Entity record updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Id\": \"<string>\",\n  \"CreatedOn\": \"<dateTime>\",\n  \"CreatedBy\": \"<string>\",\n  \"ModifiedOn\": \"<dateTime>\",\n  \"ModifiedBy\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-2e71c4b0-3cb4-42c7-ae69-247ba03d3172"
+                },
+                {
+                  "id": "928a8e80-8371-4c88-a79b-18b7b3e55e28",
+                  "name": "The request was malformed or the entity schema was violated",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-928a8e80-8371-4c88-a79b-18b7b3e55e28"
+                },
+                {
+                  "id": "71db6a2e-97d4-4701-ae65-6c677ba314cd",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-71db6a2e-97d4-4701-ae65-6c677ba314cd"
+                },
+                {
+                  "id": "988d7fb3-d7e8-48e7-9fb2-019579d40f60",
+                  "name": "The authenticated user does not have permission to perform this action",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-988d7fb3-d7e8-48e7-9fb2-019579d40f60"
+                },
+                {
+                  "id": "e4a0487f-85ba-4f7b-90bb-e86851988b71",
+                  "name": "The requested entity type or record was not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-e4a0487f-85ba-4f7b-90bb-e86851988b71"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-20581f65-a773-4b4b-af4d-0b22420ffc1c"
+            },
+            {
+              "name": "UiPath Delete an Entity Record",
+              "id": "b280b986-8e52-4722-b12b-11b0057a9928",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName/:recordId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName",
+                    ":recordId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "4b7d96b2-d7c6-477a-a596-e8b77d48d168",
+                      "key": "entityName",
+                      "value": "<string>",
+                      "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                    },
+                    {
+                      "id": "b9875310-4e09-4fbe-98fb-1ee2497011ac",
+                      "key": "recordId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the entity record"
+                    }
+                  ]
+                },
+                "description": "Permanently deletes an entity record by its unique identifier. This action cannot be undone. Requires the DataService.Data scope."
+              },
+              "response": [
+                {
+                  "id": "9cf9bbf2-39f5-48ae-a3e1-de0daca68fd0",
+                  "name": "Entity record deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-9cf9bbf2-39f5-48ae-a3e1-de0daca68fd0"
+                },
+                {
+                  "id": "54a629e1-583a-4a0f-a8a7-2b2187e63cdb",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-54a629e1-583a-4a0f-a8a7-2b2187e63cdb"
+                },
+                {
+                  "id": "6055a2fc-887e-4552-a217-747644b3cce3",
+                  "name": "The authenticated user does not have permission to perform this action",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-6055a2fc-887e-4552-a217-747644b3cce3"
+                },
+                {
+                  "id": "489fe489-aa2b-4e1a-bd53-ebb4eb836373",
+                  "name": "The requested entity type or record was not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/:recordId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        ":recordId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        },
+                        {
+                          "key": "recordId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-489fe489-aa2b-4e1a-bd53-ebb4eb836373"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-b280b986-8e52-4722-b12b-11b0057a9928"
+            }
+          ],
+          "id": "5021cbbd-b308-4bd1-82e9-2c164b7484fc",
+          "createdAt": "2026-06-05T15:02:18.000Z",
+          "updatedAt": "2026-06-05T15:02:18.000Z",
+          "uid": "35240-5021cbbd-b308-4bd1-82e9-2c164b7484fc"
+        },
+        {
+          "name": "query",
+          "item": [
+            {
+              "name": "UiPath Query Entity Records with Advanced Filtering",
+              "id": "3a6e0e83-7f84-4234-985d-f19b345c3f03",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filterGroup\": {\n    \"logicalOperator\": \"AND\",\n    \"queryFilters\": [\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"lessThanOrEquals\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      },\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"endsWith\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      }\n    ],\n    \"filterGroups\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      }\n    ]\n  },\n  \"selectedFields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orderBy\": [\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    },\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    }\n  ],\n  \"start\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName/query",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName",
+                    "query"
+                  ],
+                  "variable": [
+                    {
+                      "id": "76fc5f0b-b859-44fe-97a9-282053fab305",
+                      "key": "entityName",
+                      "value": "<string>",
+                      "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                    }
+                  ]
+                },
+                "description": "Performs an advanced query against the entity using a structured filter expression in the request body. Supports complex conditions, nested field filtering, and joining conditions with AND and OR operators. Returns a paginated list of matching records. Requires the DataService.Data.Read or DataService.Data scope."
+              },
+              "response": [
+                {
+                  "id": "87105e6a-31b4-4038-8ec6-c3563ad06cf7",
+                  "name": "Records matching the query criteria",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"filterGroup\": {\n    \"logicalOperator\": \"AND\",\n    \"queryFilters\": [\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"lessThanOrEquals\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      },\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"endsWith\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      }\n    ],\n    \"filterGroups\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      }\n    ]\n  },\n  \"selectedFields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orderBy\": [\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    },\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    }\n  ],\n  \"start\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/query",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        "query"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"totalCount\": \"<integer>\",\n  \"value\": [\n    {\n      \"Id\": \"<string>\",\n      \"CreatedOn\": \"<dateTime>\",\n      \"CreatedBy\": \"<string>\",\n      \"ModifiedOn\": \"<dateTime>\",\n      \"ModifiedBy\": \"<string>\"\n    },\n    {\n      \"Id\": \"<string>\",\n      \"CreatedOn\": \"<dateTime>\",\n      \"CreatedBy\": \"<string>\",\n      \"ModifiedOn\": \"<dateTime>\",\n      \"ModifiedBy\": \"<string>\",\n      \"aliquac9\": \"quis amet\"\n    }\n  ],\n  \"nextLink\": \"<uri>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-87105e6a-31b4-4038-8ec6-c3563ad06cf7"
+                },
+                {
+                  "id": "6d6f40ff-82f2-4c83-ae3a-238cdd7bfb1e",
+                  "name": "The request was malformed or the entity schema was violated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"filterGroup\": {\n    \"logicalOperator\": \"AND\",\n    \"queryFilters\": [\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"lessThanOrEquals\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      },\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"endsWith\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      }\n    ],\n    \"filterGroups\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      }\n    ]\n  },\n  \"selectedFields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orderBy\": [\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    },\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    }\n  ],\n  \"start\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/query",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        "query"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-6d6f40ff-82f2-4c83-ae3a-238cdd7bfb1e"
+                },
+                {
+                  "id": "7c83b9f8-4d06-436a-a676-0eeb71c9c4e1",
+                  "name": "The request lacks valid authentication credentials",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"filterGroup\": {\n    \"logicalOperator\": \"AND\",\n    \"queryFilters\": [\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"lessThanOrEquals\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      },\n      {\n        \"fieldName\": \"<string>\",\n        \"operator\": \"endsWith\",\n        \"value\": {\n          \"description\": \"Value to compare against; type depends on the field type\",\n          \"example\": \"example-value\"\n        }\n      }\n    ],\n    \"filterGroups\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/FilterGroup detected>\"\n      }\n    ]\n  },\n  \"selectedFields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"orderBy\": [\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    },\n    {\n      \"fieldName\": \"<string>\",\n      \"descending\": false\n    }\n  ],\n  \"start\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/:entityName/query",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":entityName",
+                        "query"
+                      ],
+                      "variable": [
+                        {
+                          "key": "entityName"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:02:18.000Z",
+                  "updatedAt": "2026-06-05T15:02:18.000Z",
+                  "uid": "35240-7c83b9f8-4d06-436a-a676-0eeb71c9c4e1"
+                }
+              ],
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-3a6e0e83-7f84-4234-985d-f19b345c3f03"
+            }
+          ],
+          "id": "15c81024-45da-4681-917e-ffbaaac5558a",
+          "createdAt": "2026-06-05T15:02:18.000Z",
+          "updatedAt": "2026-06-05T15:02:18.000Z",
+          "uid": "35240-15c81024-45da-4681-917e-ffbaaac5558a"
+        },
+        {
+          "name": "UiPath List Records for an Entity",
+          "id": "b04ebefd-788d-43ad-a618-5f06e3d5a4d1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":entityName"
+              ],
+              "query": [
+                {
+                  "description": "Filter expression to narrow results by field values",
+                  "key": "$filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                  "key": "$orderby",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of records to return",
+                  "key": "$top",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Number of records to skip for pagination",
+                  "key": "$skip",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Comma-separated list of field names to include in the response",
+                  "key": "$select",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Related entity references to expand inline in the response",
+                  "key": "$expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "id": "82784a00-f2df-4c54-b032-18c55ff30aa3",
+                  "key": "entityName",
+                  "value": "<string>",
+                  "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                }
+              ]
+            },
+            "description": "Retrieves a list of records for the specified custom entity type. Supports filtering with query expressions, ordering, pagination via skip and top, and field selection. The available entity names and their fields depend on the schema configured within the tenant's Data Service instance. Requires the DataService.Data.Read or DataService.Data scope."
+          },
+          "response": [
+            {
+              "id": "11a96352-9552-4f22-b85d-8c2bc300d5c1",
+              "name": "A list of entity records matching the query criteria",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression to narrow results by field values",
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "$top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"totalCount\": \"<integer>\",\n  \"value\": [\n    {\n      \"Id\": \"<string>\",\n      \"CreatedOn\": \"<dateTime>\",\n      \"CreatedBy\": \"<string>\",\n      \"ModifiedOn\": \"<dateTime>\",\n      \"ModifiedBy\": \"<string>\"\n    },\n    {\n      \"Id\": \"<string>\",\n      \"CreatedOn\": \"<dateTime>\",\n      \"CreatedBy\": \"<string>\",\n      \"ModifiedOn\": \"<dateTime>\",\n      \"ModifiedBy\": \"<string>\",\n      \"aliquac9\": \"quis amet\"\n    }\n  ],\n  \"nextLink\": \"<uri>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-11a96352-9552-4f22-b85d-8c2bc300d5c1"
+            },
+            {
+              "id": "c103b720-e38e-4403-9067-3e665b8901b4",
+              "name": "The request was malformed or the entity schema was violated",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression to narrow results by field values",
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "$top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-c103b720-e38e-4403-9067-3e665b8901b4"
+            },
+            {
+              "id": "da49fafb-3815-464f-bc1a-f67c43447077",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression to narrow results by field values",
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "$top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-da49fafb-3815-464f-bc1a-f67c43447077"
+            },
+            {
+              "id": "0576ccd8-6120-40c0-854a-c6ea9bdac70f",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression to narrow results by field values",
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "$top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-0576ccd8-6120-40c0-854a-c6ea9bdac70f"
+            },
+            {
+              "id": "e5808cd6-5e9c-4f33-9a8f-bed4cb157d12",
+              "name": "The requested entity type or record was not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName?$filter=<string>&$orderby=<string>&$top=<integer>&$skip=<integer>&$select=<string>&$expand=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter expression to narrow results by field values",
+                      "key": "$filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Field name and direction to sort results (e.g., CreatedOn desc)",
+                      "key": "$orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of records to return",
+                      "key": "$top",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of records to skip for pagination",
+                      "key": "$skip",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Comma-separated list of field names to include in the response",
+                      "key": "$select",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Related entity references to expand inline in the response",
+                      "key": "$expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-e5808cd6-5e9c-4f33-9a8f-bed4cb157d12"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:18.000Z",
+          "updatedAt": "2026-06-05T15:02:18.000Z",
+          "uid": "35240-b04ebefd-788d-43ad-a618-5f06e3d5a4d1"
+        },
+        {
+          "name": "UiPath Create an Entity Record",
+          "id": "917fe55e-e6e7-4db6-8196-6bddb2d72c55",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:entityName",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ":entityName"
+              ],
+              "variable": [
+                {
+                  "id": "0acae667-a796-44e5-8858-6f12ab6089b1",
+                  "key": "entityName",
+                  "value": "<string>",
+                  "description": "(Required) Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive."
+                }
+              ]
+            },
+            "description": "Creates a new record for the specified custom entity type. The request body must conform to the entity's schema definition. System-generated fields such as Id, CreatedOn, and CreatedBy are populated automatically and should not be included in the request body. Requires the DataService.Data scope."
+          },
+          "response": [
+            {
+              "id": "f455db6b-0c6d-4f17-b0dd-5a48e8450b53",
+              "name": "Entity record created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"Id\": \"<string>\",\n  \"CreatedOn\": \"<dateTime>\",\n  \"CreatedBy\": \"<string>\",\n  \"ModifiedOn\": \"<dateTime>\",\n  \"ModifiedBy\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-f455db6b-0c6d-4f17-b0dd-5a48e8450b53"
+            },
+            {
+              "id": "33d8da1d-6b89-4ee0-9287-0ff0b86fd8bc",
+              "name": "The request was malformed or the entity schema was violated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-33d8da1d-6b89-4ee0-9287-0ff0b86fd8bc"
+            },
+            {
+              "id": "5552e6b0-00ed-48fa-b610-1b271a38406a",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-5552e6b0-00ed-48fa-b610-1b271a38406a"
+            },
+            {
+              "id": "52bd7394-3cd2-4c92-a29c-f27f49f8b2c5",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"et_f_\": \"eiusmod minim veniam adipisicing\",\n  \"officia_1d\": false\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:entityName",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":entityName"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entityName"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:18.000Z",
+              "updatedAt": "2026-06-05T15:02:18.000Z",
+              "uid": "35240-52bd7394-3cd2-4c92-a29c-f27f49f8b2c5"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:18.000Z",
+          "updatedAt": "2026-06-05T15:02:18.000Z",
+          "uid": "35240-917fe55e-e6e7-4db6-8196-6bddb2d72c55"
+        }
+      ],
+      "id": "2533c4eb-ec4c-4b34-83db-e541169b7cdf",
+      "createdAt": "2026-06-05T15:02:18.000Z",
+      "updatedAt": "2026-06-05T15:02:18.000Z",
+      "uid": "35240-2533c4eb-ec4c-4b34-83db-e541169b7cdf"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organizationName",
+      "value": "your-org"
+    },
+    {
+      "key": "tenantName",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.uipath.com/{{organizationName}}/{{tenantName}}/dataservice_/api/EntityService"
+    }
+  ]
+}

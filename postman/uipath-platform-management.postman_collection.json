@@ -1,0 +1,2675 @@
+{
+  "info": {
+    "_postman_id": "ec7ff1e0-e886-48c2-93cd-fa87bda64684",
+    "name": "UiPath Platform Management API",
+    "description": "The UiPath Platform Management API covers foundational platform administration resources including identity management, audit log access, and licensing operations. It provides programmatic control over organization-level and tenant-level settings that serve as the backbone of the UiPath Automation Cloud platform. These APIs are used by enterprise administrators to automate provisioning workflows, audit compliance activities, and manage license allocations across teams. The endpoints are accessible alongside the Orchestrator API and share the same OAuth 2.0 authentication mechanism using the UiPath Identity Server. Services are scoped by the /identity_/, /audit_/, /orgaudit_/, /tenantaudit_/, /la/, and /lrm/ path prefixes.\n\nContact Support:\n Name: UiPath Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:28.000Z",
+    "updatedAt": "2026-06-05T15:02:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ec7ff1e0-e886-48c2-93cd-fa87bda64684"
+  },
+  "item": [
+    {
+      "name": "{organizationName}",
+      "item": [
+        {
+          "name": "identity_",
+          "item": [
+            {
+              "name": "api",
+              "item": [
+                {
+                  "name": "User",
+                  "item": [
+                    {
+                      "name": "{userId}",
+                      "item": [
+                        {
+                          "name": "UiPath Get a User by ID",
+                          "id": "16e9a22d-4707-4a5f-bf43-e1c501119e6a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "User",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8722c239-a170-4cb0-b830-bf3f9a893702",
+                                  "key": "organizationName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the UiPath organization"
+                                },
+                                {
+                                  "id": "b8d6e6df-53c1-413d-ad31-91c9fa68a27c",
+                                  "key": "userId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the user"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves user account information by the user's unique identifier. Returns user properties including name, email address, active status, and authentication configuration. Requires the PM.Users or PM.Users.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "cc012ae9-60a9-4ae8-9b7d-7ccb40a9c093",
+                              "name": "The requested user account",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"isActive\": \"<boolean>\",\n  \"createdOn\": \"<dateTime>\",\n  \"lastLoginDate\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-cc012ae9-60a9-4ae8-9b7d-7ccb40a9c093"
+                            },
+                            {
+                              "id": "2d379918-df85-4c91-ac27-99963c3ac25d",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-2d379918-df85-4c91-ac27-99963c3ac25d"
+                            },
+                            {
+                              "id": "d51353a7-8030-4bd7-8cfd-e79863a22b07",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-d51353a7-8030-4bd7-8cfd-e79863a22b07"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-16e9a22d-4707-4a5f-bf43-e1c501119e6a"
+                        },
+                        {
+                          "name": "UiPath Delete a User",
+                          "id": "5af7b1bd-b664-4c8a-ba25-c95904820388",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "User",
+                                ":userId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "57f00cb9-9835-45e1-aa58-eed9d7645797",
+                                  "key": "organizationName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the UiPath organization"
+                                },
+                                {
+                                  "id": "7aab7dae-00c9-4159-bba9-81c073204cc2",
+                                  "key": "userId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the user"
+                                }
+                              ]
+                            },
+                            "description": "Permanently deletes a user account from the organization by their unique identifier. This action removes the user from all tenants and revokes their access to UiPath Automation Cloud. This action cannot be undone. Requires the PM.Users OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "8867d4a7-68bb-4185-8c13-2bae99477cb0",
+                              "name": "User deleted successfully",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-8867d4a7-68bb-4185-8c13-2bae99477cb0"
+                            },
+                            {
+                              "id": "bea964b9-5269-4ba8-9003-c29ff6bf6868",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-bea964b9-5269-4ba8-9003-c29ff6bf6868"
+                            },
+                            {
+                              "id": "680aa863-ad81-4a90-8b54-e1ac67c669ff",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/User/:userId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "User",
+                                    ":userId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "userId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-680aa863-ad81-4a90-8b54-e1ac67c669ff"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-5af7b1bd-b664-4c8a-ba25-c95904820388"
+                        }
+                      ],
+                      "id": "b2af045b-32ac-409b-b597-bbfd1449d8f7",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-b2af045b-32ac-409b-b597-bbfd1449d8f7"
+                    },
+                    {
+                      "name": "UiPath Create a User",
+                      "id": "bdd0567b-2a2a-44fb-831f-032e42c2167b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"surname\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:organizationName/identity_/api/User",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":organizationName",
+                            "identity_",
+                            "api",
+                            "User"
+                          ],
+                          "variable": [
+                            {
+                              "id": "65c2d5f7-be3e-4820-a979-14a5463bdac7",
+                              "key": "organizationName",
+                              "value": "<string>",
+                              "description": "(Required) The name of the UiPath organization"
+                            }
+                          ]
+                        },
+                        "description": "Creates a new user account in the UiPath organization. The user will receive an invitation email to set up their credentials. The request must include the user's email address, display name, and the tenants or roles to initially assign. Requires the PM.Users OAuth scope."
+                      },
+                      "response": [
+                        {
+                          "id": "8537bc4c-475c-416e-bd08-c639c53e3bea",
+                          "name": "User created successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"surname\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/User",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "User"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"isActive\": \"<boolean>\",\n  \"createdOn\": \"<dateTime>\",\n  \"lastLoginDate\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-8537bc4c-475c-416e-bd08-c639c53e3bea"
+                        },
+                        {
+                          "id": "f403bfeb-af3e-4a57-93cb-d2ce9a7c9f39",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"surname\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/User",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "User"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-f403bfeb-af3e-4a57-93cb-d2ce9a7c9f39"
+                        },
+                        {
+                          "id": "f4cfb7c4-3ff0-4423-8038-0846ffaeff23",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"email\": \"<email>\",\n  \"name\": \"<string>\",\n  \"surname\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/User",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "User"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-f4cfb7c4-3ff0-4423-8038-0846ffaeff23"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-bdd0567b-2a2a-44fb-831f-032e42c2167b"
+                    }
+                  ],
+                  "id": "79512816-7f68-48c2-9c92-af3eb73d73ff",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-79512816-7f68-48c2-9c92-af3eb73d73ff"
+                },
+                {
+                  "name": "Group",
+                  "item": [
+                    {
+                      "name": "{partitionGlobalId}",
+                      "item": [
+                        {
+                          "name": "{groupId}",
+                          "item": [
+                            {
+                              "name": "UiPath Get a Group by ID",
+                              "id": "b1bed4ed-b257-41bf-a648-eac77c95964d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId/:groupId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "Group",
+                                    ":partitionGlobalId",
+                                    ":groupId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "30f60608-487e-464a-9e11-c0809d0bd241",
+                                      "key": "organizationName",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the UiPath organization"
+                                    },
+                                    {
+                                      "id": "977deee4-658f-4c09-86b9-8a14f3bea1f7",
+                                      "key": "partitionGlobalId",
+                                      "value": "<string>",
+                                      "description": "(Required) Global partition identifier for the organization or tenant scope"
+                                    },
+                                    {
+                                      "id": "7c8a838b-e7b9-4952-a2bc-557e1b9359c8",
+                                      "key": "groupId",
+                                      "value": "<string>",
+                                      "description": "(Required) Unique identifier of the group"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves a specific user group by its unique identifier within the specified organizational partition. Returns group details including name, description, and member count. Requires the PM.Groups or PM.Groups.Read OAuth scope."
+                              },
+                              "response": [
+                                {
+                                  "id": "87cfb5ff-fc96-4c68-ab85-4a6d3ad7467e",
+                                  "name": "The requested group",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId/:groupId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":organizationName",
+                                        "identity_",
+                                        "api",
+                                        "Group",
+                                        ":partitionGlobalId",
+                                        ":groupId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organizationName"
+                                        },
+                                        {
+                                          "key": "partitionGlobalId"
+                                        },
+                                        {
+                                          "key": "groupId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"Local\",\n  \"userCount\": \"<integer>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-87cfb5ff-fc96-4c68-ab85-4a6d3ad7467e"
+                                },
+                                {
+                                  "id": "70071c7a-2680-4933-8193-8a122f85a1f9",
+                                  "name": "The request lacks valid authentication credentials",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId/:groupId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":organizationName",
+                                        "identity_",
+                                        "api",
+                                        "Group",
+                                        ":partitionGlobalId",
+                                        ":groupId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organizationName"
+                                        },
+                                        {
+                                          "key": "partitionGlobalId"
+                                        },
+                                        {
+                                          "key": "groupId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-70071c7a-2680-4933-8193-8a122f85a1f9"
+                                },
+                                {
+                                  "id": "8aecf33a-ace1-41b1-b126-45b4a29a5ce6",
+                                  "name": "The requested resource was not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId/:groupId",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":organizationName",
+                                        "identity_",
+                                        "api",
+                                        "Group",
+                                        ":partitionGlobalId",
+                                        ":groupId"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organizationName"
+                                        },
+                                        {
+                                          "key": "partitionGlobalId"
+                                        },
+                                        {
+                                          "key": "groupId"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-8aecf33a-ace1-41b1-b126-45b4a29a5ce6"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-b1bed4ed-b257-41bf-a648-eac77c95964d"
+                            }
+                          ],
+                          "id": "7b1a2bcb-4788-4712-8e18-87df683b1a70",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-7b1a2bcb-4788-4712-8e18-87df683b1a70"
+                        },
+                        {
+                          "name": "UiPath List Groups",
+                          "id": "5ccf9013-940d-461b-90f3-5d1d7679d8e8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "Group",
+                                ":partitionGlobalId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ef20c5fe-6505-437d-ac8b-f52679f2bef7",
+                                  "key": "organizationName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the UiPath organization"
+                                },
+                                {
+                                  "id": "a72e046e-6426-4d26-a696-fa92c5f63d49",
+                                  "key": "partitionGlobalId",
+                                  "value": "<string>",
+                                  "description": "(Required) Global partition identifier for the organization or tenant scope"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves all user groups within the specified organizational partition (tenant or organization). Groups aggregate users for role assignment and license allocation. Requires the PM.Groups or PM.Groups.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "102ccb70-2374-4050-a082-a087414c40d0",
+                              "name": "A list of user groups",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "Group",
+                                    ":partitionGlobalId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "partitionGlobalId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"results\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"RoboticsGroup\",\n      \"userCount\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"Local\",\n      \"userCount\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-102ccb70-2374-4050-a082-a087414c40d0"
+                            },
+                            {
+                              "id": "172c9c56-e707-4410-838c-988a82ecd47b",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/identity_/api/Group/:partitionGlobalId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "identity_",
+                                    "api",
+                                    "Group",
+                                    ":partitionGlobalId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    },
+                                    {
+                                      "key": "partitionGlobalId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-172c9c56-e707-4410-838c-988a82ecd47b"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-5ccf9013-940d-461b-90f3-5d1d7679d8e8"
+                        }
+                      ],
+                      "id": "150b9731-d8e3-4451-af9c-3a4f46333736",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-150b9731-d8e3-4451-af9c-3a4f46333736"
+                    },
+                    {
+                      "name": "UiPath Create a Group",
+                      "id": "78f6d5e6-515f-4568-bb23-14411a3c6352",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"RoboticsGroup\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/:organizationName/identity_/api/Group",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":organizationName",
+                            "identity_",
+                            "api",
+                            "Group"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dfeb4f7d-6856-4a5e-871b-8f52015a5f4a",
+                              "key": "organizationName",
+                              "value": "<string>",
+                              "description": "(Required) The name of the UiPath organization"
+                            }
+                          ]
+                        },
+                        "description": "Creates a new user group in the organization. Groups are used to assign roles in bulk, allocate licenses, and control access to automation resources. Members can be added after group creation. Requires the PM.Groups OAuth scope."
+                      },
+                      "response": [
+                        {
+                          "id": "b72c815a-ddf6-4280-b372-b6e4e2a0f53e",
+                          "name": "Group created successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"RoboticsGroup\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/Group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "Group"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"Local\",\n  \"userCount\": \"<integer>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-b72c815a-ddf6-4280-b372-b6e4e2a0f53e"
+                        },
+                        {
+                          "id": "ed76764e-8604-4faf-95a3-99f7e258301c",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"RoboticsGroup\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/Group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "Group"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-ed76764e-8604-4faf-95a3-99f7e258301c"
+                        },
+                        {
+                          "id": "e517830b-1fca-414b-ac00-e09f8118654f",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"RoboticsGroup\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/identity_/api/Group",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "identity_",
+                                "api",
+                                "Group"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organizationName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-e517830b-1fca-414b-ac00-e09f8118654f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-78f6d5e6-515f-4568-bb23-14411a3c6352"
+                    }
+                  ],
+                  "id": "0eb0df04-6fd5-4f9c-b6b9-8fd01e079561",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-0eb0df04-6fd5-4f9c-b6b9-8fd01e079561"
+                }
+              ],
+              "id": "88b1349f-99f2-47bb-a046-cbd2d82d4f34",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-88b1349f-99f2-47bb-a046-cbd2d82d4f34"
+            }
+          ],
+          "id": "f7ad329a-a6bd-4e4e-acd9-ca7a910979dd",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-f7ad329a-a6bd-4e4e-acd9-ca7a910979dd"
+        },
+        {
+          "name": "orgaudit_",
+          "item": [
+            {
+              "name": "api",
+              "item": [
+                {
+                  "name": "query",
+                  "item": [
+                    {
+                      "name": "sources",
+                      "item": [
+                        {
+                          "name": "UiPath Get Organization Audit Event Sources",
+                          "id": "c57bd563-0a1d-4142-b62c-d631cd759f2f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/sources",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "orgaudit_",
+                                "api",
+                                "query",
+                                "sources"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b6958c6d-6bb0-4c48-86f9-3c9a80cc7052",
+                                  "key": "organizationName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the UiPath organization"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves metadata about available audit event sources at the organization level. Returns the list of services that generate audit events along with available event types and categories for use as filters in the query events endpoint. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "7b0b3747-c5f8-4296-8645-191a86aea111",
+                              "name": "Available organization audit event sources",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/sources",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "orgaudit_",
+                                    "api",
+                                    "query",
+                                    "sources"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"sources\": [\n    {\n      \"name\": \"<string>\",\n      \"targets\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"targets\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-7b0b3747-c5f8-4296-8645-191a86aea111"
+                            },
+                            {
+                              "id": "0f69156f-167a-4a35-a2b6-e1feebac75ec",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/sources",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "orgaudit_",
+                                    "api",
+                                    "query",
+                                    "sources"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-0f69156f-167a-4a35-a2b6-e1feebac75ec"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-c57bd563-0a1d-4142-b62c-d631cd759f2f"
+                        }
+                      ],
+                      "id": "69d465dd-addd-46a1-8386-bc4c05b8afce",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-69d465dd-addd-46a1-8386-bc4c05b8afce"
+                    },
+                    {
+                      "name": "events",
+                      "item": [
+                        {
+                          "name": "UiPath Query Organization Audit Events",
+                          "id": "93178e46-6d40-4928-a292-b507fafe6a0f",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&source=<string>&maxCount=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":organizationName",
+                                "orgaudit_",
+                                "api",
+                                "query",
+                                "events"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                  "key": "from",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "End of the audit event time range (ISO 8601 datetime)",
+                                  "key": "to",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "Filter by event source service name",
+                                  "key": "source",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter by event source service name",
+                                  "key": "source",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of audit events to return",
+                                  "key": "maxCount",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4d1df9c5-5ab8-4982-997a-d3ab86c7d76c",
+                                  "key": "organizationName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the UiPath organization"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves audit events at the organization level filtered by time range, event source, event type, user, and other criteria. Returns a paginated list of audit events with actor information, event details, and status. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+                          },
+                          "response": [
+                            {
+                              "id": "796bcaa1-cfd8-4da0-ae6d-106e9ffc6cde",
+                              "name": "Audit events matching the query criteria",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&maxCount=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "orgaudit_",
+                                    "api",
+                                    "query",
+                                    "events"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                      "key": "from",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "End of the audit event time range (ISO 8601 datetime)",
+                                      "key": "to",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "Filter by event source service name",
+                                      "key": "source",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Maximum number of audit events to return",
+                                      "key": "maxCount",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"auditEvents\": [\n    {\n      \"id\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"organizationId\": \"<string>\",\n      \"actorId\": \"<string>\",\n      \"actorEmail\": \"<email>\",\n      \"eventType\": \"<string>\",\n      \"eventSource\": \"<string>\",\n      \"eventTarget\": \"<string>\",\n      \"eventDetails\": {\n        \"labore9\": \"minim nostrud esse in elit\",\n        \"non1\": -9356774\n      },\n      \"eventSummary\": \"<string>\",\n      \"status\": 0,\n      \"clientInfo\": {\n        \"ipAddress\": \"<string>\",\n        \"country\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"organizationId\": \"<string>\",\n      \"actorId\": \"<string>\",\n      \"actorEmail\": \"<email>\",\n      \"eventType\": \"<string>\",\n      \"eventSource\": \"<string>\",\n      \"eventTarget\": \"<string>\",\n      \"eventDetails\": {\n        \"id__\": 46103060,\n        \"irure_0e6\": -32222709.725073308,\n        \"aliquip2d8\": -79316889.55044147\n      },\n      \"eventSummary\": \"<string>\",\n      \"status\": 0,\n      \"clientInfo\": {\n        \"ipAddress\": \"<string>\",\n        \"country\": \"<string>\"\n      }\n    }\n  ],\n  \"next\": \"<uri>\",\n  \"previous\": \"<uri>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-796bcaa1-cfd8-4da0-ae6d-106e9ffc6cde"
+                            },
+                            {
+                              "id": "2da8c882-3973-49cc-93ac-c8a68344f219",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/orgaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&maxCount=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    "orgaudit_",
+                                    "api",
+                                    "query",
+                                    "events"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                      "key": "from",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "End of the audit event time range (ISO 8601 datetime)",
+                                      "key": "to",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "Filter by event source service name",
+                                      "key": "source",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Maximum number of audit events to return",
+                                      "key": "maxCount",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organizationName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-2da8c882-3973-49cc-93ac-c8a68344f219"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-93178e46-6d40-4928-a292-b507fafe6a0f"
+                        }
+                      ],
+                      "id": "aea3257b-6a0c-4114-b9a4-a3623a3f1b07",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-aea3257b-6a0c-4114-b9a4-a3623a3f1b07"
+                    }
+                  ],
+                  "id": "98ef74f2-5d7c-4e17-94fe-a566fd1ee673",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-98ef74f2-5d7c-4e17-94fe-a566fd1ee673"
+                }
+              ],
+              "id": "2a64258b-e515-44f6-9df0-f29491305ba2",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-2a64258b-e515-44f6-9df0-f29491305ba2"
+            }
+          ],
+          "id": "377ec4ef-ced7-498f-a9cc-96ec0d0054a3",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-377ec4ef-ced7-498f-a9cc-96ec0d0054a3"
+        },
+        {
+          "name": "{tenantName}",
+          "item": [
+            {
+              "name": "tenantaudit_",
+              "item": [
+                {
+                  "name": "api",
+                  "item": [
+                    {
+                      "name": "query",
+                      "item": [
+                        {
+                          "name": "events",
+                          "item": [
+                            {
+                              "name": "UiPath Query Tenant Audit Events",
+                              "id": "ee46e513-fd03-44ab-86aa-4967b784a888",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/:organizationName/:tenantName/tenantaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&source=<string>&maxCount=<integer>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    ":organizationName",
+                                    ":tenantName",
+                                    "tenantaudit_",
+                                    "api",
+                                    "query",
+                                    "events"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                      "key": "from",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "End of the audit event time range (ISO 8601 datetime)",
+                                      "key": "to",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "Filter by event source service name",
+                                      "key": "source",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Filter by event source service name",
+                                      "key": "source",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Maximum number of audit events to return",
+                                      "key": "maxCount",
+                                      "value": "<integer>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "08e5bf36-7e7f-43b7-b5b3-42cefb95c748",
+                                      "key": "organizationName",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the UiPath organization"
+                                    },
+                                    {
+                                      "id": "3357c629-52a1-4153-8445-1bfbe1eccff5",
+                                      "key": "tenantName",
+                                      "value": "<string>",
+                                      "description": "(Required) The name of the UiPath tenant"
+                                    }
+                                  ]
+                                },
+                                "description": "Retrieves audit events scoped to a specific tenant, filtered by time range, event source, event type, user, and other criteria. Tenant-level audit events cover actions within Orchestrator, Document Understanding, and other tenant-scoped services. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+                              },
+                              "response": [
+                                {
+                                  "id": "9710d04e-8f5d-4244-b7d8-372e50e7e020",
+                                  "name": "Tenant-level audit events matching the query criteria",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:organizationName/:tenantName/tenantaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&maxCount=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":organizationName",
+                                        ":tenantName",
+                                        "tenantaudit_",
+                                        "api",
+                                        "query",
+                                        "events"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                          "key": "from",
+                                          "value": "<dateTime>"
+                                        },
+                                        {
+                                          "description": "End of the audit event time range (ISO 8601 datetime)",
+                                          "key": "to",
+                                          "value": "<dateTime>"
+                                        },
+                                        {
+                                          "description": "Filter by event source service name",
+                                          "key": "source",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Maximum number of audit events to return",
+                                          "key": "maxCount",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organizationName"
+                                        },
+                                        {
+                                          "key": "tenantName"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"auditEvents\": [\n    {\n      \"id\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"organizationId\": \"<string>\",\n      \"actorId\": \"<string>\",\n      \"actorEmail\": \"<email>\",\n      \"eventType\": \"<string>\",\n      \"eventSource\": \"<string>\",\n      \"eventTarget\": \"<string>\",\n      \"eventDetails\": {\n        \"labore9\": \"minim nostrud esse in elit\",\n        \"non1\": -9356774\n      },\n      \"eventSummary\": \"<string>\",\n      \"status\": 0,\n      \"clientInfo\": {\n        \"ipAddress\": \"<string>\",\n        \"country\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"createdOn\": \"<dateTime>\",\n      \"organizationId\": \"<string>\",\n      \"actorId\": \"<string>\",\n      \"actorEmail\": \"<email>\",\n      \"eventType\": \"<string>\",\n      \"eventSource\": \"<string>\",\n      \"eventTarget\": \"<string>\",\n      \"eventDetails\": {\n        \"id__\": 46103060,\n        \"irure_0e6\": -32222709.725073308,\n        \"aliquip2d8\": -79316889.55044147\n      },\n      \"eventSummary\": \"<string>\",\n      \"status\": 0,\n      \"clientInfo\": {\n        \"ipAddress\": \"<string>\",\n        \"country\": \"<string>\"\n      }\n    }\n  ],\n  \"next\": \"<uri>\",\n  \"previous\": \"<uri>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-9710d04e-8f5d-4244-b7d8-372e50e7e020"
+                                },
+                                {
+                                  "id": "f6f69fde-9d90-4db0-ab2a-71f3380c374a",
+                                  "name": "The request lacks valid authentication credentials",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/:organizationName/:tenantName/tenantaudit_/api/query/events?from=<dateTime>&to=<dateTime>&source=<string>&maxCount=<integer>",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        ":organizationName",
+                                        ":tenantName",
+                                        "tenantaudit_",
+                                        "api",
+                                        "query",
+                                        "events"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Start of the audit event time range (ISO 8601 datetime)",
+                                          "key": "from",
+                                          "value": "<dateTime>"
+                                        },
+                                        {
+                                          "description": "End of the audit event time range (ISO 8601 datetime)",
+                                          "key": "to",
+                                          "value": "<dateTime>"
+                                        },
+                                        {
+                                          "description": "Filter by event source service name",
+                                          "key": "source",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Maximum number of audit events to return",
+                                          "key": "maxCount",
+                                          "value": "<integer>"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organizationName"
+                                        },
+                                        {
+                                          "key": "tenantName"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-f6f69fde-9d90-4db0-ab2a-71f3380c374a"
+                                }
+                              ],
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-ee46e513-fd03-44ab-86aa-4967b784a888"
+                            }
+                          ],
+                          "id": "c651f174-fa06-4f55-9ae7-c0b3f4bf829c",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-c651f174-fa06-4f55-9ae7-c0b3f4bf829c"
+                        }
+                      ],
+                      "id": "0d0143ee-229d-4c5a-ae26-34ac8d54f203",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-0d0143ee-229d-4c5a-ae26-34ac8d54f203"
+                    }
+                  ],
+                  "id": "1febbef2-5e2c-47e5-87bb-abdfafd4f946",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-1febbef2-5e2c-47e5-87bb-abdfafd4f946"
+                }
+              ],
+              "id": "22fa1229-672a-4cb0-aad2-7b22e13f523d",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-22fa1229-672a-4cb0-aad2-7b22e13f523d"
+            }
+          ],
+          "id": "9d3db9e9-68f0-4cae-bd2c-48d51a46bc60",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-9d3db9e9-68f0-4cae-bd2c-48d51a46bc60"
+        },
+        {
+          "name": "la",
+          "item": [
+            {
+              "name": "api",
+              "item": [
+                {
+                  "name": "account",
+                  "item": [
+                    {
+                      "name": "{accountId}",
+                      "item": [
+                        {
+                          "name": "user-license",
+                          "item": [
+                            {
+                              "name": "group",
+                              "item": [
+                                {
+                                  "name": "{groupId}",
+                                  "item": [
+                                    {
+                                      "name": "UiPath Get License Allocation for a Group",
+                                      "id": "c7046ef7-b842-4c49-a3b9-29f7c8584fef",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            ":organizationName",
+                                            "la",
+                                            "api",
+                                            "account",
+                                            ":accountId",
+                                            "user-license",
+                                            "group",
+                                            ":groupId"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "e361a316-c46c-46a9-83d8-0e76ade41793",
+                                              "key": "organizationName",
+                                              "value": "<string>",
+                                              "description": "(Required) The name of the UiPath organization"
+                                            },
+                                            {
+                                              "id": "ab1f7cf1-fcf5-4637-9998-c5d1d914666b",
+                                              "key": "accountId",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the organization account"
+                                            },
+                                            {
+                                              "id": "610648a5-344f-4901-b56e-9628e776426e",
+                                              "key": "groupId",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the user group"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Retrieves the user license allocation rule for a specific group within the organization account. Returns the license types allocated to the group and the current usage count. Requires the PM.License or PM.License.Read OAuth scope."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "76146fd9-be6c-4a18-8811-ab8744f2c327",
+                                          "name": "License allocation for the group",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"groupId\": \"<string>\",\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-76146fd9-be6c-4a18-8811-ab8744f2c327"
+                                        },
+                                        {
+                                          "id": "98b8fabf-3e3b-4928-b9a4-a5db64c9455e",
+                                          "name": "The request lacks valid authentication credentials",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-98b8fabf-3e3b-4928-b9a4-a5db64c9455e"
+                                        },
+                                        {
+                                          "id": "339f233c-adbf-4474-933f-4e20ffed8232",
+                                          "name": "The requested resource was not found",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-339f233c-adbf-4474-933f-4e20ffed8232"
+                                        }
+                                      ],
+                                      "createdAt": "2026-06-05T15:02:28.000Z",
+                                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                                      "uid": "35240-c7046ef7-b842-4c49-a3b9-29f7c8584fef"
+                                    },
+                                    {
+                                      "name": "UiPath Update License Allocation for a Group",
+                                      "id": "91307d69-0729-4bef-9f81-cd5d47f8b75e",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "PUT",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            ":organizationName",
+                                            "la",
+                                            "api",
+                                            "account",
+                                            ":accountId",
+                                            "user-license",
+                                            "group",
+                                            ":groupId"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "4ca207f4-b282-4d0a-aabc-3d41fce2527b",
+                                              "key": "organizationName",
+                                              "value": "<string>",
+                                              "description": "(Required) The name of the UiPath organization"
+                                            },
+                                            {
+                                              "id": "ac7e5bad-a926-4f46-97a4-a9d99b8554ad",
+                                              "key": "accountId",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the organization account"
+                                            },
+                                            {
+                                              "id": "fa160425-e53c-4acc-b441-3932603bdfcb",
+                                              "key": "groupId",
+                                              "value": "<string>",
+                                              "description": "(Required) Unique identifier of the user group"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Allocates or updates user licenses for a specific group. The rule defines which license types members of this group are entitled to. This controls the licenses automatically assigned when a member of the group first logs in. Requires the PM.License OAuth scope."
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "471c4c1b-1797-4876-8be3-c3159fc48cc6",
+                                          "name": "License allocation updated successfully",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"groupId\": \"<string>\",\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-471c4c1b-1797-4876-8be3-c3159fc48cc6"
+                                        },
+                                        {
+                                          "id": "16c3a338-9e81-4bc2-a641-6ba9f517d806",
+                                          "name": "The request was malformed or contained invalid parameters",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Bad Request",
+                                          "code": 400,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-16c3a338-9e81-4bc2-a641-6ba9f517d806"
+                                        },
+                                        {
+                                          "id": "881b9eb6-3200-4a7e-9417-db92b1723a5e",
+                                          "name": "The request lacks valid authentication credentials",
+                                          "originalRequest": {
+                                            "method": "PUT",
+                                            "header": [
+                                              {
+                                                "key": "Content-Type",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "body": {
+                                              "mode": "raw",
+                                              "raw": "{\n  \"userLicenses\": [\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"totalCount\": \"<integer>\",\n      \"usedCount\": \"<integer>\"\n    }\n  ]\n}",
+                                              "options": {
+                                                "raw": {
+                                                  "headerFamily": "json",
+                                                  "language": "json"
+                                                }
+                                              }
+                                            },
+                                            "url": {
+                                              "raw": "{{baseUrl}}/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                ":organizationName",
+                                                "la",
+                                                "api",
+                                                "account",
+                                                ":accountId",
+                                                "user-license",
+                                                "group",
+                                                ":groupId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organizationName"
+                                                },
+                                                {
+                                                  "key": "accountId"
+                                                },
+                                                {
+                                                  "key": "groupId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Unauthorized",
+                                          "code": 401,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                                          "createdAt": "2026-06-05T15:02:28.000Z",
+                                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                                          "uid": "35240-881b9eb6-3200-4a7e-9417-db92b1723a5e"
+                                        }
+                                      ],
+                                      "createdAt": "2026-06-05T15:02:28.000Z",
+                                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                                      "uid": "35240-91307d69-0729-4bef-9f81-cd5d47f8b75e"
+                                    }
+                                  ],
+                                  "id": "3992b226-19c1-421b-89a2-0c54bde0445f",
+                                  "createdAt": "2026-06-05T15:02:28.000Z",
+                                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                                  "uid": "35240-3992b226-19c1-421b-89a2-0c54bde0445f"
+                                }
+                              ],
+                              "id": "2717844f-3f3d-4a93-b030-2db05be89ab3",
+                              "createdAt": "2026-06-05T15:02:28.000Z",
+                              "updatedAt": "2026-06-05T15:02:28.000Z",
+                              "uid": "35240-2717844f-3f3d-4a93-b030-2db05be89ab3"
+                            }
+                          ],
+                          "id": "97b50321-a5a3-431e-a841-83cc025692ef",
+                          "createdAt": "2026-06-05T15:02:28.000Z",
+                          "updatedAt": "2026-06-05T15:02:28.000Z",
+                          "uid": "35240-97b50321-a5a3-431e-a841-83cc025692ef"
+                        }
+                      ],
+                      "id": "3c2991c0-fa08-464c-830e-e37e710c5139",
+                      "createdAt": "2026-06-05T15:02:28.000Z",
+                      "updatedAt": "2026-06-05T15:02:28.000Z",
+                      "uid": "35240-3c2991c0-fa08-464c-830e-e37e710c5139"
+                    }
+                  ],
+                  "id": "684d1df6-d27e-4114-a2ad-4155abd5a3b6",
+                  "createdAt": "2026-06-05T15:02:28.000Z",
+                  "updatedAt": "2026-06-05T15:02:28.000Z",
+                  "uid": "35240-684d1df6-d27e-4114-a2ad-4155abd5a3b6"
+                }
+              ],
+              "id": "1be4230d-1af6-4131-a2b9-06f179b7b068",
+              "createdAt": "2026-06-05T15:02:28.000Z",
+              "updatedAt": "2026-06-05T15:02:28.000Z",
+              "uid": "35240-1be4230d-1af6-4131-a2b9-06f179b7b068"
+            }
+          ],
+          "id": "ad5d7be9-e735-4f97-b794-5d496fbf26f3",
+          "createdAt": "2026-06-05T15:02:28.000Z",
+          "updatedAt": "2026-06-05T15:02:28.000Z",
+          "uid": "35240-ad5d7be9-e735-4f97-b794-5d496fbf26f3"
+        }
+      ],
+      "id": "ecc11f5b-0459-4369-89f7-94b61a3a3c93",
+      "createdAt": "2026-06-05T15:02:28.000Z",
+      "updatedAt": "2026-06-05T15:02:28.000Z",
+      "uid": "35240-ecc11f5b-0459-4369-89f7-94b61a3a3c93"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.uipath.com"
+    }
+  ]
+}

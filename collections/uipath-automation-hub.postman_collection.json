@@ -1,0 +1,3721 @@
+{
+  "item": [
+    {
+      "id": "2fd424d2-5817-4822-999c-f1ec8c76d16b",
+      "name": "AppInventory",
+      "description": {
+        "content": "Manage the application inventory used in automation assessments",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc4c34d6-5287-4fb0-aa8f-6c2356a41600",
+          "name": "UiPath List Application Inventory",
+          "request": {
+            "name": "UiPath List Application Inventory",
+            "description": {
+              "content": "Retrieves the application inventory used for automation assessments. Each entry represents a business application that may be involved in automations. Inventory data is used in the assessment process to calculate automation complexity and effort.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appinventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ac93d20-a763-4e57-aab3-8b9aa3ecbf5c",
+              "name": "A list of application inventory entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"applications\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "489cbeb6-7f50-4673-a34d-7a154de47701",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13e4edd6-af06-4639-b925-d112e282d246",
+          "name": "UiPath Bulk Add or Update Application Inventory",
+          "request": {
+            "name": "UiPath Bulk Add or Update Application Inventory",
+            "description": {
+              "content": "Adds or updates application entries in bulk. If an application with the same name already exists, it will be updated; otherwise, a new entry is created. This endpoint is designed for bulk synchronization of the application inventory from an external CMDB or asset register.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appinventory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applications\": [\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"vendor\": \"<string>\",\n      \"category\": \"<string>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2894fb4-d97f-4f27-a67d-de86d66f60c7",
+              "name": "Applications upserted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"vendor\": {},\n      \"category\": {},\n      \"description\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"applications\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c49b9025-1295-4fcc-b185-f22909da626c",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"vendor\": {},\n      \"category\": {},\n      \"description\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9933747d-04d7-48f9-8844-53a7b5217a81",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"applications\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"vendor\": {},\n      \"category\": {},\n      \"description\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eda6913f-ec2b-4f57-9fbb-cd72b1cfc986",
+          "name": "UiPath Delete an Application from Inventory",
+          "request": {
+            "name": "UiPath Delete an Application from Inventory",
+            "description": {
+              "content": "Permanently removes an application entry from the application inventory by its unique identifier. Automations that reference this application will lose the association.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appinventory",
+                ":applicationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "applicationId",
+                  "description": "(Required) Unique identifier of the application to delete"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5a14edc-bf99-40b2-8f84-b7ef29e9a324",
+              "name": "Application deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory",
+                    ":applicationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of the application to delete"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61480461-d552-4acf-8014-af2e56f11628",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory",
+                    ":applicationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of the application to delete"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e31e838-2251-4b41-8e54-920ea4d85e07",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appinventory",
+                    ":applicationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "applicationId",
+                      "description": "(Required) Unique identifier of the application to delete"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "343b8c8e-c648-47e7-b2ed-9be7845fc172",
+      "name": "Automations",
+      "description": {
+        "content": "Manage automation ideas and projects in the pipeline",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f53e607-2709-49ae-988b-27eb3c49e697",
+          "name": "UiPath List Automations",
+          "request": {
+            "name": "UiPath List Automations",
+            "description": {
+              "content": "Retrieves a list of automation ideas and projects from Automation Hub. Supports filtering by phase, status, and other pipeline attributes. Returns a paginated list of automation records including metadata, cost-benefit analysis data, and submission details. Used by CoE teams to programmatically query and track the automation pipeline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "phase",
+                  "value": "<string>",
+                  "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter automations by status within their current phase"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77b5c4d1-9eeb-4562-b037-e640a8ef0c66",
+              "name": "A paginated list of automations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phase",
+                      "value": "example-value"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"page\": 1,\n  \"pageSize\": 1,\n  \"automations\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10210190-5e70-47a7-8f87-226f2f5b0cd5",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phase",
+                      "value": "example-value"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c63b114f-22ba-4efa-a2e7-bb972cd84db3",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "phase",
+                      "value": "example-value"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b282f8e5-9c04-45ff-9956-e409ed285d9e",
+          "name": "UiPath Create an Automation Idea",
+          "request": {
+            "name": "UiPath Create an Automation Idea",
+            "description": {
+              "content": "Creates a new automation idea in Automation Hub. The submitted idea enters the pipeline at the Idea phase and is available for assessment and prioritization by CoE administrators. The request body must include the idea name, description, submitter information, and the estimated benefit details used in cost-benefit analysis.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58b4e086-ed5f-4add-b3d2-275cd022fdf6",
+              "name": "Automation idea created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"submittedBy\": \"example-value\",\n  \"submittedDate\": \"2026-01-15T10:30:00Z\",\n  \"lastModified\": \"2026-01-15T10:30:00Z\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c56a62a3-70eb-4c7b-bcc4-7b630b385dcf",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52c99e79-8c0d-49b7-88a8-5811a845a3bb",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b20f50e8-d208-4873-8c27-aa91e2d7fa73",
+          "name": "UiPath Get an Automation by ID",
+          "request": {
+            "name": "UiPath Get an Automation by ID",
+            "description": {
+              "content": "Retrieves a single automation record by its unique identifier. Returns full details including pipeline phase, status, cost-benefit analysis data, collaborators, documents, and tags.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "automationId",
+                  "description": "(Required) Unique integer identifier of the automation idea or project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52008d28-73ed-4733-93c7-57720e9ec241",
+              "name": "The requested automation record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"submittedBy\": \"example-value\",\n  \"submittedDate\": \"2026-01-15T10:30:00Z\",\n  \"lastModified\": \"2026-01-15T10:30:00Z\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f402a5b-5a1d-4ade-a6e0-40186af57e78",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9cc4e66-24ff-4e67-8d8d-69962b3336fe",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a332104a-d832-492a-9e4e-4a5c2d8c305c",
+          "name": "UiPath Update an Automation",
+          "request": {
+            "name": "UiPath Update an Automation",
+            "description": {
+              "content": "Partially updates an automation record by its unique identifier. Commonly used to advance an automation through the pipeline by updating its phase and status. Only fields included in the request body are modified.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "automationId",
+                  "description": "(Required) Unique integer identifier of the automation idea or project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phase\": \"<string>\",\n  \"status\": \"<string>\",\n  \"description\": \"<string>\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": \"<number>\",\n    \"estimatedFTESavings\": \"<number>\",\n    \"estimatedCostSavingsPerYear\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f83148e-e6a7-4632-9cc4-a99475ed16aa",
+              "name": "Automation updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"submittedBy\": \"example-value\",\n  \"submittedDate\": \"2026-01-15T10:30:00Z\",\n  \"lastModified\": \"2026-01-15T10:30:00Z\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  },\n  \"tags\": [\n    \"example-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e75d2c72-e2e8-4269-9292-a6d6e4c6c13e",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f682285-0e76-47cb-80da-2391b2a3d186",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51e57146-fbee-4307-8732-5e016266bc24",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"phase\": \"Idea\",\n  \"status\": \"example-value\",\n  \"description\": \"example-value\",\n  \"estimatedBenefit\": {\n    \"estimatedTimeSavingsPerYear\": {},\n    \"estimatedFTESavings\": {},\n    \"estimatedCostSavingsPerYear\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc5f71b2-04de-4b5e-8b07-5fa46ddb42d7",
+          "name": "UiPath Delete an Automation",
+          "request": {
+            "name": "UiPath Delete an Automation",
+            "description": {
+              "content": "Permanently deletes an automation record from Automation Hub by its unique identifier. This action removes the idea and all associated documents, comments, and collaborator data. This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations",
+                ":automationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "automationId",
+                  "description": "(Required) Unique integer identifier of the automation idea or project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08bb59e3-f413-4ed0-9b73-11fe30307422",
+              "name": "Automation deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b63cf6b-89d5-4e10-92c1-780a4e810769",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38cc16bc-5754-40f8-90cf-8867c405fc46",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4baccb1-f657-4b0f-8428-0dc67db8041c",
+          "name": "UiPath List Collaborators for an Automation",
+          "request": {
+            "name": "UiPath List Collaborators for an Automation",
+            "description": {
+              "content": "Retrieves the list of collaborators assigned to a specific automation idea or project. Collaborators have defined roles such as subject matter expert, developer, or reviewer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations",
+                ":automationId",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "automationId",
+                  "description": "(Required) Unique integer identifier of the automation idea or project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed262c62-5f5e-4347-8137-5c95e5f92338",
+              "name": "A list of collaborators for the automation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collaborators\": [\n    {\n      \"userId\": {},\n      \"name\": {},\n      \"email\": {},\n      \"role\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a673ed2b-9101-4dc0-881c-02bf7503d9dd",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44f5962d-3a10-4792-868f-b21be297db4f",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "860b02a2-30b0-4576-a4fe-ff282939339d",
+          "name": "UiPath Remove a Collaborator from an Automation",
+          "request": {
+            "name": "UiPath Remove a Collaborator from an Automation",
+            "description": {
+              "content": "Removes a collaborator from an automation by their user ID. The user will lose access to collaborate on the automation idea or project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automations",
+                ":automationId",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<integer>",
+                  "description": "(Required) Unique identifier of the user to remove as a collaborator"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "automationId",
+                  "description": "(Required) Unique integer identifier of the automation idea or project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d7c7d60-2345-4416-946a-07d03f776700",
+              "name": "Collaborator removed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8b61dc2b-b8ed-40be-99d0-6409f5f9c903",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "075ac009-d49c-4dea-b197-977eb5a2cfb5",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automations",
+                    ":automationId",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "12345"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "automationId",
+                      "description": "(Required) Unique integer identifier of the automation idea or project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c0ba2289-82ec-43d1-9e82-4d5a5f0c6821",
+      "name": "Pipeline",
+      "description": {
+        "content": "Retrieve automation pipeline data and status views",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e06750e-1b86-4900-971b-4349016463de",
+          "name": "UiPath Get Automation Pipeline Data",
+          "request": {
+            "name": "UiPath Get Automation Pipeline Data",
+            "description": {
+              "content": "Retrieves aggregated pipeline data showing the distribution of automations across phases and statuses. Used for reporting and dashboard views by CoE administrators to understand the overall health and throughput of the automation program.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "automationpipeline"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb6f4716-ba4f-40c1-a6b0-12dafeec5519",
+              "name": "Automation pipeline summary data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automationpipeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"phases\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41165485-ab38-4375-8169-c8922c3b4aac",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "automationpipeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8da2a268-b54f-487f-bd3f-bffd575f7063",
+      "name": "Users",
+      "description": {
+        "content": "Manage users and their roles within Automation Hub",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80d670db-61e0-4d23-9a66-0cd50e43f4a8",
+          "name": "UiPath List Users",
+          "request": {
+            "name": "UiPath List Users",
+            "description": {
+              "content": "Retrieves a list of users registered in Automation Hub. Returns user identifiers, names, email addresses, and assigned roles. Used by administrators to manage user assignments and role configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a92a25e1-ccdb-4ddf-b78b-4021967bb224",
+              "name": "A list of users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"users\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9958d026-93e4-4df8-9204-69e7651fc787",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da859297-3c0b-46cd-8e0a-d90cda5adcf0",
+          "name": "UiPath Add a User",
+          "request": {
+            "name": "UiPath Add a User",
+            "description": {
+              "content": "Adds a new user to Automation Hub. The user must already exist in the UiPath identity directory. This endpoint assigns the user a role within Automation Hub and makes them available for collaboration and idea submission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "adduser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"role\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ead53906-a62e-4589-a691-378720a9c161",
+              "name": "User added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"role\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"example-value\",\n  \"email\": \"user@example.com\",\n  \"role\": \"example-value\",\n  \"isActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81b53c9a-a7e2-4cf1-b081-ba9f0fce20d4",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"role\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88230027-f5da-4de3-afa9-b0cfee7ab70f",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "adduser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"role\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c4de706-f12f-4680-96f5-714052e09649",
+          "name": "UiPath Edit a User",
+          "request": {
+            "name": "UiPath Edit a User",
+            "description": {
+              "content": "Updates an existing user's properties in Automation Hub, such as their assigned role or active status. The user is identified by their unique ID in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "edituser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"isActive\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "739a0627-ab0a-4278-af0a-a5e254311f29",
+              "name": "User updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edituser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"role\": \"example-value\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"example-value\",\n  \"email\": \"user@example.com\",\n  \"role\": \"example-value\",\n  \"isActive\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66aa0685-5613-49d8-9d08-bc9d16f1b0f2",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edituser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"role\": \"example-value\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21cc84a8-33b9-4bd0-aed4-ded103545c82",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edituser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"role\": \"example-value\",\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7426583-d6dc-48fa-a079-dee4950d3969",
+          "name": "UiPath List Roles",
+          "request": {
+            "name": "UiPath List Roles",
+            "description": {
+              "content": "Retrieves the list of roles available in Automation Hub. Each role defines a set of permissions controlling what a user can view and perform within the platform. Roles are assigned when adding or editing users.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{orgName}}",
+                  "key": "orgName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c0477d6-027a-4b52-b2b9-78a861c883cc",
+              "name": "A list of available roles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"roles\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"description\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd50d1cd-da90-4aa3-bf01-cc2c5ace90bd",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{orgName}}",
+                      "key": "orgName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"code\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The name of your UiPath organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "orgName"
+    },
+    {
+      "description": {
+        "content": "The name of your UiPath tenant",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenantName"
+    },
+    {
+      "type": "string",
+      "value": "https://cloud.uipath.com/{{orgName}}/{{tenantName}}/automationhub_/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b97346c7-574a-42d2-bf00-e18a82843089",
+    "name": "UiPath Automation Hub API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.\n\nContact Support:\n Name: UiPath Support",
+      "type": "text/plain"
+    }
+  }
+}

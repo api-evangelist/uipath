@@ -1,0 +1,3267 @@
+{
+  "item": [
+    {
+      "id": "b35fe9a3-b4f2-480e-a47d-73cc16953639",
+      "name": "Projects",
+      "description": {
+        "content": "Manage test projects within Test Manager",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "724d0226-e031-4a65-82b8-fed901d5860f",
+          "name": "UiPath List Test Projects",
+          "request": {
+            "name": "UiPath List Test Projects",
+            "description": {
+              "content": "Retrieves all test projects accessible to the authenticated user. Projects are the top-level containers for test cases, requirements, test sets, and execution results. Requires the TM.Projects or TM.Projects.Read OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination (0-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee064cb5-9541-4ae3-a034-626b12a97a24",
+              "name": "A list of test projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"page\": 1,\n  \"pageSize\": 1,\n  \"projects\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5aff3014-98b9-4768-a722-bb2e4c708fd9",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ab8cacc-7e18-4cc9-a082-37f36a5af082",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cecd3b41-6d59-41de-a115-0ee5e7c2291f",
+          "name": "UiPath Create a Test Project",
+          "request": {
+            "name": "UiPath Create a Test Project",
+            "description": {
+              "content": "Creates a new test project in Test Manager. The project becomes the container for all test cases, requirements, and test sets associated with the testing effort. Requires the TM.Projects OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc67cd51-3947-490a-b1b3-7517f07778fd",
+              "name": "Test project created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"createdBy\": \"example-value\",\n  \"createdOn\": \"2026-01-15T10:30:00Z\",\n  \"testCaseCount\": 1,\n  \"requirementCount\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c0a619d-7f0b-46c9-a84d-2dced150cd32",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d1f371d-6c8c-4b18-920a-ede52720cd11",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67588b60-17ca-4f5f-8678-706b034f19af",
+          "name": "UiPath Get a Test Project by ID",
+          "request": {
+            "name": "UiPath Get a Test Project by ID",
+            "description": {
+              "content": "Retrieves a specific test project by its unique identifier. Returns project details including name, description, creation date, and summary statistics for test cases and requirements.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "375b7740-ed4d-4a70-9004-e7291f9837e8",
+              "name": "The requested test project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"createdBy\": \"example-value\",\n  \"createdOn\": \"2026-01-15T10:30:00Z\",\n  \"testCaseCount\": 1,\n  \"requirementCount\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d968a8a9-e104-4e90-bc57-a71fac868d12",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e79f3775-6de0-4af6-88eb-d1866f7d9be9",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3c8d054d-af5e-49a7-b3f3-5986c4c06b66",
+      "name": "Requirements",
+      "description": {
+        "content": "Manage requirements and their traceability links to test cases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e9f6305-0f77-41db-b41b-3ed4a4545870",
+          "name": "UiPath List Requirements in a Project",
+          "request": {
+            "name": "UiPath List Requirements in a Project",
+            "description": {
+              "content": "Retrieves all requirements defined within a specific test project. Requirements represent business or technical specifications that test cases are mapped to for traceability. Supports pagination. Requires the TM.Requirements or TM.Requirements.Read OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination (0-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "374f377b-8476-4db3-90ec-15eefcac2b9b",
+              "name": "A list of requirements in the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"requirements\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b64114-fa94-4629-9138-0a4cca755808",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a9e1cfc-31bf-4a54-a67b-636f4193dcbe",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab21b40a-1510-4c2b-82de-94b7987514ff",
+          "name": "UiPath Create a Requirement",
+          "request": {
+            "name": "UiPath Create a Requirement",
+            "description": {
+              "content": "Creates a new requirement within a test project. Requirements can be linked to test cases to establish traceability coverage. Requires the TM.Requirements OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b221a6e5-afcf-4880-9638-baa1c7141852",
+              "name": "Requirement created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"externalId\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"externalId\": \"example-value\",\n  \"status\": \"Active\",\n  \"linkedTestCaseCount\": 1,\n  \"createdOn\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "282820a4-a969-4063-a00e-f0228d724e63",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"externalId\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8af0a27d-53a4-449c-a5c6-c1b90056cc67",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"externalId\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "329d903e-1bee-4ec9-8b7f-53ce328f9cb3",
+      "name": "TestCases",
+      "description": {
+        "content": "Manage test cases and their definitions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed714d27-2565-4423-a7d4-606a8b9ecfd1",
+          "name": "UiPath List Test Cases in a Project",
+          "request": {
+            "name": "UiPath List Test Cases in a Project",
+            "description": {
+              "content": "Retrieves all test cases defined within a specific test project. Each test case represents a single test scenario with preconditions, steps, and expected results. Supports pagination and filtering. Requires the TM.TestCases or TM.TestCases.Read OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testcases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination (0-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7231f771-a8e5-4edb-9238-f512978c4052",
+              "name": "A list of test cases in the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"testCases\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cadb7e92-5584-4c0b-ae44-a21757155bdc",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a40922a3-e90b-4d32-9e14-857ed956176c",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc094dbb-dc6f-4e0a-b4b8-d0272404d4b2",
+          "name": "UiPath Create a Test Case",
+          "request": {
+            "name": "UiPath Create a Test Case",
+            "description": {
+              "content": "Creates a new test case within a test project. The test case can be linked to automation packages deployed in Orchestrator to enable automated test execution via test sets. Requires the TM.TestCases OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testcases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a00d3389-529f-433c-b046-0c3f1fa334d4",
+              "name": "Test case created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"labels\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"status\": \"Draft\",\n  \"automationStatus\": \"NotAutomated\",\n  \"labels\": [\n    \"example-value\"\n  ],\n  \"createdOn\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "298acded-125a-4b31-9d06-4fd8014a9010",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"labels\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50d2d876-c83e-4faa-969c-96a125dddf8f",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"labels\": [\n    \"example-value\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c42df20f-1d4a-4f02-8420-e71ebe428de5",
+          "name": "UiPath Get a Test Case by ID",
+          "request": {
+            "name": "UiPath Get a Test Case by ID",
+            "description": {
+              "content": "Retrieves a specific test case by its unique identifier within a project. Returns full test case details including steps, labels, custom fields, automation linkage, and preconditions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testcases",
+                ":testCaseId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "testCaseId",
+                  "description": "(Required) Unique identifier of the test case"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cba71b2-2663-4026-9055-43207c933c2e",
+              "name": "The requested test case",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases",
+                    ":testCaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testCaseId",
+                      "description": "(Required) Unique identifier of the test case"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"status\": \"Draft\",\n  \"automationStatus\": \"NotAutomated\",\n  \"labels\": [\n    \"example-value\"\n  ],\n  \"createdOn\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "247dd45c-0840-45a2-92be-a0290960a69f",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases",
+                    ":testCaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testCaseId",
+                      "description": "(Required) Unique identifier of the test case"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9b4e477-a5d3-4874-8936-6da566887ccb",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testcases",
+                    ":testCaseId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "testCaseId",
+                      "description": "(Required) Unique identifier of the test case"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "723e2b26-398b-437e-914d-cbd758454027",
+      "name": "TestExecutions",
+      "description": {
+        "content": "Retrieve test execution results and logs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81c91af6-5ff8-42da-a47c-a6f6ce5cab62",
+          "name": "UiPath List Test Executions in a Project",
+          "request": {
+            "name": "UiPath List Test Executions in a Project",
+            "description": {
+              "content": "Retrieves test execution results within a specific test project. Test executions represent runs of test sets and contain the aggregate pass/fail status across all included test cases. References to individual test case log objects are included for drill-down.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testexecutions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination (0-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "afca6420-4996-44dc-ab25-ab464c00a688",
+              "name": "A list of test executions in the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testexecutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"executions\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7844045-4549-424e-9d27-bcda733b1ea8",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testexecutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "451c5d10-8e34-401b-a27c-a9c221427043",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testexecutions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17e16ac8-b331-4cdc-8705-5546230d9b2d",
+      "name": "TestSets",
+      "description": {
+        "content": "Manage test sets that group test cases for execution",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b71b43e7-6afe-4edd-a269-5157efe6e733",
+          "name": "UiPath List Test Sets in a Project",
+          "request": {
+            "name": "UiPath List Test Sets in a Project",
+            "description": {
+              "content": "Retrieves all test sets within a specific test project. Test sets group test cases for coordinated execution runs and can be linked to Orchestrator processes to trigger automated execution.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testsets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number for pagination (0-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "Number of records per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d76c786-e288-471d-ac3c-e76961e9782d",
+              "name": "A list of test sets in the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 1,\n  \"testSets\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa76927d-9c56-4804-9ea6-788579159745",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63a63fe4-f13a-4d17-bf09-3fe1e292799b",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "587ddc3e-3e53-4518-bc7a-0ed67337fd34",
+          "name": "UiPath Create a Test Set",
+          "request": {
+            "name": "UiPath Create a Test Set",
+            "description": {
+              "content": "Creates a new test set within a project. The test set can include test cases and be configured to execute against specific Orchestrator environments. Requires the TM.TestSets OAuth scope.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "projects",
+                ":projectId",
+                "testsets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the test project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30f4b861-0590-4583-a063-a8689bf3278f",
+              "name": "Test set created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"example-value\",\n  \"name\": \"example-value\",\n  \"description\": \"example-value\",\n  \"testCaseCount\": 1,\n  \"createdOn\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18d39b2b-e83c-4f83-8247-452094b42f36",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a637b6e7-6154-4db8-9a36-0fa600fc2c2a",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "projects",
+                    ":projectId",
+                    "testsets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the test project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"example-value\",\n  \"description\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The name of your UiPath organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "organizationName"
+    },
+    {
+      "description": {
+        "content": "The name of your UiPath tenant",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenantName"
+    },
+    {
+      "type": "string",
+      "value": "https://cloud.uipath.com/{{organizationName}}/{{tenantName}}/testmanager_",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "66c5b49c-9688-47e1-bfb4-984cd1c99ca1",
+    "name": "UiPath Test Manager API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The UiPath Test Manager API allows external tools and systems to integrate with UiPath's test management platform for managing test projects, test cases, test sets, requirements, and execution results programmatically. API access uses OAuth 2.0 scopes including TM.Projects and TM.Requirements.Read, enabling fine-grained control over permissions granted to integrated tooling. The API is suited for integrating third-party test management or defect tracking systems with UiPath automation testing workflows. Rate limits apply to API requests to ensure platform stability across all tenants. The Swagger interface is accessible by appending /swagger/index.html to the Test Manager URL. The base URL for Automation Cloud follows the pattern https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_.\n\nContact Support:\n Name: UiPath Support",
+      "type": "text/plain"
+    }
+  }
+}

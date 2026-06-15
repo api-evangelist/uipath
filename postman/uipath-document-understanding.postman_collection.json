@@ -1,0 +1,2381 @@
+{
+  "info": {
+    "_postman_id": "05f7cf1e-816e-484a-b529-3482734b4318",
+    "name": "UiPath Document Understanding API",
+    "description": "The UiPath Document Understanding API enables programmatic access to intelligent document processing capabilities including digitization, classification, extraction, and validation of document content. The API supports both synchronous and asynchronous consumption patterns, with asynchronous mode suited for multi-page documents and batch workloads, and synchronous mode for real-time processing of single-page images up to five pages. Developers can integrate specialized machine learning models as well as generative AI-based classifiers and extractors into their applications. The API is accessible via Swagger or any HTTP-compatible programming language and can be used in both RPA and non-RPA contexts. Data from the digitization endpoint is retained for seven days; data from asynchronous classification and extraction endpoints is retained for 24 hours.\n\nContact Support:\n Name: UiPath Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:02:06.000Z",
+    "updatedAt": "2026-06-05T15:02:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-05f7cf1e-816e-484a-b529-3482734b4318"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{projectId}",
+          "item": [
+            {
+              "name": "extractors",
+              "item": [
+                {
+                  "name": "UiPath List Extractors for a Project",
+                  "id": "cf4bec31-2c56-4d3c-ac82-152ab2524c4d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/extractors?api-version=1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "extractors"
+                      ],
+                      "query": [
+                        {
+                          "description": "API version to use for this request",
+                          "key": "api-version",
+                          "value": "1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "632b0e5a-bc0c-42a2-9690-da7f3c6a0f40",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the Document Understanding project"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves all available extractor models configured within a specific Document Understanding project. Each extractor is associated with a document type and defines the fields it can extract. Use the extractor ID in extraction requests to invoke the correct model."
+                  },
+                  "response": [
+                    {
+                      "id": "bfd5ae63-dfdd-4988-bf70-f72b0b1cf1fb",
+                      "name": "A list of extractors for the project",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/extractors?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "extractors"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"extractors\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"documentType\": \"<string>\",\n      \"extractorType\": \"GenerativeAI\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"documentType\": \"<string>\",\n      \"extractorType\": \"GenerativeAI\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-bfd5ae63-dfdd-4988-bf70-f72b0b1cf1fb"
+                    },
+                    {
+                      "id": "8d86c2e5-8acb-40f7-beed-22fbd4015782",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/extractors?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "extractors"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-8d86c2e5-8acb-40f7-beed-22fbd4015782"
+                    },
+                    {
+                      "id": "95679fc1-7bf6-4fa9-b857-16283750fdd2",
+                      "name": "The requested resource was not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/extractors?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "extractors"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-95679fc1-7bf6-4fa9-b857-16283750fdd2"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-cf4bec31-2c56-4d3c-ac82-152ab2524c4d"
+                }
+              ],
+              "id": "322c9c39-389d-4c42-b181-c9bf9edc7757",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-322c9c39-389d-4c42-b181-c9bf9edc7757"
+            },
+            {
+              "name": "classifiers",
+              "item": [
+                {
+                  "name": "UiPath List Classifiers for a Project",
+                  "id": "4f8ad7ab-367e-4935-b472-878aa692b353",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/classifiers?api-version=1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "classifiers"
+                      ],
+                      "query": [
+                        {
+                          "description": "API version to use for this request",
+                          "key": "api-version",
+                          "value": "1"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "041b6daf-5a93-44e5-bda6-56d3aac950ec",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier of the Document Understanding project"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves all available classifier models configured within a specific Document Understanding project. Classifiers identify the document type of a digitized document. Specialized classifiers use machine learning models trained on specific document types; generative classifiers use large language models."
+                  },
+                  "response": [
+                    {
+                      "id": "c3f52521-ada1-4c28-8d3a-d3622c5cc247",
+                      "name": "A list of classifiers for the project",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/classifiers?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "classifiers"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"classifiers\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"classifierType\": \"GenerativeAI\",\n      \"documentTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"classifierType\": \"Specialized\",\n      \"documentTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-c3f52521-ada1-4c28-8d3a-d3622c5cc247"
+                    },
+                    {
+                      "id": "34e39582-41dc-415e-8f53-95eca3f38c47",
+                      "name": "The request lacks valid authentication credentials",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/classifiers?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "classifiers"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-34e39582-41dc-415e-8f53-95eca3f38c47"
+                    },
+                    {
+                      "id": "e4528e6d-2cbb-4247-b55f-b8f48e7e5de3",
+                      "name": "The requested resource was not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/classifiers?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "classifiers"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-e4528e6d-2cbb-4247-b55f-b8f48e7e5de3"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-4f8ad7ab-367e-4935-b472-878aa692b353"
+                }
+              ],
+              "id": "1c1618f5-209f-4106-8800-437e377d5f16",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-1c1618f5-209f-4106-8800-437e377d5f16"
+            },
+            {
+              "name": "digitization",
+              "item": [
+                {
+                  "name": "start",
+                  "item": [
+                    {
+                      "name": "UiPath Digitize a Document",
+                      "id": "89d978f9-f543-4b3f-a07a-c1c5df649bae",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"documentId\": \"<string>\",\n  \"contentType\": \"image/tiff\",\n  \"documentBase64\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/digitization/start?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "digitization",
+                            "start"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "b556c8ad-5298-4cc8-9b59-2ba90e1a208e",
+                              "key": "projectId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the Document Understanding project"
+                            }
+                          ]
+                        },
+                        "description": "Submits a document for digitization, converting it into a structured digital representation that can be used for classification, extraction, and validation. Supported input formats are JPEG, PNG, PDF, and TIFF. The response includes a documentId that must be used in subsequent classification, extraction, and validation requests. Digitized results are retained for seven days."
+                      },
+                      "response": [
+                        {
+                          "id": "bb47c71c-af8d-4e70-b40d-18858d598c09",
+                          "name": "Document digitized successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"contentType\": \"image/tiff\",\n  \"documentBase64\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/digitization/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "digitization",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"documentId\": \"<string>\",\n  \"status\": \"Failed\",\n  \"pageCount\": \"<integer>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-bb47c71c-af8d-4e70-b40d-18858d598c09"
+                        },
+                        {
+                          "id": "e69dc1b3-d907-4b57-abf4-2f8b4c669eb2",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"contentType\": \"image/tiff\",\n  \"documentBase64\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/digitization/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "digitization",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-e69dc1b3-d907-4b57-abf4-2f8b4c669eb2"
+                        },
+                        {
+                          "id": "f64f9d7f-8d21-4418-8a41-193ab7ead444",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"contentType\": \"image/tiff\",\n  \"documentBase64\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/digitization/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "digitization",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-f64f9d7f-8d21-4418-8a41-193ab7ead444"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-89d978f9-f543-4b3f-a07a-c1c5df649bae"
+                    }
+                  ],
+                  "id": "d851dace-9add-4917-9ba1-babcc0588395",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-d851dace-9add-4917-9ba1-babcc0588395"
+                }
+              ],
+              "id": "7c38b43d-62f8-4063-8735-541fef7bd14b",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-7c38b43d-62f8-4063-8735-541fef7bd14b"
+            },
+            {
+              "name": "classification",
+              "item": [
+                {
+                  "name": "start",
+                  "item": [
+                    {
+                      "name": "UiPath Start Asynchronous Document Classification",
+                      "id": "e035b545-ac55-4595-b384-2c73cf248bea",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"documentId\": \"<string>\",\n  \"classifiersOptions\": [\n    {\n      \"classifierId\": \"<string>\"\n    },\n    {\n      \"classifierId\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/classification/start?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "classification",
+                            "start"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "d9680b6a-b3cc-4182-b156-9eeda4c13f86",
+                              "key": "projectId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the Document Understanding project"
+                            }
+                          ]
+                        },
+                        "description": "Submits a previously digitized document for asynchronous classification. Returns a requestId to poll for results. Asynchronous mode is suited for multi-page documents and concurrent batch workloads. Results are retained for 24 hours. Use GET /classification/{requestId}/result to retrieve the classification outcome once processing is complete."
+                      },
+                      "response": [
+                        {
+                          "id": "cc60f9ff-4fbc-4df4-979b-43b7fd3d95b4",
+                          "name": "Classification job started; use the returned requestId to poll for results",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classifiersOptions\": [\n    {\n      \"classifierId\": \"<string>\"\n    },\n    {\n      \"classifierId\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/classification/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "classification",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"requestId\": \"<string>\",\n  \"status\": \"Failed\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-cc60f9ff-4fbc-4df4-979b-43b7fd3d95b4"
+                        },
+                        {
+                          "id": "56ac71b6-399f-4225-91ce-d2b8289023e2",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classifiersOptions\": [\n    {\n      \"classifierId\": \"<string>\"\n    },\n    {\n      \"classifierId\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/classification/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "classification",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-56ac71b6-399f-4225-91ce-d2b8289023e2"
+                        },
+                        {
+                          "id": "c987c5f5-6b59-45bc-b40c-7236149aa5e4",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classifiersOptions\": [\n    {\n      \"classifierId\": \"<string>\"\n    },\n    {\n      \"classifierId\": \"<string>\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/classification/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "classification",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-c987c5f5-6b59-45bc-b40c-7236149aa5e4"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-e035b545-ac55-4595-b384-2c73cf248bea"
+                    }
+                  ],
+                  "id": "b9900d0c-dd61-4507-be2a-a49181f3a894",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-b9900d0c-dd61-4507-be2a-a49181f3a894"
+                },
+                {
+                  "name": "{requestId}",
+                  "item": [
+                    {
+                      "name": "result",
+                      "item": [
+                        {
+                          "name": "UiPath Get Asynchronous Classification Result",
+                          "id": "6ec8c9e8-cef5-4351-a830-04b36b22266c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/classification/:requestId/result?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "classification",
+                                ":requestId",
+                                "result"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "68831fdf-2b2b-42c4-8023-cc0a5604e1ce",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the Document Understanding project"
+                                },
+                                {
+                                  "id": "9c4f55a0-8b7e-4109-9dd0-18db8959b745",
+                                  "key": "requestId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the result of an asynchronous classification request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Results are available for 24 hours from the time the job completed."
+                          },
+                          "response": [
+                            {
+                              "id": "02cf9cff-b785-4c08-85f9-ac45d3cfe5d5",
+                              "name": "Classification result or current job status",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/classification/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "classification",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"requestId\": \"<string>\",\n  \"status\": \"Failed\",\n  \"result\": {\n    \"documentId\": \"<string>\",\n    \"classificationResults\": [\n      {\n        \"classifierId\": \"<string>\",\n        \"documentTypeId\": \"<string>\",\n        \"confidence\": \"<float>\",\n        \"startPage\": \"<integer>\",\n        \"endPage\": \"<integer>\"\n      },\n      {\n        \"classifierId\": \"<string>\",\n        \"documentTypeId\": \"<string>\",\n        \"confidence\": \"<float>\",\n        \"startPage\": \"<integer>\",\n        \"endPage\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-02cf9cff-b785-4c08-85f9-ac45d3cfe5d5"
+                            },
+                            {
+                              "id": "61347e48-9375-43f6-8410-6b1f41432300",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/classification/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "classification",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-61347e48-9375-43f6-8410-6b1f41432300"
+                            },
+                            {
+                              "id": "aad844f0-1dd2-46d6-853f-3add41d6b8ec",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/classification/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "classification",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-aad844f0-1dd2-46d6-853f-3add41d6b8ec"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-6ec8c9e8-cef5-4351-a830-04b36b22266c"
+                        }
+                      ],
+                      "id": "df86d7ba-3a6d-4890-9bb5-ad0f9702d3a5",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-df86d7ba-3a6d-4890-9bb5-ad0f9702d3a5"
+                    }
+                  ],
+                  "id": "5e1e5ed2-5e9a-4e3f-8eb5-4da2377c7189",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-5e1e5ed2-5e9a-4e3f-8eb5-4da2377c7189"
+                }
+              ],
+              "id": "ee2a7642-5e2d-4773-ad3a-584a2ffe3dac",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-ee2a7642-5e2d-4773-ad3a-584a2ffe3dac"
+            },
+            {
+              "name": "extraction",
+              "item": [
+                {
+                  "name": "start",
+                  "item": [
+                    {
+                      "name": "UiPath Start Asynchronous Document Extraction",
+                      "id": "59962e9f-f121-4c39-915b-3830778469e6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"documentId\": \"<string>\",\n  \"extractorsOptions\": [\n    {\n      \"extractorId\": \"<string>\"\n    },\n    {\n      \"extractorId\": \"<string>\"\n    }\n  ],\n  \"documentTypeId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/extraction/start?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "extraction",
+                            "start"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "bda90760-ff85-425f-ac1b-3546d8d6e610",
+                              "key": "projectId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the Document Understanding project"
+                            }
+                          ]
+                        },
+                        "description": "Submits a previously digitized document for asynchronous data extraction. The extractors to apply and the document type must be specified in the request body. Returns a requestId to poll for results. Results are retained for 24 hours. Use GET /extraction/{requestId}/result to retrieve extracted field values once processing completes."
+                      },
+                      "response": [
+                        {
+                          "id": "e8a5874a-ba53-437c-a533-383140f23075",
+                          "name": "Extraction job started; use the returned requestId to poll for results",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"extractorsOptions\": [\n    {\n      \"extractorId\": \"<string>\"\n    },\n    {\n      \"extractorId\": \"<string>\"\n    }\n  ],\n  \"documentTypeId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/extraction/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "extraction",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"requestId\": \"<string>\",\n  \"status\": \"Failed\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-e8a5874a-ba53-437c-a533-383140f23075"
+                        },
+                        {
+                          "id": "1db597cc-7f1c-4579-80bb-f28c7d18959b",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"extractorsOptions\": [\n    {\n      \"extractorId\": \"<string>\"\n    },\n    {\n      \"extractorId\": \"<string>\"\n    }\n  ],\n  \"documentTypeId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/extraction/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "extraction",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-1db597cc-7f1c-4579-80bb-f28c7d18959b"
+                        },
+                        {
+                          "id": "e61819ba-0de5-40ef-a66a-79bd3462bdd9",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"extractorsOptions\": [\n    {\n      \"extractorId\": \"<string>\"\n    },\n    {\n      \"extractorId\": \"<string>\"\n    }\n  ],\n  \"documentTypeId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/extraction/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "extraction",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-e61819ba-0de5-40ef-a66a-79bd3462bdd9"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-59962e9f-f121-4c39-915b-3830778469e6"
+                    }
+                  ],
+                  "id": "6e82dd37-a989-41d2-bede-eea8a947d3ca",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-6e82dd37-a989-41d2-bede-eea8a947d3ca"
+                },
+                {
+                  "name": "{requestId}",
+                  "item": [
+                    {
+                      "name": "result",
+                      "item": [
+                        {
+                          "name": "UiPath Get Asynchronous Extraction Result",
+                          "id": "782f7dc3-6635-45a1-9e9b-22ed5658f193",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/extraction/:requestId/result?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "extraction",
+                                ":requestId",
+                                "result"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "1e49b116-3746-4eb8-ba12-9a181207dde2",
+                                  "key": "projectId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the Document Understanding project"
+                                },
+                                {
+                                  "id": "b43357ab-43d3-4ce1-a5bf-292aeff87f26",
+                                  "key": "requestId",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                                }
+                              ]
+                            },
+                            "description": "Retrieves the result of an asynchronous extraction request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Returns extracted field values with associated confidence scores. Results are available for 24 hours from the time the job completed."
+                          },
+                          "response": [
+                            {
+                              "id": "9b00fa7d-60a6-4e54-a138-523af54d7583",
+                              "name": "Extraction result or current job status",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/extraction/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "extraction",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"requestId\": \"<string>\",\n  \"status\": \"Failed\",\n  \"result\": {\n    \"documentId\": \"<string>\",\n    \"extractionResult\": {\n      \"ResultsVersion\": \"<integer>\",\n      \"DocumentId\": \"<string>\",\n      \"Fields\": [\n        {\n          \"FieldId\": \"<string>\",\n          \"FieldName\": \"<string>\",\n          \"IsMissing\": \"<boolean>\",\n          \"Value\": {\n            \"Value\": {\n              \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n              \"example\": \"example-value\"\n            },\n            \"Confidence\": \"<float>\",\n            \"OcrConfidence\": \"<float>\",\n            \"TextType\": \"Handwritten\"\n          }\n        },\n        {\n          \"FieldId\": \"<string>\",\n          \"FieldName\": \"<string>\",\n          \"IsMissing\": \"<boolean>\",\n          \"Value\": {\n            \"Value\": {\n              \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n              \"example\": \"example-value\"\n            },\n            \"Confidence\": \"<float>\",\n            \"OcrConfidence\": \"<float>\",\n            \"TextType\": \"Handwritten\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-9b00fa7d-60a6-4e54-a138-523af54d7583"
+                            },
+                            {
+                              "id": "e950d917-2c2e-476d-be51-2bcfb55126d4",
+                              "name": "The request lacks valid authentication credentials",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/extraction/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "extraction",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-e950d917-2c2e-476d-be51-2bcfb55126d4"
+                            },
+                            {
+                              "id": "2632a0bb-2b5c-47b5-aad0-184a2f01e665",
+                              "name": "The requested resource was not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/projects/:projectId/extraction/:requestId/result?api-version=1",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "projects",
+                                    ":projectId",
+                                    "extraction",
+                                    ":requestId",
+                                    "result"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "API version to use for this request",
+                                      "key": "api-version",
+                                      "value": "1"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "projectId"
+                                    },
+                                    {
+                                      "key": "requestId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                              "createdAt": "2026-06-05T15:02:06.000Z",
+                              "updatedAt": "2026-06-05T15:02:06.000Z",
+                              "uid": "35240-2632a0bb-2b5c-47b5-aad0-184a2f01e665"
+                            }
+                          ],
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-782f7dc3-6635-45a1-9e9b-22ed5658f193"
+                        }
+                      ],
+                      "id": "71200763-ec2c-4a6c-9895-6fc2fe136cb7",
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-71200763-ec2c-4a6c-9895-6fc2fe136cb7"
+                    }
+                  ],
+                  "id": "47da0902-8217-42fb-94f6-9bbf10be118d",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-47da0902-8217-42fb-94f6-9bbf10be118d"
+                }
+              ],
+              "id": "9847ca9a-9087-4c02-85c7-ec14ed25e56c",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-9847ca9a-9087-4c02-85c7-ec14ed25e56c"
+            },
+            {
+              "name": "validation",
+              "item": [
+                {
+                  "name": "start",
+                  "item": [
+                    {
+                      "name": "UiPath Start Asynchronous Document Validation",
+                      "id": "ac4d4d6d-d0e9-440b-9db8-c37c1dce18e5",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"documentId\": \"<string>\",\n  \"classificationResult\": {\n    \"classifierId\": \"<string>\",\n    \"documentTypeId\": \"<string>\",\n    \"confidence\": \"<float>\",\n    \"startPage\": \"<integer>\",\n    \"endPage\": \"<integer>\"\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": \"<integer>\",\n    \"DocumentId\": \"<string>\",\n    \"Fields\": [\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Printed\"\n        }\n      },\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Handwritten\"\n        }\n      }\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/validation/start?api-version=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "validation",
+                            "start"
+                          ],
+                          "query": [
+                            {
+                              "description": "API version to use for this request",
+                              "key": "api-version",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "c5c65923-5a54-4153-aba9-db16c09a5575",
+                              "key": "projectId",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier of the Document Understanding project"
+                            }
+                          ]
+                        },
+                        "description": "Submits digitization, classification, and extraction results for asynchronous validation. Validation checks the accuracy of previously processed results and may invoke human-in-the-loop review for low-confidence extractions. Returns a requestId for polling."
+                      },
+                      "response": [
+                        {
+                          "id": "d46778aa-c62c-4126-a61a-b93ace462359",
+                          "name": "Validation job started successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classificationResult\": {\n    \"classifierId\": \"<string>\",\n    \"documentTypeId\": \"<string>\",\n    \"confidence\": \"<float>\",\n    \"startPage\": \"<integer>\",\n    \"endPage\": \"<integer>\"\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": \"<integer>\",\n    \"DocumentId\": \"<string>\",\n    \"Fields\": [\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Printed\"\n        }\n      },\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Handwritten\"\n        }\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/validation/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "validation",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"requestId\": \"<string>\",\n  \"status\": \"Failed\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-d46778aa-c62c-4126-a61a-b93ace462359"
+                        },
+                        {
+                          "id": "1b584247-1662-472e-994d-286a9565658a",
+                          "name": "The request was malformed or contained invalid parameters",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classificationResult\": {\n    \"classifierId\": \"<string>\",\n    \"documentTypeId\": \"<string>\",\n    \"confidence\": \"<float>\",\n    \"startPage\": \"<integer>\",\n    \"endPage\": \"<integer>\"\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": \"<integer>\",\n    \"DocumentId\": \"<string>\",\n    \"Fields\": [\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Printed\"\n        }\n      },\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Handwritten\"\n        }\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/validation/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "validation",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-1b584247-1662-472e-994d-286a9565658a"
+                        },
+                        {
+                          "id": "a4251324-f202-4507-bfb9-4e293019689f",
+                          "name": "The request lacks valid authentication credentials",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classificationResult\": {\n    \"classifierId\": \"<string>\",\n    \"documentTypeId\": \"<string>\",\n    \"confidence\": \"<float>\",\n    \"startPage\": \"<integer>\",\n    \"endPage\": \"<integer>\"\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": \"<integer>\",\n    \"DocumentId\": \"<string>\",\n    \"Fields\": [\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Printed\"\n        }\n      },\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {\n            \"description\": \"Extracted value, which may be a string, number, or object depending on field type\",\n            \"example\": \"example-value\"\n          },\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"Handwritten\"\n        }\n      }\n    ]\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:projectId/validation/start?api-version=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":projectId",
+                                "validation",
+                                "start"
+                              ],
+                              "query": [
+                                {
+                                  "description": "API version to use for this request",
+                                  "key": "api-version",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "projectId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:02:06.000Z",
+                          "updatedAt": "2026-06-05T15:02:06.000Z",
+                          "uid": "35240-a4251324-f202-4507-bfb9-4e293019689f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:02:06.000Z",
+                      "updatedAt": "2026-06-05T15:02:06.000Z",
+                      "uid": "35240-ac4d4d6d-d0e9-440b-9db8-c37c1dce18e5"
+                    }
+                  ],
+                  "id": "4b9e9dd9-e20e-4f4d-b2fd-165c7b8976fa",
+                  "createdAt": "2026-06-05T15:02:06.000Z",
+                  "updatedAt": "2026-06-05T15:02:06.000Z",
+                  "uid": "35240-4b9e9dd9-e20e-4f4d-b2fd-165c7b8976fa"
+                }
+              ],
+              "id": "14b4f30d-8ad8-4ab5-8b3d-51b2910f4afe",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-14b4f30d-8ad8-4ab5-8b3d-51b2910f4afe"
+            }
+          ],
+          "id": "5ab9f3bf-d425-48b2-9614-b03b2150b2c8",
+          "createdAt": "2026-06-05T15:02:06.000Z",
+          "updatedAt": "2026-06-05T15:02:06.000Z",
+          "uid": "35240-5ab9f3bf-d425-48b2-9614-b03b2150b2c8"
+        },
+        {
+          "name": "UiPath List Document Understanding Projects",
+          "id": "c159926f-3a67-4cdb-8de5-eb4942c2567f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects?api-version=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ],
+              "query": [
+                {
+                  "description": "API version to use for this request",
+                  "key": "api-version",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Retrieves all available Document Understanding projects accessible to the authenticated user. Each project contains configuration for classifiers and extractors and provides URLs for downstream discovery operations. Use project IDs to scope classification and extraction requests to a specific project's models."
+          },
+          "response": [
+            {
+              "id": "f812cf7c-ae11-4bd2-b884-c50e91fc9a2c",
+              "name": "A list of available Document Understanding projects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects?api-version=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ],
+                  "query": [
+                    {
+                      "description": "API version to use for this request",
+                      "key": "api-version",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"projects\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"extractorsUrl\": \"<uri>\",\n      \"classifiersUrl\": \"<uri>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"extractorsUrl\": \"<uri>\",\n      \"classifiersUrl\": \"<uri>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-f812cf7c-ae11-4bd2-b884-c50e91fc9a2c"
+            },
+            {
+              "id": "487045c2-5309-4a11-a1e4-6f361f668e4c",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects?api-version=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ],
+                  "query": [
+                    {
+                      "description": "API version to use for this request",
+                      "key": "api-version",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-487045c2-5309-4a11-a1e4-6f361f668e4c"
+            },
+            {
+              "id": "857dbad4-58ec-4b8d-adf1-7238f68379e6",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects?api-version=1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ],
+                  "query": [
+                    {
+                      "description": "API version to use for this request",
+                      "key": "api-version",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"traceId\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:02:06.000Z",
+              "updatedAt": "2026-06-05T15:02:06.000Z",
+              "uid": "35240-857dbad4-58ec-4b8d-adf1-7238f68379e6"
+            }
+          ],
+          "createdAt": "2026-06-05T15:02:06.000Z",
+          "updatedAt": "2026-06-05T15:02:06.000Z",
+          "uid": "35240-c159926f-3a67-4cdb-8de5-eb4942c2567f"
+        }
+      ],
+      "id": "3668a170-7ae8-44ff-a06d-cffb96b0383f",
+      "createdAt": "2026-06-05T15:02:06.000Z",
+      "updatedAt": "2026-06-05T15:02:06.000Z",
+      "uid": "35240-3668a170-7ae8-44ff-a06d-cffb96b0383f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "organizationName",
+      "value": "your-org"
+    },
+    {
+      "key": "tenantName",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.uipath.com/{{organizationName}}/{{tenantName}}/du_/api/framework"
+    }
+  ]
+}

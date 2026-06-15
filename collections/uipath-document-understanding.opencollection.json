@@ -1,0 +1,303 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Document Understanding API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Document Understanding Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available Document Understanding projects accessible to the authenticated user. Each project contains configuration for classifiers and extractors and provides URLs for downstream discovery operations. Use project IDs to scope classification and extraction requests to a specific project's models."
+        },
+        {
+          "info": {
+            "name": "UiPath List Extractors for a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/extractors",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available extractor models configured within a specific Document Understanding project. Each extractor is associated with a document type and defines the fields it can extract. Use the extractor ID in extraction requests to invoke the correct model."
+        },
+        {
+          "info": {
+            "name": "UiPath List Classifiers for a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/classifiers",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available classifier models configured within a specific Document Understanding project. Classifiers identify the document type of a digitized document. Specialized classifiers use machine learning models trained on specific document types; generative classifiers use large language models."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Digitization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Digitize a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/digitization/start",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a document for digitization, converting it into a structured digital representation that can be used for classification, extraction, and validation. Supported input formats are JPEG, PNG, PDF, and TIFF. The response includes a documentId that must be used in subsequent classification, extraction, and validation requests. Digitized results are retained for seven days."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Classification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Start Asynchronous Document Classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/classification/start",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a previously digitized document for asynchronous classification. Returns a requestId to poll for results. Asynchronous mode is suited for multi-page documents and concurrent batch workloads. Results are retained for 24 hours. Use GET /classification/{requestId}/result to retrieve the classification outcome once processing is complete."
+        },
+        {
+          "info": {
+            "name": "UiPath Get Asynchronous Classification Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/classification/:requestId/result",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the asynchronous job request to retrieve results for"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves the result of an asynchronous classification request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Results are available for 24 hours from the time the job completed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Extraction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Start Asynchronous Document Extraction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/extraction/start",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a previously digitized document for asynchronous data extraction. The extractors to apply and the document type must be specified in the request body. Returns a requestId to poll for results. Results are retained for 24 hours. Use GET /extraction/{requestId}/result to retrieve extracted field values once processing completes."
+        },
+        {
+          "info": {
+            "name": "UiPath Get Asynchronous Extraction Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/extraction/:requestId/result",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the asynchronous job request to retrieve results for"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves the result of an asynchronous extraction request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Returns extracted field values with associated confidence scores. Results are available for 24 hours from the time the job completed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Validation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Start Asynchronous Document Validation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework/projects/:projectId/validation/start",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits digitization, classification, and extraction results for asynchronous validation. Validation checks the accuracy of previously processed results and may invoke human-in-the-loop review for low-confidence extractions. Returns a requestId for polling."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2769 @@
+{
+  "item": [
+    {
+      "id": "c8b511d5-f4bd-49b2-81e2-f1902df22fad",
+      "name": "Classification",
+      "description": {
+        "content": "Classify documents into predefined document types",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6dc0d200-82db-4ae2-8a0a-b9155cba9c60",
+          "name": "UiPath Start Asynchronous Document Classification",
+          "request": {
+            "name": "UiPath Start Asynchronous Document Classification",
+            "description": {
+              "content": "Submits a previously digitized document for asynchronous classification. Returns a requestId to poll for results. Asynchronous mode is suited for multi-page documents and concurrent batch workloads. Results are retained for 24 hours. Use GET /classification/{requestId}/result to retrieve the classification outcome once processing is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "classification",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classifiersOptions\": [\n    {\n      \"classifierId\": \"<string>\"\n    },\n    {\n      \"classifierId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbf5884e-9307-466c-ab0c-6e7a4459e1a0",
+              "name": "Classification job started; use the returned requestId to poll for results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classifiersOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"example-value\",\n  \"status\": \"NotStarted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ac4aa80-62c8-491c-9e3a-556376ea8169",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classifiersOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c956d2-73df-4438-8b4e-ed7f7c4200c8",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classifiersOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25e69a47-7a5f-438c-a277-17a591a9f587",
+          "name": "UiPath Get Asynchronous Classification Result",
+          "request": {
+            "name": "UiPath Get Asynchronous Classification Result",
+            "description": {
+              "content": "Retrieves the result of an asynchronous classification request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Results are available for 24 hours from the time the job completed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "classification",
+                ":requestId",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d52e32b5-126e-46c2-b6a0-a13b83f2645b",
+              "name": "Classification result or current job status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"example-value\",\n  \"status\": \"NotStarted\",\n  \"result\": {\n    \"documentId\": \"example-value\",\n    \"classificationResults\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e5472f3-41a6-4ddc-979f-94db20b6e6be",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d31374b-3925-45bc-a57e-346ebf60f52a",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classification",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8db715c4-f9e6-4a7f-8921-3d8f042f01d1",
+      "name": "Digitization",
+      "description": {
+        "content": "Convert documents into a digitized format for downstream processing",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3a95af05-0fae-4429-86c7-e60229c4db69",
+          "name": "UiPath Digitize a Document",
+          "request": {
+            "name": "UiPath Digitize a Document",
+            "description": {
+              "content": "Submits a document for digitization, converting it into a structured digital representation that can be used for classification, extraction, and validation. Supported input formats are JPEG, PNG, PDF, and TIFF. The response includes a documentId that must be used in subsequent classification, extraction, and validation requests. Digitized results are retained for seven days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "digitization",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<string>\",\n  \"contentType\": \"<string>\",\n  \"documentBase64\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b7eecd0b-9cd7-4513-b78a-b735e01bfe45",
+              "name": "Document digitized successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "digitization",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"contentType\": \"image/jpeg\",\n  \"documentBase64\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documentId\": \"example-value\",\n  \"status\": \"Succeeded\",\n  \"pageCount\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a8bd8fd-00ce-4026-971b-1fe6bbee2f73",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "digitization",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"contentType\": \"image/jpeg\",\n  \"documentBase64\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b5737bf-fe44-4323-93bd-a6ee9a45a15e",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "digitization",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"contentType\": \"image/jpeg\",\n  \"documentBase64\": \"example-value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9092800f-74c6-4143-a94e-b166d3737749",
+      "name": "Discovery",
+      "description": {
+        "content": "Discover available projects, classifiers, and extractors",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dadec0e2-4f5d-482f-9a67-db78524c0fd7",
+          "name": "UiPath List Document Understanding Projects",
+          "request": {
+            "name": "UiPath List Document Understanding Projects",
+            "description": {
+              "content": "Retrieves all available Document Understanding projects accessible to the authenticated user. Each project contains configuration for classifiers and extractors and provides URLs for downstream discovery operations. Use project IDs to scope classification and extraction requests to a specific project's models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce7b722d-31a5-4220-b55d-e9d072b5cccf",
+              "name": "A list of available Document Understanding projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projects\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"description\": {},\n      \"extractorsUrl\": {},\n      \"classifiersUrl\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d4b6a6f-d986-4dd1-98f2-a2a9fda2970d",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebafe0de-5101-4c3b-a916-08c2361766fa",
+              "name": "The authenticated user does not have permission to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80c2c074-c1da-4889-925d-baf0b7863143",
+          "name": "UiPath List Extractors for a Project",
+          "request": {
+            "name": "UiPath List Extractors for a Project",
+            "description": {
+              "content": "Retrieves all available extractor models configured within a specific Document Understanding project. Each extractor is associated with a document type and defines the fields it can extract. Use the extractor ID in extraction requests to invoke the correct model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "extractors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "789b8d58-348b-4f96-a3b1-acec5bc196cf",
+              "name": "A list of extractors for the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extractors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"extractors\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"documentType\": {},\n      \"extractorType\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94c69cb3-083b-4284-ad82-f1faab8c83aa",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extractors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9032cbc-f126-4d67-91e7-5cc346419c29",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extractors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c211e98e-ca73-4d2c-8fc9-11cce3e8264a",
+          "name": "UiPath List Classifiers for a Project",
+          "request": {
+            "name": "UiPath List Classifiers for a Project",
+            "description": {
+              "content": "Retrieves all available classifier models configured within a specific Document Understanding project. Classifiers identify the document type of a digitized document. Specialized classifiers use machine learning models trained on specific document types; generative classifiers use large language models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "classifiers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9de4cab8-3a9f-4b80-a7e8-775149e8c873",
+              "name": "A list of classifiers for the project",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classifiers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"classifiers\": [\n    {\n      \"id\": {},\n      \"name\": {},\n      \"classifierType\": {},\n      \"documentTypes\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1befbb4f-85f1-4ef2-b578-aef0fffa8094",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classifiers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36f018a6-db00-4a50-b650-11f487801b39",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "classifiers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c55b4e92-afe5-4ae7-a7f4-c624b9fddbff",
+      "name": "Extraction",
+      "description": {
+        "content": "Extract structured data fields from documents",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55045c2f-0cf4-4d54-ab86-51170630b7ac",
+          "name": "UiPath Start Asynchronous Document Extraction",
+          "request": {
+            "name": "UiPath Start Asynchronous Document Extraction",
+            "description": {
+              "content": "Submits a previously digitized document for asynchronous data extraction. The extractors to apply and the document type must be specified in the request body. Returns a requestId to poll for results. Results are retained for 24 hours. Use GET /extraction/{requestId}/result to retrieve extracted field values once processing completes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "extraction",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<string>\",\n  \"extractorsOptions\": [\n    {\n      \"extractorId\": \"<string>\"\n    },\n    {\n      \"extractorId\": \"<string>\"\n    }\n  ],\n  \"documentTypeId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a93dc490-4e92-43d0-bf6d-8273a2703b24",
+              "name": "Extraction job started; use the returned requestId to poll for results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"documentTypeId\": \"example-value\",\n  \"extractorsOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"example-value\",\n  \"status\": \"NotStarted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e03ee55-a917-4935-a27f-69ec51511077",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"documentTypeId\": \"example-value\",\n  \"extractorsOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46f39dda-269e-4743-bd47-08e3e45d5456",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"documentTypeId\": \"example-value\",\n  \"extractorsOptions\": [\n    {}\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8c0c399-5ca7-4244-a63d-028bee733b7d",
+          "name": "UiPath Get Asynchronous Extraction Result",
+          "request": {
+            "name": "UiPath Get Asynchronous Extraction Result",
+            "description": {
+              "content": "Retrieves the result of an asynchronous extraction request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Returns extracted field values with associated confidence scores. Results are available for 24 hours from the time the job completed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "extraction",
+                ":requestId",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68abbe5c-201d-4a0d-adf0-80952ecb3164",
+              "name": "Extraction result or current job status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"example-value\",\n  \"status\": \"NotStarted\",\n  \"result\": {\n    \"documentId\": \"example-value\",\n    \"extractionResult\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42c16b1f-3d33-457a-b9fc-b6856febcfe5",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44285b94-4472-431e-9952-0a3bd50378c8",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "extraction",
+                    ":requestId",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) Unique identifier of the asynchronous job request to retrieve results for"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "66b25ff5-2861-41c5-b270-c49866a6bbbc",
+      "name": "Validation",
+      "description": {
+        "content": "Validate and correct digitization, classification, and extraction results",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d71298b-8ddb-4e28-9318-b014498376e3",
+          "name": "UiPath Start Asynchronous Document Validation",
+          "request": {
+            "name": "UiPath Start Asynchronous Document Validation",
+            "description": {
+              "content": "Submits digitization, classification, and extraction results for asynchronous validation. Validation checks the accuracy of previously processed results and may invoke human-in-the-loop review for low-confidence extractions. Returns a requestId for polling.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "validation",
+                "start"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "1",
+                  "description": "API version to use for this request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Unique identifier of the Document Understanding project"
+                },
+                {
+                  "description": "The name of your UiPath organization",
+                  "type": "any",
+                  "value": "{{organizationName}}",
+                  "key": "organizationName"
+                },
+                {
+                  "description": "The name of your UiPath tenant",
+                  "type": "any",
+                  "value": "{{tenantName}}",
+                  "key": "tenantName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<string>\",\n  \"classificationResult\": {\n    \"classifierId\": \"<string>\",\n    \"documentTypeId\": \"<string>\",\n    \"confidence\": \"<float>\",\n    \"startPage\": \"<integer>\",\n    \"endPage\": \"<integer>\"\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": \"<integer>\",\n    \"DocumentId\": \"<string>\",\n    \"Fields\": [\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {},\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"<string>\"\n        }\n      },\n      {\n        \"FieldId\": \"<string>\",\n        \"FieldName\": \"<string>\",\n        \"IsMissing\": \"<boolean>\",\n        \"Value\": {\n          \"Value\": {},\n          \"Confidence\": \"<float>\",\n          \"OcrConfidence\": \"<float>\",\n          \"TextType\": \"<string>\"\n        }\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58bf4de4-c52e-4486-b0c4-fc021c987773",
+              "name": "Validation job started successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "validation",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classificationResult\": {\n    \"classifierId\": {},\n    \"documentTypeId\": {},\n    \"confidence\": {},\n    \"startPage\": {},\n    \"endPage\": {}\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": {},\n    \"DocumentId\": {},\n    \"Fields\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"example-value\",\n  \"status\": \"NotStarted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "affe6080-ed93-4d0c-ac2e-fcff1928e8ff",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "validation",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classificationResult\": {\n    \"classifierId\": {},\n    \"documentTypeId\": {},\n    \"confidence\": {},\n    \"startPage\": {},\n    \"endPage\": {}\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": {},\n    \"DocumentId\": {},\n    \"Fields\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0b5077f-3cda-48b4-a7d4-ed80b65dc982",
+              "name": "The request lacks valid authentication credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "validation",
+                    "start"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "1.0.0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Unique identifier of the Document Understanding project"
+                    },
+                    {
+                      "description": "The name of your UiPath organization",
+                      "type": "any",
+                      "value": "{{organizationName}}",
+                      "key": "organizationName"
+                    },
+                    {
+                      "description": "The name of your UiPath tenant",
+                      "type": "any",
+                      "value": "{{tenantName}}",
+                      "key": "tenantName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"example-value\",\n  \"classificationResult\": {\n    \"classifierId\": {},\n    \"documentTypeId\": {},\n    \"confidence\": {},\n    \"startPage\": {},\n    \"endPage\": {}\n  },\n  \"extractionResult\": {\n    \"ResultsVersion\": {},\n    \"DocumentId\": {},\n    \"Fields\": {}\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"example-value\",\n  \"errorCode\": \"example-value\",\n  \"traceId\": \"abc123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The name of your UiPath organization",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "organizationName"
+    },
+    {
+      "description": {
+        "content": "The name of your UiPath tenant",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-tenant",
+      "key": "tenantName"
+    },
+    {
+      "type": "string",
+      "value": "https://cloud.uipath.com/{{organizationName}}/{{tenantName}}/du_/api/framework",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "54240bcd-2d9a-4586-b756-b08c48f7a5d8",
+    "name": "UiPath Document Understanding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The UiPath Document Understanding API enables programmatic access to intelligent document processing capabilities including digitization, classification, extraction, and validation of document content. The API supports both synchronous and asynchronous consumption patterns, with asynchronous mode suited for multi-page documents and batch workloads, and synchronous mode for real-time processing of single-page images up to five pages. Developers can integrate specialized machine learning models as well as generative AI-based classifiers and extractors into their applications. The API is accessible via Swagger or any HTTP-compatible programming language and can be used in both RPA and non-RPA contexts. Data from the digitization endpoint is retained for seven days; data from asynchronous classification and extraction endpoints is retained for 24 hours.\n\nContact Support:\n Name: UiPath Support",
+      "type": "text/plain"
+    }
+  }
+}
