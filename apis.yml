@@ -187,63 +187,60 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/uipath/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/uipath-add-and-track-queue-item-workflow.yml
-        name: UiPath Add and Track a Queue Item
-        summary: Resolve an existing queue, add a transaction item, and read back its status.
-      - url: arazzo/uipath-asset-lifecycle-workflow.yml
-        name: UiPath Asset Lifecycle
-        summary: Create, read, update, and delete a shared asset end to end.
-      - url: arazzo/uipath-bootstrap-test-project-workflow.yml
-        name: UiPath Bootstrap a Test Project
-        summary: Create a test project, seed a test case and a test set, then read back the project.
-      - url: arazzo/uipath-cleanup-webhook-workflow.yml
-        name: UiPath Find and Remove a Webhook
-        summary: Locate a webhook by its target URL and delete the subscription.
-      - url: arazzo/uipath-digitize-classify-extract-workflow.yml
-        name: UiPath Digitize, Classify, and Extract a Document
-        summary: Run the full document understanding pipeline with polling for async results.
-      - url: arazzo/uipath-discover-and-extract-document-workflow.yml
-        name: UiPath Discover Extractors and Extract a Document
-        summary: Resolve a project, discover its extractors, digitize a document, and extract data with polling.
-      - url: arazzo/uipath-entity-record-lifecycle-workflow.yml
-        name: UiPath Data Service Entity Record Lifecycle
-        summary: Create, read, update, and delete a custom entity record end to end.
-      - url: arazzo/uipath-fleet-readiness-audit-workflow.yml
-        name: UiPath Fleet Readiness Audit
-        summary: Resolve a folder, then inventory its machines, robots, and recent jobs.
-      - url: arazzo/uipath-provision-credential-asset-workflow.yml
-        name: UiPath Provision a Credential Asset
-        summary: Create a credential asset and confirm it by reading it back.
-      - url: arazzo/uipath-provision-queue-and-add-item-workflow.yml
-        name: UiPath Provision a Queue and Add an Item
-        summary: Create a transaction queue and seed it with its first work item.
-      - url: arazzo/uipath-register-job-webhook-workflow.yml
-        name: UiPath Register a Job Event Webhook
-        summary: Discover available event types, create a webhook, and confirm its registration.
-      - url: arazzo/uipath-requirement-traceability-workflow.yml
-        name: UiPath Establish Requirement Traceability
-        summary: Resolve a test project, create a requirement and a covering test case, then list test cases.
-      - url: arazzo/uipath-resolve-folder-start-job-workflow.yml
-        name: UiPath Resolve Folder and Start a Job
-        summary: Resolve a folder context, pick a deployed process, and start a job in it.
-      - url: arazzo/uipath-rotate-asset-value-workflow.yml
-        name: UiPath Rotate an Asset Value
-        summary: Read an existing asset, write an updated value, and verify the change.
-      - url: arazzo/uipath-start-and-monitor-job-workflow.yml
-        name: UiPath Start and Monitor a Job
-        summary: Start a job for a process and poll its state until it reaches a terminal outcome.
-      - url: arazzo/uipath-stop-running-job-workflow.yml
-        name: UiPath Find and Stop a Running Job
-        summary: Locate a currently running job and send it a stop signal.
-      - url: arazzo/uipath-trigger-scheduled-process-now-workflow.yml
-        name: UiPath Trigger a Scheduled Process On Demand
-        summary: Find a configured schedule, resolve its process, and run it immediately.
-      - url: arazzo/uipath-upsert-entity-record-workflow.yml
-        name: UiPath Upsert a Data Service Entity Record
-        summary: Query an entity by a key field and update the match or create a new record.
+  - type: Arazzo
+    url: arazzo/uipath-add-and-track-queue-item-workflow.yml
+    name: UiPath Add and Track a Queue Item
+  - type: Arazzo
+    url: arazzo/uipath-asset-lifecycle-workflow.yml
+    name: UiPath Asset Lifecycle
+  - type: Arazzo
+    url: arazzo/uipath-bootstrap-test-project-workflow.yml
+    name: UiPath Bootstrap a Test Project
+  - type: Arazzo
+    url: arazzo/uipath-cleanup-webhook-workflow.yml
+    name: UiPath Find and Remove a Webhook
+  - type: Arazzo
+    url: arazzo/uipath-digitize-classify-extract-workflow.yml
+    name: UiPath Digitize, Classify, and Extract a Document
+  - type: Arazzo
+    url: arazzo/uipath-discover-and-extract-document-workflow.yml
+    name: UiPath Discover Extractors and Extract a Document
+  - type: Arazzo
+    url: arazzo/uipath-entity-record-lifecycle-workflow.yml
+    name: UiPath Data Service Entity Record Lifecycle
+  - type: Arazzo
+    url: arazzo/uipath-fleet-readiness-audit-workflow.yml
+    name: UiPath Fleet Readiness Audit
+  - type: Arazzo
+    url: arazzo/uipath-provision-credential-asset-workflow.yml
+    name: UiPath Provision a Credential Asset
+  - type: Arazzo
+    url: arazzo/uipath-provision-queue-and-add-item-workflow.yml
+    name: UiPath Provision a Queue and Add an Item
+  - type: Arazzo
+    url: arazzo/uipath-register-job-webhook-workflow.yml
+    name: UiPath Register a Job Event Webhook
+  - type: Arazzo
+    url: arazzo/uipath-requirement-traceability-workflow.yml
+    name: UiPath Establish Requirement Traceability
+  - type: Arazzo
+    url: arazzo/uipath-resolve-folder-start-job-workflow.yml
+    name: UiPath Resolve Folder and Start a Job
+  - type: Arazzo
+    url: arazzo/uipath-rotate-asset-value-workflow.yml
+    name: UiPath Rotate an Asset Value
+  - type: Arazzo
+    url: arazzo/uipath-start-and-monitor-job-workflow.yml
+    name: UiPath Start and Monitor a Job
+  - type: Arazzo
+    url: arazzo/uipath-stop-running-job-workflow.yml
+    name: UiPath Find and Stop a Running Job
+  - type: Arazzo
+    url: arazzo/uipath-trigger-scheduled-process-now-workflow.yml
+    name: UiPath Trigger a Scheduled Process On Demand
+  - type: Arazzo
+    url: arazzo/uipath-upsert-entity-record-workflow.yml
+    name: UiPath Upsert a Data Service Entity Record
   - type: LinkedIn
     url: https://www.linkedin.com/company/uipath
   - type: Website
@@ -266,23 +263,23 @@ common:
     url: https://status.uipath.com
   - type: Academy
     url: https://academy.uipath.com
-  - type: Forum
+  - type: Forums
     url: https://forum.uipath.com
   - type: GitHubOrganization
     url: https://github.com/UiPath
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/uipath/
     title: Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/UiPath/uipath-python
     title: Python SDK GitHub
-  - type: SDK
+  - type: SDKs
     url: https://github.com/UiPath/uipath-langchain-python
     title: LangChain Python SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/UiPath/uipath-typescript
     title: TypeScript SDK
-  - type: SDK
+  - type: SDKs
     url: https://github.com/UiPath/uipath-integrations-python
     title: Python Integrations SDK
   - type: Tools
@@ -293,7 +290,7 @@ common:
     title: UiPath CLI
   - type: CLI
     url: https://docs.uipath.com/automation-cloud/docs/uipath-cli
-  - type: SignUp
+  - type: Signup
     url: https://cloud.uipath.com/portal_/cloudrpa
   - type: GettingStarted
     url: https://docs.uipath.com/automation-cloud/docs/introduction
@@ -375,8 +372,8 @@ common:
     type: MCPServer
   - name: Agent Skills
     url: https://github.com/UiPath/skills
-    type: AgentSkill
-  - type: LLMsTxt
+    type: AgentSkills
+  - type: LlmsText
     url: https://docs.uipath.com/llms.txt
 maintainers:
   - FN: Kin Lane
