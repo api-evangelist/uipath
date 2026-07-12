@@ -185,6 +185,14 @@ apis:
       - type: JSONLD
         url: json-ld/uipath-test-manager-context.jsonld
 common:
+  - type: TrustCenter
+    url: security/uipath-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/uipath-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/uipath-domain-security.yml
+  - type: Authentication
+    url: authentication/uipath-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/uipath/overview
   - type: Arazzo

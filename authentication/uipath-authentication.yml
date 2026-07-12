@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/uipath-automation-hub-openapi.yml, openapi/uipath-data-service-openapi.yml,
+  openapi/uipath-document-understanding-openapi.yml, openapi/uipath-orchestrator-openapi.yml,
+  openapi/uipath-platform-management-openapi.yml, openapi/uipath-test-manager-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'API token generated from the Automation Hub Admin Console under Platform Setup
+    > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+  sources:
+  - openapi/uipath-automation-hub-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: OAuth 2.0 Bearer token obtained from the UiPath Identity Server. Data Service
+    scopes include DataService.Data and DataService.Data.Read. Tokens are valid for one hour;
+    refresh tokens are supported.
+  sources:
+  - openapi/uipath-data-service-openapi.yml
+  - openapi/uipath-document-understanding-openapi.yml
+  - openapi/uipath-orchestrator-openapi.yml
+  - openapi/uipath-platform-management-openapi.yml
+  - openapi/uipath-test-manager-openapi.yml
