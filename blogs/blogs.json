@@ -2,13 +2,14 @@
   "repo": "uipath",
   "feeds": [
     {
-      "source": "https://www.uipath.com/blog",
-      "feed_url": "",
-      "saved": 2,
-      "method": "agent-scrape"
+      "source": "https://cloud.uipath.com",
+      "feed_url": "https://cloud.uipath.com",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 47,
-  "fetched": "2026-06-27T13:18:26Z",
-  "agent_pulled": "2026-06-27"
+  "post_count": 49,
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
