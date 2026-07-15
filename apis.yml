@@ -185,6 +185,8 @@ apis:
       - type: JSONLD
         url: json-ld/uipath-test-manager-context.jsonld
 common:
+  - type: AgenticAccess
+    url: agentic-access/uipath-agentic-access.yml
   - type: TrustCenter
     url: security/uipath-trust-center.yml
   - type: VulnerabilityDisclosure
