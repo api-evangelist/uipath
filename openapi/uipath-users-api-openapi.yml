@@ -1,0 +1,601 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Users API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Users
+  description: Manage users and their roles within Automation Hub
+paths:
+  /users:
+    get:
+      operationId: listUsers
+      summary: UiPath List Users
+      description: Retrieves a list of users registered in Automation Hub. Returns user identifiers, names, email addresses, and assigned roles. Used by administrators to manage user assignments and role configurations.
+      tags:
+      - Users
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (1-based)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+              examples:
+                listUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    users:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /adduser:
+    post:
+      operationId: addUser
+      summary: UiPath Add a User
+      description: Adds a new user to Automation Hub. The user must already exist in the UiPath identity directory. This endpoint assigns the user a role within Automation Hub and makes them available for collaboration and idea submission.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserRequest'
+            examples:
+              addUserRequestExample:
+                summary: Default addUser request
+                x-microcks-default: true
+                value:
+                  email: user@example.com
+                  role: example-value
+      responses:
+        '201':
+          description: User added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                addUser201Example:
+                  summary: Default addUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    email: user@example.com
+                    role: example-value
+                    isActive: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /edituser:
+    post:
+      operationId: editUser
+      summary: UiPath Edit a User
+      description: Updates an existing user's properties in Automation Hub, such as their assigned role or active status. The user is identified by their unique ID in the request body.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditUserRequest'
+            examples:
+              editUserRequestExample:
+                summary: Default editUser request
+                x-microcks-default: true
+                value:
+                  id: 1
+                  role: example-value
+                  isActive: true
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                editUser200Example:
+                  summary: Default editUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    email: user@example.com
+                    role: example-value
+                    isActive: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /roles:
+    get:
+      operationId: listRoles
+      summary: UiPath List Roles
+      description: Retrieves the list of roles available in Automation Hub. Each role defines a set of permissions controlling what a user can view and perform within the platform. Roles are assigned when adding or editing users.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: A list of available roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+              examples:
+                listRoles200Example:
+                  summary: Default listRoles 200 response
+                  x-microcks-default: true
+                  value:
+                    roles:
+                    - id: {}
+                      name: {}
+                      description: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Users:
+    get:
+      operationId: listUsers
+      summary: UiPath List Users
+      description: Retrieves a list of users registered in Orchestrator. Each user has associated roles, robot configurations, and folder memberships. Supports OData filtering and pagination.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataUserCollection'
+              examples:
+                listUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      UserName: {}
+                      Name: {}
+                      EmailAddress: {}
+                      IsActive: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/User/{userId}:
+    get:
+      operationId: getUser
+      summary: UiPath Get a User by ID
+      description: Retrieves user account information by the user's unique identifier. Returns user properties including name, email address, active status, and authentication configuration. Requires the PM.Users or PM.Users.Read OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/userId'
+        example: example-value
+      responses:
+        '200':
+          description: The requested user account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              examples:
+                getUser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    email: user@example.com
+                    isActive: true
+                    createdOn: '2026-01-15T10:30:00Z'
+                    lastLoginDate: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: UiPath Delete a User
+      description: Permanently deletes a user account from the organization by their unique identifier. This action removes the user from all tenants and revokes their access to UiPath Automation Cloud. This action cannot be undone. Requires the PM.Users OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/userId'
+        example: example-value
+      responses:
+        '204':
+          description: User deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/User:
+    post:
+      operationId: createUser
+      summary: UiPath Create a User
+      description: Creates a new user account in the UiPath organization. The user will receive an invitation email to set up their credentials. The request must include the user's email address, display name, and the tenants or roles to initially assign. Requires the PM.Users OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              createUserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  email: user@example.com
+                  name: example-value
+                  surname: example-value
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User_2'
+              examples:
+                createUser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    email: user@example.com
+                    isActive: true
+                    createdOn: '2026-01-15T10:30:00Z'
+                    lastLoginDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: Unique identifier of the user
+      schema:
+        type: string
+    organizationName:
+      name: organizationName
+      in: path
+      required: true
+      description: The name of the UiPath organization
+      schema:
+        type: string
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+  schemas:
+    EditUserRequest:
+      type: object
+      description: Request payload for updating an existing user in Automation Hub
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the user to update
+          example: 12345
+        role:
+          type: string
+          description: Updated role to assign to the user
+          example: example-value
+        isActive:
+          type: boolean
+          description: Updated active status for the user account
+          example: true
+    Role:
+      type: object
+      description: A role defining a set of permissions in Automation Hub
+      properties:
+        id:
+          type: integer
+          description: Unique integer identifier of the role
+          example: 12345
+        name:
+          type: string
+          description: Display name of the role
+          example: Example Name
+        description:
+          type: string
+          description: Description of the permissions granted by this role
+          example: Example description for this resource.
+    AddUserRequest:
+      type: object
+      description: Request payload for adding a new user to Automation Hub
+      required:
+      - email
+      - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to add
+          example: user@example.com
+        role:
+          type: string
+          description: Role to assign to the user
+          example: example-value
+    UserListResponse:
+      type: object
+      description: Paginated response containing user records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of users
+          example: 42
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          example: []
+    ODataUserCollection:
+      type: object
+      description: OData collection response containing users
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique user identifier
+              UserName:
+                type: string
+                description: Username login identifier
+              Name:
+                type: string
+                description: Display name of the user
+              EmailAddress:
+                type: string
+                format: email
+                description: Email address of the user
+              IsActive:
+                type: boolean
+                description: Whether the user account is active
+          example: []
+    User:
+      type: object
+      description: A user in Automation Hub
+      properties:
+        id:
+          type: integer
+          description: Unique integer identifier of the user
+          example: 12345
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        role:
+          type: string
+          description: Role assigned to the user in Automation Hub
+          example: example-value
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
+    CreateUserRequest:
+      type: object
+      description: Request payload for creating a new user account
+      required:
+      - email
+      - name
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address for the new user account
+          example: user@example.com
+        name:
+          type: string
+          description: Display name for the new user
+          example: Example Name
+        surname:
+          type: string
+          description: Surname of the new user
+          example: Example Name
+    ErrorResponse_3:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    User_2:
+      type: object
+      description: A user account in the UiPath organization
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user
+          example: abc123
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the user was created
+          example: '2026-01-15T10:30:00Z'
+        lastLoginDate:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the user's most recent login
+          example: '2026-01-15T10:30:00Z'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

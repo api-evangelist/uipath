@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Roles API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Roles
+  description: Manage roles and their associated permissions
+paths:
+  /odata/Roles:
+    get:
+      operationId: listRoles
+      summary: UiPath List Roles
+      description: Retrieves a list of roles defined in Orchestrator. Roles bundle sets of permissions together and are assigned to users or groups to control their access to resources and operations.
+      tags:
+      - Roles
+      parameters:
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      responses:
+        '200':
+          description: A list of roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataRoleCollection'
+              examples:
+                listRoles200Example:
+                  summary: Default listRoles 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Id: {}
+                      Name: {}
+                      DisplayName: {}
+                      IsStatic: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ODataRoleCollection:
+      type: object
+      description: OData collection response containing roles
+      properties:
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int64
+                description: Unique role identifier
+              Name:
+                type: string
+                description: Display name of the role
+              DisplayName:
+                type: string
+                description: Human-readable display name for the role
+              IsStatic:
+                type: boolean
+                description: Whether this is a built-in system role that cannot be deleted
+          example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

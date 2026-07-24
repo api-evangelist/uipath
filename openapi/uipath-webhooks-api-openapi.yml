@@ -1,0 +1,316 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Webhooks API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Webhooks
+  description: Manage webhook subscriptions for Orchestrator event notifications
+paths:
+  /odata/Webhooks:
+    get:
+      operationId: listWebhooks
+      summary: UiPath List Webhooks
+      description: Retrieves all webhook subscriptions configured in Orchestrator. Each webhook specifies a target URL, the events to subscribe to, and an HMAC secret for payload signature verification.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      responses:
+        '200':
+          description: A list of webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataWebhookCollection'
+              examples:
+                listWebhooks200Example:
+                  summary: Default listWebhooks 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWebhook
+      summary: UiPath Create a Webhook
+      description: Creates a new webhook subscription. Specify the target URL, optional HMAC secret for payload verification, whether to subscribe to all events or specific event types, and whether to allow insecure SSL.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+            examples:
+              createWebhookRequestExample:
+                summary: Default createWebhook request
+                x-microcks-default: true
+                value:
+                  Id: 1
+                  Url: https://cloud.uipath.com/example
+                  Enabled: true
+                  Secret: example-value
+                  SubscribeToAllEvents: true
+                  AllowInsecureSsl: true
+                  Events:
+                  - example-value
+      responses:
+        '201':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+              examples:
+                createWebhook201Example:
+                  summary: Default createWebhook 201 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Url: https://cloud.uipath.com/example
+                    Enabled: true
+                    Secret: example-value
+                    SubscribeToAllEvents: true
+                    AllowInsecureSsl: true
+                    Events:
+                    - example-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Webhooks({key}):
+    delete:
+      operationId: deleteWebhook
+      summary: UiPath Delete a Webhook
+      description: Permanently deletes a webhook subscription by its unique integer identifier. After deletion, the target URL will no longer receive event notifications from Orchestrator.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      responses:
+        '204':
+          description: Webhook deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Webhooks/UiPath.Server.Configuration.OData.GetEventTypes():
+    get:
+      operationId: getWebhookEventTypes
+      summary: UiPath Get Available Webhook Event Types
+      description: Retrieves the complete list of event types available for webhook subscriptions in Orchestrator. Event types cover jobs, robots, queues, queue items, processes, and triggers, each with a unique string identifier such as job.faulted or queueItem.transactionCompleted.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      responses:
+        '200':
+          description: A list of available webhook event types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEventType'
+              examples:
+                getWebhookEventTypes200Example:
+                  summary: Default getWebhookEventTypes 200 response
+                  x-microcks-default: true
+                  value:
+                    value:
+                    - Name: {}
+                      EventType: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
+  schemas:
+    WebhookEventType:
+      type: object
+      description: An available event type that can be subscribed to via webhooks
+      properties:
+        Name:
+          type: string
+          description: Human-readable display name of the event type
+          example: Example Name
+        EventType:
+          type: string
+          description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
+          example: Standard
+    Webhook:
+      type: object
+      description: A webhook subscription that receives Orchestrator event notifications
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the webhook
+          example: 12345
+        Url:
+          type: string
+          format: uri
+          description: The HTTPS endpoint URL that receives event POST requests
+          example: https://cloud.uipath.com/example
+        Enabled:
+          type: boolean
+          description: Whether the webhook is active and sending notifications
+          example: true
+        Secret:
+          type: string
+          description: Optional HMAC secret for validating payload signatures via X-UiPath-Signature header
+          example: example-value
+        SubscribeToAllEvents:
+          type: boolean
+          description: Whether to receive all event types or only the specified ones
+          example: true
+        AllowInsecureSsl:
+          type: boolean
+          description: Whether to allow webhook delivery to endpoints with invalid SSL certificates
+          example: true
+        Events:
+          type: array
+          items:
+            type: string
+          description: List of event type identifiers to subscribe to when SubscribeToAllEvents is false
+          example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ODataWebhookCollection:
+      type: object
+      description: OData collection response containing webhooks
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+          example: []
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

@@ -1,0 +1,323 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Extraction API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Extraction
+  description: Extract structured data fields from documents
+paths:
+  /projects/{projectId}/extraction/start:
+    post:
+      operationId: extractDocumentAsync
+      summary: UiPath Start Asynchronous Document Extraction
+      description: Submits a previously digitized document for asynchronous data extraction. The extractors to apply and the document type must be specified in the request body. Returns a requestId to poll for results. Results are retained for 24 hours. Use GET /extraction/{requestId}/result to retrieve extracted field values once processing completes.
+      tags:
+      - Extraction
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - name: api-version
+        in: query
+        required: false
+        description: API version to use for this request
+        schema:
+          type: string
+          default: '1'
+        example: 1.0.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtractionRequest'
+            examples:
+              extractDocumentAsyncRequestExample:
+                summary: Default extractDocumentAsync request
+                x-microcks-default: true
+                value:
+                  documentId: example-value
+                  documentTypeId: example-value
+                  extractorsOptions:
+                  - {}
+      responses:
+        '200':
+          description: Extraction job started; use the returned requestId to poll for results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobStartResponse'
+              examples:
+                extractDocumentAsync200Example:
+                  summary: Default extractDocumentAsync 200 response
+                  x-microcks-default: true
+                  value:
+                    requestId: example-value
+                    status: NotStarted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /projects/{projectId}/extraction/{requestId}/result:
+    get:
+      operationId: getExtractionResult
+      summary: UiPath Get Asynchronous Extraction Result
+      description: Retrieves the result of an asynchronous extraction request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Returns extracted field values with associated confidence scores. Results are available for 24 hours from the time the job completed.
+      tags:
+      - Extraction
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - $ref: '#/components/parameters/requestId'
+        example: example-value
+      - name: api-version
+        in: query
+        required: false
+        description: API version to use for this request
+        schema:
+          type: string
+          default: '1'
+        example: 1.0.0
+      responses:
+        '200':
+          description: Extraction result or current job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractionResult'
+              examples:
+                getExtractionResult200Example:
+                  summary: Default getExtractionResult 200 response
+                  x-microcks-default: true
+                  value:
+                    requestId: example-value
+                    status: NotStarted
+                    result:
+                      documentId: example-value
+                      extractionResult: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    FieldValue:
+      type: object
+      description: The extracted value with confidence and source reference
+      properties:
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
+          example: example-value
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
+          type: string
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
+    ExtractionResultData:
+      type: object
+      description: Structured extraction result containing field values and confidence scores
+      properties:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
+          type: string
+          description: Document identifier of the extracted document
+          example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
+    ExtractorOption:
+      type: object
+      description: Configuration for applying a specific extractor
+      required:
+      - extractorId
+      properties:
+        extractorId:
+          type: string
+          description: Unique identifier of the extractor to apply
+          example: abc123
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ExtractedField:
+      type: object
+      description: A single extracted field with its value and confidence metadata
+      properties:
+        FieldId:
+          type: string
+          description: Identifier of the extracted field as defined in the extractor schema
+          example: abc123
+        FieldName:
+          type: string
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ExtractionResult:
+      type: object
+      description: Result of an asynchronous extraction job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the extraction job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the extraction job
+          example: NotStarted
+        result:
+          type: object
+          description: Extraction output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID from which data was extracted
+            extractionResult:
+              $ref: '#/components/schemas/ExtractionResultData'
+          example: example-value
+    ExtractionRequest:
+      type: object
+      description: Request payload for extracting data from a previously digitized document
+      required:
+      - documentId
+      - extractorsOptions
+      properties:
+        documentId:
+          type: string
+          description: Document ID returned by the digitization endpoint
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Document type identifier to guide extraction
+          example: abc123
+        extractorsOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractorOption'
+          description: Extractors to apply with their configuration options
+          example: []
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      description: Unique identifier of the asynchronous job request to retrieve results for
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

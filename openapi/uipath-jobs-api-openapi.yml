@@ -1,0 +1,530 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Jobs API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Jobs
+  description: Manage automation job execution, including starting, stopping, and querying job state
+paths:
+  /odata/Jobs:
+    get:
+      operationId: listJobs
+      summary: UiPath List Jobs
+      description: Retrieves a list of jobs in the current folder. Supports OData query options including $filter, $orderby, $top, $skip, and $select to control the result set. Jobs represent individual executions of automation processes by robots.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/odataFilter'
+        example: example-value
+      - $ref: '#/components/parameters/odataOrderby'
+        example: example-value
+      - $ref: '#/components/parameters/odataTop'
+        example: example-value
+      - $ref: '#/components/parameters/odataSkip'
+        example: example-value
+      - $ref: '#/components/parameters/odataSelect'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      responses:
+        '200':
+          description: A list of jobs matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataJobCollection'
+              examples:
+                listJobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    '@odata.context': example-value
+                    '@odata.count': 1
+                    value:
+                    - {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Jobs({key}):
+    get:
+      operationId: getJob
+      summary: UiPath Get a Job by ID
+      description: Retrieves a single job by its unique integer identifier. Returns full job details including state, start and end times, robot information, and associated process.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/entityKey'
+        example: example-value
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      responses:
+        '200':
+          description: The requested job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+              examples:
+                getJob200Example:
+                  summary: Default getJob 200 response
+                  x-microcks-default: true
+                  value:
+                    Id: 1
+                    Key: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                    ReleaseName: example-value
+                    ProcessVersion: example-value
+                    State: Pending
+                    Source: Manual
+                    StartTime: '2026-01-15T10:30:00Z'
+                    EndTime: '2026-01-15T10:30:00Z'
+                    CreationTime: '2026-01-15T10:30:00Z'
+                    Info: example-value
+                    HostMachineName: example-value
+                    Robot:
+                      Id: {}
+                      Name: {}
+                      MachineName: {}
+                      MachineId: {}
+                      Version: {}
+                      Type: {}
+                    OrganizationUnitId: 1
+                    InputArguments: example-value
+                    OutputArguments: example-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Jobs/UiPath.Server.Configuration.OData.StartJobs:
+    post:
+      operationId: startJobs
+      summary: UiPath Start Jobs
+      description: Starts one or more automation jobs for a specified process. Allows specifying the strategy for robot allocation (e.g., ModernJobsCount, All, RobotIds), input arguments for the process, job priority, and the target folder. Returns details of the created jobs.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartJobsRequest'
+            examples:
+              startJobsRequestExample:
+                summary: Default startJobs request
+                x-microcks-default: true
+                value:
+                  startInfo:
+                    ReleaseKey: {}
+                    Strategy: {}
+                    RobotIds: {}
+                    NoOfRobots: {}
+                    Source: {}
+                    InputArguments: {}
+                    JobPriority: {}
+      responses:
+        '201':
+          description: Jobs were successfully created and started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataJobCollection'
+              examples:
+                startJobs201Example:
+                  summary: Default startJobs 201 response
+                  x-microcks-default: true
+                  value:
+                    '@odata.context': example-value
+                    '@odata.count': 1
+                    value:
+                    - {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /odata/Jobs/UiPath.Server.Configuration.OData.StopJob:
+    post:
+      operationId: stopJob
+      summary: UiPath Stop a Job
+      description: Sends a stop signal to a running job. The strategy can be SoftStop (waits for the current activity to finish) or Kill (forcefully terminates the job immediately). Requires the job ID.
+      tags:
+      - Jobs
+      parameters:
+      - $ref: '#/components/parameters/xUiPathOrganizationUnitId'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StopJobRequest'
+            examples:
+              stopJobRequestExample:
+                summary: Default stopJob request
+                x-microcks-default: true
+                value:
+                  jobId: 1
+                  strategy: SoftStop
+      responses:
+        '200':
+          description: Stop signal sent successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RobotRef:
+      type: object
+      description: A lightweight reference to a robot associated with a job
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the robot
+          example: 12345
+        Name:
+          type: string
+          description: Display name of the robot
+          example: Example Name
+        MachineName:
+          type: string
+          description: Hostname of the machine the robot runs on
+          example: Example Name
+        MachineId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the machine
+          example: 12345
+        Version:
+          type: string
+          description: Version of the UiPath Robot software
+          example: 1.0.0
+        Type:
+          type: string
+          enum:
+          - Unattended
+          - Attended
+          - NonProduction
+          - TestAutomation
+          - RpaDeveloper
+          - StudioX
+          - HeadlessUnattended
+          description: Licensing type of the robot
+          example: Unattended
+    ODataJobCollection:
+      type: object
+      description: OData collection response containing jobs
+      properties:
+        '@odata.context':
+          type: string
+          description: OData context URL
+          example: example-value
+        '@odata.count':
+          type: integer
+          description: Total number of matching records (when $count=true)
+          example: 42
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+          example: []
+    StopJobRequest:
+      type: object
+      description: Request payload for stopping a running job
+      required:
+      - jobId
+      - strategy
+      properties:
+        jobId:
+          type: integer
+          format: int64
+          description: Unique integer identifier of the job to stop
+          example: 12345
+        strategy:
+          type: string
+          enum:
+          - SoftStop
+          - Kill
+          description: Stop strategy. SoftStop waits for the current activity to complete before stopping; Kill immediately terminates the robot process.
+          example: SoftStop
+    Job:
+      type: object
+      description: Represents a single automation job execution instance
+      properties:
+        Id:
+          type: integer
+          format: int64
+          description: Unique integer identifier for the job
+          example: 12345
+        Key:
+          type: string
+          format: uuid
+          description: Unique GUID key for the job
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        ReleaseName:
+          type: string
+          description: Name of the process (release) that this job executes
+          example: Example Name
+        ProcessVersion:
+          type: string
+          description: Version of the process package used in this job
+          example: 1.0.0
+        State:
+          type: string
+          enum:
+          - Pending
+          - Running
+          - Stopping
+          - Terminating
+          - Faulted
+          - Successful
+          - Stopped
+          - Suspended
+          - Resumed
+          description: Current execution state of the job
+          example: Pending
+        Source:
+          type: string
+          enum:
+          - Manual
+          - Schedule
+          - Queue
+          description: How the job was initiated
+          example: Manual
+        StartTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job started executing
+          example: '2026-01-15T10:30:00Z'
+        EndTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job finished executing
+          example: '2026-01-15T10:30:00Z'
+        CreationTime:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the job was created
+          example: '2026-01-15T10:30:00Z'
+        Info:
+          type: string
+          description: Additional information or error message associated with the job state
+          example: example-value
+        HostMachineName:
+          type: string
+          description: Name of the machine where the robot executed the job
+          example: Example Name
+        Robot:
+          $ref: '#/components/schemas/RobotRef'
+        OrganizationUnitId:
+          type: integer
+          format: int64
+          description: ID of the folder in which this job resides
+          example: 12345
+        InputArguments:
+          type: string
+          description: JSON-serialized input arguments passed to the process
+          example: example-value
+        OutputArguments:
+          type: string
+          description: JSON-serialized output arguments returned by the process
+          example: example-value
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    StartJobsRequest:
+      type: object
+      description: Request payload for starting one or more automation jobs
+      required:
+      - startInfo
+      properties:
+        startInfo:
+          $ref: '#/components/schemas/StartInfo'
+    StartInfo:
+      type: object
+      description: Parameters controlling how jobs are started
+      required:
+      - ReleaseKey
+      - Strategy
+      properties:
+        ReleaseKey:
+          type: string
+          format: uuid
+          description: GUID key of the process (release) to start
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        Strategy:
+          type: string
+          enum:
+          - All
+          - Specific
+          - JobsCount
+          - RobotIds
+          description: Strategy for allocating robots to the job
+          example: All
+        RobotIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: List of robot IDs to use when Strategy is RobotIds or Specific
+          example: []
+        NoOfRobots:
+          type: integer
+          description: Number of robots to use when Strategy is JobsCount
+          example: 1
+        Source:
+          type: string
+          enum:
+          - Manual
+          - Schedule
+          - Queue
+          description: Source attribution for the started jobs
+          example: Manual
+        InputArguments:
+          type: string
+          description: JSON-serialized input arguments to pass to the process
+          example: example-value
+        JobPriority:
+          type: string
+          enum:
+          - Low
+          - Normal
+          - High
+          description: Priority level for the job queue
+          example: Low
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
+    odataOrderby:
+      name: $orderby
+      in: query
+      required: false
+      description: OData orderby clause (e.g., CreationTime desc)
+      schema:
+        type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
+    odataSelect:
+      name: $select
+      in: query
+      required: false
+      description: Comma-separated list of property names to include in the response
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

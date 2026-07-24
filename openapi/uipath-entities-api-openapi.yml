@@ -1,52 +1,33 @@
 openapi: 3.1.0
 info:
-  title: UiPath Data Service API
-  description: >-
-    The UiPath Data Service API, also referred to as the Data Fabric OpenAPI,
-    enables external applications to interact with structured data entities
-    stored in UiPath's cloud data platform. It supports schema management and
-    data operations including reading, creating, updating, and deleting entity
-    records, with access governed by granular role-based permissions. The API
-    uses OAuth 2.0 for authorization, with access tokens valid for one hour
-    and support for refresh tokens. Developers can download a tenant-specific
-    OpenAPI 3.0 specification in JSON format from within the Data Service
-    interface for use with code generation and integration tooling. Entity
-    schemas are defined per-tenant, so the specific entity types and fields
-    available vary by organization configuration.
+  title: UiPath Automation Hub Alerts Entities API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
   version: '1.0'
   contact:
     name: UiPath Support
     url: https://support.uipath.com
   termsOfService: https://www.uipath.com/legal/terms-of-use
-externalDocs:
-  description: UiPath Data Service API Documentation
-  url: https://docs.uipath.com/data-service/automation-cloud/latest/user-guide/api-access
 servers:
-- url: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_/api/EntityService
-  description: UiPath Automation Cloud Data Service
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
   variables:
-    organizationName:
+    orgName:
       default: your-org
       description: The name of your UiPath organization
     tenantName:
       default: your-tenant
       description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
 tags:
 - name: Entities
   description: Perform CRUD operations on custom data entity records
-security:
-- bearerAuth: []
 paths:
   /{entityName}:
     get:
       operationId: listEntityRecords
       summary: UiPath List Records for an Entity
-      description: >-
-        Retrieves a list of records for the specified custom entity type. Supports
-        filtering with query expressions, ordering, pagination via skip and top,
-        and field selection. The available entity names and their fields depend
-        on the schema configured within the tenant's Data Service instance.
-        Requires the DataService.Data.Read or DataService.Data scope.
+      description: Retrieves a list of records for the specified custom entity type. Supports filtering with query expressions, ordering, pagination via skip and top, and field selection. The available entity names and their fields depend on the schema configured within the tenant's Data Service instance. Requires the DataService.Data.Read or DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -127,12 +108,7 @@ paths:
     post:
       operationId: createEntityRecord
       summary: UiPath Create an Entity Record
-      description: >-
-        Creates a new record for the specified custom entity type. The request
-        body must conform to the entity's schema definition. System-generated
-        fields such as Id, CreatedOn, and CreatedBy are populated automatically
-        and should not be included in the request body. Requires the
-        DataService.Data scope.
+      description: Creates a new record for the specified custom entity type. The request body must conform to the entity's schema definition. System-generated fields such as Id, CreatedOn, and CreatedBy are populated automatically and should not be included in the request body. Requires the DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -179,11 +155,7 @@ paths:
     get:
       operationId: getEntityRecord
       summary: UiPath Get an Entity Record by ID
-      description: >-
-        Retrieves a single entity record by its unique identifier. Returns
-        all fields of the record including system fields. Supports the
-        $select parameter to limit the fields returned. Requires the
-        DataService.Data.Read or DataService.Data scope.
+      description: Retrieves a single entity record by its unique identifier. Returns all fields of the record including system fields. Supports the $select parameter to limit the fields returned. Requires the DataService.Data.Read or DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -234,12 +206,7 @@ paths:
     put:
       operationId: updateEntityRecord
       summary: UiPath Update an Entity Record
-      description: >-
-        Updates an existing entity record by its unique identifier. The
-        request body should include only the fields to update. System-managed
-        fields such as Id, CreatedOn, and CreatedBy cannot be modified.
-        ModifiedOn and ModifiedBy are updated automatically. Requires the
-        DataService.Data scope.
+      description: Updates an existing entity record by its unique identifier. The request body should include only the fields to update. System-managed fields such as Id, CreatedOn, and CreatedBy cannot be modified. ModifiedOn and ModifiedBy are updated automatically. Requires the DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -289,9 +256,7 @@ paths:
     delete:
       operationId: deleteEntityRecord
       summary: UiPath Delete an Entity Record
-      description: >-
-        Permanently deletes an entity record by its unique identifier.
-        This action cannot be undone. Requires the DataService.Data scope.
+      description: Permanently deletes an entity record by its unique identifier. This action cannot be undone. Requires the DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -315,12 +280,7 @@ paths:
     post:
       operationId: queryEntityRecords
       summary: UiPath Query Entity Records with Advanced Filtering
-      description: >-
-        Performs an advanced query against the entity using a structured
-        filter expression in the request body. Supports complex conditions,
-        nested field filtering, and joining conditions with AND and OR
-        operators. Returns a paginated list of matching records.
-        Requires the DataService.Data.Read or DataService.Data scope.
+      description: Performs an advanced query against the entity using a structured filter expression in the request body. Supports complex conditions, nested field filtering, and joining conditions with AND and OR operators. Returns a paginated list of matching records. Requires the DataService.Data.Read or DataService.Data scope.
       tags:
       - Entities
       parameters:
@@ -371,25 +331,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >-
-        OAuth 2.0 Bearer token obtained from the UiPath Identity Server.
-        Data Service scopes include DataService.Data and DataService.Data.Read.
-        Tokens are valid for one hour; refresh tokens are supported.
   parameters:
-    entityName:
-      name: entityName
-      in: path
-      required: true
-      description: >-
-        Name of the custom entity type as defined in the tenant's Data Service
-        schema. Entity names are case-sensitive.
-      schema:
-        type: string
     recordId:
       name: recordId
       in: path
@@ -397,89 +339,14 @@ components:
       description: Unique identifier of the entity record
       schema:
         type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or the entity schema was violated
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested entity type or record was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    entityName:
+      name: entityName
+      in: path
+      required: true
+      description: Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive.
+      schema:
+        type: string
   schemas:
-    EntityRecord:
-      type: object
-      description: >-
-        A single entity record. The specific fields available depend on
-        the entity schema configured in the tenant's Data Service. All
-        records include the following system-managed fields.
-      properties:
-        Id:
-          type: string
-          description: Unique system-assigned identifier of the record
-          example: abc123
-        CreatedOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was created
-          example: '2026-01-15T10:30:00Z'
-        CreatedBy:
-          type: string
-          description: Identifier of the user or process that created the record
-          example: example-value
-        ModifiedOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the last modification
-          example: '2026-01-15T10:30:00Z'
-        ModifiedBy:
-          type: string
-          description: Identifier of the user or process that last modified the record
-          example: example-value
-      additionalProperties: true
-    EntityRecordInput:
-      type: object
-      description: >-
-        Input payload for creating or updating an entity record. The specific
-        fields required depend on the entity schema definition. System-managed
-        fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not
-        be included.
-      additionalProperties: true
-    EntityRecordCollection:
-      type: object
-      description: A paginated collection of entity records
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of records matching the query
-          example: 42
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityRecord'
-          description: Array of entity records for the current page
-          example: []
-        nextLink:
-          type: string
-          format: uri
-          description: URL for the next page of results, if more records are available
-          example: https://cloud.uipath.com/example
     EntityQueryRequest:
       type: object
       description: Advanced query request with structured filter conditions
@@ -508,47 +375,6 @@ components:
           maximum: 1000
           description: Maximum number of records to return
           example: 1
-    FilterGroup:
-      type: object
-      description: A group of filter conditions joined by a logical operator
-      properties:
-        logicalOperator:
-          type: string
-          enum: [AND, OR]
-          description: Logical operator combining the conditions in this group
-          example: AND
-        queryFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryFilter'
-          description: List of individual field filter conditions
-          example: []
-        filterGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          description: Nested filter groups for complex query expressions
-          example: []
-    QueryFilter:
-      type: object
-      description: A single field comparison condition in a query
-      required:
-      - fieldName
-      - operator
-      - value
-      properties:
-        fieldName:
-          type: string
-          description: Name of the entity field to filter on
-          example: Example Name
-        operator:
-          type: string
-          enum: [equals, notEquals, lessThan, lessThanOrEquals, greaterThan, greaterThanOrEquals, contains, startsWith, endsWith, isNull, isNotNull]
-          description: Comparison operator for the filter condition
-          example: equals
-        value:
-          description: Value to compare against; type depends on the field type
-          example: example-value
     OrderByClause:
       type: object
       description: Sort specification for query results
@@ -564,6 +390,37 @@ components:
           default: false
           description: Whether to sort in descending order
           example: true
+    EntityRecordInput:
+      type: object
+      description: Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.
+      additionalProperties: true
+    EntityRecord:
+      type: object
+      description: A single entity record. The specific fields available depend on the entity schema configured in the tenant's Data Service. All records include the following system-managed fields.
+      properties:
+        Id:
+          type: string
+          description: Unique system-assigned identifier of the record
+          example: abc123
+        CreatedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was created
+          example: '2026-01-15T10:30:00Z'
+        CreatedBy:
+          type: string
+          description: Identifier of the user or process that created the record
+          example: example-value
+        ModifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the last modification
+          example: '2026-01-15T10:30:00Z'
+        ModifiedBy:
+          type: string
+          description: Identifier of the user or process that last modified the record
+          example: example-value
+      additionalProperties: true
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -580,3 +437,110 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    QueryFilter:
+      type: object
+      description: A single field comparison condition in a query
+      required:
+      - fieldName
+      - operator
+      - value
+      properties:
+        fieldName:
+          type: string
+          description: Name of the entity field to filter on
+          example: Example Name
+        operator:
+          type: string
+          enum:
+          - equals
+          - notEquals
+          - lessThan
+          - lessThanOrEquals
+          - greaterThan
+          - greaterThanOrEquals
+          - contains
+          - startsWith
+          - endsWith
+          - isNull
+          - isNotNull
+          description: Comparison operator for the filter condition
+          example: equals
+        value:
+          description: Value to compare against; type depends on the field type
+          example: example-value
+    FilterGroup:
+      type: object
+      description: A group of filter conditions joined by a logical operator
+      properties:
+        logicalOperator:
+          type: string
+          enum:
+          - AND
+          - OR
+          description: Logical operator combining the conditions in this group
+          example: AND
+        queryFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+          description: List of individual field filter conditions
+          example: []
+        filterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          description: Nested filter groups for complex query expressions
+          example: []
+    EntityRecordCollection:
+      type: object
+      description: A paginated collection of entity records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of records matching the query
+          example: 42
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityRecord'
+          description: Array of entity records for the current page
+          example: []
+        nextLink:
+          type: string
+          format: uri
+          description: URL for the next page of results, if more records are available
+          example: https://cloud.uipath.com/example
+  responses:
+    NotFound:
+      description: The requested entity type or record was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or the entity schema was violated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

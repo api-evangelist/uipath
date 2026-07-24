@@ -1,0 +1,557 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Automations API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Automations
+  description: Manage automation ideas and projects in the pipeline
+paths:
+  /automations:
+    get:
+      operationId: listAutomations
+      summary: UiPath List Automations
+      description: Retrieves a list of automation ideas and projects from Automation Hub. Supports filtering by phase, status, and other pipeline attributes. Returns a paginated list of automation records including metadata, cost-benefit analysis data, and submission details. Used by CoE teams to programmatically query and track the automation pipeline.
+      tags:
+      - Automations
+      parameters:
+      - name: phase
+        in: query
+        required: false
+        description: Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)
+        schema:
+          type: string
+        example: example-value
+      - name: status
+        in: query
+        required: false
+        description: Filter automations by status within their current phase
+        schema:
+          type: string
+        example: Active
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (1-based)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
+      responses:
+        '200':
+          description: A paginated list of automations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationListResponse'
+              examples:
+                listAutomations200Example:
+                  summary: Default listAutomations 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    page: 1
+                    pageSize: 1
+                    automations:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAutomationIdea
+      summary: UiPath Create an Automation Idea
+      description: Creates a new automation idea in Automation Hub. The submitted idea enters the pipeline at the Idea phase and is available for assessment and prioritization by CoE administrators. The request body must include the idea name, description, submitter information, and the estimated benefit details used in cost-benefit analysis.
+      tags:
+      - Automations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAutomationIdeaRequest'
+            examples:
+              createAutomationIdeaRequestExample:
+                summary: Default createAutomationIdea request
+                x-microcks-default: true
+                value:
+                  name: example-value
+                  description: example-value
+                  estimatedBenefit:
+                    estimatedTimeSavingsPerYear: {}
+                    estimatedFTESavings: {}
+                    estimatedCostSavingsPerYear: {}
+                  tags:
+                  - example-value
+      responses:
+        '201':
+          description: Automation idea created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+              examples:
+                createAutomationIdea201Example:
+                  summary: Default createAutomationIdea 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /automations/{automationId}:
+    get:
+      operationId: getAutomation
+      summary: UiPath Get an Automation by ID
+      description: Retrieves a single automation record by its unique identifier. Returns full details including pipeline phase, status, cost-benefit analysis data, collaborators, documents, and tags.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      responses:
+        '200':
+          description: The requested automation record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+              examples:
+                getAutomation200Example:
+                  summary: Default getAutomation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateAutomation
+      summary: UiPath Update an Automation
+      description: Partially updates an automation record by its unique identifier. Commonly used to advance an automation through the pipeline by updating its phase and status. Only fields included in the request body are modified.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAutomationRequest'
+            examples:
+              updateAutomationRequestExample:
+                summary: Default updateAutomation request
+                x-microcks-default: true
+                value:
+                  phase: Idea
+                  status: example-value
+                  description: example-value
+                  estimatedBenefit:
+                    estimatedTimeSavingsPerYear: {}
+                    estimatedFTESavings: {}
+                    estimatedCostSavingsPerYear: {}
+      responses:
+        '200':
+          description: Automation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+              examples:
+                updateAutomation200Example:
+                  summary: Default updateAutomation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: example-value
+                    description: example-value
+                    phase: Idea
+                    status: example-value
+                    submittedBy: example-value
+                    submittedDate: '2026-01-15T10:30:00Z'
+                    lastModified: '2026-01-15T10:30:00Z'
+                    estimatedBenefit:
+                      estimatedTimeSavingsPerYear: {}
+                      estimatedFTESavings: {}
+                      estimatedCostSavingsPerYear: {}
+                    tags:
+                    - example-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteAutomation
+      summary: UiPath Delete an Automation
+      description: Permanently deletes an automation record from Automation Hub by its unique identifier. This action removes the idea and all associated documents, comments, and collaborator data. This action cannot be undone.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      responses:
+        '204':
+          description: Automation deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /automations/{automationId}/collaborators:
+    get:
+      operationId: listAutomationCollaborators
+      summary: UiPath List Collaborators for an Automation
+      description: Retrieves the list of collaborators assigned to a specific automation idea or project. Collaborators have defined roles such as subject matter expert, developer, or reviewer.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      responses:
+        '200':
+          description: A list of collaborators for the automation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborators:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Collaborator'
+              examples:
+                listAutomationCollaborators200Example:
+                  summary: Default listAutomationCollaborators 200 response
+                  x-microcks-default: true
+                  value:
+                    collaborators:
+                    - userId: {}
+                      name: {}
+                      email: {}
+                      role: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: removeAutomationCollaborator
+      summary: UiPath Remove a Collaborator from an Automation
+      description: Removes a collaborator from an automation by their user ID. The user will lose access to collaborate on the automation idea or project.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/automationId'
+        example: example-value
+      - name: userId
+        in: query
+        required: true
+        description: Unique identifier of the user to remove as a collaborator
+        schema:
+          type: integer
+        example: 12345
+      responses:
+        '204':
+          description: Collaborator removed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    UpdateAutomationRequest:
+      type: object
+      description: Request payload for partially updating an automation record
+      properties:
+        phase:
+          type: string
+          enum:
+          - Idea
+          - Assessment
+          - Analysis
+          - Development
+          - Testing
+          - Production
+          - OnHold
+          - Rejected
+          description: Updated pipeline phase for the automation
+          example: Idea
+        status:
+          type: string
+          description: Updated status within the current phase
+          example: Active
+        description:
+          type: string
+          description: Updated description of the automation
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+    CreateAutomationIdeaRequest:
+      type: object
+      description: Request payload for creating a new automation idea
+      required:
+      - name
+      - description
+      properties:
+        name:
+          type: string
+          description: Display name of the automation idea
+          maxLength: 256
+          example: Example Name
+        description:
+          type: string
+          description: Detailed description of the automation opportunity
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags for categorizing the automation idea
+          example: []
+    Automation:
+      type: object
+      description: An automation idea or project in the Automation Hub pipeline
+      properties:
+        id:
+          type: integer
+          description: Unique integer identifier of the automation
+          example: 12345
+        name:
+          type: string
+          description: Display name of the automation idea
+          example: Example Name
+        description:
+          type: string
+          description: Detailed description of the automation idea and its business value
+          example: Example description for this resource.
+        phase:
+          type: string
+          enum:
+          - Idea
+          - Assessment
+          - Analysis
+          - Development
+          - Testing
+          - Production
+          - OnHold
+          - Rejected
+          description: Current phase of the automation in the pipeline
+          example: Idea
+        status:
+          type: string
+          description: Current status within the active phase
+          example: Active
+        submittedBy:
+          type: string
+          description: Name of the user who submitted the automation idea
+          example: example-value
+        submittedDate:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the idea was submitted
+          example: '2026-01-15T10:30:00Z'
+        lastModified:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the last modification
+          example: '2026-01-15T10:30:00Z'
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags associated with the automation for categorization
+          example: []
+    BenefitData:
+      type: object
+      description: Estimated cost-benefit analysis data for an automation idea
+      properties:
+        estimatedTimeSavingsPerYear:
+          type: number
+          description: Estimated hours saved per year by automating this process
+          example: 1.0
+        estimatedFTESavings:
+          type: number
+          description: Full-time equivalent headcount savings from the automation
+          example: 1.0
+        estimatedCostSavingsPerYear:
+          type: number
+          description: Estimated monetary cost savings per year in the organization's currency
+          example: 1.0
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
+    AutomationListResponse:
+      type: object
+      description: Paginated response containing automation records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of automations matching the query
+          example: 42
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        pageSize:
+          type: integer
+          description: Number of records per page
+          example: 1
+        automations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Automation'
+          example: []
+    Collaborator:
+      type: object
+      description: A user collaborating on an automation idea or project
+      properties:
+        userId:
+          type: integer
+          description: Unique integer identifier of the collaborating user
+          example: 12345
+        name:
+          type: string
+          description: Display name of the collaborator
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the collaborator
+          example: user@example.com
+        role:
+          type: string
+          description: Role of this collaborator on the automation
+          example: example-value
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    automationId:
+      name: automationId
+      in: path
+      required: true
+      description: Unique integer identifier of the automation idea or project
+      schema:
+        type: integer
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

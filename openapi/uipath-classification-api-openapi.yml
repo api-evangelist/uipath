@@ -1,0 +1,284 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Classification API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Classification
+  description: Classify documents into predefined document types
+paths:
+  /projects/{projectId}/classification/start:
+    post:
+      operationId: classifyDocumentAsync
+      summary: UiPath Start Asynchronous Document Classification
+      description: Submits a previously digitized document for asynchronous classification. Returns a requestId to poll for results. Asynchronous mode is suited for multi-page documents and concurrent batch workloads. Results are retained for 24 hours. Use GET /classification/{requestId}/result to retrieve the classification outcome once processing is complete.
+      tags:
+      - Classification
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - name: api-version
+        in: query
+        required: false
+        description: API version to use for this request
+        schema:
+          type: string
+          default: '1'
+        example: 1.0.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassificationRequest'
+            examples:
+              classifyDocumentAsyncRequestExample:
+                summary: Default classifyDocumentAsync request
+                x-microcks-default: true
+                value:
+                  documentId: example-value
+                  classifiersOptions:
+                  - {}
+      responses:
+        '200':
+          description: Classification job started; use the returned requestId to poll for results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobStartResponse'
+              examples:
+                classifyDocumentAsync200Example:
+                  summary: Default classifyDocumentAsync 200 response
+                  x-microcks-default: true
+                  value:
+                    requestId: example-value
+                    status: NotStarted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /projects/{projectId}/classification/{requestId}/result:
+    get:
+      operationId: getClassificationResult
+      summary: UiPath Get Asynchronous Classification Result
+      description: Retrieves the result of an asynchronous classification request by its requestId. The job status can be NotStarted, Running, Failed, or Succeeded. Poll this endpoint until the status is Succeeded or Failed. Results are available for 24 hours from the time the job completed.
+      tags:
+      - Classification
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - $ref: '#/components/parameters/requestId'
+        example: example-value
+      - name: api-version
+        in: query
+        required: false
+        description: API version to use for this request
+        schema:
+          type: string
+          default: '1'
+        example: 1.0.0
+      responses:
+        '200':
+          description: Classification result or current job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassificationResult'
+              examples:
+                getClassificationResult200Example:
+                  summary: Default getClassificationResult 200 response
+                  x-microcks-default: true
+                  value:
+                    requestId: example-value
+                    status: NotStarted
+                    result:
+                      documentId: example-value
+                      classificationResults:
+                      - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      description: Unique identifier of the asynchronous job request to retrieve results for
+      schema:
+        type: string
+  schemas:
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ClassificationRequest:
+      type: object
+      description: Request payload for classifying a previously digitized document
+      required:
+      - documentId
+      - classifiersOptions
+      properties:
+        documentId:
+          type: string
+          description: Document ID returned by the digitization endpoint
+          example: abc123
+        classifiersOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassifierOption'
+          description: Classifiers to apply with their configuration options
+          example: []
+    ClassifierOption:
+      type: object
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
+      properties:
+        classifierId:
+          type: string
+          description: Unique identifier of the classifier to apply
+          example: abc123
+    ClassificationResult:
+      type: object
+      description: Result of an asynchronous classification job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the classification job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the classification job
+          example: NotStarted
+        result:
+          type: object
+          description: Classification output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID that was classified
+            classificationResults:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassificationResultItem'
+          example: example-value
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

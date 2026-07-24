@@ -1,0 +1,186 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts TestExecutions API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: TestExecutions
+  description: Retrieve test execution results and logs
+paths:
+  /api/v2/projects/{projectId}/testexecutions:
+    get:
+      operationId: listTestExecutions
+      summary: UiPath List Test Executions in a Project
+      description: Retrieves test execution results within a specific test project. Test executions represent runs of test sets and contain the aggregate pass/fail status across all included test cases. References to individual test case log objects are included for drill-down.
+      tags:
+      - TestExecutions
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - name: page
+        in: query
+        required: false
+        description: Page number for pagination (0-based)
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+        example: 1
+      - name: pageSize
+        in: query
+        required: false
+        description: Number of records per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        example: 1
+      responses:
+        '200':
+          description: A list of test executions in the project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestExecutionListResponse'
+              examples:
+                listTestExecutions200Example:
+                  summary: Default listTestExecutions 200 response
+                  x-microcks-default: true
+                  value:
+                    totalCount: 1
+                    executions:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TestExecution:
+      type: object
+      description: A test set execution run with aggregated results
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test execution
+          example: abc123
+        testSetId:
+          type: string
+          description: Identifier of the test set that was executed
+          example: abc123
+        testSetName:
+          type: string
+          description: Display name of the test set that was executed
+          example: Example Name
+        status:
+          type: string
+          enum:
+          - Pending
+          - Running
+          - Passed
+          - Failed
+          - Blocked
+          - Cancelled
+          description: Aggregate execution status
+          example: Pending
+        startedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when execution began
+          example: '2026-01-15T10:30:00Z'
+        finishedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when execution completed
+          example: '2026-01-15T10:30:00Z'
+        totalTestCases:
+          type: integer
+          description: Total number of test cases in the execution
+          example: 42
+        passedTestCases:
+          type: integer
+          description: Number of test cases that passed
+          example: 1
+        failedTestCases:
+          type: integer
+          description: Number of test cases that failed
+          example: 1
+        blockedTestCases:
+          type: integer
+          description: Number of test cases that could not be executed
+          example: 1
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+    TestExecutionListResponse:
+      type: object
+      description: Paginated response containing test executions
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test executions
+          example: 42
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestExecution'
+          example: []
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the test project
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1

@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: UiPath Automation Hub Alerts Validation API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  version: '1.0'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+servers:
+- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+  description: UiPath Automation Cloud Automation Hub
+  variables:
+    orgName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+security:
+- apiKeyAuth: []
+tags:
+- name: Validation
+  description: Validate and correct digitization, classification, and extraction results
+paths:
+  /projects/{projectId}/validation/start:
+    post:
+      operationId: validateDocumentAsync
+      summary: UiPath Start Asynchronous Document Validation
+      description: Submits digitization, classification, and extraction results for asynchronous validation. Validation checks the accuracy of previously processed results and may invoke human-in-the-loop review for low-confidence extractions. Returns a requestId for polling.
+      tags:
+      - Validation
+      parameters:
+      - $ref: '#/components/parameters/projectId'
+        example: example-value
+      - name: api-version
+        in: query
+        required: false
+        description: API version to use for this request
+        schema:
+          type: string
+          default: '1'
+        example: 1.0.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidationRequest'
+            examples:
+              validateDocumentAsyncRequestExample:
+                summary: Default validateDocumentAsync request
+                x-microcks-default: true
+                value:
+                  documentId: example-value
+                  classificationResult:
+                    classifierId: {}
+                    documentTypeId: {}
+                    confidence: {}
+                    startPage: {}
+                    endPage: {}
+                  extractionResult:
+                    ResultsVersion: {}
+                    DocumentId: {}
+                    Fields: {}
+      responses:
+        '200':
+          description: Validation job started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncJobStartResponse'
+              examples:
+                validateDocumentAsync200Example:
+                  summary: Default validateDocumentAsync 200 response
+                  x-microcks-default: true
+                  value:
+                    requestId: example-value
+                    status: NotStarted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ValidationRequest:
+      type: object
+      description: Request payload for validating document processing results
+      required:
+      - documentId
+      properties:
+        documentId:
+          type: string
+          description: Document ID of the document whose results are to be validated
+          example: abc123
+        classificationResult:
+          $ref: '#/components/schemas/ClassificationResultItem'
+        extractionResult:
+          $ref: '#/components/schemas/ExtractionResultData'
+    FieldValue:
+      type: object
+      description: The extracted value with confidence and source reference
+      properties:
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
+          example: example-value
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
+          type: string
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ExtractedField:
+      type: object
+      description: A single extracted field with its value and confidence metadata
+      properties:
+        FieldId:
+          type: string
+          description: Identifier of the extracted field as defined in the extractor schema
+          example: abc123
+        FieldName:
+          type: string
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ExtractionResultData:
+      type: object
+      description: Structured extraction result containing field values and confidence scores
+      properties:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
+          type: string
+          description: Document identifier of the extracted document
+          example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+externalDocs:
+  description: UiPath Automation Hub API Documentation
+  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
