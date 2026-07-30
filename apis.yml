@@ -8,7 +8,20 @@ description: >-
   and Platform Management for organization and tenant administration. UiPath provides Python SDKs, REST APIs, and a rich
   integration ecosystem supporting enterprise automation at scale.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/uipath.png
 tags:
   - Automation
   - Robotic Process Automation
@@ -23,167 +36,2310 @@ created: '2025-01-01'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: uipath:uipath-orchestrator-api
-    name: UiPath Orchestrator API
-    description: >-
-      The UiPath Orchestrator API provides programmatic access to the core automation management platform, enabling
-      developers to manage robots, jobs, processes, queues, assets, schedules, and more. Built on the OData protocol,
-      the API supports RESTful operations with filtering, sorting, and pagination across all resources. Authentication
-      uses OAuth 2.0 tokens from the UiPath Identity Server.
-    humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
-    tags:
-      - Orchestrator
-      - Robots
-      - Jobs
-      - Queues
-      - Automation
-    properties:
-      - type: Documentation
-        url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
-      - type: OpenAPI
-        url: openapi/uipath-orchestrator-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/uipath-orchestrator-schema.json
-      - type: JSONSchema
-        url: json-schema/orchestrator-job-schema.json
-      - type: JSONSchema
-        url: json-schema/orchestrator-robot-schema.json
-      - type: JSONSchema
-        url: json-schema/orchestrator-queue-definition-schema.json
-      - type: JSONSchema
-        url: json-schema/orchestrator-queue-item-schema.json
-      - type: JSONSchema
-        url: json-schema/orchestrator-asset-schema.json
-      - type: JSONStructure
-        url: json-structure/orchestrator-job-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-orchestrator-context.jsonld
-  - aid: uipath:uipath-automation-hub-api
-    name: UiPath Automation Hub API
-    description: >-
-      The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing
-      developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data.
-      Designed for organizations building Center of Excellence workflows and integrating Automation Hub with external
-      tools.
-    humanURL: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
-    baseURL: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
-    tags:
-      - Automation Hub
-      - Pipeline Management
-      - Center of Excellence
-      - Ideas
-    properties:
-      - type: Documentation
-        url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
-      - type: OpenAPI
-        url: openapi/uipath-automation-hub-openapi.yml
-      - type: JSONSchema
-        url: json-schema/automation-hub-automation-schema.json
-      - type: JSONStructure
-        url: json-structure/automation-hub-automation-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-automation-hub-context.jsonld
-  - aid: uipath:uipath-document-understanding-api
-    name: UiPath Document Understanding API
-    description: >-
-      The UiPath Document Understanding API enables intelligent document processing using machine learning and AI
-      models. Developers can submit documents for digitization, classification, and data extraction, as well as manage
-      custom ML models and training datasets.
-    humanURL: https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/du_
-    tags:
-      - Document Understanding
-      - Machine Learning
-      - OCR
-      - Data Extraction
-      - Intelligent Document Processing
-    properties:
-      - type: Documentation
-        url: https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
-      - type: OpenAPI
-        url: openapi/uipath-document-understanding-openapi.yml
-      - type: JSONSchema
-        url: json-schema/uipath-document-understanding-schema.json
-      - type: JSONStructure
-        url: json-structure/document-understanding-digitization-result-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-document-understanding-context.jsonld
-  - aid: uipath:uipath-data-service-api
-    name: UiPath Data Service API
-    description: >-
-      The UiPath Data Service API provides programmatic access to structured data storage within the UiPath Platform.
-      Developers can create, read, update, and delete records in custom data entities, enabling automation workflows to
-      read from and write to persistent cloud-based data stores.
-    humanURL: https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/dataservice_
-    tags:
-      - Data Service
-      - Data Storage
-      - Records
-      - Entities
-    properties:
-      - type: Documentation
-        url: https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
-      - type: OpenAPI
-        url: openapi/uipath-data-service-openapi.yml
-      - type: JSONSchema
-        url: json-schema/data-service-entity-record-schema.json
-      - type: JSONStructure
-        url: json-structure/data-service-entity-record-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-data-service-context.jsonld
-  - aid: uipath:uipath-platform-management-api
-    name: UiPath Platform Management API
-    description: >-
-      The UiPath Platform Management API provides administrative access to organization and tenant management
-      capabilities, including user management, license management, and account configuration. Used by platform
-      administrators to manage UiPath Automation Cloud organizations programmatically.
-    humanURL: >-
+- aid: uipath:uipath-alerts-api
+  name: UiPath Alerts API
+  description: Retrieve and manage system and automation alerts
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
       https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
-    baseURL: https://cloud.uipath.com
-    tags:
-      - Platform Management
-      - Administration
-      - Organizations
-      - Tenants
-      - Licensing
-    properties:
-      - type: Documentation
-        url: >-
-          https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
-      - type: OpenAPI
-        url: openapi/uipath-platform-management-openapi.yml
-      - type: JSONStructure
-        url: json-structure/platform-management-user-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-platform-management-context.jsonld
-  - aid: uipath:uipath-test-manager-api
-    name: UiPath Test Manager API
-    description: >-
-      The UiPath Test Manager API enables programmatic interaction with the automated testing platform, allowing CI/CD
-      pipelines and external tools to create test sets, execute tests, and retrieve test results. Supports
-      enterprise-grade test management and reporting workflows.
-    humanURL: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
-    baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
-    tags:
-      - Testing
-      - Quality Assurance
-      - CI/CD
-      - Test Automation
-    properties:
-      - type: Documentation
-        url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
-      - type: OpenAPI
-        url: openapi/uipath-test-manager-openapi.yml
-      - type: JSONSchema
-        url: json-schema/test-manager-test-case-schema.json
-      - type: JSONStructure
-        url: json-structure/test-manager-test-case-structure.json
-      - type: JSONLD
-        url: json-ld/uipath-test-manager-context.jsonld
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-appinventory-api
+  name: UiPath AppInventory API
+  description: Manage the application inventory used in automation assessments
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - AppInventory
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-appinventory-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-assets-api
+  name: UiPath Assets API
+  description: Manage shared assets such as credentials, text values, integers, and boolean values
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-auditlogs-api
+  name: UiPath AuditLogs API
+  description: Retrieve and download organization and tenant audit event logs
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - AuditLogs
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-auditlogs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-automations-api
+  name: UiPath Automations API
+  description: Manage automation ideas and projects in the pipeline
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-automations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-classification-api
+  name: UiPath Classification API
+  description: Classify documents into predefined document types
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Classification
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-classification-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-digitization-api
+  name: UiPath Digitization API
+  description: Convert documents into a digitized format for downstream processing
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Digitization
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-digitization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-discovery-api
+  name: UiPath Discovery API
+  description: Discover available projects, classifiers, and extractors
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-entities-api
+  name: UiPath Entities API
+  description: Perform CRUD operations on custom data entity records
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Entities
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-entities-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-extraction-api
+  name: UiPath Extraction API
+  description: Extract structured data fields from documents
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Extraction
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-extraction-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-folders-api
+  name: UiPath Folders API
+  description: Manage organizational folders for grouping automation resources
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Folders
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-folders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-groups-api
+  name: UiPath Groups API
+  description: Manage user groups and group memberships
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-jobs-api
+  name: UiPath Jobs API
+  description: Manage automation job execution, including starting, stopping, and querying job state
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-licenses-api
+  name: UiPath Licenses API
+  description: Manage license allocations across user groups and services
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Licenses
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-licenses-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-machines-api
+  name: UiPath Machines API
+  description: Manage machine templates and registered physical or virtual machines
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Machines
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-machines-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-packages-api
+  name: UiPath Packages API
+  description: Manage automation package uploads and versions
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-packages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-pipeline-api
+  name: UiPath Pipeline API
+  description: Retrieve automation pipeline data and status views
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Pipeline
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-pipeline-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-processes-api
+  name: UiPath Processes API
+  description: Manage automation processes (published packages deployed to folders)
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Processes
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-processes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-projects-api
+  name: UiPath Projects API
+  description: Manage test projects within Test Manager
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-queueitems-api
+  name: UiPath QueueItems API
+  description: Manage individual queue transaction items and their processing state
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - QueueItems
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-queueitems-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-queues-api
+  name: UiPath Queues API
+  description: Manage transaction queues for distributing work items to robots
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Queues
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-queues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-requirements-api
+  name: UiPath Requirements API
+  description: Manage requirements and their traceability links to test cases
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Requirements
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-requirements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-robots-api
+  name: UiPath Robots API
+  description: Manage software robots registered with Orchestrator
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Robots
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-robots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-roles-api
+  name: UiPath Roles API
+  description: Manage roles and their associated permissions
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-roles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-schedules-api
+  name: UiPath Schedules API
+  description: Manage time-based and recurring triggers for automation processes
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-storagebuckets-api
+  name: UiPath StorageBuckets API
+  description: Manage cloud storage buckets for storing automation artifacts
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - StorageBuckets
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-storagebuckets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-testcases-api
+  name: UiPath TestCases API
+  description: Manage test cases and their definitions
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - TestCases
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-testcases-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-testexecutions-api
+  name: UiPath TestExecutions API
+  description: Retrieve test execution results and logs
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - TestExecutions
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-testexecutions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-testsets-api
+  name: UiPath TestSets API
+  description: Manage test sets that group test cases for execution
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - TestSets
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-testsets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-users-api
+  name: UiPath Users API
+  description: Manage users and their roles within Automation Hub
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-validation-api
+  name: UiPath Validation API
+  description: Validate and correct digitization, classification, and extraction results
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Validation
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-validation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
+- aid: uipath:uipath-webhooks-api
+  name: UiPath Webhooks API
+  description: Manage webhook subscriptions for Orchestrator event notifications
+  humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/uipath-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
+  - type: AsyncAPI
+    url: asyncapi/uipath-orchestrator-webhooks-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/uipath-orchestrator-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-job-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-robot-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-definition-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-queue-item-schema.json
+  - type: JSONSchema
+    url: json-schema/orchestrator-asset-schema.json
+  - type: JSONStructure
+    url: json-structure/orchestrator-job-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-orchestrator-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  - type: JSONSchema
+    url: json-schema/automation-hub-automation-schema.json
+  - type: JSONStructure
+    url: json-structure/automation-hub-automation-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-automation-hub-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview
+  - type: JSONSchema
+    url: json-schema/uipath-document-understanding-schema.json
+  - type: JSONStructure
+    url: json-structure/document-understanding-digitization-result-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-document-understanding-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/data-service/automation-cloud/latest/api-guide/about-the-data-service-api
+  - type: JSONSchema
+    url: json-schema/data-service-entity-record-schema.json
+  - type: JSONStructure
+    url: json-structure/data-service-entity-record-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-data-service-context.jsonld
+  - type: Documentation
+    url: >-
+      https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/accessing-uipath-resources-using-external-apps
+  - type: JSONStructure
+    url: json-structure/platform-management-user-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-platform-management-context.jsonld
+  - type: Documentation
+    url: https://docs.uipath.com/test-manager/automation-cloud/latest/api-guide/test-manager-api
+  - type: JSONSchema
+    url: json-schema/test-manager-test-case-schema.json
+  - type: JSONStructure
+    url: json-structure/test-manager-test-case-structure.json
+  - type: JSONLD
+    url: json-ld/uipath-test-manager-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/uipath-agentic-access.yml
