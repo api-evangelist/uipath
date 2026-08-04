@@ -1,0 +1,874 @@
+openapi: 3.1.0
+info:
+  title: UiPath Platform Management API
+  description: >-
+    The UiPath Platform Management API covers foundational platform
+    administration resources including identity management, audit log access,
+    and licensing operations. It provides programmatic control over
+    organization-level and tenant-level settings that serve as the backbone
+    of the UiPath Automation Cloud platform. These APIs are used by enterprise
+    administrators to automate provisioning workflows, audit compliance
+    activities, and manage license allocations across teams. The endpoints
+    are accessible alongside the Orchestrator API and share the same OAuth
+    2.0 authentication mechanism using the UiPath Identity Server. Services
+    are scoped by the /identity_/, /audit_/, /orgaudit_/, /tenantaudit_/,
+    /la/, and /lrm/ path prefixes.
+  version: '2024.10'
+  contact:
+    name: UiPath Support
+    url: https://support.uipath.com
+  termsOfService: https://www.uipath.com/legal/terms-of-use
+externalDocs:
+  description: UiPath Platform Management API Documentation
+  url: https://docs.uipath.com/automation-cloud/automation-cloud/latest/api-guide/about-the-platform-management-apis
+servers:
+- url: https://cloud.uipath.com
+  description: UiPath Automation Cloud Platform
+tags:
+- name: AuditLogs
+  description: Retrieve and download organization and tenant audit event logs
+- name: Groups
+  description: Manage user groups and group memberships
+- name: Licenses
+  description: Manage license allocations across user groups and services
+- name: Users
+  description: Manage user accounts across the organization
+security:
+- bearerAuth: []
+paths:
+  /{organizationName}/identity_/api/User/{userId}:
+    get:
+      operationId: getUser
+      summary: UiPath Get a User by ID
+      description: >-
+        Retrieves user account information by the user's unique identifier.
+        Returns user properties including name, email address, active status,
+        and authentication configuration. Requires the PM.Users or PM.Users.Read
+        OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/userId'
+        example: example-value
+      responses:
+        '200':
+          description: The requested user account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                getUser200Example:
+                  summary: Default getUser 200 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    email: user@example.com
+                    isActive: true
+                    createdOn: '2026-01-15T10:30:00Z'
+                    lastLoginDate: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteUser
+      summary: UiPath Delete a User
+      description: >-
+        Permanently deletes a user account from the organization by their
+        unique identifier. This action removes the user from all tenants and
+        revokes their access to UiPath Automation Cloud. This action cannot
+        be undone. Requires the PM.Users OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/userId'
+        example: example-value
+      responses:
+        '204':
+          description: User deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/User:
+    post:
+      operationId: createUser
+      summary: UiPath Create a User
+      description: >-
+        Creates a new user account in the UiPath organization. The user will
+        receive an invitation email to set up their credentials. The request
+        must include the user's email address, display name, and the tenants
+        or roles to initially assign. Requires the PM.Users OAuth scope.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              createUserRequestExample:
+                summary: Default createUser request
+                x-microcks-default: true
+                value:
+                  email: user@example.com
+                  name: example-value
+                  surname: example-value
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                createUser201Example:
+                  summary: Default createUser 201 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    email: user@example.com
+                    isActive: true
+                    createdOn: '2026-01-15T10:30:00Z'
+                    lastLoginDate: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/Group/{partitionGlobalId}:
+    get:
+      operationId: listGroups
+      summary: UiPath List Groups
+      description: >-
+        Retrieves all user groups within the specified organizational partition
+        (tenant or organization). Groups aggregate users for role assignment
+        and license allocation. Requires the PM.Groups or PM.Groups.Read
+        OAuth scope.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/partitionGlobalId'
+        example: example-value
+      responses:
+        '200':
+          description: A list of user groups
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Group'
+              examples:
+                listGroups200Example:
+                  summary: Default listGroups 200 response
+                  x-microcks-default: true
+                  value:
+                    results:
+                    - id: {}
+                      name: {}
+                      type: {}
+                      userCount: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/Group/{partitionGlobalId}/{groupId}:
+    get:
+      operationId: getGroup
+      summary: UiPath Get a Group by ID
+      description: >-
+        Retrieves a specific user group by its unique identifier within the
+        specified organizational partition. Returns group details including
+        name, description, and member count. Requires the PM.Groups or
+        PM.Groups.Read OAuth scope.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/partitionGlobalId'
+        example: example-value
+      - name: groupId
+        in: path
+        required: true
+        description: Unique identifier of the group
+        schema:
+          type: string
+        example: abc123
+      responses:
+        '200':
+          description: The requested group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                getGroup200Example:
+                  summary: Default getGroup 200 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    type: Local
+                    userCount: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/identity_/api/Group:
+    post:
+      operationId: createGroup
+      summary: UiPath Create a Group
+      description: >-
+        Creates a new user group in the organization. Groups are used to
+        assign roles in bulk, allocate licenses, and control access to
+        automation resources. Members can be added after group creation.
+        Requires the PM.Groups OAuth scope.
+      tags:
+      - Groups
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+            examples:
+              createGroupRequestExample:
+                summary: Default createGroup request
+                x-microcks-default: true
+                value:
+                  name: example-value
+                  type: Local
+      responses:
+        '201':
+          description: Group created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+              examples:
+                createGroup201Example:
+                  summary: Default createGroup 201 response
+                  x-microcks-default: true
+                  value:
+                    id: example-value
+                    name: example-value
+                    type: Local
+                    userCount: 1
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/orgaudit_/api/query/sources:
+    get:
+      operationId: getOrganizationAuditSources
+      summary: UiPath Get Organization Audit Event Sources
+      description: >-
+        Retrieves metadata about available audit event sources at the
+        organization level. Returns the list of services that generate
+        audit events along with available event types and categories
+        for use as filters in the query events endpoint.
+        Requires the PM.Audit or PM.Audit.Read OAuth scope.
+      tags:
+      - AuditLogs
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      responses:
+        '200':
+          description: Available organization audit event sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditSources'
+              examples:
+                getOrganizationAuditSources200Example:
+                  summary: Default getOrganizationAuditSources 200 response
+                  x-microcks-default: true
+                  value:
+                    sources:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/orgaudit_/api/query/events:
+    get:
+      operationId: queryOrganizationAuditEvents
+      summary: UiPath Query Organization Audit Events
+      description: >-
+        Retrieves audit events at the organization level filtered by time
+        range, event source, event type, user, and other criteria. Returns
+        a paginated list of audit events with actor information, event
+        details, and status. Requires the PM.Audit or PM.Audit.Read
+        OAuth scope.
+      tags:
+      - AuditLogs
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/auditFrom'
+        example: example-value
+      - $ref: '#/components/parameters/auditTo'
+        example: example-value
+      - $ref: '#/components/parameters/auditSource'
+        example: example-value
+      - $ref: '#/components/parameters/auditMaxCount'
+        example: example-value
+      responses:
+        '200':
+          description: Audit events matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditEventCollection'
+              examples:
+                queryOrganizationAuditEvents200Example:
+                  summary: Default queryOrganizationAuditEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    auditEvents:
+                    - {}
+                    next: https://cloud.uipath.com/example
+                    previous: https://cloud.uipath.com/example
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/{tenantName}/tenantaudit_/api/query/events:
+    get:
+      operationId: queryTenantAuditEvents
+      summary: UiPath Query Tenant Audit Events
+      description: >-
+        Retrieves audit events scoped to a specific tenant, filtered by
+        time range, event source, event type, user, and other criteria.
+        Tenant-level audit events cover actions within Orchestrator, Document
+        Understanding, and other tenant-scoped services. Requires the
+        PM.Audit or PM.Audit.Read OAuth scope.
+      tags:
+      - AuditLogs
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - $ref: '#/components/parameters/tenantName'
+        example: example-value
+      - $ref: '#/components/parameters/auditFrom'
+        example: example-value
+      - $ref: '#/components/parameters/auditTo'
+        example: example-value
+      - $ref: '#/components/parameters/auditSource'
+        example: example-value
+      - $ref: '#/components/parameters/auditMaxCount'
+        example: example-value
+      responses:
+        '200':
+          description: Tenant-level audit events matching the query criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditEventCollection'
+              examples:
+                queryTenantAuditEvents200Example:
+                  summary: Default queryTenantAuditEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    auditEvents:
+                    - {}
+                    next: https://cloud.uipath.com/example
+                    previous: https://cloud.uipath.com/example
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /{organizationName}/la/api/account/{accountId}/user-license/group/{groupId}:
+    get:
+      operationId: getGroupLicenseAllocation
+      summary: UiPath Get License Allocation for a Group
+      description: >-
+        Retrieves the user license allocation rule for a specific group within
+        the organization account. Returns the license types allocated to the
+        group and the current usage count. Requires the PM.License or
+        PM.License.Read OAuth scope.
+      tags:
+      - Licenses
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - name: accountId
+        in: path
+        required: true
+        description: Unique identifier of the organization account
+        schema:
+          type: string
+        example: abc123
+      - name: groupId
+        in: path
+        required: true
+        description: Unique identifier of the user group
+        schema:
+          type: string
+        example: abc123
+      responses:
+        '200':
+          description: License allocation for the group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupLicenseAllocation'
+              examples:
+                getGroupLicenseAllocation200Example:
+                  summary: Default getGroupLicenseAllocation 200 response
+                  x-microcks-default: true
+                  value:
+                    groupId: example-value
+                    userLicenses:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateGroupLicenseAllocation
+      summary: UiPath Update License Allocation for a Group
+      description: >-
+        Allocates or updates user licenses for a specific group. The rule
+        defines which license types members of this group are entitled to.
+        This controls the licenses automatically assigned when a member of
+        the group first logs in. Requires the PM.License OAuth scope.
+      tags:
+      - Licenses
+      parameters:
+      - $ref: '#/components/parameters/organizationName'
+        example: example-value
+      - name: accountId
+        in: path
+        required: true
+        description: Unique identifier of the organization account
+        schema:
+          type: string
+        example: abc123
+      - name: groupId
+        in: path
+        required: true
+        description: Unique identifier of the user group
+        schema:
+          type: string
+        example: abc123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupLicenseAllocationRequest'
+            examples:
+              updateGroupLicenseAllocationRequestExample:
+                summary: Default updateGroupLicenseAllocation request
+                x-microcks-default: true
+                value:
+                  userLicenses:
+                  - {}
+      responses:
+        '200':
+          description: License allocation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupLicenseAllocation'
+              examples:
+                updateGroupLicenseAllocation200Example:
+                  summary: Default updateGroupLicenseAllocation 200 response
+                  x-microcks-default: true
+                  value:
+                    groupId: example-value
+                    userLicenses:
+                    - {}
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth 2.0 Bearer token obtained from the UiPath Identity Server.
+        Platform Management API scopes include PM.Users, PM.Groups, PM.Audit,
+        PM.License, and their read-only variants.
+  parameters:
+    organizationName:
+      name: organizationName
+      in: path
+      required: true
+      description: The name of the UiPath organization
+      schema:
+        type: string
+    tenantName:
+      name: tenantName
+      in: path
+      required: true
+      description: The name of the UiPath tenant
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: Unique identifier of the user
+      schema:
+        type: string
+    partitionGlobalId:
+      name: partitionGlobalId
+      in: path
+      required: true
+      description: Global partition identifier for the organization or tenant scope
+      schema:
+        type: string
+    auditFrom:
+      name: from
+      in: query
+      required: false
+      description: Start of the audit event time range (ISO 8601 datetime)
+      schema:
+        type: string
+        format: date-time
+    auditTo:
+      name: to
+      in: query
+      required: false
+      description: End of the audit event time range (ISO 8601 datetime)
+      schema:
+        type: string
+        format: date-time
+    auditSource:
+      name: source
+      in: query
+      required: false
+      description: Filter by event source service name
+      schema:
+        type: array
+        items:
+          type: string
+    auditMaxCount:
+      name: maxCount
+      in: query
+      required: false
+      description: Maximum number of audit events to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    User:
+      type: object
+      description: A user account in the UiPath organization
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user
+          example: abc123
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the user was created
+          example: '2026-01-15T10:30:00Z'
+        lastLoginDate:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the user's most recent login
+          example: '2026-01-15T10:30:00Z'
+    CreateUserRequest:
+      type: object
+      description: Request payload for creating a new user account
+      required:
+      - email
+      - name
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address for the new user account
+          example: user@example.com
+        name:
+          type: string
+          description: Display name for the new user
+          example: Example Name
+        surname:
+          type: string
+          description: Surname of the new user
+          example: Example Name
+    Group:
+      type: object
+      description: A user group in the UiPath organization
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group
+          example: abc123
+        name:
+          type: string
+          description: Display name of the group
+          example: Example Name
+        type:
+          type: string
+          enum: [Local, DirectoryGroup, RoboticsGroup]
+          description: Type classification of the group
+          example: Local
+        userCount:
+          type: integer
+          description: Number of members currently in the group
+          example: 42
+    CreateGroupRequest:
+      type: object
+      description: Request payload for creating a new user group
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new group
+          example: Example Name
+        type:
+          type: string
+          enum: [Local, RoboticsGroup]
+          description: Type of group to create
+          example: Local
+    AuditSources:
+      type: object
+      description: Available audit event sources and categories
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditSource'
+          example: []
+    AuditSource:
+      type: object
+      description: A service that generates audit events
+      properties:
+        name:
+          type: string
+          description: Name identifier of the audit event source service
+          example: Example Name
+        targets:
+          type: array
+          items:
+            type: string
+          description: List of event target categories for this source
+          example: []
+    AuditEventCollection:
+      type: object
+      description: Collection of audit events with pagination links
+      properties:
+        auditEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+          example: []
+        next:
+          type: string
+          format: uri
+          description: URL to retrieve newer audit events relative to the current result set
+          example: https://cloud.uipath.com/example
+        previous:
+          type: string
+          format: uri
+          description: URL to retrieve older audit events relative to the current result set
+          example: https://cloud.uipath.com/example
+    AuditEvent:
+      type: object
+      description: A single audit event record
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the audit event
+          example: abc123
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event occurred
+          example: '2026-01-15T10:30:00Z'
+        organizationId:
+          type: string
+          description: Identifier of the organization in which the event occurred
+          example: abc123
+        actorId:
+          type: string
+          description: Identifier of the user or service that performed the action
+          example: abc123
+        actorEmail:
+          type: string
+          format: email
+          description: Email address of the actor who performed the action
+          example: user@example.com
+        eventType:
+          type: string
+          description: Type identifier of the audit event
+          example: Standard
+        eventSource:
+          type: string
+          description: Service that generated the audit event
+          example: example-value
+        eventTarget:
+          type: string
+          description: Category of resource targeted by the action
+          example: example-value
+        eventDetails:
+          type: object
+          additionalProperties: true
+          description: Detailed payload of the audit event in service-specific format
+          example: example-value
+        eventSummary:
+          type: string
+          description: Human-readable summary of the audit event
+          example: example-value
+        status:
+          type: integer
+          enum: [0, 1]
+          description: Outcome status (0 = success, 1 = failed)
+          example: 0
+        clientInfo:
+          $ref: '#/components/schemas/ClientInfo'
+    ClientInfo:
+      type: object
+      description: Client connection information for an audit event
+      properties:
+        ipAddress:
+          type: string
+          description: IP address from which the action was performed
+          example: example-value
+        country:
+          type: string
+          description: Country resolved from the IP address
+          example: 42
+    GroupLicenseAllocation:
+      type: object
+      description: License allocation rule for a user group
+      properties:
+        groupId:
+          type: string
+          description: Unique identifier of the group this allocation applies to
+          example: abc123
+        userLicenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAllocationEntry'
+          example: []
+    LicenseAllocationEntry:
+      type: object
+      description: A single license type allocation for a group
+      properties:
+        code:
+          type: string
+          description: License product code identifier
+          example: example-value
+        totalCount:
+          type: integer
+          description: Total number of licenses allocated to the group
+          example: 42
+        usedCount:
+          type: integer
+          description: Number of licenses currently consumed by group members
+          example: 42
+    UpdateGroupLicenseAllocationRequest:
+      type: object
+      description: Request payload for updating license allocation for a group
+      properties:
+        userLicenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAllocationEntry'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
