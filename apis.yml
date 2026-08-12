@@ -55,8 +55,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -126,8 +124,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -199,8 +195,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -270,8 +264,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -343,8 +335,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -414,8 +404,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -487,8 +475,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -558,8 +544,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -631,8 +615,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -702,8 +684,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -775,8 +755,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -846,8 +824,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -919,8 +895,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -990,8 +964,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1063,8 +1035,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1134,8 +1104,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1207,8 +1175,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1278,8 +1244,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1351,8 +1315,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1422,8 +1384,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1495,8 +1455,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1566,8 +1524,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1639,8 +1595,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1710,8 +1664,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1783,8 +1735,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1854,8 +1804,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -1927,8 +1875,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -1998,8 +1944,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -2071,8 +2015,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -2142,8 +2084,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
@@ -2215,8 +2155,6 @@ apis:
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
   - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
-  - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-item-schema.json
@@ -2286,8 +2224,6 @@ apis:
     url: json-schema/uipath-orchestrator-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-job-schema.json
-  - type: JSONSchema
-    url: json-schema/orchestrator-robot-schema.json
   - type: JSONSchema
     url: json-schema/orchestrator-queue-definition-schema.json
   - type: JSONSchema
