@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts Automations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations",
+            "params": [
+              {
+                "name": "phase",
+                "value": "example-value",
+                "type": "query",
+                "description": "Filter automations by pipeline phase (e.g., Idea, Assessment, Development, Testing, Production)"
+              },
+              {
+                "name": "status",
+                "value": "Active",
+                "type": "query",
+                "description": "Filter automations by status within their current phase"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of automation ideas and projects from Automation Hub. Supports filtering by phase, status, and other pipeline attributes. Returns a paginated list of automation records including metadata, cost-benefit analysis data, and submission details. Used by CoE teams to programmatically query and track the automation pipeline."
+        },
+        {
+          "info": {
+            "name": "UiPath Create an Automation Idea",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation idea in Automation Hub. The submitted idea enters the pipeline at the Idea phase and is available for assessment and prioritization by CoE administrators. The request body must include the idea name, description, submitter information, and the estimated benefit details used in cost-benefit analysis."
+        },
+        {
+          "info": {
+            "name": "UiPath Get an Automation by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Retrieves a single automation record by its unique identifier. Returns full details including pipeline phase, status, cost-benefit analysis data, collaborators, documents, and tags."
+        },
+        {
+          "info": {
+            "name": "UiPath Update an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates an automation record by its unique identifier. Commonly used to advance an automation through the pipeline by updating its phase and status. Only fields included in the request body are modified."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an automation record from Automation Hub by its unique identifier. This action removes the idea and all associated documents, comments, and collaborator data. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "UiPath List Collaborators for an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId/collaborators",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              }
+            ]
+          },
+          "docs": "Retrieves the list of collaborators assigned to a specific automation idea or project. Collaborators have defined roles such as subject matter expert, developer, or reviewer."
+        },
+        {
+          "info": {
+            "name": "UiPath Remove a Collaborator from an Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/automations/:automationId/collaborators",
+            "params": [
+              {
+                "name": "automationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique integer identifier of the automation idea or project"
+              },
+              {
+                "name": "userId",
+                "value": "12345",
+                "type": "query",
+                "description": "Unique identifier of the user to remove as a collaborator"
+              }
+            ]
+          },
+          "docs": "Removes a collaborator from an automation by their user ID. The user will lose access to collaborate on the automation idea or project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

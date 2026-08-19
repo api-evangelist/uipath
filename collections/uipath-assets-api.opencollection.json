@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts Assets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/odata/Assets",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "$filter",
+                "value": "",
+                "type": "query",
+                "description": "OData filter expression to narrow results (e.g., State eq 'Running')"
+              },
+              {
+                "name": "$top",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (default 100, max 1000)"
+              },
+              {
+                "name": "$skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of assets defined in the current folder. Assets store shared values such as credentials, text, integers, and booleans that can be consumed by automation processes. Supports OData filtering and pagination."
+        },
+        {
+          "info": {
+            "name": "UiPath Create an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/odata/Assets",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new asset in the current folder. The asset type determines the kind of value stored: Text, Integer, Bool, or Credential. Credential assets store username and password pairs securely."
+        },
+        {
+          "info": {
+            "name": "UiPath Get an Asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Retrieves a single asset by its unique integer identifier. Returns the full asset definition including type, value, and folder scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Update an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing asset by its unique integer identifier. The full asset object must be provided in the request body with the updated values."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/odata/Assets(:key)",
+            "headers": [
+              {
+                "name": "X-UIPATH-OrganizationUnitId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "The unique integer identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Permanently deletes an asset from the current folder by its unique integer identifier. This action cannot be undone. Processes that reference this asset will fail until the asset is recreated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

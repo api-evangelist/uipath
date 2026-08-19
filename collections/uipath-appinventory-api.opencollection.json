@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts AppInventory API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AppInventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Application Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination (1-based)"
+              },
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Retrieves the application inventory used for automation assessments. Each entry represents a business application that may be involved in automations. Inventory data is used in the assessment process to calculate automation complexity and effort."
+        },
+        {
+          "info": {
+            "name": "UiPath Bulk Add or Update Application Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or updates application entries in bulk. If an application with the same name already exists, it will be updated; otherwise, a new entry is created. This endpoint is designed for bulk synchronization of the application inventory from an external CMDB or asset register."
+        },
+        {
+          "info": {
+            "name": "UiPath Delete an Application from Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/appinventory/:applicationId",
+            "params": [
+              {
+                "name": "applicationId",
+                "value": "12345",
+                "type": "path",
+                "description": "Unique identifier of the application to delete"
+              }
+            ]
+          },
+          "docs": "Permanently removes an application entry from the application inventory by its unique identifier. Automations that reference this application will lose the association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts Discovery API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath List Document Understanding Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/projects",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available Document Understanding projects accessible to the authenticated user. Each project contains configuration for classifiers and extractors and provides URLs for downstream discovery operations. Use project IDs to scope classification and extraction requests to a specific project's models."
+        },
+        {
+          "info": {
+            "name": "UiPath List Extractors for a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/projects/:projectId/extractors",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available extractor models configured within a specific Document Understanding project. Each extractor is associated with a document type and defines the fields it can extract. Use the extractor ID in extraction requests to invoke the correct model."
+        },
+        {
+          "info": {
+            "name": "UiPath List Classifiers for a Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/projects/:projectId/classifiers",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Document Understanding project"
+              },
+              {
+                "name": "api-version",
+                "value": "1.0.0",
+                "type": "query",
+                "description": "API version to use for this request"
+              }
+            ]
+          },
+          "docs": "Retrieves all available classifier models configured within a specific Document Understanding project. Classifiers identify the document type of a digitized document. Specialized classifiers use machine learning models trained on specific document types; generative classifiers use large language models."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

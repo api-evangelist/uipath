@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts Licenses API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Licenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get License Allocation for a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "accountId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the organization account"
+              },
+              {
+                "name": "groupId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the user group"
+              }
+            ]
+          },
+          "docs": "Retrieves the user license allocation rule for a specific group within the organization account. Returns the license types allocated to the group and the current usage count. Requires the PM.License or PM.License.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Update License Allocation for a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/:organizationName/la/api/account/:accountId/user-license/group/:groupId",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "accountId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the organization account"
+              },
+              {
+                "name": "groupId",
+                "value": "abc123",
+                "type": "path",
+                "description": "Unique identifier of the user group"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allocates or updates user licenses for a specific group. The rule defines which license types members of this group are entitled to. This controls the licenses automatically assigned when a member of the group first logs in. Requires the PM.License OAuth scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

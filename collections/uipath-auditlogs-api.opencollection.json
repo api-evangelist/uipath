@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UiPath Automation Hub Alerts AuditLogs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AuditLogs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UiPath Get Organization Audit Event Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/:organizationName/orgaudit_/api/query/sources",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              }
+            ]
+          },
+          "docs": "Retrieves metadata about available audit event sources at the organization level. Returns the list of services that generate audit events along with available event types and categories for use as filters in the query events endpoint. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Query Organization Audit Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/:organizationName/orgaudit_/api/query/events",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event source service name"
+              },
+              {
+                "name": "maxCount",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of audit events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves audit events at the organization level filtered by time range, event source, event type, user, and other criteria. Returns a paginated list of audit events with actor information, event details, and status. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        },
+        {
+          "info": {
+            "name": "UiPath Query Tenant Audit Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/:organizationName/:tenantName/tenantaudit_/api/query/events",
+            "params": [
+              {
+                "name": "organizationName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath organization"
+              },
+              {
+                "name": "tenantName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the UiPath tenant"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of the audit event time range (ISO 8601 datetime)"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event source service name"
+              },
+              {
+                "name": "maxCount",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of audit events to return"
+              }
+            ]
+          },
+          "docs": "Retrieves audit events scoped to a specific tenant, filtered by time range, event source, event type, user, and other criteria. Tenant-level audit events cover actions within Orchestrator, Document Understanding, and other tenant-scoped services. Requires the PM.Audit or PM.Audit.Read OAuth scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
