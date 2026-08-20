@@ -252,6 +252,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Audit Logs
+  tags_raw:
   - AuditLogs
   properties:
   - type: OpenAPI
@@ -812,6 +814,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -882,6 +886,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -1302,6 +1308,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -1792,6 +1800,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Storage Buckets
+  tags_raw:
   - StorageBuckets
   properties:
   - type: OpenAPI
@@ -1862,6 +1872,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Test Cases
+  tags_raw:
   - TestCases
   properties:
   - type: OpenAPI
@@ -2002,6 +2014,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Testsets
+  tags_raw:
   - TestSets
   properties:
   - type: OpenAPI
@@ -2072,6 +2086,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -2212,6 +2228,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
