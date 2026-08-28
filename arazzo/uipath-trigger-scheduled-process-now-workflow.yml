@@ -11,8 +11,14 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: orchestratorApi
-  url: ../openapi/uipath-orchestrator-openapi.yml
+- name: jobsApi
+  url: ../openapi/uipath-jobs-api-openapi.yml
+  type: openapi
+- name: processesApi
+  url: ../openapi/uipath-processes-api-openapi.yml
+  type: openapi
+- name: schedulesApi
+  url: ../openapi/uipath-schedules-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: trigger-scheduled-process-now

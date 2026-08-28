@@ -12,8 +12,14 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: documentUnderstandingApi
-  url: ../openapi/uipath-document-understanding-openapi.yml
+- name: classificationApi
+  url: ../openapi/uipath-classification-api-openapi.yml
+  type: openapi
+- name: digitizationApi
+  url: ../openapi/uipath-digitization-api-openapi.yml
+  type: openapi
+- name: extractionApi
+  url: ../openapi/uipath-extraction-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: digitize-classify-extract

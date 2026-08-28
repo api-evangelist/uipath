@@ -10,8 +10,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: orchestratorApi
-  url: ../openapi/uipath-orchestrator-openapi.yml
+- name: queueitemsApi
+  url: ../openapi/uipath-queueitems-api-openapi.yml
+  type: openapi
+- name: queuesApi
+  url: ../openapi/uipath-queues-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: add-and-track-queue-item

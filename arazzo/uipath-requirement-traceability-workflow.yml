@@ -11,8 +11,14 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: testManagerApi
-  url: ../openapi/uipath-test-manager-openapi.yml
+- name: discoveryApi
+  url: ../openapi/uipath-discovery-api-openapi.yml
+  type: openapi
+- name: requirementsApi
+  url: ../openapi/uipath-requirements-api-openapi.yml
+  type: openapi
+- name: testcasesApi
+  url: ../openapi/uipath-testcases-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: requirement-traceability
