@@ -1812,7 +1812,7 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
-  - Storage Buckets
+  - StorageBuckets
   tags_raw:
   - StorageBuckets
   properties:
@@ -2026,7 +2026,7 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
-  - Testsets
+  - TestSets
   tags_raw:
   - TestSets
   properties:
