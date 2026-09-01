@@ -2026,7 +2026,7 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
-  - TestSets
+  - Testsets
   tags_raw:
   - TestSets
   properties:
