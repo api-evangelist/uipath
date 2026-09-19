@@ -265,6 +265,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
@@ -1109,6 +1111,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Pipelines
+  tags_raw:
   - Pipeline
   properties:
   - type: OpenAPI
@@ -1671,6 +1675,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
@@ -2237,6 +2243,8 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
+  - Testsets
+  tags_raw:
   - Test Sets
   properties:
   - type: OpenAPI
