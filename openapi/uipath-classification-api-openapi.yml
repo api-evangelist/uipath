@@ -1,24 +1,24 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: UiPath Automation Hub Alerts Classification API
-  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  title: UiPath Document Understanding Classification API
+  description: The UiPath Document Understanding API enables programmatic access to intelligent document processing capabilities including digitization, classification, extraction, and validation of document content.
   version: '1.0'
   contact:
     name: UiPath Support
     url: https://support.uipath.com
   termsOfService: https://www.uipath.com/legal/terms-of-use
 servers:
-- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
-  description: UiPath Automation Cloud Automation Hub
+- url: https://cloud.uipath.com/{organizationName}/{tenantName}/du_/api/framework
+  description: UiPath Automation Cloud Document Understanding
   variables:
-    orgName:
+    organizationName:
       default: your-org
       description: The name of your UiPath organization
     tenantName:
       default: your-tenant
       description: The name of your UiPath tenant
 security:
-- apiKeyAuth: []
+- bearerAuth: []
 tags:
 - name: Classification
   description: Classify documents into predefined document types
@@ -122,101 +122,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the Document Understanding project
-      schema:
-        type: string
-    requestId:
-      name: requestId
-      in: path
-      required: true
-      description: Unique identifier of the asynchronous job request to retrieve results for
-      schema:
-        type: string
   schemas:
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
     ClassificationRequest:
       type: object
       description: Request payload for classifying a previously digitized document
@@ -234,16 +140,6 @@ components:
             $ref: '#/components/schemas/ClassifierOption'
           description: Classifiers to apply with their configuration options
           example: []
-    ClassifierOption:
-      type: object
-      description: Configuration for applying a specific classifier
-      required:
-      - classifierId
-      properties:
-        classifierId:
-          type: string
-          description: Unique identifier of the classifier to apply
-          example: abc123
     ClassificationResult:
       type: object
       description: Result of an asynchronous classification job
@@ -273,12 +169,116 @@ components:
               items:
                 $ref: '#/components/schemas/ClassificationResultItem'
           example: example-value
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    ClassifierOption:
+      type: object
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
+      properties:
+        classifierId:
+          type: string
+          description: Unique identifier of the classifier to apply
+          example: abc123
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      description: Unique identifier of the asynchronous job request to retrieve results for
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
   securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from the UiPath Identity Server. Credentials can also be provided using App ID and App Secret for non-RPA integrations.
 externalDocs:
-  description: UiPath Automation Hub API Documentation
-  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  description: UiPath Document Understanding API Documentation
+  url: https://docs.uipath.com/document-understanding/automation-cloud/latest/api-guide/api-overview

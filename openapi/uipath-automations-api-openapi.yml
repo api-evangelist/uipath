@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: UiPath Automation Hub Alerts Automations API
-  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
+  title: UiPath Automation Hub Automations API
+  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data.
   version: '1.0'
   contact:
     name: UiPath Support
@@ -337,6 +337,30 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CreateAutomationIdeaRequest:
+      type: object
+      description: Request payload for creating a new automation idea
+      required:
+      - name
+      - description
+      properties:
+        name:
+          type: string
+          description: Display name of the automation idea
+          maxLength: 256
+          example: Example Name
+        description:
+          type: string
+          description: Detailed description of the automation opportunity
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags for categorizing the automation idea
+          example: []
     UpdateAutomationRequest:
       type: object
       description: Request payload for partially updating an automation record
@@ -364,30 +388,43 @@ components:
           example: Example description for this resource.
         estimatedBenefit:
           $ref: '#/components/schemas/BenefitData'
-    CreateAutomationIdeaRequest:
+    Collaborator:
       type: object
-      description: Request payload for creating a new automation idea
-      required:
-      - name
-      - description
+      description: A user collaborating on an automation idea or project
       properties:
+        userId:
+          type: integer
+          description: Unique integer identifier of the collaborating user
+          example: 12345
         name:
           type: string
-          description: Display name of the automation idea
-          maxLength: 256
+          description: Display name of the collaborator
           example: Example Name
-        description:
+        email:
           type: string
-          description: Detailed description of the automation opportunity
-          example: Example description for this resource.
-        estimatedBenefit:
-          $ref: '#/components/schemas/BenefitData'
-        tags:
-          type: array
-          items:
-            type: string
-          description: Tags for categorizing the automation idea
-          example: []
+          format: email
+          description: Email address of the collaborator
+          example: user@example.com
+        role:
+          type: string
+          description: Role of this collaborator on the automation
+          example: example-value
+    BenefitData:
+      type: object
+      description: Estimated cost-benefit analysis data for an automation idea
+      properties:
+        estimatedTimeSavingsPerYear:
+          type: number
+          description: Estimated hours saved per year by automating this process
+          example: 1.0
+        estimatedFTESavings:
+          type: number
+          description: Full-time equivalent headcount savings from the automation
+          example: 1.0
+        estimatedCostSavingsPerYear:
+          type: number
+          description: Estimated monetary cost savings per year in the organization's currency
+          example: 1.0
     Automation:
       type: object
       description: An automation idea or project in the Automation Hub pipeline
@@ -443,34 +480,6 @@ components:
             type: string
           description: Tags associated with the automation for categorization
           example: []
-    BenefitData:
-      type: object
-      description: Estimated cost-benefit analysis data for an automation idea
-      properties:
-        estimatedTimeSavingsPerYear:
-          type: number
-          description: Estimated hours saved per year by automating this process
-          example: 1.0
-        estimatedFTESavings:
-          type: number
-          description: Full-time equivalent headcount savings from the automation
-          example: 1.0
-        estimatedCostSavingsPerYear:
-          type: number
-          description: Estimated monetary cost savings per year in the organization's currency
-          example: 1.0
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        code:
-          type: integer
-          description: Numeric error code
-          example: 1
     AutomationListResponse:
       type: object
       description: Paginated response containing automation records
@@ -492,36 +501,29 @@ components:
           items:
             $ref: '#/components/schemas/Automation'
           example: []
-    Collaborator:
+    ErrorResponse:
       type: object
-      description: A user collaborating on an automation idea or project
+      description: Standard error response body
       properties:
-        userId:
-          type: integer
-          description: Unique integer identifier of the collaborating user
-          example: 12345
-        name:
+        message:
           type: string
-          description: Display name of the collaborator
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: Email address of the collaborator
-          example: user@example.com
-        role:
-          type: string
-          description: Role of this collaborator on the automation
+          description: Human-readable error message
           example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
+  parameters:
+    automationId:
+      name: automationId
+      in: path
+      required: true
+      description: Unique integer identifier of the automation idea or project
+      schema:
+        type: integer
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -532,20 +534,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    automationId:
-      name: automationId
-      in: path
-      required: true
-      description: Unique integer identifier of the automation idea or project
-      schema:
-        type: integer
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

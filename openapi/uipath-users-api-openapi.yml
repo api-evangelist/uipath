@@ -1,12 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: UiPath Automation Hub Alerts Users API
-  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
-  version: '1.0'
+  title: Uipath Users API
   contact:
     name: UiPath Support
     url: https://support.uipath.com
   termsOfService: https://www.uipath.com/legal/terms-of-use
+  version: '1.0'
+  description: 'Operations tagged Users across 3 of this provider''s published API definitions: uipath-automation-hub-openapi.yml, uipath-orchestrator-openapi.yml, uipath-platform-management-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
   description: UiPath Automation Cloud Automation Hub
@@ -17,8 +17,17 @@ servers:
     tenantName:
       default: your-tenant
       description: The name of your UiPath tenant
-security:
-- apiKeyAuth: []
+- url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+  description: UiPath Automation Cloud Orchestrator
+  variables:
+    organizationName:
+      default: your-org
+      description: The name of your UiPath organization
+    tenantName:
+      default: your-tenant
+      description: The name of your UiPath tenant
+- url: https://cloud.uipath.com
+  description: UiPath Automation Cloud Platform
 tags:
 - name: Users
   description: Manage users and their roles within Automation Hub
@@ -70,6 +79,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+      description: UiPath Automation Cloud Automation Hub
+      variables:
+        orgName:
+          default: your-org
+          description: The name of your UiPath organization
+        tenantName:
+          default: your-tenant
+          description: The name of your UiPath tenant
   /adduser:
     post:
       operationId: addUser
@@ -114,6 +135,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+      description: UiPath Automation Cloud Automation Hub
+      variables:
+        orgName:
+          default: your-org
+          description: The name of your UiPath organization
+        tenantName:
+          default: your-tenant
+          description: The name of your UiPath tenant
   /edituser:
     post:
       operationId: editUser
@@ -159,6 +192,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+      description: UiPath Automation Cloud Automation Hub
+      variables:
+        orgName:
+          default: your-org
+          description: The name of your UiPath organization
+        tenantName:
+          default: your-tenant
+          description: The name of your UiPath tenant
   /roles:
     get:
       operationId: listRoles
@@ -192,6 +237,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - apiKeyAuth: []
+    servers:
+    - url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
+      description: UiPath Automation Cloud Automation Hub
+      variables:
+        orgName:
+          default: your-org
+          description: The name of your UiPath organization
+        tenantName:
+          default: your-tenant
+          description: The name of your UiPath tenant
   /odata/Users:
     get:
       operationId: listUsers
@@ -229,6 +286,18 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
+      description: UiPath Automation Cloud Orchestrator
+      variables:
+        organizationName:
+          default: your-org
+          description: The name of your UiPath organization
+        tenantName:
+          default: your-tenant
+          description: The name of your UiPath tenant
   /{organizationName}/identity_/api/User/{userId}:
     get:
       operationId: getUser
@@ -266,6 +335,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - bearerAuth: []
     delete:
       operationId: deleteUser
       summary: UiPath Delete a User
@@ -287,6 +358,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://cloud.uipath.com
+      description: UiPath Automation Cloud Platform
   /{organizationName}/identity_/api/User:
     post:
       operationId: createUser
@@ -336,66 +412,67 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://cloud.uipath.com
+      description: UiPath Automation Cloud Platform
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse_3'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: Unique identifier of the user
-      schema:
-        type: string
-    organizationName:
-      name: organizationName
-      in: path
-      required: true
-      description: The name of the UiPath organization
-      schema:
-        type: string
-    odataTop:
-      name: $top
-      in: query
-      required: false
-      description: Maximum number of records to return (default 100, max 1000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
   schemas:
+    UserListResponse:
+      type: object
+      description: Paginated response containing user records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of users
+          example: 42
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          example: []
+    User:
+      type: object
+      description: A user in Automation Hub
+      properties:
+        id:
+          type: integer
+          description: Unique integer identifier of the user
+          example: 12345
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        role:
+          type: string
+          description: Role assigned to the user in Automation Hub
+          example: example-value
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+    AddUserRequest:
+      type: object
+      description: Request payload for adding a new user to Automation Hub
+      required:
+      - email
+      - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to add
+          example: user@example.com
+        role:
+          type: string
+          description: Role to assign to the user
+          example: example-value
     EditUserRequest:
       type: object
       description: Request payload for updating an existing user in Automation Hub
@@ -430,35 +507,18 @@ components:
           type: string
           description: Description of the permissions granted by this role
           example: Example description for this resource.
-    AddUserRequest:
+    ErrorResponse:
       type: object
-      description: Request payload for adding a new user to Automation Hub
-      required:
-      - email
-      - role
+      description: Standard error response body
       properties:
-        email:
+        message:
           type: string
-          format: email
-          description: Email address of the user to add
-          example: user@example.com
-        role:
-          type: string
-          description: Role to assign to the user
+          description: Human-readable error message
           example: example-value
-    UserListResponse:
-      type: object
-      description: Paginated response containing user records
-      properties:
-        totalCount:
+        code:
           type: integer
-          description: Total number of users
-          example: 42
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-          example: []
+          description: Numeric error code
+          example: 1
     ODataUserCollection:
       type: object
       description: OData collection response containing users
@@ -486,14 +546,30 @@ components:
                 type: boolean
                 description: Whether the user account is active
           example: []
-    User:
+    ErrorResponse_2:
       type: object
-      description: A user in Automation Hub
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    User_2:
+      type: object
+      description: A user account in the UiPath organization
       properties:
         id:
-          type: integer
-          description: Unique integer identifier of the user
-          example: 12345
+          type: string
+          description: Unique identifier of the user
+          example: abc123
         name:
           type: string
           description: Display name of the user
@@ -503,26 +579,20 @@ components:
           format: email
           description: Email address of the user
           example: user@example.com
-        role:
-          type: string
-          description: Role assigned to the user in Automation Hub
-          example: example-value
         isActive:
           type: boolean
           description: Whether the user account is active
           example: true
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
+        createdOn:
           type: string
-          description: Human-readable error message
-          example: example-value
-        code:
-          type: integer
-          description: Numeric error code
-          example: 1
+          format: date-time
+          description: ISO 8601 timestamp when the user was created
+          example: '2026-01-15T10:30:00Z'
+        lastLoginDate:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the user's most recent login
+          example: '2026-01-15T10:30:00Z'
     CreateUserRequest:
       type: object
       description: Request payload for creating a new user account
@@ -559,43 +629,76 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
-    User_2:
-      type: object
-      description: A user account in the UiPath organization
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the user
-          example: abc123
-        name:
-          type: string
-          description: Display name of the user
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: Email address of the user
-          example: user@example.com
-        isActive:
-          type: boolean
-          description: Whether the user account is active
-          example: true
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the user was created
-          example: '2026-01-15T10:30:00Z'
-        lastLoginDate:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the user's most recent login
-          example: '2026-01-15T10:30:00Z'
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse_3'
+  parameters:
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    organizationName:
+      name: organizationName
+      in: path
+      required: true
+      description: The name of the UiPath organization
+      schema:
+        type: string
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: Unique identifier of the user
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
       in: header
       name: Authorization
       description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
-externalDocs:
-  description: UiPath Automation Hub API Documentation
-  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from the UiPath Identity Server. Use the client credentials or authorization code flow to obtain a token with the required Orchestrator scopes.
+x-refined-from:
+- uipath-automation-hub-openapi.yml
+- uipath-orchestrator-openapi.yml
+- uipath-platform-management-openapi.yml

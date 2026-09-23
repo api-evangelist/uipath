@@ -1,26 +1,26 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: UiPath Automation Hub Alerts TestExecutions API
-  description: The UiPath Automation Hub API provides access to the automation pipeline and idea management platform, allowing developers to programmatically create, retrieve, and manage automation ideas, projects, and pipeline data. The API is accessible at the tenant-scoped endpoint https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1/ and uses token-based authentication generated from the Automation Hub Admin Console. It is designed for organizations building Center of Excellence workflows, integrating Automation Hub data with external tools, or automating pipeline governance processes. A Postman collection and Swagger interface are available for exploring and testing endpoints.
-  version: '1.0'
+  title: UiPath Test Manager Test Executions API
+  description: The UiPath Test Manager API allows external tools and systems to integrate with UiPath's test management platform for managing test projects, test cases, test sets, requirements, and execution results programmatically.
+  version: '2'
   contact:
     name: UiPath Support
     url: https://support.uipath.com
   termsOfService: https://www.uipath.com/legal/terms-of-use
 servers:
-- url: https://cloud.uipath.com/{orgName}/{tenantName}/automationhub_/api/v1
-  description: UiPath Automation Cloud Automation Hub
+- url: https://cloud.uipath.com/{organizationName}/{tenantName}/testmanager_
+  description: UiPath Automation Cloud Test Manager
   variables:
-    orgName:
+    organizationName:
       default: your-org
       description: The name of your UiPath organization
     tenantName:
       default: your-tenant
       description: The name of your UiPath tenant
 security:
-- apiKeyAuth: []
+- bearerAuth: []
 tags:
-- name: TestExecutions
+- name: Test Executions
   description: Retrieve test execution results and logs
 paths:
   /api/v2/projects/{projectId}/testexecutions:
@@ -29,7 +29,7 @@ paths:
       summary: UiPath List Test Executions in a Project
       description: Retrieves test execution results within a specific test project. Test executions represent runs of test sets and contain the aggregate pass/fail status across all included test cases. References to individual test case log objects are included for drill-down.
       tags:
-      - TestExecutions
+      - Test Executions
       parameters:
       - $ref: '#/components/parameters/projectId'
         example: example-value
@@ -129,18 +129,6 @@ components:
           type: integer
           description: Number of test cases that could not be executed
           example: 1
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
     TestExecutionListResponse:
       type: object
       description: Paginated response containing test executions
@@ -154,15 +142,27 @@ components:
           items:
             $ref: '#/components/schemas/TestExecution'
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
   responses:
-    NotFound:
-      description: The requested resource was not found
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -176,11 +176,11 @@ components:
       schema:
         type: string
   securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: 'API token generated from the Automation Hub Admin Console under Platform Setup > Open API. Include as a Bearer token in the Authorization header: "Bearer {token}".'
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from the UiPath Identity Server. Test Manager API scopes include TM.Projects, TM.TestCases, TM.TestSets, TM.Requirements, and their read-only variants.
 externalDocs:
-  description: UiPath Automation Hub API Documentation
-  url: https://docs.uipath.com/automation-hub/automation-cloud/latest/api-guide/introduction-to-automation-hub-api-1
+  description: UiPath Test Manager API Documentation
+  url: https://docs.uipath.com/test-manager/automation-cloud/latest/user-guide/test-manager-api-integration
