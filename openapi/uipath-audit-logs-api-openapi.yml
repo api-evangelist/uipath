@@ -141,6 +141,15 @@ components:
             type: string
           description: List of event target categories for this source
           example: []
+    AuditSources:
+      type: object
+      description: Available audit event sources and categories
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditSource'
+          example: []
     AuditEventCollection:
       type: object
       description: Collection of audit events with pagination links
@@ -160,6 +169,34 @@ components:
           format: uri
           description: URL to retrieve older audit events relative to the current result set
           example: https://cloud.uipath.com/example
+    ClientInfo:
+      type: object
+      description: Client connection information for an audit event
+      properties:
+        ipAddress:
+          type: string
+          description: IP address from which the action was performed
+          example: example-value
+        country:
+          type: string
+          description: Country resolved from the IP address
+          example: 42
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     AuditEvent:
       type: object
       description: A single audit event record
@@ -216,59 +253,14 @@ components:
           example: 0
         clientInfo:
           $ref: '#/components/schemas/ClientInfo'
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    ClientInfo:
-      type: object
-      description: Client connection information for an audit event
-      properties:
-        ipAddress:
-          type: string
-          description: IP address from which the action was performed
-          example: example-value
-        country:
-          type: string
-          description: Country resolved from the IP address
-          example: 42
-    AuditSources:
-      type: object
-      description: Available audit event sources and categories
-      properties:
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditSource'
-          example: []
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    auditTo:
-      name: to
-      in: query
-      required: false
-      description: End of the audit event time range (ISO 8601 datetime)
-      schema:
-        type: string
-        format: date-time
-    organizationName:
-      name: organizationName
-      in: path
-      required: true
-      description: The name of the UiPath organization
-      schema:
-        type: string
     auditMaxCount:
       name: maxCount
       in: query
@@ -278,13 +270,21 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    tenantName:
-      name: tenantName
+    organizationName:
+      name: organizationName
       in: path
       required: true
-      description: The name of the UiPath tenant
+      description: The name of the UiPath organization
       schema:
         type: string
+    auditFrom:
+      name: from
+      in: query
+      required: false
+      description: Start of the audit event time range (ISO 8601 datetime)
+      schema:
+        type: string
+        format: date-time
     auditSource:
       name: source
       in: query
@@ -294,21 +294,21 @@ components:
         type: array
         items:
           type: string
-    auditFrom:
-      name: from
+    auditTo:
+      name: to
       in: query
       required: false
-      description: Start of the audit event time range (ISO 8601 datetime)
+      description: End of the audit event time range (ISO 8601 datetime)
       schema:
         type: string
         format: date-time
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    tenantName:
+      name: tenantName
+      in: path
+      required: true
+      description: The name of the UiPath tenant
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

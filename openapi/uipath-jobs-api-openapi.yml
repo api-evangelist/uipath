@@ -206,87 +206,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    odataOrderby:
-      name: $orderby
-      in: query
-      required: false
-      description: OData orderby clause (e.g., CreationTime desc)
-      schema:
-        type: string
-    odataTop:
-      name: $top
-      in: query
-      required: false
-      description: Maximum number of records to return (default 100, max 1000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
-    xUiPathOrganizationUnitId:
-      name: X-UIPATH-OrganizationUnitId
-      in: header
-      required: false
-      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
-      schema:
-        type: integer
-        format: int64
-    entityKey:
-      name: key
-      in: path
-      required: true
-      description: The unique integer identifier of the entity
-      schema:
-        type: integer
-        format: int64
-    odataSelect:
-      name: $select
-      in: query
-      required: false
-      description: Comma-separated list of property names to include in the response
-      schema:
-        type: string
   schemas:
-    ODataJobCollection:
-      type: object
-      description: OData collection response containing jobs
-      properties:
-        '@odata.context':
-          type: string
-          description: OData context URL
-          example: example-value
-        '@odata.count':
-          type: integer
-          description: Total number of matching records (when $count=true)
-          example: 42
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-          example: []
-    StartJobsRequest:
-      type: object
-      description: Request payload for starting one or more automation jobs
-      required:
-      - startInfo
-      properties:
-        startInfo:
-          $ref: '#/components/schemas/StartInfo'
     Job:
       type: object
       description: Represents a single automation job execution instance
@@ -421,6 +341,30 @@ components:
           - High
           description: Priority level for the job queue
           example: Low
+    StartJobsRequest:
+      type: object
+      description: Request payload for starting one or more automation jobs
+      required:
+      - startInfo
+      properties:
+        startInfo:
+          $ref: '#/components/schemas/StartInfo'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     StopJobRequest:
       type: object
       description: Request payload for stopping a running job
@@ -440,6 +384,23 @@ components:
           - Kill
           description: Stop strategy. SoftStop waits for the current activity to complete before stopping; Kill immediately terminates the robot process.
           example: SoftStop
+    ODataJobCollection:
+      type: object
+      description: OData collection response containing jobs
+      properties:
+        '@odata.context':
+          type: string
+          description: OData context URL
+          example: example-value
+        '@odata.count':
+          type: integer
+          description: Total number of matching records (when $count=true)
+          example: 42
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+          example: []
     RobotRef:
       type: object
       description: A lightweight reference to a robot associated with a job
@@ -478,25 +439,9 @@ components:
           - HeadlessUnattended
           description: Licensing type of the robot
           example: Unattended
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
       content:
         application/json:
           schema:
@@ -507,8 +452,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -519,6 +464,61 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    odataSelect:
+      name: $select
+      in: query
+      required: false
+      description: Comma-separated list of property names to include in the response
+      schema:
+        type: string
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
+    odataOrderby:
+      name: $orderby
+      in: query
+      required: false
+      description: OData orderby clause (e.g., CreationTime desc)
+      schema:
+        type: string
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

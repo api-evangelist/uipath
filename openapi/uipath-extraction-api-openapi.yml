@@ -123,52 +123,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    FieldValue:
-      type: object
-      description: The extracted value with confidence and source reference
-      properties:
-        Value:
-          description: Extracted value, which may be a string, number, or object depending on field type
-          example: example-value
-        Confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score for the extracted value (0.0 to 1.0)
-          example: 1.0
-        OcrConfidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: OCR confidence score for the text underlying this value
-          example: 1.0
-        TextType:
-          type: string
-          enum:
-          - Printed
-          - Handwritten
-          description: Whether the source text was printed or handwritten
-          example: Printed
-    ExtractedField:
-      type: object
-      description: A single extracted field with its value and confidence metadata
-      properties:
-        FieldId:
-          type: string
-          description: Identifier of the extracted field as defined in the extractor schema
-          example: abc123
-        FieldName:
-          type: string
-          description: Display name of the extracted field
-          example: Example Name
-        IsMissing:
-          type: boolean
-          description: Whether the field was not found in the document
-          example: true
-        Value:
-          $ref: '#/components/schemas/FieldValue'
     ExtractionRequest:
       type: object
       description: Request payload for extracting data from a previously digitized document
@@ -189,6 +143,34 @@ components:
           items:
             $ref: '#/components/schemas/ExtractorOption'
           description: Extractors to apply with their configuration options
+          example: []
+    ExtractorOption:
+      type: object
+      description: Configuration for applying a specific extractor
+      required:
+      - extractorId
+      properties:
+        extractorId:
+          type: string
+          description: Unique identifier of the extractor to apply
+          example: abc123
+    ExtractionResultData:
+      type: object
+      description: Structured extraction result containing field values and confidence scores
+      properties:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
+          type: string
+          description: Document identifier of the extracted document
+          example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
           example: []
     ExtractionResult:
       type: object
@@ -217,33 +199,39 @@ components:
             extractionResult:
               $ref: '#/components/schemas/ExtractionResultData'
           example: example-value
-    ExtractionResultData:
+    ExtractedField:
       type: object
-      description: Structured extraction result containing field values and confidence scores
+      description: A single extracted field with its value and confidence metadata
       properties:
-        ResultsVersion:
-          type: integer
-          description: Version of the extraction results format
-          example: 1.0.0
-        DocumentId:
+        FieldId:
           type: string
-          description: Document identifier of the extracted document
+          description: Identifier of the extracted field as defined in the extractor schema
           example: abc123
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractedField'
-          description: List of extracted field values
-          example: []
-    ExtractorOption:
-      type: object
-      description: Configuration for applying a specific extractor
-      required:
-      - extractorId
-      properties:
-        extractorId:
+        FieldName:
           type: string
-          description: Unique identifier of the extractor to apply
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
           example: abc123
     AsyncJobStartResponse:
       type: object
@@ -262,31 +250,43 @@ components:
           - Succeeded
           description: Initial status of the asynchronous job
           example: NotStarted
-    ErrorResponse:
+    FieldValue:
       type: object
-      description: Standard error response body
+      description: The extracted value with confidence and source reference
       properties:
-        message:
-          type: string
-          description: Human-readable error message
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
           example: example-value
-        errorCode:
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
           type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

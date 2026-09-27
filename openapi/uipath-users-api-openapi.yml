@@ -251,7 +251,7 @@ paths:
           description: The name of your UiPath tenant
   /odata/Users:
     get:
-      operationId: listUsers
+      operationId: getOdataUsers
       summary: UiPath List Users
       description: Retrieves a list of users registered in Orchestrator. Each user has associated roles, robot configurations, and folder memberships. Supports OData filtering and pagination.
       tags:
@@ -288,6 +288,8 @@ paths:
         dispatcher: FALLBACK
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: listUsers
     servers:
     - url: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
       description: UiPath Automation Cloud Orchestrator
@@ -419,78 +421,6 @@ paths:
       description: UiPath Automation Cloud Platform
 components:
   schemas:
-    UserListResponse:
-      type: object
-      description: Paginated response containing user records
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of users
-          example: 42
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-          example: []
-    User:
-      type: object
-      description: A user in Automation Hub
-      properties:
-        id:
-          type: integer
-          description: Unique integer identifier of the user
-          example: 12345
-        name:
-          type: string
-          description: Display name of the user
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: Email address of the user
-          example: user@example.com
-        role:
-          type: string
-          description: Role assigned to the user in Automation Hub
-          example: example-value
-        isActive:
-          type: boolean
-          description: Whether the user account is active
-          example: true
-    AddUserRequest:
-      type: object
-      description: Request payload for adding a new user to Automation Hub
-      required:
-      - email
-      - role
-      properties:
-        email:
-          type: string
-          format: email
-          description: Email address of the user to add
-          example: user@example.com
-        role:
-          type: string
-          description: Role to assign to the user
-          example: example-value
-    EditUserRequest:
-      type: object
-      description: Request payload for updating an existing user in Automation Hub
-      required:
-      - id
-      properties:
-        id:
-          type: integer
-          description: Unique identifier of the user to update
-          example: 12345
-        role:
-          type: string
-          description: Updated role to assign to the user
-          example: example-value
-        isActive:
-          type: boolean
-          description: Updated active status for the user account
-          example: true
     Role:
       type: object
       description: A role defining a set of permissions in Automation Hub
@@ -519,6 +449,78 @@ components:
           type: integer
           description: Numeric error code
           example: 1
+    UserListResponse:
+      type: object
+      description: Paginated response containing user records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of users
+          example: 42
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          example: []
+    AddUserRequest:
+      type: object
+      description: Request payload for adding a new user to Automation Hub
+      required:
+      - email
+      - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to add
+          example: user@example.com
+        role:
+          type: string
+          description: Role to assign to the user
+          example: example-value
+    User:
+      type: object
+      description: A user in Automation Hub
+      properties:
+        id:
+          type: integer
+          description: Unique integer identifier of the user
+          example: 12345
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        role:
+          type: string
+          description: Role assigned to the user in Automation Hub
+          example: example-value
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+    EditUserRequest:
+      type: object
+      description: Request payload for updating an existing user in Automation Hub
+      required:
+      - id
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the user to update
+          example: 12345
+        role:
+          type: string
+          description: Updated role to assign to the user
+          example: example-value
+        isActive:
+          type: boolean
+          description: Updated active status for the user account
+          example: true
     ODataUserCollection:
       type: object
       description: OData collection response containing users
@@ -562,37 +564,6 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
-    User_2:
-      type: object
-      description: A user account in the UiPath organization
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the user
-          example: abc123
-        name:
-          type: string
-          description: Display name of the user
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: Email address of the user
-          example: user@example.com
-        isActive:
-          type: boolean
-          description: Whether the user account is active
-          example: true
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the user was created
-          example: '2026-01-15T10:30:00Z'
-        lastLoginDate:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the user's most recent login
-          example: '2026-01-15T10:30:00Z'
     CreateUserRequest:
       type: object
       description: Request payload for creating a new user account
@@ -629,15 +600,46 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    User_2:
+      type: object
+      description: A user account in the UiPath organization
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the user
+          example: abc123
+        name:
+          type: string
+          description: Display name of the user
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the user
+          example: user@example.com
+        isActive:
+          type: boolean
+          description: Whether the user account is active
+          example: true
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the user was created
+          example: '2026-01-15T10:30:00Z'
+        lastLoginDate:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the user's most recent login
+          example: '2026-01-15T10:30:00Z'
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -649,6 +651,21 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse_3'
   parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -658,19 +675,11 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
+    userId:
+      name: userId
+      in: path
+      required: true
+      description: Unique identifier of the user
       schema:
         type: string
     organizationName:
@@ -678,13 +687,6 @@ components:
       in: path
       required: true
       description: The name of the UiPath organization
-      schema:
-        type: string
-    userId:
-      name: userId
-      in: path
-      required: true
-      description: Unique identifier of the user
       schema:
         type: string
   securitySchemes:

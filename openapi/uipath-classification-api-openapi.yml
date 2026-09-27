@@ -140,6 +140,76 @@ components:
             $ref: '#/components/schemas/ClassifierOption'
           description: Classifiers to apply with their configuration options
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ClassifierOption:
+      type: object
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
+      properties:
+        classifierId:
+          type: string
+          description: Unique identifier of the classifier to apply
+          example: abc123
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
     ClassificationResult:
       type: object
       description: Result of an asynchronous classification job
@@ -169,85 +239,15 @@ components:
               items:
                 $ref: '#/components/schemas/ClassificationResultItem'
           example: example-value
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
-    ClassifierOption:
-      type: object
-      description: Configuration for applying a specific classifier
-      required:
-      - classifierId
-      properties:
-        classifierId:
-          type: string
-          description: Unique identifier of the classifier to apply
-          example: abc123
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

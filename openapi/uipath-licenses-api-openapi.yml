@@ -138,28 +138,6 @@ components:
           type: integer
           description: Number of licenses currently consumed by group members
           example: 42
-    UpdateGroupLicenseAllocationRequest:
-      type: object
-      description: Request payload for updating license allocation for a group
-      properties:
-        userLicenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseAllocationEntry'
-          example: []
-    GroupLicenseAllocation:
-      type: object
-      description: License allocation rule for a user group
-      properties:
-        groupId:
-          type: string
-          description: Unique identifier of the group this allocation applies to
-          example: abc123
-        userLicenses:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseAllocationEntry'
-          example: []
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -176,15 +154,37 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    GroupLicenseAllocation:
+      type: object
+      description: License allocation rule for a user group
+      properties:
+        groupId:
+          type: string
+          description: Unique identifier of the group this allocation applies to
+          example: abc123
+        userLicenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAllocationEntry'
+          example: []
+    UpdateGroupLicenseAllocationRequest:
+      type: object
+      description: Request payload for updating license allocation for a group
+      properties:
+        userLicenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseAllocationEntry'
+          example: []
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

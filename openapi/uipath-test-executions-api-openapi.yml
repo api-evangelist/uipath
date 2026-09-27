@@ -76,6 +76,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TestExecutionListResponse:
+      type: object
+      description: Paginated response containing test executions
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test executions
+          example: 42
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestExecution'
+          example: []
     TestExecution:
       type: object
       description: A test set execution run with aggregated results
@@ -129,19 +142,6 @@ components:
           type: integer
           description: Number of test cases that could not be executed
           example: 1
-    TestExecutionListResponse:
-      type: object
-      description: Paginated response containing test executions
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of test executions
-          example: 42
-        executions:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestExecution'
-          example: []
     ErrorResponse:
       type: object
       description: Standard error response body

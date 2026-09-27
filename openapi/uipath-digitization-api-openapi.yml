@@ -102,6 +102,22 @@ components:
           type: string
           description: Base64-encoded document content when submitting inline
           example: example-value
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     DigitizationResult:
       type: object
       description: Result of a document digitization operation
@@ -121,31 +137,15 @@ components:
           type: integer
           description: Number of pages detected in the document
           example: 42
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

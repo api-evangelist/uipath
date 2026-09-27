@@ -109,16 +109,21 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    odataTop:
-      name: $top
+    odataFilter:
+      name: $filter
       in: query
       required: false
-      description: Maximum number of records to return (default 100, max 1000)
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
+        type: string
     odataSkip:
       name: $skip
       in: query
@@ -127,13 +132,6 @@ components:
       schema:
         type: integer
         minimum: 0
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header
@@ -149,13 +147,15 @@ components:
       description: OData orderby clause (e.g., CreationTime desc)
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

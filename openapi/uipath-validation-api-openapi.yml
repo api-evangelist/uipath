@@ -86,79 +86,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    FieldValue:
-      type: object
-      description: The extracted value with confidence and source reference
-      properties:
-        Value:
-          description: Extracted value, which may be a string, number, or object depending on field type
-          example: example-value
-        Confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score for the extracted value (0.0 to 1.0)
-          example: 1.0
-        OcrConfidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: OCR confidence score for the text underlying this value
-          example: 1.0
-        TextType:
-          type: string
-          enum:
-          - Printed
-          - Handwritten
-          description: Whether the source text was printed or handwritten
-          example: Printed
-    ExtractedField:
-      type: object
-      description: A single extracted field with its value and confidence metadata
-      properties:
-        FieldId:
-          type: string
-          description: Identifier of the extracted field as defined in the extractor schema
-          example: abc123
-        FieldName:
-          type: string
-          description: Display name of the extracted field
-          example: Example Name
-        IsMissing:
-          type: boolean
-          description: Whether the field was not found in the document
-          example: true
-        Value:
-          $ref: '#/components/schemas/FieldValue'
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
     ExtractionResultData:
       type: object
       description: Structured extraction result containing field values and confidence scores
@@ -177,6 +104,40 @@ components:
             $ref: '#/components/schemas/ExtractedField'
           description: List of extracted field values
           example: []
+    ExtractedField:
+      type: object
+      description: A single extracted field with its value and confidence metadata
+      properties:
+        FieldId:
+          type: string
+          description: Identifier of the extracted field as defined in the extractor schema
+          example: abc123
+        FieldName:
+          type: string
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     ValidationRequest:
       type: object
       description: Request payload for validating document processing results
@@ -208,31 +169,70 @@ components:
           - Succeeded
           description: Initial status of the asynchronous job
           example: NotStarted
-    ErrorResponse:
+    ClassificationResultItem:
       type: object
-      description: Standard error response body
+      description: Classification result for a specific document or page range
       properties:
-        message:
+        classifierId:
           type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
+          description: Identifier of the classifier that produced this result
           example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    FieldValue:
+      type: object
+      description: The extracted value with confidence and source reference
+      properties:
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
+          example: example-value
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
+          type: string
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

@@ -336,58 +336,52 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    automationId:
+      name: automationId
+      in: path
+      required: true
+      description: Unique integer identifier of the automation idea or project
+      schema:
+        type: integer
+  responses:
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    CreateAutomationIdeaRequest:
+    ErrorResponse:
       type: object
-      description: Request payload for creating a new automation idea
-      required:
-      - name
-      - description
+      description: Standard error response body
       properties:
-        name:
+        message:
           type: string
-          description: Display name of the automation idea
-          maxLength: 256
-          example: Example Name
-        description:
-          type: string
-          description: Detailed description of the automation opportunity
-          example: Example description for this resource.
-        estimatedBenefit:
-          $ref: '#/components/schemas/BenefitData'
-        tags:
-          type: array
-          items:
-            type: string
-          description: Tags for categorizing the automation idea
-          example: []
-    UpdateAutomationRequest:
-      type: object
-      description: Request payload for partially updating an automation record
-      properties:
-        phase:
-          type: string
-          enum:
-          - Idea
-          - Assessment
-          - Analysis
-          - Development
-          - Testing
-          - Production
-          - OnHold
-          - Rejected
-          description: Updated pipeline phase for the automation
-          example: Idea
-        status:
-          type: string
-          description: Updated status within the current phase
-          example: Active
-        description:
-          type: string
-          description: Updated description of the automation
-          example: Example description for this resource.
-        estimatedBenefit:
-          $ref: '#/components/schemas/BenefitData'
+          description: Human-readable error message
+          example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
     Collaborator:
       type: object
       description: A user collaborating on an automation idea or project
@@ -425,6 +419,54 @@ components:
           type: number
           description: Estimated monetary cost savings per year in the organization's currency
           example: 1.0
+    UpdateAutomationRequest:
+      type: object
+      description: Request payload for partially updating an automation record
+      properties:
+        phase:
+          type: string
+          enum:
+          - Idea
+          - Assessment
+          - Analysis
+          - Development
+          - Testing
+          - Production
+          - OnHold
+          - Rejected
+          description: Updated pipeline phase for the automation
+          example: Idea
+        status:
+          type: string
+          description: Updated status within the current phase
+          example: Active
+        description:
+          type: string
+          description: Updated description of the automation
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+    AutomationListResponse:
+      type: object
+      description: Paginated response containing automation records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of automations matching the query
+          example: 42
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        pageSize:
+          type: integer
+          description: Number of records per page
+          example: 1
+        automations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Automation'
+          example: []
     Automation:
       type: object
       description: An automation idea or project in the Automation Hub pipeline
@@ -480,72 +522,30 @@ components:
             type: string
           description: Tags associated with the automation for categorization
           example: []
-    AutomationListResponse:
+    CreateAutomationIdeaRequest:
       type: object
-      description: Paginated response containing automation records
+      description: Request payload for creating a new automation idea
+      required:
+      - name
+      - description
       properties:
-        totalCount:
-          type: integer
-          description: Total number of automations matching the query
-          example: 42
-        page:
-          type: integer
-          description: Current page number
-          example: 1
-        pageSize:
-          type: integer
-          description: Number of records per page
-          example: 1
-        automations:
+        name:
+          type: string
+          description: Display name of the automation idea
+          maxLength: 256
+          example: Example Name
+        description:
+          type: string
+          description: Detailed description of the automation opportunity
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+        tags:
           type: array
           items:
-            $ref: '#/components/schemas/Automation'
+            type: string
+          description: Tags for categorizing the automation idea
           example: []
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        code:
-          type: integer
-          description: Numeric error code
-          example: 1
-  parameters:
-    automationId:
-      name: automationId
-      in: path
-      required: true
-      description: Unique integer identifier of the automation idea or project
-      schema:
-        type: integer
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

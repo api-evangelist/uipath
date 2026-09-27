@@ -37,6 +37,15 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/uipath.png
 tags:
   - Automation
+  - RPA
+  - Artificial Intelligence
+  - Document Processing
+  - Enterprise Automation
+  - Orchestration
+  - Testing
+  - Workflow Automation
+tags_raw:
+  - Automation
   - Robotic Process Automation
   - RPA
   - Artificial Intelligence
@@ -44,6 +53,7 @@ tags:
   - Enterprise Automation
   - Orchestration
   - Testing
+  - Workflow-Automation
 url: https://raw.githubusercontent.com/api-evangelist/uipath/refs/heads/main/apis.yml
 created: '2025-01-01'
 modified: '2026-05-19'
@@ -2243,8 +2253,6 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
-  - Testsets
-  tags_raw:
   - Test Sets
   properties:
   - type: OpenAPI

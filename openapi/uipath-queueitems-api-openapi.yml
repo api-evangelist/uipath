@@ -122,6 +122,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     AddQueueItemRequest:
       type: object
       description: Request payload for adding a new item to a queue
@@ -130,15 +146,6 @@ components:
       properties:
         itemData:
           $ref: '#/components/schemas/QueueItemData'
-    ODataQueueItemCollection:
-      type: object
-      description: OData collection response containing queue items
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueueItem'
-          example: []
     QueueItem:
       type: object
       description: A single transaction item in a queue
@@ -262,23 +269,36 @@ components:
           format: date-time
           description: Optional earliest time at which the item may be processed
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
+    ODataQueueItemCollection:
       type: object
-      description: Standard error response body
+      description: OData collection response containing queue items
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueItem'
+          example: []
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
     odataTop:
       name: $top
       in: query
@@ -288,13 +308,6 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
     odataSkip:
       name: $skip
       in: query
@@ -318,19 +331,6 @@ components:
       description: OData orderby clause (e.g., CreationTime desc)
       schema:
         type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

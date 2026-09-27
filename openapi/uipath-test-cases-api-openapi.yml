@@ -166,27 +166,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CreateTestCaseRequest:
-      type: object
-      description: Request payload for creating a new test case
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new test case
-          maxLength: 512
-          example: Example Name
-        description:
-          type: string
-          description: Description of the test scenario
-          example: Example description for this resource.
-        labels:
-          type: array
-          items:
-            type: string
-          description: Labels to apply to the test case
-          example: []
     TestCaseListResponse:
       type: object
       description: Paginated response containing test cases
@@ -200,6 +179,18 @@ components:
           items:
             $ref: '#/components/schemas/TestCase'
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
     TestCase:
       type: object
       description: A test case definition within a test project
@@ -242,27 +233,36 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the test case was created
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
+    CreateTestCaseRequest:
       type: object
-      description: Standard error response body
+      description: Request payload for creating a new test case
+      required:
+      - name
       properties:
-        message:
+        name:
           type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
+          description: Display name for the new test case
+          maxLength: 512
+          example: Example Name
+        description:
           type: string
-          description: Error code identifier
-          example: example-value
+          description: Description of the test scenario
+          example: Example description for this resource.
+        labels:
+          type: array
+          items:
+            type: string
+          description: Labels to apply to the test case
+          example: []
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -274,18 +274,18 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the test project
-      schema:
-        type: string
     testCaseId:
       name: testCaseId
       in: path
       required: true
       description: Unique identifier of the test case
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the test project
       schema:
         type: string
   securitySchemes:

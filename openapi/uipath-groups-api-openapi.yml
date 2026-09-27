@@ -144,15 +144,73 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    CreateGroupRequest:
+      type: object
+      description: Request payload for creating a new user group
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new group
+          example: Example Name
+        type:
+          type: string
+          enum:
+          - Local
+          - RoboticsGroup
+          description: Type of group to create
+          example: Local
+    Group:
+      type: object
+      description: A user group in the UiPath organization
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the group
+          example: abc123
+        name:
+          type: string
+          description: Display name of the group
+          example: Example Name
+        type:
+          type: string
+          enum:
+          - Local
+          - DirectoryGroup
+          - RoboticsGroup
+          description: Type classification of the group
+          example: Local
+        userCount:
+          type: integer
+          description: Number of members currently in the group
+          example: 42
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -178,64 +236,6 @@ components:
       description: Global partition identifier for the organization or tenant scope
       schema:
         type: string
-  schemas:
-    Group:
-      type: object
-      description: A user group in the UiPath organization
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the group
-          example: abc123
-        name:
-          type: string
-          description: Display name of the group
-          example: Example Name
-        type:
-          type: string
-          enum:
-          - Local
-          - DirectoryGroup
-          - RoboticsGroup
-          description: Type classification of the group
-          example: Local
-        userCount:
-          type: integer
-          description: Number of members currently in the group
-          example: 42
-    CreateGroupRequest:
-      type: object
-      description: Request payload for creating a new user group
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new group
-          example: Example Name
-        type:
-          type: string
-          enum:
-          - Local
-          - RoboticsGroup
-          description: Type of group to create
-          example: Local
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
   securitySchemes:
     bearerAuth:
       type: http

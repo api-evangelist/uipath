@@ -157,14 +157,8 @@ paths:
         dispatcher: FALLBACK
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
       content:
         application/json:
           schema:
@@ -175,13 +169,64 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+    Project:
+      type: object
+      description: A test project container in Test Manager
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the test project
+          example: abc123
+        name:
+          type: string
+          description: Display name of the test project
+          example: Example Name
+        description:
+          type: string
+          description: Optional description of the project's testing scope
+          example: Example description for this resource.
+        createdBy:
+          type: string
+          description: Name of the user who created the project
+          example: example-value
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was created
+          example: '2026-01-15T10:30:00Z'
+        testCaseCount:
+          type: integer
+          description: Total number of test cases in the project
+          example: 42
+        requirementCount:
+          type: integer
+          description: Total number of requirements in the project
+          example: 42
     CreateProjectRequest:
       type: object
       description: Request payload for creating a new test project
@@ -218,51 +263,6 @@ components:
           items:
             $ref: '#/components/schemas/Project'
           example: []
-    Project:
-      type: object
-      description: A test project container in Test Manager
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the test project
-          example: abc123
-        name:
-          type: string
-          description: Display name of the test project
-          example: Example Name
-        description:
-          type: string
-          description: Optional description of the project's testing scope
-          example: Example description for this resource.
-        createdBy:
-          type: string
-          description: Name of the user who created the project
-          example: example-value
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the project was created
-          example: '2026-01-15T10:30:00Z'
-        testCaseCount:
-          type: integer
-          description: Total number of test cases in the project
-          example: 42
-        requirementCount:
-          type: integer
-          description: Total number of requirements in the project
-          example: 42
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
   parameters:
     projectId:
       name: projectId

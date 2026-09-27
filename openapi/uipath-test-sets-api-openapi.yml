@@ -122,6 +122,33 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CreateTestSetRequest:
+      type: object
+      description: Request payload for creating a new test set
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new test set
+          maxLength: 256
+          example: Example Name
+        description:
+          type: string
+          description: Optional description of the test set's purpose
+          example: Example description for this resource.
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
     TestSet:
       type: object
       description: A collection of test cases grouped for execution
@@ -160,42 +187,15 @@ components:
           items:
             $ref: '#/components/schemas/TestSet'
           example: []
-    CreateTestSetRequest:
-      type: object
-      description: Request payload for creating a new test set
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new test set
-          maxLength: 256
-          example: Example Name
-        description:
-          type: string
-          description: Optional description of the test set's purpose
-          example: Example description for this resource.
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:

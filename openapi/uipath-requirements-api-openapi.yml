@@ -144,19 +144,18 @@ components:
           type: string
           description: Optional external identifier for integration with third-party tools
           example: abc123
-    RequirementListResponse:
+    ErrorResponse:
       type: object
-      description: Paginated response containing requirements
+      description: Standard error response body
       properties:
-        totalCount:
-          type: integer
-          description: Total number of requirements
-          example: 42
-        requirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Requirement'
-          example: []
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
     Requirement:
       type: object
       description: A business or technical requirement for traceability coverage
@@ -193,27 +192,28 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the requirement was created
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
+    RequirementListResponse:
       type: object
-      description: Standard error response body
+      description: Paginated response containing requirements
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
+        totalCount:
+          type: integer
+          description: Total number of requirements
+          example: 42
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Requirement'
+          example: []
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
