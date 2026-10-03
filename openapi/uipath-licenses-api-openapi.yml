@@ -122,38 +122,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    LicenseAllocationEntry:
-      type: object
-      description: A single license type allocation for a group
-      properties:
-        code:
-          type: string
-          description: License product code identifier
-          example: example-value
-        totalCount:
-          type: integer
-          description: Total number of licenses allocated to the group
-          example: 42
-        usedCount:
-          type: integer
-          description: Number of licenses currently consumed by group members
-          example: 42
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
     GroupLicenseAllocation:
       type: object
       description: License allocation rule for a user group
@@ -176,15 +144,47 @@ components:
           items:
             $ref: '#/components/schemas/LicenseAllocationEntry'
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    LicenseAllocationEntry:
+      type: object
+      description: A single license type allocation for a group
+      properties:
+        code:
+          type: string
+          description: License product code identifier
+          example: example-value
+        totalCount:
+          type: integer
+          description: Total number of licenses allocated to the group
+          example: 42
+        usedCount:
+          type: integer
+          description: Number of licenses currently consumed by group members
+          example: 42
   responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:

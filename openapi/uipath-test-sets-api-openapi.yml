@@ -121,34 +121,39 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    CreateTestSetRequest:
+    TestSetListResponse:
       type: object
-      description: Request payload for creating a new test set
-      required:
-      - name
+      description: Paginated response containing test sets
       properties:
-        name:
-          type: string
-          description: Display name for the new test set
-          maxLength: 256
-          example: Example Name
-        description:
-          type: string
-          description: Optional description of the test set's purpose
-          example: Example description for this resource.
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
+        totalCount:
+          type: integer
+          description: Total number of test sets
+          example: 42
+        testSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSet'
+          example: []
     TestSet:
       type: object
       description: A collection of test cases grouped for execution
@@ -174,38 +179,33 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the test set was created
           example: '2026-01-15T10:30:00Z'
-    TestSetListResponse:
+    ErrorResponse:
       type: object
-      description: Paginated response containing test sets
+      description: Standard error response body
       properties:
-        totalCount:
-          type: integer
-          description: Total number of test sets
-          example: 42
-        testSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestSet'
-          example: []
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+    CreateTestSetRequest:
+      type: object
+      description: Request payload for creating a new test set
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new test set
+          maxLength: 256
+          example: Example Name
+        description:
+          type: string
+          description: Optional description of the test set's purpose
+          example: Example description for this resource.
   parameters:
     projectId:
       name: projectId

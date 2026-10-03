@@ -85,90 +85,20 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ExtractionResultData:
-      type: object
-      description: Structured extraction result containing field values and confidence scores
-      properties:
-        ResultsVersion:
-          type: integer
-          description: Version of the extraction results format
-          example: 1.0.0
-        DocumentId:
-          type: string
-          description: Document identifier of the extracted document
-          example: abc123
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractedField'
-          description: List of extracted field values
-          example: []
-    ExtractedField:
-      type: object
-      description: A single extracted field with its value and confidence metadata
-      properties:
-        FieldId:
-          type: string
-          description: Identifier of the extracted field as defined in the extractor schema
-          example: abc123
-        FieldName:
-          type: string
-          description: Display name of the extracted field
-          example: Example Name
-        IsMissing:
-          type: boolean
-          description: Whether the field was not found in the document
-          example: true
-        Value:
-          $ref: '#/components/schemas/FieldValue'
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    ValidationRequest:
-      type: object
-      description: Request payload for validating document processing results
-      required:
-      - documentId
-      properties:
-        documentId:
-          type: string
-          description: Document ID of the document whose results are to be validated
-          example: abc123
-        classificationResult:
-          $ref: '#/components/schemas/ClassificationResultItem'
-        extractionResult:
-          $ref: '#/components/schemas/ExtractionResultData'
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
     ClassificationResultItem:
       type: object
       description: Classification result for a specific document or page range
@@ -196,6 +126,20 @@ components:
           type: integer
           description: Last page of the classified document section
           example: 1
+    ValidationRequest:
+      type: object
+      description: Request payload for validating document processing results
+      required:
+      - documentId
+      properties:
+        documentId:
+          type: string
+          description: Document ID of the document whose results are to be validated
+          example: abc123
+        classificationResult:
+          $ref: '#/components/schemas/ClassificationResultItem'
+        extractionResult:
+          $ref: '#/components/schemas/ExtractionResultData'
     FieldValue:
       type: object
       description: The extracted value with confidence and source reference
@@ -224,19 +168,75 @@ components:
           - Handwritten
           description: Whether the source text was printed or handwritten
           example: Printed
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ExtractedField:
+      type: object
+      description: A single extracted field with its value and confidence metadata
+      properties:
+        FieldId:
+          type: string
+          description: Identifier of the extracted field as defined in the extractor schema
+          example: abc123
+        FieldName:
+          type: string
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ExtractionResultData:
+      type: object
+      description: Structured extraction result containing field values and confidence scores
+      properties:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
+          type: string
+          description: Document identifier of the extracted document
+          example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
   parameters:
     projectId:
       name: projectId

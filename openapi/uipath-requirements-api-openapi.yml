@@ -124,6 +124,25 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     CreateRequirementRequest:
       type: object
@@ -144,6 +163,19 @@ components:
           type: string
           description: Optional external identifier for integration with third-party tools
           example: abc123
+    RequirementListResponse:
+      type: object
+      description: Paginated response containing requirements
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of requirements
+          example: 42
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Requirement'
+          example: []
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -192,38 +224,6 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the requirement was created
           example: '2026-01-15T10:30:00Z'
-    RequirementListResponse:
-      type: object
-      description: Paginated response containing requirements
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of requirements
-          example: 42
-        requirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Requirement'
-          example: []
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     projectId:
       name: projectId

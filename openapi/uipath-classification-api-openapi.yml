@@ -122,50 +122,26 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ClassificationRequest:
-      type: object
-      description: Request payload for classifying a previously digitized document
-      required:
-      - documentId
-      - classifiersOptions
-      properties:
-        documentId:
-          type: string
-          description: Document ID returned by the digitization endpoint
-          example: abc123
-        classifiersOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClassifierOption'
-          description: Classifiers to apply with their configuration options
-          example: []
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    ClassifierOption:
-      type: object
-      description: Configuration for applying a specific classifier
-      required:
-      - classifierId
-      properties:
-        classifierId:
-          type: string
-          description: Unique identifier of the classifier to apply
-          example: abc123
     ClassificationResultItem:
       type: object
       description: Classification result for a specific document or page range
@@ -193,23 +169,16 @@ components:
           type: integer
           description: Last page of the classified document section
           example: 1
-    AsyncJobStartResponse:
+    ClassifierOption:
       type: object
-      description: Response returned when an asynchronous processing job is started
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
       properties:
-        requestId:
+        classifierId:
           type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          description: Unique identifier of the classifier to apply
           example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
     ClassificationResult:
       type: object
       description: Result of an asynchronous classification job
@@ -239,25 +208,56 @@ components:
               items:
                 $ref: '#/components/schemas/ClassificationResultItem'
           example: example-value
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ClassificationRequest:
+      type: object
+      description: Request payload for classifying a previously digitized document
+      required:
+      - documentId
+      - classifiersOptions
+      properties:
+        documentId:
+          type: string
+          description: Document ID returned by the digitization endpoint
+          example: abc123
+        classifiersOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassifierOption'
+          description: Classifiers to apply with their configuration options
+          example: []
   parameters:
     requestId:
       name: requestId

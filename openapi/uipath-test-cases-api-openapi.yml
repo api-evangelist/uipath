@@ -165,32 +165,41 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    testCaseId:
+      name: testCaseId
+      in: path
+      required: true
+      description: Unique identifier of the test case
+      schema:
+        type: string
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the test project
+      schema:
+        type: string
   schemas:
-    TestCaseListResponse:
-      type: object
-      description: Paginated response containing test cases
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of test cases
-          example: 42
-        testCases:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCase'
-          example: []
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
     TestCase:
       type: object
       description: A test case definition within a test project
@@ -254,40 +263,31 @@ components:
             type: string
           description: Labels to apply to the test case
           example: []
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    testCaseId:
-      name: testCaseId
-      in: path
-      required: true
-      description: Unique identifier of the test case
-      schema:
-        type: string
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the test project
-      schema:
-        type: string
+    TestCaseListResponse:
+      type: object
+      description: Paginated response containing test cases
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test cases
+          example: 42
+        testCases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCase'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
   securitySchemes:
     bearerAuth:
       type: http

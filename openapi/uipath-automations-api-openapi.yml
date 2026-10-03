@@ -336,17 +336,9 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    automationId:
-      name: automationId
-      in: path
-      required: true
-      description: Unique integer identifier of the automation idea or project
-      schema:
-        type: integer
   responses:
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
@@ -357,31 +349,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
+    BenefitData:
       type: object
-      description: Standard error response body
+      description: Estimated cost-benefit analysis data for an automation idea
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        code:
-          type: integer
-          description: Numeric error code
-          example: 1
+        estimatedTimeSavingsPerYear:
+          type: number
+          description: Estimated hours saved per year by automating this process
+          example: 1.0
+        estimatedFTESavings:
+          type: number
+          description: Full-time equivalent headcount savings from the automation
+          example: 1.0
+        estimatedCostSavingsPerYear:
+          type: number
+          description: Estimated monetary cost savings per year in the organization's currency
+          example: 1.0
     Collaborator:
       type: object
       description: A user collaborating on an automation idea or project
@@ -403,70 +399,6 @@ components:
           type: string
           description: Role of this collaborator on the automation
           example: example-value
-    BenefitData:
-      type: object
-      description: Estimated cost-benefit analysis data for an automation idea
-      properties:
-        estimatedTimeSavingsPerYear:
-          type: number
-          description: Estimated hours saved per year by automating this process
-          example: 1.0
-        estimatedFTESavings:
-          type: number
-          description: Full-time equivalent headcount savings from the automation
-          example: 1.0
-        estimatedCostSavingsPerYear:
-          type: number
-          description: Estimated monetary cost savings per year in the organization's currency
-          example: 1.0
-    UpdateAutomationRequest:
-      type: object
-      description: Request payload for partially updating an automation record
-      properties:
-        phase:
-          type: string
-          enum:
-          - Idea
-          - Assessment
-          - Analysis
-          - Development
-          - Testing
-          - Production
-          - OnHold
-          - Rejected
-          description: Updated pipeline phase for the automation
-          example: Idea
-        status:
-          type: string
-          description: Updated status within the current phase
-          example: Active
-        description:
-          type: string
-          description: Updated description of the automation
-          example: Example description for this resource.
-        estimatedBenefit:
-          $ref: '#/components/schemas/BenefitData'
-    AutomationListResponse:
-      type: object
-      description: Paginated response containing automation records
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of automations matching the query
-          example: 42
-        page:
-          type: integer
-          description: Current page number
-          example: 1
-        pageSize:
-          type: integer
-          description: Number of records per page
-          example: 1
-        automations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Automation'
-          example: []
     Automation:
       type: object
       description: An automation idea or project in the Automation Hub pipeline
@@ -522,6 +454,27 @@ components:
             type: string
           description: Tags associated with the automation for categorization
           example: []
+    AutomationListResponse:
+      type: object
+      description: Paginated response containing automation records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of automations matching the query
+          example: 42
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        pageSize:
+          type: integer
+          description: Number of records per page
+          example: 1
+        automations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Automation'
+          example: []
     CreateAutomationIdeaRequest:
       type: object
       description: Request payload for creating a new automation idea
@@ -546,6 +499,53 @@ components:
             type: string
           description: Tags for categorizing the automation idea
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
+    UpdateAutomationRequest:
+      type: object
+      description: Request payload for partially updating an automation record
+      properties:
+        phase:
+          type: string
+          enum:
+          - Idea
+          - Assessment
+          - Analysis
+          - Development
+          - Testing
+          - Production
+          - OnHold
+          - Rejected
+          description: Updated pipeline phase for the automation
+          example: Idea
+        status:
+          type: string
+          description: Updated status within the current phase
+          example: Active
+        description:
+          type: string
+          description: Updated description of the automation
+          example: Example description for this resource.
+        estimatedBenefit:
+          $ref: '#/components/schemas/BenefitData'
+  parameters:
+    automationId:
+      name: automationId
+      in: path
+      required: true
+      description: Unique integer identifier of the automation idea or project
+      schema:
+        type: integer
   securitySchemes:
     apiKeyAuth:
       type: apiKey

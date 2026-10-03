@@ -70,22 +70,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
     ODataMachineCollection:
       type: object
       description: OData collection response containing machines
@@ -112,6 +96,22 @@ components:
                 type: string
                 description: License key used by the robot installed on this machine
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
   parameters:
     odataFilter:
       name: $filter
@@ -120,6 +120,15 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
     odataSkip:
       name: $skip
       in: query
@@ -136,15 +145,6 @@ components:
       schema:
         type: integer
         format: int64
-    odataTop:
-      name: $top
-      in: query
-      required: false
-      description: Maximum number of records to return (default 100, max 1000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http

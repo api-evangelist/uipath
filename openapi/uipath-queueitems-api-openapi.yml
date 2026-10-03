@@ -122,30 +122,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ODataQueueItemCollection:
       type: object
-      description: Standard error response body
+      description: OData collection response containing queue items
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    AddQueueItemRequest:
-      type: object
-      description: Request payload for adding a new item to a queue
-      required:
-      - itemData
-      properties:
-        itemData:
-          $ref: '#/components/schemas/QueueItemData'
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueItem'
+          example: []
     QueueItem:
       type: object
       description: A single transaction item in a queue
@@ -232,6 +217,14 @@ components:
           format: date-time
           description: Optional deadline for processing the item
           example: '2026-01-15T10:30:00Z'
+    AddQueueItemRequest:
+      type: object
+      description: Request payload for adding a new item to a queue
+      required:
+      - itemData
+      properties:
+        itemData:
+          $ref: '#/components/schemas/QueueItemData'
     QueueItemData:
       type: object
       description: Data for creating a new queue item
@@ -269,24 +262,31 @@ components:
           format: date-time
           description: Optional earliest time at which the item may be processed
           example: '2026-01-15T10:30:00Z'
-    ODataQueueItemCollection:
+    ErrorResponse:
       type: object
-      description: OData collection response containing queue items
+      description: Standard error response body
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueueItem'
-          example: []
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
   responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
@@ -299,6 +299,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -308,14 +316,6 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header

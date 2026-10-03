@@ -123,55 +123,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ExtractionRequest:
-      type: object
-      description: Request payload for extracting data from a previously digitized document
-      required:
-      - documentId
-      - extractorsOptions
-      properties:
-        documentId:
-          type: string
-          description: Document ID returned by the digitization endpoint
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Document type identifier to guide extraction
-          example: abc123
-        extractorsOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractorOption'
-          description: Extractors to apply with their configuration options
-          example: []
-    ExtractorOption:
-      type: object
-      description: Configuration for applying a specific extractor
-      required:
-      - extractorId
-      properties:
-        extractorId:
-          type: string
-          description: Unique identifier of the extractor to apply
-          example: abc123
-    ExtractionResultData:
-      type: object
-      description: Structured extraction result containing field values and confidence scores
-      properties:
-        ResultsVersion:
-          type: integer
-          description: Version of the extraction results format
-          example: 1.0.0
-        DocumentId:
-          type: string
-          description: Document identifier of the extracted document
-          example: abc123
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractedField'
-          description: List of extracted field values
-          example: []
     ExtractionResult:
       type: object
       description: Result of an asynchronous extraction job
@@ -199,57 +150,27 @@ components:
             extractionResult:
               $ref: '#/components/schemas/ExtractionResultData'
           example: example-value
-    ExtractedField:
+    ExtractionRequest:
       type: object
-      description: A single extracted field with its value and confidence metadata
+      description: Request payload for extracting data from a previously digitized document
+      required:
+      - documentId
+      - extractorsOptions
       properties:
-        FieldId:
+        documentId:
           type: string
-          description: Identifier of the extracted field as defined in the extractor schema
+          description: Document ID returned by the digitization endpoint
           example: abc123
-        FieldName:
+        documentTypeId:
           type: string
-          description: Display name of the extracted field
-          example: Example Name
-        IsMissing:
-          type: boolean
-          description: Whether the field was not found in the document
-          example: true
-        Value:
-          $ref: '#/components/schemas/FieldValue'
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
+          description: Document type identifier to guide extraction
           example: abc123
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
+        extractorsOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractorOption'
+          description: Extractors to apply with their configuration options
+          example: []
     FieldValue:
       type: object
       description: The extracted value with confidence and source reference
@@ -278,15 +199,94 @@ components:
           - Handwritten
           description: Whether the source text was printed or handwritten
           example: Printed
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+    ExtractorOption:
+      type: object
+      description: Configuration for applying a specific extractor
+      required:
+      - extractorId
+      properties:
+        extractorId:
+          type: string
+          description: Unique identifier of the extractor to apply
+          example: abc123
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ExtractedField:
+      type: object
+      description: A single extracted field with its value and confidence metadata
+      properties:
+        FieldId:
+          type: string
+          description: Identifier of the extracted field as defined in the extractor schema
+          example: abc123
+        FieldName:
+          type: string
+          description: Display name of the extracted field
+          example: Example Name
+        IsMissing:
+          type: boolean
+          description: Whether the field was not found in the document
+          example: true
+        Value:
+          $ref: '#/components/schemas/FieldValue'
+    ExtractionResultData:
+      type: object
+      description: Structured extraction result containing field values and confidence scores
+      properties:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
+          type: string
+          description: Document identifier of the extracted document
+          example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
   responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
