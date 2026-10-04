@@ -171,26 +171,32 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ODataWebhookCollection:
+      type: object
+      description: OData collection response containing webhooks
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+          example: []
     Webhook:
       type: object
       description: A webhook subscription that receives Orchestrator event notifications
@@ -239,39 +245,15 @@ components:
           type: string
           description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
           example: Standard
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    ODataWebhookCollection:
-      type: object
-      description: OData collection response containing webhooks
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
-          example: []
   parameters:
-    odataFilter:
-      name: $filter
-      in: query
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
       required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
       schema:
-        type: string
+        type: integer
+        format: int64
     odataSkip:
       name: $skip
       in: query
@@ -297,14 +279,32 @@ components:
       schema:
         type: integer
         format: int64
-    xUiPathOrganizationUnitId:
-      name: X-UIPATH-OrganizationUnitId
-      in: header
+    odataFilter:
+      name: $filter
+      in: query
       required: false
-      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
-        type: integer
-        format: int64
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

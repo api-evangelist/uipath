@@ -85,106 +85,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
-    ValidationRequest:
-      type: object
-      description: Request payload for validating document processing results
-      required:
-      - documentId
-      properties:
-        documentId:
-          type: string
-          description: Document ID of the document whose results are to be validated
-          example: abc123
-        classificationResult:
-          $ref: '#/components/schemas/ClassificationResultItem'
-        extractionResult:
-          $ref: '#/components/schemas/ExtractionResultData'
-    FieldValue:
-      type: object
-      description: The extracted value with confidence and source reference
-      properties:
-        Value:
-          description: Extracted value, which may be a string, number, or object depending on field type
-          example: example-value
-        Confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score for the extracted value (0.0 to 1.0)
-          example: 1.0
-        OcrConfidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: OCR confidence score for the text underlying this value
-          example: 1.0
-        TextType:
-          type: string
-          enum:
-          - Printed
-          - Handwritten
-          description: Whether the source text was printed or handwritten
-          example: Printed
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -219,6 +120,61 @@ components:
           example: true
         Value:
           $ref: '#/components/schemas/FieldValue'
+    FieldValue:
+      type: object
+      description: The extracted value with confidence and source reference
+      properties:
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
+          example: example-value
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
+          type: string
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
     ExtractionResultData:
       type: object
       description: Structured extraction result containing field values and confidence scores
@@ -237,6 +193,37 @@ components:
             $ref: '#/components/schemas/ExtractedField'
           description: List of extracted field values
           example: []
+    ValidationRequest:
+      type: object
+      description: Request payload for validating document processing results
+      required:
+      - documentId
+      properties:
+        documentId:
+          type: string
+          description: Document ID of the document whose results are to be validated
+          example: abc123
+        classificationResult:
+          $ref: '#/components/schemas/ClassificationResultItem'
+        extractionResult:
+          $ref: '#/components/schemas/ExtractionResultData'
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
   parameters:
     projectId:
       name: projectId
@@ -245,6 +232,19 @@ components:
       description: Unique identifier of the Document Understanding project
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

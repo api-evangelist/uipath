@@ -146,39 +146,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    AppInventoryListResponse:
-      type: object
-      description: Response containing application inventory entries
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of application inventory entries
-          example: 42
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Application'
-          example: []
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -217,6 +185,38 @@ components:
           type: string
           description: Optional description of the application
           example: Example description for this resource.
+    AppInventoryListResponse:
+      type: object
+      description: Response containing application inventory entries
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of application inventory entries
+          example: 42
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+          example: []
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

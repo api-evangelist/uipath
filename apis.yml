@@ -2253,8 +2253,6 @@ apis:
   humanURL: https://docs.uipath.com/orchestrator/automation-cloud/latest/api-guide/read-me
   baseURL: https://cloud.uipath.com/{organizationName}/{tenantName}/orchestrator_
   tags:
-  - Testsets
-  tags_raw:
   - Test Sets
   properties:
   - type: OpenAPI

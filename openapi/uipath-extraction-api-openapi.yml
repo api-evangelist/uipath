@@ -123,109 +123,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ExtractionResult:
-      type: object
-      description: Result of an asynchronous extraction job
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the extraction job
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Current status of the extraction job
-          example: NotStarted
-        result:
-          type: object
-          description: Extraction output, populated when status is Succeeded
-          properties:
-            documentId:
-              type: string
-              description: Document ID from which data was extracted
-            extractionResult:
-              $ref: '#/components/schemas/ExtractionResultData'
-          example: example-value
-    ExtractionRequest:
-      type: object
-      description: Request payload for extracting data from a previously digitized document
-      required:
-      - documentId
-      - extractorsOptions
-      properties:
-        documentId:
-          type: string
-          description: Document ID returned by the digitization endpoint
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Document type identifier to guide extraction
-          example: abc123
-        extractorsOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractorOption'
-          description: Extractors to apply with their configuration options
-          example: []
-    FieldValue:
-      type: object
-      description: The extracted value with confidence and source reference
-      properties:
-        Value:
-          description: Extracted value, which may be a string, number, or object depending on field type
-          example: example-value
-        Confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score for the extracted value (0.0 to 1.0)
-          example: 1.0
-        OcrConfidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: OCR confidence score for the text underlying this value
-          example: 1.0
-        TextType:
-          type: string
-          enum:
-          - Printed
-          - Handwritten
-          description: Whether the source text was printed or handwritten
-          example: Printed
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
-    ExtractorOption:
-      type: object
-      description: Configuration for applying a specific extractor
-      required:
-      - extractorId
-      properties:
-        extractorId:
-          type: string
-          description: Unique identifier of the extractor to apply
-          example: abc123
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -260,6 +157,71 @@ components:
           example: true
         Value:
           $ref: '#/components/schemas/FieldValue'
+    FieldValue:
+      type: object
+      description: The extracted value with confidence and source reference
+      properties:
+        Value:
+          description: Extracted value, which may be a string, number, or object depending on field type
+          example: example-value
+        Confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score for the extracted value (0.0 to 1.0)
+          example: 1.0
+        OcrConfidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: OCR confidence score for the text underlying this value
+          example: 1.0
+        TextType:
+          type: string
+          enum:
+          - Printed
+          - Handwritten
+          description: Whether the source text was printed or handwritten
+          example: Printed
+    ExtractorOption:
+      type: object
+      description: Configuration for applying a specific extractor
+      required:
+      - extractorId
+      properties:
+        extractorId:
+          type: string
+          description: Unique identifier of the extractor to apply
+          example: abc123
+    ExtractionResult:
+      type: object
+      description: Result of an asynchronous extraction job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the extraction job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the extraction job
+          example: NotStarted
+        result:
+          type: object
+          description: Extraction output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID from which data was extracted
+            extractionResult:
+              $ref: '#/components/schemas/ExtractionResultData'
+          example: example-value
     ExtractionResultData:
       type: object
       description: Structured extraction result containing field values and confidence scores
@@ -278,9 +240,62 @@ components:
             $ref: '#/components/schemas/ExtractedField'
           description: List of extracted field values
           example: []
+    ExtractionRequest:
+      type: object
+      description: Request payload for extracting data from a previously digitized document
+      required:
+      - documentId
+      - extractorsOptions
+      properties:
+        documentId:
+          type: string
+          description: Document ID returned by the digitization endpoint
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Document type identifier to guide extraction
+          example: abc123
+        extractorsOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractorOption'
+          description: Extractors to apply with their configuration options
+          example: []
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      description: Unique identifier of the asynchronous job request to retrieve results for
+      schema:
+        type: string
   responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -291,27 +306,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    requestId:
-      name: requestId
-      in: path
-      required: true
-      description: Unique identifier of the asynchronous job request to retrieve results for
-      schema:
-        type: string
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the Document Understanding project
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

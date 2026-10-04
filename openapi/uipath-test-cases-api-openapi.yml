@@ -165,41 +165,19 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    testCaseId:
-      name: testCaseId
-      in: path
-      required: true
-      description: Unique identifier of the test case
-      schema:
-        type: string
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the test project
-      schema:
-        type: string
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
     TestCase:
       type: object
       description: A test case definition within a test project
@@ -242,6 +220,19 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the test case was created
           example: '2026-01-15T10:30:00Z'
+    TestCaseListResponse:
+      type: object
+      description: Paginated response containing test cases
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of test cases
+          example: 42
+        testCases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCase'
+          example: []
     CreateTestCaseRequest:
       type: object
       description: Request payload for creating a new test case
@@ -263,31 +254,40 @@ components:
             type: string
           description: Labels to apply to the test case
           example: []
-    TestCaseListResponse:
-      type: object
-      description: Paginated response containing test cases
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of test cases
-          example: 42
-        testCases:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCase'
-          example: []
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the test project
+      schema:
+        type: string
+    testCaseId:
+      name: testCaseId
+      in: path
+      required: true
+      description: Unique identifier of the test case
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

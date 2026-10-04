@@ -332,44 +332,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    FilterGroup:
+    ErrorResponse:
       type: object
-      description: A group of filter conditions joined by a logical operator
+      description: Standard error response body
       properties:
-        logicalOperator:
+        message:
           type: string
-          enum:
-          - AND
-          - OR
-          description: Logical operator combining the conditions in this group
-          example: AND
-        queryFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryFilter'
-          description: List of individual field filter conditions
-          example: []
-        filterGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          description: Nested filter groups for complex query expressions
-          example: []
-    OrderByClause:
-      type: object
-      description: Sort specification for query results
-      required:
-      - fieldName
-      properties:
-        fieldName:
+          description: Human-readable error message
+          example: example-value
+        errorCode:
           type: string
-          description: Name of the field to sort by
-          example: Example Name
-        descending:
-          type: boolean
-          default: false
-          description: Whether to sort in descending order
-          example: true
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     EntityRecord:
       type: object
       description: A single entity record. The specific fields available depend on the entity schema configured in the tenant's Data Service. All records include the following system-managed fields.
@@ -397,6 +375,38 @@ components:
           description: Identifier of the user or process that last modified the record
           example: example-value
       additionalProperties: true
+    EntityQueryRequest:
+      type: object
+      description: Advanced query request with structured filter conditions
+      properties:
+        filterGroup:
+          $ref: '#/components/schemas/FilterGroup'
+        selectedFields:
+          type: array
+          items:
+            type: string
+          description: List of field names to include in the response
+          example: []
+        orderBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderByClause'
+          example: []
+        start:
+          type: integer
+          minimum: 0
+          description: Zero-based offset for pagination
+          example: 1
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          description: Maximum number of records to return
+          example: 1
+    EntityRecordInput:
+      type: object
+      description: Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.
+      additionalProperties: true
     EntityRecordCollection:
       type: object
       description: A paginated collection of entity records
@@ -416,10 +426,29 @@ components:
           format: uri
           description: URL for the next page of results, if more records are available
           example: https://cloud.uipath.com/example
-    EntityRecordInput:
+    FilterGroup:
       type: object
-      description: Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.
-      additionalProperties: true
+      description: A group of filter conditions joined by a logical operator
+      properties:
+        logicalOperator:
+          type: string
+          enum:
+          - AND
+          - OR
+          description: Logical operator combining the conditions in this group
+          example: AND
+        queryFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+          description: List of individual field filter conditions
+          example: []
+        filterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          description: Nested filter groups for complex query expressions
+          example: []
     QueryFilter:
       type: object
       description: A single field comparison condition in a query
@@ -451,59 +480,39 @@ components:
         value:
           description: Value to compare against; type depends on the field type
           example: example-value
-    ErrorResponse:
+    OrderByClause:
       type: object
-      description: Standard error response body
+      description: Sort specification for query results
+      required:
+      - fieldName
       properties:
-        message:
+        fieldName:
           type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-    EntityQueryRequest:
-      type: object
-      description: Advanced query request with structured filter conditions
-      properties:
-        filterGroup:
-          $ref: '#/components/schemas/FilterGroup'
-        selectedFields:
-          type: array
-          items:
-            type: string
-          description: List of field names to include in the response
-          example: []
-        orderBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderByClause'
-          example: []
-        start:
-          type: integer
-          minimum: 0
-          description: Zero-based offset for pagination
-          example: 1
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 1000
-          description: Maximum number of records to return
-          example: 1
+          description: Name of the field to sort by
+          example: Example Name
+        descending:
+          type: boolean
+          default: false
+          description: Whether to sort in descending order
+          example: true
+  parameters:
+    recordId:
+      name: recordId
+      in: path
+      required: true
+      description: Unique identifier of the entity record
+      schema:
+        type: string
+    entityName:
+      name: entityName
+      in: path
+      required: true
+      description: Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive.
+      schema:
+        type: string
   responses:
-    BadRequest:
-      description: The request was malformed or the entity schema was violated
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
       content:
         application/json:
           schema:
@@ -514,27 +523,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
+    Unauthorized:
+      description: The request lacks valid authentication credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    entityName:
-      name: entityName
-      in: path
-      required: true
-      description: Name of the custom entity type as defined in the tenant's Data Service schema. Entity names are case-sensitive.
-      schema:
-        type: string
-    recordId:
-      name: recordId
-      in: path
-      required: true
-      description: Unique identifier of the entity record
-      schema:
-        type: string
+    BadRequest:
+      description: The request was malformed or the entity schema was violated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

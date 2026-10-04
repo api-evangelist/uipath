@@ -122,15 +122,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ODataQueueItemCollection:
+    ErrorResponse:
       type: object
-      description: OData collection response containing queue items
+      description: Standard error response body
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueueItem'
-          example: []
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     QueueItem:
       type: object
       description: A single transaction item in a queue
@@ -217,6 +224,15 @@ components:
           format: date-time
           description: Optional deadline for processing the item
           example: '2026-01-15T10:30:00Z'
+    ODataQueueItemCollection:
+      type: object
+      description: OData collection response containing queue items
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueItem'
+          example: []
     AddQueueItemRequest:
       type: object
       description: Request payload for adding a new item to a queue
@@ -262,43 +278,22 @@ components:
           format: date-time
           description: Optional earliest time at which the item may be processed
           example: '2026-01-15T10:30:00Z'
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    odataFilter:
-      name: $filter
+    odataOrderby:
+      name: $orderby
       in: query
       required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      description: OData orderby clause (e.g., CreationTime desc)
       schema:
         type: string
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
     odataSkip:
       name: $skip
       in: query
@@ -316,21 +311,26 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    xUiPathOrganizationUnitId:
-      name: X-UIPATH-OrganizationUnitId
-      in: header
-      required: false
-      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
-      schema:
-        type: integer
-        format: int64
-    odataOrderby:
-      name: $orderby
+    odataFilter:
+      name: $filter
       in: query
       required: false
-      description: OData orderby clause (e.g., CreationTime desc)
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

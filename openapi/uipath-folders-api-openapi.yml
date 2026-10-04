@@ -61,38 +61,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
-    odataTop:
-      name: $top
-      in: query
-      required: false
-      description: Maximum number of records to return (default 100, max 1000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
   schemas:
     ErrorResponse:
       type: object
@@ -140,6 +108,38 @@ components:
                 - Personal
                 description: Type classification of the folder
           example: []
+  parameters:
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

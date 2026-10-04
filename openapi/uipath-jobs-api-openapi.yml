@@ -206,51 +206,75 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    StopJobRequest:
+    ErrorResponse:
       type: object
-      description: Request payload for stopping a running job
-      required:
-      - jobId
-      - strategy
+      description: Standard error response body
       properties:
-        jobId:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
           type: integer
-          format: int64
-          description: Unique integer identifier of the job to stop
-          example: 12345
-        strategy:
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    StartInfo:
+      type: object
+      description: Parameters controlling how jobs are started
+      required:
+      - ReleaseKey
+      - Strategy
+      properties:
+        ReleaseKey:
+          type: string
+          format: uuid
+          description: GUID key of the process (release) to start
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        Strategy:
           type: string
           enum:
-          - SoftStop
-          - Kill
-          description: Stop strategy. SoftStop waits for the current activity to complete before stopping; Kill immediately terminates the robot process.
-          example: SoftStop
+          - All
+          - Specific
+          - JobsCount
+          - RobotIds
+          description: Strategy for allocating robots to the job
+          example: All
+        RobotIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: List of robot IDs to use when Strategy is RobotIds or Specific
+          example: []
+        NoOfRobots:
+          type: integer
+          description: Number of robots to use when Strategy is JobsCount
+          example: 1
+        Source:
+          type: string
+          enum:
+          - Manual
+          - Schedule
+          - Queue
+          description: Source attribution for the started jobs
+          example: Manual
+        InputArguments:
+          type: string
+          description: JSON-serialized input arguments to pass to the process
+          example: example-value
+        JobPriority:
+          type: string
+          enum:
+          - Low
+          - Normal
+          - High
+          description: Priority level for the job queue
+          example: Low
     Job:
       type: object
       description: Represents a single automation job execution instance
@@ -333,22 +357,25 @@ components:
           type: string
           description: JSON-serialized output arguments returned by the process
           example: example-value
-    ErrorResponse:
+    StopJobRequest:
       type: object
-      description: Standard error response body
+      description: Request payload for stopping a running job
+      required:
+      - jobId
+      - strategy
       properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
+        jobId:
           type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
+          format: int64
+          description: Unique integer identifier of the job to stop
+          example: 12345
+        strategy:
           type: string
-          description: Trace identifier for support and debugging
-          example: abc123
+          enum:
+          - SoftStop
+          - Kill
+          description: Stop strategy. SoftStop waits for the current activity to complete before stopping; Kill immediately terminates the robot process.
+          example: SoftStop
     ODataJobCollection:
       type: object
       description: OData collection response containing jobs
@@ -366,6 +393,14 @@ components:
           items:
             $ref: '#/components/schemas/Job'
           example: []
+    StartJobsRequest:
+      type: object
+      description: Request payload for starting one or more automation jobs
+      required:
+      - startInfo
+      properties:
+        startInfo:
+          $ref: '#/components/schemas/StartInfo'
     RobotRef:
       type: object
       description: A lightweight reference to a robot associated with a job
@@ -404,72 +439,12 @@ components:
           - HeadlessUnattended
           description: Licensing type of the robot
           example: Unattended
-    StartInfo:
-      type: object
-      description: Parameters controlling how jobs are started
-      required:
-      - ReleaseKey
-      - Strategy
-      properties:
-        ReleaseKey:
-          type: string
-          format: uuid
-          description: GUID key of the process (release) to start
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        Strategy:
-          type: string
-          enum:
-          - All
-          - Specific
-          - JobsCount
-          - RobotIds
-          description: Strategy for allocating robots to the job
-          example: All
-        RobotIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: List of robot IDs to use when Strategy is RobotIds or Specific
-          example: []
-        NoOfRobots:
-          type: integer
-          description: Number of robots to use when Strategy is JobsCount
-          example: 1
-        Source:
-          type: string
-          enum:
-          - Manual
-          - Schedule
-          - Queue
-          description: Source attribution for the started jobs
-          example: Manual
-        InputArguments:
-          type: string
-          description: JSON-serialized input arguments to pass to the process
-          example: example-value
-        JobPriority:
-          type: string
-          enum:
-          - Low
-          - Normal
-          - High
-          description: Priority level for the job queue
-          example: Low
-    StartJobsRequest:
-      type: object
-      description: Request payload for starting one or more automation jobs
-      required:
-      - startInfo
-      properties:
-        startInfo:
-          $ref: '#/components/schemas/StartInfo'
   parameters:
-    odataFilter:
-      name: $filter
+    odataOrderby:
+      name: $orderby
       in: query
       required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      description: OData orderby clause (e.g., CreationTime desc)
       schema:
         type: string
     odataSkip:
@@ -480,6 +455,14 @@ components:
       schema:
         type: integer
         minimum: 0
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
     odataTop:
       name: $top
       in: query
@@ -489,6 +472,13 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
+    odataSelect:
+      name: $select
+      in: query
+      required: false
+      description: Comma-separated list of property names to include in the response
+      schema:
+        type: string
     entityKey:
       name: key
       in: path
@@ -497,28 +487,38 @@ components:
       schema:
         type: integer
         format: int64
-    xUiPathOrganizationUnitId:
-      name: X-UIPATH-OrganizationUnitId
-      in: header
-      required: false
-      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
-      schema:
-        type: integer
-        format: int64
-    odataSelect:
-      name: $select
+    odataFilter:
+      name: $filter
       in: query
       required: false
-      description: Comma-separated list of property names to include in the response
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
-    odataOrderby:
-      name: $orderby
-      in: query
-      required: false
-      description: OData orderby clause (e.g., CreationTime desc)
-      schema:
-        type: string
+  responses:
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

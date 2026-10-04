@@ -122,109 +122,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
-    ClassifierOption:
-      type: object
-      description: Configuration for applying a specific classifier
-      required:
-      - classifierId
-      properties:
-        classifierId:
-          type: string
-          description: Unique identifier of the classifier to apply
-          example: abc123
-    ClassificationResult:
-      type: object
-      description: Result of an asynchronous classification job
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the classification job
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Current status of the classification job
-          example: NotStarted
-        result:
-          type: object
-          description: Classification output, populated when status is Succeeded
-          properties:
-            documentId:
-              type: string
-              description: Document ID that was classified
-            classificationResults:
-              type: array
-              items:
-                $ref: '#/components/schemas/ClassificationResultItem'
-          example: example-value
-    AsyncJobStartResponse:
-      type: object
-      description: Response returned when an asynchronous processing job is started
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the asynchronous job. Use this to poll for results.
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Initial status of the asynchronous job
-          example: NotStarted
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -258,14 +156,90 @@ components:
             $ref: '#/components/schemas/ClassifierOption'
           description: Classifiers to apply with their configuration options
           example: []
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    ClassificationResult:
+      type: object
+      description: Result of an asynchronous classification job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the classification job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the classification job
+          example: NotStarted
+        result:
+          type: object
+          description: Classification output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID that was classified
+            classificationResults:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassificationResultItem'
+          example: example-value
+    ClassifierOption:
+      type: object
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
+      properties:
+        classifierId:
+          type: string
+          description: Unique identifier of the classifier to apply
+          example: abc123
+    AsyncJobStartResponse:
+      type: object
+      description: Response returned when an asynchronous processing job is started
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the asynchronous job. Use this to poll for results.
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Initial status of the asynchronous job
+          example: NotStarted
   parameters:
-    requestId:
-      name: requestId
-      in: path
-      required: true
-      description: Unique identifier of the asynchronous job request to retrieve results for
-      schema:
-        type: string
     projectId:
       name: projectId
       in: path
@@ -273,6 +247,32 @@ components:
       description: Unique identifier of the Document Understanding project
       schema:
         type: string
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      description: Unique identifier of the asynchronous job request to retrieve results for
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

@@ -63,47 +63,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    odataFilter:
-      name: $filter
-      in: query
-      required: false
-      description: OData filter expression to narrow results (e.g., State eq 'Running')
-      schema:
-        type: string
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
-    odataTop:
-      name: $top
-      in: query
-      required: false
-      description: Maximum number of records to return (default 100, max 1000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
-    xUiPathOrganizationUnitId:
-      name: X-UIPATH-OrganizationUnitId
-      in: header
-      required: false
-      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
-      schema:
-        type: integer
-        format: int64
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     ODataPackageCollection:
       type: object
       description: OData collection response containing packages
@@ -130,22 +106,46 @@ components:
                 format: date-time
                 description: ISO 8601 timestamp when the package was published
           example: []
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
+  parameters:
+    xUiPathOrganizationUnitId:
+      name: X-UIPATH-OrganizationUnitId
+      in: header
+      required: false
+      description: The numeric ID of the folder context for the request. Required when accessing folder-scoped resources. Retrieve folder IDs using the /odata/Folders endpoint.
+      schema:
+        type: integer
+        format: int64
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
+    odataTop:
+      name: $top
+      in: query
+      required: false
+      description: Maximum number of records to return (default 100, max 1000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    odataFilter:
+      name: $filter
+      in: query
+      required: false
+      description: OData filter expression to narrow results (e.g., State eq 'Running')
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http
