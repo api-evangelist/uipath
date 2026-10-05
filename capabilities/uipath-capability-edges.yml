@@ -1,0 +1,83 @@
+slug: uipath
+provider: UiPath
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Test Cases
+  spec_file: uipath-test-cases-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.9
+  evidence: '"UiPath List Test Cases in a Project", "UiPath Create a Test Case"; schema "TestCase"'
+  reason: Authoring and retrieval of test cases in a test management platform is test strategy/suite stewardship
+    — Software Quality Engineering.
+- tag: Test Executions
+  spec_file: uipath-test-executions-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: '"UiPath List Test Executions in a Project"; schema "TestExecutionListResponse"'
+  reason: Retrieval of test execution results from Test Manager is automated test suite stewardship and
+    defect/quality reporting.
+- tag: Test Sets
+  spec_file: uipath-test-sets-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.88
+  evidence: '"UiPath List Test Sets in a Project", "UiPath Create a Test Set"; schema "CreateTestSetRequest"'
+  reason: Test set definition and listing is management of test suites — Software Quality Engineering.
+- tag: Users
+  spec_file: uipath-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: '"UiPath Create a User", "UiPath Delete a User", "UiPath List Roles" under /identity_/api/User'
+  reason: User and role lifecycle across Orchestrator/platform identity endpoints is platform account
+    administration — identity & access management, not HR employee records.
+- tag: Groups
+  spec_file: uipath-groups-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: '"foundational platform administration resources including identity management"; operations
+    "UiPath List Groups", "UiPath Create a Group" under /identity_/api/Group'
+  reason: Group CRUD within the platform's identity management surface — security group administration,
+    i.e. identity & access management rather than any business-domain capability.
+- tag: Automations
+  spec_file: uipath-automations-api-openapi.yml
+  capability_id: BC-930.60
+  capability_id_l1: BC-930
+  capability_name: Process Automation Governance
+  confidence: 0.74
+  evidence: '"access to the automation pipeline and idea management platform" / POST /automations "Create
+    an Automation Idea" / schemas "CreateAutomationIdeaRequest", "BenefitData"'
+  reason: Automation Hub manages the pipeline of RPA automation ideas, their collaborators and benefit
+    data — i.e. stewardship of the automation portfolio, which matches Process Automation Governance.
+    Confidence moderated because the idea-intake slant also touches Idea & Opportunity Management, so
+    the exact sub-capability is arguable.
+- tag: Projects
+  spec_file: uipath-projects-api-openapi.yml
+  capability_id: BC-4200.50
+  capability_id_l1: BC-4200
+  capability_name: Software Quality Engineering
+  confidence: 0.72
+  evidence: '"UiPath List Test Projects" / "UiPath Create a Test Project" in "UiPath''s test management
+    platform for managing test projects, test cases, test sets, requirements, and execution results"'
+  reason: Projects here are containers in Test Manager, so the surface is test-asset organisation within
+    software quality engineering, not general project management. Slight ambiguity since 'Projects' is
+    generic, hence moderate confidence.
