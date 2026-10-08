@@ -2318,6 +2318,12 @@ apis:
   - type: JSONLD
     url: json-ld/uipath-test-manager-context.jsonld
 common:
+  - type: Plans
+    url: plans/uipath-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/uipath-rate-limits.yml
+  - type: FinOps
+    url: finops/uipath-finops.yml
   - type: CapabilityMap
     url: capabilities/uipath-capability-edges.yml
     name: UiPath Business Capability Map
