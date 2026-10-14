@@ -27,3 +27,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: uipath-duck-creek-own
+  label: Duck Creek (own)
+  partner: duck-creek
+  partner_name: Duck Creek (own)
+  category: Solution
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.duckcreek.com/partner/uipath/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
