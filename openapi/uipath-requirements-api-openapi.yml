@@ -137,38 +137,6 @@ components:
           type: string
           description: Error code identifier
           example: example-value
-    RequirementListResponse:
-      type: object
-      description: Paginated response containing requirements
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of requirements
-          example: 42
-        requirements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Requirement'
-          example: []
-    CreateRequirementRequest:
-      type: object
-      description: Request payload for creating a new requirement
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new requirement
-          maxLength: 512
-          example: Example Name
-        description:
-          type: string
-          description: Detailed description of the requirement specification
-          example: Example description for this resource.
-        externalId:
-          type: string
-          description: Optional external identifier for integration with third-party tools
-          example: abc123
     Requirement:
       type: object
       description: A business or technical requirement for traceability coverage
@@ -205,6 +173,38 @@ components:
           format: date-time
           description: ISO 8601 timestamp when the requirement was created
           example: '2026-01-15T10:30:00Z'
+    RequirementListResponse:
+      type: object
+      description: Paginated response containing requirements
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of requirements
+          example: 42
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Requirement'
+          example: []
+    CreateRequirementRequest:
+      type: object
+      description: Request payload for creating a new requirement
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new requirement
+          maxLength: 512
+          example: Example Name
+        description:
+          type: string
+          description: Detailed description of the requirement specification
+          example: Example description for this resource.
+        externalId:
+          type: string
+          description: Optional external identifier for integration with third-party tools
+          example: abc123
   parameters:
     projectId:
       name: projectId
@@ -214,12 +214,6 @@ components:
       schema:
         type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -228,6 +222,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

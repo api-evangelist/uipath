@@ -348,107 +348,10 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
-    EntityRecord:
-      type: object
-      description: A single entity record. The specific fields available depend on the entity schema configured in the tenant's Data Service. All records include the following system-managed fields.
-      properties:
-        Id:
-          type: string
-          description: Unique system-assigned identifier of the record
-          example: abc123
-        CreatedOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the record was created
-          example: '2026-01-15T10:30:00Z'
-        CreatedBy:
-          type: string
-          description: Identifier of the user or process that created the record
-          example: example-value
-        ModifiedOn:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the last modification
-          example: '2026-01-15T10:30:00Z'
-        ModifiedBy:
-          type: string
-          description: Identifier of the user or process that last modified the record
-          example: example-value
-      additionalProperties: true
-    EntityQueryRequest:
-      type: object
-      description: Advanced query request with structured filter conditions
-      properties:
-        filterGroup:
-          $ref: '#/components/schemas/FilterGroup'
-        selectedFields:
-          type: array
-          items:
-            type: string
-          description: List of field names to include in the response
-          example: []
-        orderBy:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderByClause'
-          example: []
-        start:
-          type: integer
-          minimum: 0
-          description: Zero-based offset for pagination
-          example: 1
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 1000
-          description: Maximum number of records to return
-          example: 1
     EntityRecordInput:
       type: object
       description: Input payload for creating or updating an entity record. The specific fields required depend on the entity schema definition. System-managed fields (Id, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) should not be included.
       additionalProperties: true
-    EntityRecordCollection:
-      type: object
-      description: A paginated collection of entity records
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of records matching the query
-          example: 42
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityRecord'
-          description: Array of entity records for the current page
-          example: []
-        nextLink:
-          type: string
-          format: uri
-          description: URL for the next page of results, if more records are available
-          example: https://cloud.uipath.com/example
-    FilterGroup:
-      type: object
-      description: A group of filter conditions joined by a logical operator
-      properties:
-        logicalOperator:
-          type: string
-          enum:
-          - AND
-          - OR
-          description: Logical operator combining the conditions in this group
-          example: AND
-        queryFilters:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryFilter'
-          description: List of individual field filter conditions
-          example: []
-        filterGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterGroup'
-          description: Nested filter groups for complex query expressions
-          example: []
     QueryFilter:
       type: object
       description: A single field comparison condition in a query
@@ -480,6 +383,103 @@ components:
         value:
           description: Value to compare against; type depends on the field type
           example: example-value
+    FilterGroup:
+      type: object
+      description: A group of filter conditions joined by a logical operator
+      properties:
+        logicalOperator:
+          type: string
+          enum:
+          - AND
+          - OR
+          description: Logical operator combining the conditions in this group
+          example: AND
+        queryFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+          description: List of individual field filter conditions
+          example: []
+        filterGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterGroup'
+          description: Nested filter groups for complex query expressions
+          example: []
+    EntityQueryRequest:
+      type: object
+      description: Advanced query request with structured filter conditions
+      properties:
+        filterGroup:
+          $ref: '#/components/schemas/FilterGroup'
+        selectedFields:
+          type: array
+          items:
+            type: string
+          description: List of field names to include in the response
+          example: []
+        orderBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderByClause'
+          example: []
+        start:
+          type: integer
+          minimum: 0
+          description: Zero-based offset for pagination
+          example: 1
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          description: Maximum number of records to return
+          example: 1
+    EntityRecord:
+      type: object
+      description: A single entity record. The specific fields available depend on the entity schema configured in the tenant's Data Service. All records include the following system-managed fields.
+      properties:
+        Id:
+          type: string
+          description: Unique system-assigned identifier of the record
+          example: abc123
+        CreatedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the record was created
+          example: '2026-01-15T10:30:00Z'
+        CreatedBy:
+          type: string
+          description: Identifier of the user or process that created the record
+          example: example-value
+        ModifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the last modification
+          example: '2026-01-15T10:30:00Z'
+        ModifiedBy:
+          type: string
+          description: Identifier of the user or process that last modified the record
+          example: example-value
+      additionalProperties: true
+    EntityRecordCollection:
+      type: object
+      description: A paginated collection of entity records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of records matching the query
+          example: 42
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityRecord'
+          description: Array of entity records for the current page
+          example: []
+        nextLink:
+          type: string
+          format: uri
+          description: URL for the next page of results, if more records are available
+          example: https://cloud.uipath.com/example
     OrderByClause:
       type: object
       description: Sort specification for query results
@@ -511,18 +511,6 @@ components:
       schema:
         type: string
   responses:
-    Forbidden:
-      description: The authenticated user does not have permission to perform this action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested entity type or record was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -531,6 +519,18 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or the entity schema was violated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: The authenticated user does not have permission to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested entity type or record was not found
       content:
         application/json:
           schema:

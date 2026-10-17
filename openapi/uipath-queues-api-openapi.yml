@@ -183,14 +183,6 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -207,6 +199,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials

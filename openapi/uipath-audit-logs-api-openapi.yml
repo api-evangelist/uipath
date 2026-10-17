@@ -127,6 +127,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    AuditEventCollection:
+      type: object
+      description: Collection of audit events with pagination links
+      properties:
+        auditEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+          example: []
+        next:
+          type: string
+          format: uri
+          description: URL to retrieve newer audit events relative to the current result set
+          example: https://cloud.uipath.com/example
+        previous:
+          type: string
+          format: uri
+          description: URL to retrieve older audit events relative to the current result set
+          example: https://cloud.uipath.com/example
     ErrorResponse:
       type: object
       description: Standard error response body
@@ -143,6 +162,32 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    ClientInfo:
+      type: object
+      description: Client connection information for an audit event
+      properties:
+        ipAddress:
+          type: string
+          description: IP address from which the action was performed
+          example: example-value
+        country:
+          type: string
+          description: Country resolved from the IP address
+          example: 42
+    AuditSource:
+      type: object
+      description: A service that generates audit events
+      properties:
+        name:
+          type: string
+          description: Name identifier of the audit event source service
+          example: Example Name
+        targets:
+          type: array
+          items:
+            type: string
+          description: List of event target categories for this source
+          example: []
     AuditEvent:
       type: object
       description: A single audit event record
@@ -199,51 +244,6 @@ components:
           example: 0
         clientInfo:
           $ref: '#/components/schemas/ClientInfo'
-    AuditEventCollection:
-      type: object
-      description: Collection of audit events with pagination links
-      properties:
-        auditEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditEvent'
-          example: []
-        next:
-          type: string
-          format: uri
-          description: URL to retrieve newer audit events relative to the current result set
-          example: https://cloud.uipath.com/example
-        previous:
-          type: string
-          format: uri
-          description: URL to retrieve older audit events relative to the current result set
-          example: https://cloud.uipath.com/example
-    ClientInfo:
-      type: object
-      description: Client connection information for an audit event
-      properties:
-        ipAddress:
-          type: string
-          description: IP address from which the action was performed
-          example: example-value
-        country:
-          type: string
-          description: Country resolved from the IP address
-          example: 42
-    AuditSource:
-      type: object
-      description: A service that generates audit events
-      properties:
-        name:
-          type: string
-          description: Name identifier of the audit event source service
-          example: Example Name
-        targets:
-          type: array
-          items:
-            type: string
-          description: List of event target categories for this source
-          example: []
     AuditSources:
       type: object
       description: Available audit event sources and categories
@@ -254,15 +254,6 @@ components:
             $ref: '#/components/schemas/AuditSource'
           example: []
   parameters:
-    auditMaxCount:
-      name: maxCount
-      in: query
-      required: false
-      description: Maximum number of audit events to return
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 1000
     auditTo:
       name: to
       in: query
@@ -271,20 +262,6 @@ components:
       schema:
         type: string
         format: date-time
-    organizationName:
-      name: organizationName
-      in: path
-      required: true
-      description: The name of the UiPath organization
-      schema:
-        type: string
-    tenantName:
-      name: tenantName
-      in: path
-      required: true
-      description: The name of the UiPath tenant
-      schema:
-        type: string
     auditFrom:
       name: from
       in: query
@@ -302,6 +279,29 @@ components:
         type: array
         items:
           type: string
+    auditMaxCount:
+      name: maxCount
+      in: query
+      required: false
+      description: Maximum number of audit events to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    tenantName:
+      name: tenantName
+      in: path
+      required: true
+      description: The name of the UiPath tenant
+      schema:
+        type: string
+    organizationName:
+      name: organizationName
+      in: path
+      required: true
+      description: The name of the UiPath organization
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials

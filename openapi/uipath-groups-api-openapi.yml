@@ -202,13 +202,22 @@ components:
           type: integer
           description: Number of members currently in the group
           example: 42
+  parameters:
+    partitionGlobalId:
+      name: partitionGlobalId
+      in: path
+      required: true
+      description: Global partition identifier for the organization or tenant scope
+      schema:
+        type: string
+    organizationName:
+      name: organizationName
+      in: path
+      required: true
+      description: The name of the UiPath organization
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -221,21 +230,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    organizationName:
-      name: organizationName
-      in: path
-      required: true
-      description: The name of the UiPath organization
-      schema:
-        type: string
-    partitionGlobalId:
-      name: partitionGlobalId
-      in: path
-      required: true
-      description: Global partition identifier for the organization or tenant scope
-      schema:
-        type: string
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

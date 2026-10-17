@@ -159,6 +159,19 @@ components:
           type: integer
           description: Numeric error code
           example: 1
+    AppInventoryListResponse:
+      type: object
+      description: Response containing application inventory entries
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of application inventory entries
+          example: 42
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+          example: []
     Application:
       type: object
       description: A business application entry in the application inventory
@@ -185,26 +198,7 @@ components:
           type: string
           description: Optional description of the application
           example: Example description for this resource.
-    AppInventoryListResponse:
-      type: object
-      description: Response containing application inventory entries
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of application inventory entries
-          example: 42
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Application'
-          example: []
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -213,6 +207,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

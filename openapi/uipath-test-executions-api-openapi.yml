@@ -154,6 +154,19 @@ components:
           type: integer
           description: Number of test cases that could not be executed
           example: 1
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     projectId:
       name: projectId
@@ -162,19 +175,6 @@ components:
       description: Unique identifier of the test project
       schema:
         type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearerAuth:
       type: http

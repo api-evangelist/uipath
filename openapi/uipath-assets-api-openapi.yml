@@ -260,6 +260,15 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    ODataAssetCollection:
+      type: object
+      description: OData collection response containing assets
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+          example: []
     Asset:
       type: object
       description: A shared asset storing a value accessible to automation processes
@@ -313,16 +322,15 @@ components:
           format: int64
           description: ID of the folder in which this asset resides
           example: 12345
-    ODataAssetCollection:
-      type: object
-      description: OData collection response containing assets
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Asset'
-          example: []
   parameters:
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header
@@ -331,14 +339,6 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -348,14 +348,6 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    entityKey:
-      name: key
-      in: path
-      required: true
-      description: The unique integer identifier of the entity
-      schema:
-        type: integer
-        format: int64
     odataFilter:
       name: $filter
       in: query
@@ -363,13 +355,15 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -378,6 +372,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

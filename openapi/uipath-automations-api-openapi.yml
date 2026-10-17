@@ -337,55 +337,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    BenefitData:
-      type: object
-      description: Estimated cost-benefit analysis data for an automation idea
-      properties:
-        estimatedTimeSavingsPerYear:
-          type: number
-          description: Estimated hours saved per year by automating this process
-          example: 1.0
-        estimatedFTESavings:
-          type: number
-          description: Full-time equivalent headcount savings from the automation
-          example: 1.0
-        estimatedCostSavingsPerYear:
-          type: number
-          description: Estimated monetary cost savings per year in the organization's currency
-          example: 1.0
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        code:
-          type: integer
-          description: Numeric error code
-          example: 1
-    AutomationListResponse:
-      type: object
-      description: Paginated response containing automation records
-      properties:
-        totalCount:
-          type: integer
-          description: Total number of automations matching the query
-          example: 42
-        page:
-          type: integer
-          description: Current page number
-          example: 1
-        pageSize:
-          type: integer
-          description: Number of records per page
-          example: 1
-        automations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Automation'
-          example: []
     Automation:
       type: object
       description: An automation idea or project in the Automation Hub pipeline
@@ -441,6 +392,55 @@ components:
             type: string
           description: Tags associated with the automation for categorization
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        code:
+          type: integer
+          description: Numeric error code
+          example: 1
+    BenefitData:
+      type: object
+      description: Estimated cost-benefit analysis data for an automation idea
+      properties:
+        estimatedTimeSavingsPerYear:
+          type: number
+          description: Estimated hours saved per year by automating this process
+          example: 1.0
+        estimatedFTESavings:
+          type: number
+          description: Full-time equivalent headcount savings from the automation
+          example: 1.0
+        estimatedCostSavingsPerYear:
+          type: number
+          description: Estimated monetary cost savings per year in the organization's currency
+          example: 1.0
+    AutomationListResponse:
+      type: object
+      description: Paginated response containing automation records
+      properties:
+        totalCount:
+          type: integer
+          description: Total number of automations matching the query
+          example: 42
+        page:
+          type: integer
+          description: Current page number
+          example: 1
+        pageSize:
+          type: integer
+          description: Number of records per page
+          example: 1
+        automations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Automation'
+          example: []
     UpdateAutomationRequest:
       type: object
       description: Request payload for partially updating an automation record
@@ -468,6 +468,27 @@ components:
           example: Example description for this resource.
         estimatedBenefit:
           $ref: '#/components/schemas/BenefitData'
+    Collaborator:
+      type: object
+      description: A user collaborating on an automation idea or project
+      properties:
+        userId:
+          type: integer
+          description: Unique integer identifier of the collaborating user
+          example: 12345
+        name:
+          type: string
+          description: Display name of the collaborator
+          example: Example Name
+        email:
+          type: string
+          format: email
+          description: Email address of the collaborator
+          example: user@example.com
+        role:
+          type: string
+          description: Role of this collaborator on the automation
+          example: example-value
     CreateAutomationIdeaRequest:
       type: object
       description: Request payload for creating a new automation idea
@@ -492,28 +513,27 @@ components:
             type: string
           description: Tags for categorizing the automation idea
           example: []
-    Collaborator:
-      type: object
-      description: A user collaborating on an automation idea or project
-      properties:
-        userId:
-          type: integer
-          description: Unique integer identifier of the collaborating user
-          example: 12345
-        name:
-          type: string
-          description: Display name of the collaborator
-          example: Example Name
-        email:
-          type: string
-          format: email
-          description: Email address of the collaborator
-          example: user@example.com
-        role:
-          type: string
-          description: Role of this collaborator on the automation
-          example: example-value
+  parameters:
+    automationId:
+      name: automationId
+      in: path
+      required: true
+      description: Unique integer identifier of the automation idea or project
+      schema:
+        type: integer
   responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: The authenticated user does not have permission to perform this action
       content:
@@ -526,26 +546,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    automationId:
-      name: automationId
-      in: path
-      required: true
-      description: Unique integer identifier of the automation idea or project
-      schema:
-        type: integer
   securitySchemes:
     apiKeyAuth:
       type: apiKey

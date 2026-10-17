@@ -123,22 +123,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ExtractionResultData:
       type: object
-      description: Standard error response body
+      description: Structured extraction result containing field values and confidence scores
       properties:
-        message:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
           type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
+          description: Document identifier of the extracted document
           example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
     ExtractedField:
       type: object
       description: A single extracted field with its value and confidence metadata
@@ -157,6 +159,22 @@ components:
           example: true
         Value:
           $ref: '#/components/schemas/FieldValue'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
     FieldValue:
       type: object
       description: The extracted value with confidence and source reference
@@ -195,51 +213,6 @@ components:
           type: string
           description: Unique identifier of the extractor to apply
           example: abc123
-    ExtractionResult:
-      type: object
-      description: Result of an asynchronous extraction job
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the extraction job
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Current status of the extraction job
-          example: NotStarted
-        result:
-          type: object
-          description: Extraction output, populated when status is Succeeded
-          properties:
-            documentId:
-              type: string
-              description: Document ID from which data was extracted
-            extractionResult:
-              $ref: '#/components/schemas/ExtractionResultData'
-          example: example-value
-    ExtractionResultData:
-      type: object
-      description: Structured extraction result containing field values and confidence scores
-      properties:
-        ResultsVersion:
-          type: integer
-          description: Version of the extraction results format
-          example: 1.0.0
-        DocumentId:
-          type: string
-          description: Document identifier of the extracted document
-          example: abc123
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractedField'
-          description: List of extracted field values
-          example: []
     ExtractionRequest:
       type: object
       description: Request payload for extracting data from a previously digitized document
@@ -278,6 +251,33 @@ components:
           - Succeeded
           description: Initial status of the asynchronous job
           example: NotStarted
+    ExtractionResult:
+      type: object
+      description: Result of an asynchronous extraction job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the extraction job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the extraction job
+          example: NotStarted
+        result:
+          type: object
+          description: Extraction output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID from which data was extracted
+            extractionResult:
+              $ref: '#/components/schemas/ExtractionResultData'
+          example: example-value
   parameters:
     projectId:
       name: projectId
@@ -294,12 +294,6 @@ components:
       schema:
         type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -308,6 +302,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

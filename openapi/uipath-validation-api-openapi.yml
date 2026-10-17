@@ -86,22 +86,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ExtractionResultData:
       type: object
-      description: Standard error response body
+      description: Structured extraction result containing field values and confidence scores
       properties:
-        message:
+        ResultsVersion:
+          type: integer
+          description: Version of the extraction results format
+          example: 1.0.0
+        DocumentId:
           type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: string
-          description: Error code identifier
-          example: example-value
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
+          description: Document identifier of the extracted document
           example: abc123
+        Fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtractedField'
+          description: List of extracted field values
+          example: []
     ExtractedField:
       type: object
       description: A single extracted field with its value and confidence metadata
@@ -120,6 +122,63 @@ components:
           example: true
         Value:
           $ref: '#/components/schemas/FieldValue'
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: string
+          description: Error code identifier
+          example: example-value
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
+    ClassificationResultItem:
+      type: object
+      description: Classification result for a specific document or page range
+      properties:
+        classifierId:
+          type: string
+          description: Identifier of the classifier that produced this result
+          example: abc123
+        documentTypeId:
+          type: string
+          description: Identified document type identifier
+          example: abc123
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the classification result (0.0 to 1.0)
+          example: 1.0
+        startPage:
+          type: integer
+          description: First page of the classified document section
+          example: 1
+        endPage:
+          type: integer
+          description: Last page of the classified document section
+          example: 1
+    ValidationRequest:
+      type: object
+      description: Request payload for validating document processing results
+      required:
+      - documentId
+      properties:
+        documentId:
+          type: string
+          description: Document ID of the document whose results are to be validated
+          example: abc123
+        classificationResult:
+          $ref: '#/components/schemas/ClassificationResultItem'
+        extractionResult:
+          $ref: '#/components/schemas/ExtractionResultData'
     FieldValue:
       type: object
       description: The extracted value with confidence and source reference
@@ -148,65 +207,6 @@ components:
           - Handwritten
           description: Whether the source text was printed or handwritten
           example: Printed
-    ClassificationResultItem:
-      type: object
-      description: Classification result for a specific document or page range
-      properties:
-        classifierId:
-          type: string
-          description: Identifier of the classifier that produced this result
-          example: abc123
-        documentTypeId:
-          type: string
-          description: Identified document type identifier
-          example: abc123
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: Confidence score of the classification result (0.0 to 1.0)
-          example: 1.0
-        startPage:
-          type: integer
-          description: First page of the classified document section
-          example: 1
-        endPage:
-          type: integer
-          description: Last page of the classified document section
-          example: 1
-    ExtractionResultData:
-      type: object
-      description: Structured extraction result containing field values and confidence scores
-      properties:
-        ResultsVersion:
-          type: integer
-          description: Version of the extraction results format
-          example: 1.0.0
-        DocumentId:
-          type: string
-          description: Document identifier of the extracted document
-          example: abc123
-        Fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExtractedField'
-          description: List of extracted field values
-          example: []
-    ValidationRequest:
-      type: object
-      description: Request payload for validating document processing results
-      required:
-      - documentId
-      properties:
-        documentId:
-          type: string
-          description: Document ID of the document whose results are to be validated
-          example: abc123
-        classificationResult:
-          $ref: '#/components/schemas/ClassificationResultItem'
-        extractionResult:
-          $ref: '#/components/schemas/ExtractionResultData'
     AsyncJobStartResponse:
       type: object
       description: Response returned when an asynchronous processing job is started

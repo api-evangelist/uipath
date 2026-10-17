@@ -138,6 +138,60 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    QueueItemData:
+      type: object
+      description: Data for creating a new queue item
+      required:
+      - Name
+      properties:
+        Name:
+          type: string
+          description: Name of the target queue definition
+          example: Example Name
+        Priority:
+          type: string
+          enum:
+          - Low
+          - Normal
+          - High
+          description: Priority level for queue processing
+          example: Low
+        SpecificContent:
+          type: object
+          additionalProperties: true
+          description: Custom key-value payload data for the item
+          example: example-value
+        Reference:
+          type: string
+          description: Optional unique reference string for this item
+          example: example-value
+        DueDate:
+          type: string
+          format: date-time
+          description: Optional deadline by which the item should be processed
+          example: '2026-01-15T10:30:00Z'
+        PostponeDate:
+          type: string
+          format: date-time
+          description: Optional earliest time at which the item may be processed
+          example: '2026-01-15T10:30:00Z'
+    AddQueueItemRequest:
+      type: object
+      description: Request payload for adding a new item to a queue
+      required:
+      - itemData
+      properties:
+        itemData:
+          $ref: '#/components/schemas/QueueItemData'
+    ODataQueueItemCollection:
+      type: object
+      description: OData collection response containing queue items
+      properties:
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueueItem'
+          example: []
     QueueItem:
       type: object
       description: A single transaction item in a queue
@@ -224,68 +278,7 @@ components:
           format: date-time
           description: Optional deadline for processing the item
           example: '2026-01-15T10:30:00Z'
-    ODataQueueItemCollection:
-      type: object
-      description: OData collection response containing queue items
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueueItem'
-          example: []
-    AddQueueItemRequest:
-      type: object
-      description: Request payload for adding a new item to a queue
-      required:
-      - itemData
-      properties:
-        itemData:
-          $ref: '#/components/schemas/QueueItemData'
-    QueueItemData:
-      type: object
-      description: Data for creating a new queue item
-      required:
-      - Name
-      properties:
-        Name:
-          type: string
-          description: Name of the target queue definition
-          example: Example Name
-        Priority:
-          type: string
-          enum:
-          - Low
-          - Normal
-          - High
-          description: Priority level for queue processing
-          example: Low
-        SpecificContent:
-          type: object
-          additionalProperties: true
-          description: Custom key-value payload data for the item
-          example: example-value
-        Reference:
-          type: string
-          description: Optional unique reference string for this item
-          example: example-value
-        DueDate:
-          type: string
-          format: date-time
-          description: Optional deadline by which the item should be processed
-          example: '2026-01-15T10:30:00Z'
-        PostponeDate:
-          type: string
-          format: date-time
-          description: Optional earliest time at which the item may be processed
-          example: '2026-01-15T10:30:00Z'
   parameters:
-    odataOrderby:
-      name: $orderby
-      in: query
-      required: false
-      description: OData orderby clause (e.g., CreationTime desc)
-      schema:
-        type: string
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header
@@ -294,14 +287,13 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
+    odataOrderby:
+      name: $orderby
       in: query
       required: false
-      description: Number of records to skip for pagination
+      description: OData orderby clause (e.g., CreationTime desc)
       schema:
-        type: integer
-        minimum: 0
+        type: string
     odataTop:
       name: $top
       in: query
@@ -318,6 +310,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials

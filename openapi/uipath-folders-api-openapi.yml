@@ -108,15 +108,14 @@ components:
                 - Personal
                 description: Type classification of the folder
           example: []
+  responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -133,13 +132,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

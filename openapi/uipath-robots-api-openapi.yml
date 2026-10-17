@@ -109,13 +109,6 @@ components:
                 description: Whether the robot is currently connected to Orchestrator
           example: []
   parameters:
-    odataOrderby:
-      name: $orderby
-      in: query
-      required: false
-      description: OData orderby clause (e.g., CreationTime desc)
-      schema:
-        type: string
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header
@@ -124,14 +117,13 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
+    odataOrderby:
+      name: $orderby
       in: query
       required: false
-      description: Number of records to skip for pagination
+      description: OData orderby clause (e.g., CreationTime desc)
       schema:
-        type: integer
-        minimum: 0
+        type: string
     odataTop:
       name: $top
       in: query
@@ -148,6 +140,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials

@@ -207,31 +207,6 @@ components:
           format: uri
           description: URL to retrieve the list of classifiers for this project
           example: https://cloud.uipath.com/example
-    Extractor:
-      type: object
-      description: A model that extracts structured data fields from a document
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the extractor
-          example: abc123
-        name:
-          type: string
-          description: Display name of the extractor
-          example: Example Name
-        documentType:
-          type: string
-          description: Document type this extractor is designed for
-          example: Standard
-        extractorType:
-          type: string
-          enum:
-          - Specialized
-          - GenerativeAI
-          - FormExtractor
-          - IntelligentFormExtractor
-          description: Technology category of the extractor model
-          example: Specialized
     Classifier:
       type: object
       description: A model that classifies documents into predefined document types
@@ -258,15 +233,38 @@ components:
             type: string
           description: List of document type labels this classifier can identify
           example: Standard
-  parameters:
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the Document Understanding project
-      schema:
-        type: string
+    Extractor:
+      type: object
+      description: A model that extracts structured data fields from a document
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the extractor
+          example: abc123
+        name:
+          type: string
+          description: Display name of the extractor
+          example: Example Name
+        documentType:
+          type: string
+          description: Document type this extractor is designed for
+          example: Standard
+        extractorType:
+          type: string
+          enum:
+          - Specialized
+          - GenerativeAI
+          - FormExtractor
+          - IntelligentFormExtractor
+          description: Technology category of the extractor model
+          example: Specialized
   responses:
+    Unauthorized:
+      description: The request lacks valid authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: The authenticated user does not have permission to perform this action
       content:
@@ -279,12 +277,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: The request lacks valid authentication credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

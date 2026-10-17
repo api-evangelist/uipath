@@ -63,22 +63,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response body
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: example-value
-        errorCode:
-          type: integer
-          description: Numeric error code
-          example: 1
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging
-          example: abc123
     ODataMachineCollection:
       type: object
       description: OData collection response containing machines
@@ -105,6 +89,22 @@ components:
                 type: string
                 description: License key used by the robot installed on this machine
           example: []
+    ErrorResponse:
+      type: object
+      description: Standard error response body
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: example-value
+        errorCode:
+          type: integer
+          description: Numeric error code
+          example: 1
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging
+          example: abc123
   parameters:
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
@@ -114,14 +114,6 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -138,6 +130,14 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials

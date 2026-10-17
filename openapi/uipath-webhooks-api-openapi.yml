@@ -188,15 +188,18 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
-    ODataWebhookCollection:
+    WebhookEventType:
       type: object
-      description: OData collection response containing webhooks
+      description: An available event type that can be subscribed to via webhooks
       properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
-          example: []
+        Name:
+          type: string
+          description: Human-readable display name of the event type
+          example: Example Name
+        EventType:
+          type: string
+          description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
+          example: Standard
     Webhook:
       type: object
       description: A webhook subscription that receives Orchestrator event notifications
@@ -233,19 +236,24 @@ components:
             type: string
           description: List of event type identifiers to subscribe to when SubscribeToAllEvents is false
           example: []
-    WebhookEventType:
+    ODataWebhookCollection:
       type: object
-      description: An available event type that can be subscribed to via webhooks
+      description: OData collection response containing webhooks
       properties:
-        Name:
-          type: string
-          description: Human-readable display name of the event type
-          example: Example Name
-        EventType:
-          type: string
-          description: Machine-readable event type identifier (e.g., job.faulted, queueItem.transactionCompleted)
-          example: Standard
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+          example: []
   parameters:
+    entityKey:
+      name: key
+      in: path
+      required: true
+      description: The unique integer identifier of the entity
+      schema:
+        type: integer
+        format: int64
     xUiPathOrganizationUnitId:
       name: X-UIPATH-OrganizationUnitId
       in: header
@@ -254,14 +262,6 @@ components:
       schema:
         type: integer
         format: int64
-    odataSkip:
-      name: $skip
-      in: query
-      required: false
-      description: Number of records to skip for pagination
-      schema:
-        type: integer
-        minimum: 0
     odataTop:
       name: $top
       in: query
@@ -271,14 +271,6 @@ components:
         type: integer
         minimum: 1
         maximum: 1000
-    entityKey:
-      name: key
-      in: path
-      required: true
-      description: The unique integer identifier of the entity
-      schema:
-        type: integer
-        format: int64
     odataFilter:
       name: $filter
       in: query
@@ -286,13 +278,15 @@ components:
       description: OData filter expression to narrow results (e.g., State eq 'Running')
       schema:
         type: string
+    odataSkip:
+      name: $skip
+      in: query
+      required: false
+      description: Number of records to skip for pagination
+      schema:
+        type: integer
+        minimum: 0
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -301,6 +295,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

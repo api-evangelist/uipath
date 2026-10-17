@@ -137,14 +137,6 @@ components:
           type: string
           description: Base64-encoded document content when submitting inline
           example: example-value
-  parameters:
-    projectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the Document Understanding project
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: The request lacks valid authentication credentials
@@ -158,6 +150,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the Document Understanding project
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

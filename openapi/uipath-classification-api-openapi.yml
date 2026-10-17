@@ -139,6 +139,35 @@ components:
           type: string
           description: Trace identifier for support and debugging
           example: abc123
+    ClassificationResult:
+      type: object
+      description: Result of an asynchronous classification job
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the classification job
+          example: abc123
+        status:
+          type: string
+          enum:
+          - NotStarted
+          - Running
+          - Failed
+          - Succeeded
+          description: Current status of the classification job
+          example: NotStarted
+        result:
+          type: object
+          description: Classification output, populated when status is Succeeded
+          properties:
+            documentId:
+              type: string
+              description: Document ID that was classified
+            classificationResults:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClassificationResultItem'
+          example: example-value
     ClassificationRequest:
       type: object
       description: Request payload for classifying a previously digitized document
@@ -183,45 +212,6 @@ components:
           type: integer
           description: Last page of the classified document section
           example: 1
-    ClassificationResult:
-      type: object
-      description: Result of an asynchronous classification job
-      properties:
-        requestId:
-          type: string
-          description: Unique identifier of the classification job
-          example: abc123
-        status:
-          type: string
-          enum:
-          - NotStarted
-          - Running
-          - Failed
-          - Succeeded
-          description: Current status of the classification job
-          example: NotStarted
-        result:
-          type: object
-          description: Classification output, populated when status is Succeeded
-          properties:
-            documentId:
-              type: string
-              description: Document ID that was classified
-            classificationResults:
-              type: array
-              items:
-                $ref: '#/components/schemas/ClassificationResultItem'
-          example: example-value
-    ClassifierOption:
-      type: object
-      description: Configuration for applying a specific classifier
-      required:
-      - classifierId
-      properties:
-        classifierId:
-          type: string
-          description: Unique identifier of the classifier to apply
-          example: abc123
     AsyncJobStartResponse:
       type: object
       description: Response returned when an asynchronous processing job is started
@@ -239,6 +229,16 @@ components:
           - Succeeded
           description: Initial status of the asynchronous job
           example: NotStarted
+    ClassifierOption:
+      type: object
+      description: Configuration for applying a specific classifier
+      required:
+      - classifierId
+      properties:
+        classifierId:
+          type: string
+          description: Unique identifier of the classifier to apply
+          example: abc123
   parameters:
     projectId:
       name: projectId
@@ -255,12 +255,6 @@ components:
       schema:
         type: string
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: The request lacks valid authentication credentials
       content:
@@ -269,6 +263,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
