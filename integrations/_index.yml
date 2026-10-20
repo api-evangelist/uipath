@@ -27,45 +27,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: uipath-duck-creek-own
-  label: Duck Creek (own)
-  partner: duck-creek
-  partner_name: Duck Creek (own)
-  category: Solution
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.duckcreek.com/partner/uipath/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: uipath-pipedream
-  label: Pipedream
-  partner: pipedream
-  partner_name: Pipedream
-  type: marketplace
-  marketplace: pipedream-components
-  channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/uipath_automation_hub
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Pipedream components (PipedreamHQ/pipedream components/)
-    spec_file: null
-    role: ipaas-connector:pipedream
-    registered_name: uipath automation hub
-    matched_domain: uipath.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: uipath_automation_hub
-    actions: true
-    sources: true
-    builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
 - slug: uipath-fedramp
   label: FedRAMP
   partner_name: FedRAMP
@@ -157,6 +118,32 @@
       of position shares
     detected_by: sweep-gov-cloud.py
     detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: uipath-pipedream
+  label: Pipedream
+  partner: pipedream
+  partner_name: Pipedream
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/uipath_automation_hub
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: uipath automation hub
+    matched_domain: uipath.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: uipath_automation_hub
+    actions: true
+    sources: true
+    builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
 - slug: uipath-microsoft-teams-own
