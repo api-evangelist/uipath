@@ -146,6 +146,37 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: uipath-cloud-security-alliance-star-registry
+  label: Cloud Security Alliance STAR Registry
+  partner_name: Cloud Security Alliance STAR Registry
+  category: Cloud security assurance
+  type: register
+  channel: standard-directory
+  evidence: https://cloudsecurityalliance.org/star/registry/uipath/services/uipath
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-1
+    registered_name: UiPath
+    registry_id: uipath
+    service_url: https://www.uipath.com/
+    matched_domain: uipath.com
+    matched_by: domain
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - AIUC-1
+    - Partner Entries
+    certified_products: []
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
 - slug: uipath-microsoft-teams-own
   label: Microsoft Teams (own)
   partner: microsoft-teams
@@ -185,34 +216,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: uipath-cloud-security-alliance-star-registry
-  label: Cloud Security Alliance STAR Registry
-  partner_name: Cloud Security Alliance STAR Registry
-  category: Cloud security assurance
-  type: register
-  channel: standard-directory
-  evidence: https://cloudsecurityalliance.org/star/registry/uipath/services/uipath
+- slug: uipath-vs-code-marketplace-vs-code-marketplace
+  label: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_name: VS Code Marketplace (vs-code-marketplace)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: vs-code-marketplace
+  channel: partner-built
+  evidence: https://marketplace.visualstudio.com/publishers/uipath
   source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
-    spec_file: null
-    standard: CSA STAR
-    role: star-level-1
-    registered_name: UiPath
-    registry_id: uipath
-    service_url: https://www.uipath.com/
-    matched_domain: uipath.com
-    matched_by: domain
-    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
-    levels:
-    - AIUC-1
-    - Partner Entries
-    certified_products: []
-    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
-      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
-      = every instance marked (Deprecated) by the registry; service counts never recorded
-    detected_by: sweep-compliance-assurance.py
-    detected: '2026-10-20'
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
